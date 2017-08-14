@@ -1,6 +1,7 @@
 <resources>
     <!-- global items -->
     <string name="app_name">Kentico Cloud Dancing Goat</string>
+    <string name="app_main_activity_title">Dancing Goat</string>
     <string name="action_settings">Settings</string>
 
     <!-- navigation drawer -->

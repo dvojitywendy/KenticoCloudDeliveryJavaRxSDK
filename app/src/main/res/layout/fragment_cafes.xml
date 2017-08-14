@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="kenticocloud.kenticoclouddancinggoat.Fragments.CafesListFragment">
+    tools:context="kenticocloud.kenticoclouddancinggoat.Fragments.CafesFragment">
 
     <TextView
         android:layout_width="wrap_content"
@@ -12,5 +12,12 @@
         android:id="@+id/textView"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
+
+    <ListView
+        android:id="@+id/cafesListView"
+        android:paddingTop="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
 
 </FrameLayout>
