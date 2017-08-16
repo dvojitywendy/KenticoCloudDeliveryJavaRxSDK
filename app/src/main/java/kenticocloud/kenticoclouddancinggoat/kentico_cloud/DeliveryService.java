@@ -1,4 +1,4 @@
-package kenticocloud.kenticoclouddancinggoat.KenticoCloud;
+package kenticocloud.kenticoclouddancinggoat.kentico_cloud;
 
 import java.io.IOException;
 

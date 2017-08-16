@@ -3,6 +3,9 @@
     <string name="app_name">Kentico Cloud Dancing Goat</string>
     <string name="app_main_activity_title">Dancing Goat</string>
     <string name="action_settings">Settings</string>
+    <string name="error_network_failure_msg">Network connection failed</string>
+    <string name="error_msg">Error occured</string>
+    <string name="error_network_not_available">Network not available</string>
 
     <!-- navigation drawer -->
     <string name="navigation_drawer_open">Open navigation drawer</string>
