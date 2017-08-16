@@ -1,40 +1,59 @@
 package kenticocloud.kenticoclouddancinggoat.kentico_cloud;
 
+import android.support.annotation.NonNull;
+
 import java.io.IOException;
 
+import kenticocloud.kenticoclouddancinggoat.data.source.cafes.CafesDataSource;
+import okhttp3.Call;
+import okhttp3.Callback;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 public class DeliveryService implements IDeliveryService{
 
-    /**
-     * Consider using Dependency injection in future improvements
-     * https://github.com/google/dagger
-     */
-    private OkHttpClient httpClient;
+    private static DeliveryService INSTANCE;
+
+    public OkHttpClient client;
 
     public DeliveryService() {
-        httpClient = new OkHttpClient();
+        client = new OkHttpClient();
     }
 
-    /**
-     * Gets response from given url
-     * @param url Url from which response will be loaded
-     * @return data
-     * @throws IOException
-     */
-    public ResponseBody get(String url) throws IOException{
-        return getResponse(url);
+    public static IDeliveryService getInstance() {
+        if (INSTANCE == null) {
+            INSTANCE = new DeliveryService();
+        }
+        return INSTANCE;
     }
 
-    private ResponseBody getResponse(String url) throws IOException {
+    @Override
+    public void get(@NonNull String url, @NonNull final IDeliveryService.GetResponseCallback callback) throws IOException {
+        client.newCall(getRequest(url))
+                .enqueue(new Callback() {
+                    @Override
+                    public void onFailure(final Call call, IOException e) {
+                        // Error
+                        callback.onFailure(call, e);
+                    }
+
+                    @Override
+                    public void onResponse(Call call, final Response response) throws IOException {
+                        ResponseBody responseBody = response.body();
+                        callback.onResponse(responseBody);
+                    }
+                });
+    }
+
+    private Request getRequest(String url) throws IOException {
         Request request = new Request.Builder()
                 .url(url)
                 .build();
 
-        Response response = httpClient.newCall(request).execute();
-        return response.body();
+       return request;
     }
 }

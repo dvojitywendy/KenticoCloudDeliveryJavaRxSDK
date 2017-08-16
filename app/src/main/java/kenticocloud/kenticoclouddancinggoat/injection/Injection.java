@@ -12,6 +12,8 @@ import kenticocloud.kenticoclouddancinggoat.data.source.articles.ArticlesReposit
 import kenticocloud.kenticoclouddancinggoat.data.source.articles.ArticlesDataSource;
 import kenticocloud.kenticoclouddancinggoat.data.source.cafes.CafesCloudSource;
 import kenticocloud.kenticoclouddancinggoat.data.source.cafes.CafesRepository;
+import kenticocloud.kenticoclouddancinggoat.kentico_cloud.DeliveryService;
+import kenticocloud.kenticoclouddancinggoat.kentico_cloud.IDeliveryService;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -29,5 +31,9 @@ public class Injection {
     public static CafesRepository provideCafessRepository(@NonNull Context context) {
         checkNotNull(context);
         return CafesRepository.getInstance(CafesCloudSource.getInstance(context));
+    }
+
+    public static IDeliveryService provideDeliveryService() {
+        return DeliveryService.getInstance();
     }
 }
