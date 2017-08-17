@@ -14,6 +14,7 @@ import kenticocloud.kenticoclouddancinggoat.data.source.cafes.CafesCloudSource;
 import kenticocloud.kenticoclouddancinggoat.data.source.cafes.CafesRepository;
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.DeliveryService;
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.IDeliveryService;
+import kenticocloud.kenticoclouddancinggoat.kentico_cloud.config.DeliveryClientConfig;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -34,6 +35,6 @@ public class Injection {
     }
 
     public static IDeliveryService provideDeliveryService() {
-        return DeliveryService.getInstance();
+        return DeliveryService.getInstance(new DeliveryClientConfig("683771be-aa26-4887-b1b6-482f56418ffd"));
     }
 }

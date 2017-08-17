@@ -15,6 +15,8 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.androidnetworking.AndroidNetworking;
+
 import kenticocloud.kenticoclouddancinggoat.R;
 import kenticocloud.kenticoclouddancinggoat.app.articles.ArticlesActivity;
 import kenticocloud.kenticoclouddancinggoat.app.cafes.CafesActivity;
@@ -56,6 +58,9 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // init android networking
+        AndroidNetworking.initialize(getApplicationContext());
 
         // Init network helper
         this._networkHelper = NetworkHelper.getInstance();
