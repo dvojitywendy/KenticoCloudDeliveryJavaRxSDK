@@ -1,5 +1,7 @@
 package kenticocloud.kenticoclouddancinggoat.kentico_cloud.query.item;
 
+import android.support.annotation.NonNull;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +18,7 @@ public abstract class BaseItemQuery extends QueryService {
     protected DeliveryClientConfig _config;
     protected List<IQueryParameter> _parameters = new ArrayList<>();
 
-    protected BaseItemQuery(DeliveryClientConfig config){
+    protected BaseItemQuery(@NonNull DeliveryClientConfig config){
         super(config);
 
         _config = config;

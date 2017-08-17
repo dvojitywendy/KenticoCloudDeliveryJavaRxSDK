@@ -41,7 +41,7 @@ public class CafesPresenter implements CafesContract.Presenter {
 
         _repository.getCafes(new CafesDataSource.LoadCafesCallback() {
             @Override
-            public void onCafesLoaded(List<Cafe> cafes) {
+            public void onItemsLoaded(List<Cafe> cafes) {
                 _view.setLoadingIndicator(false);
                 _view.showCafes(cafes);
             }
@@ -49,6 +49,11 @@ public class CafesPresenter implements CafesContract.Presenter {
             @Override
             public void onDataNotAvailable() {
                 _view.showLoadingTasksError();
+            }
+
+            @Override
+            public void onError() {
+
             }
         });
     }

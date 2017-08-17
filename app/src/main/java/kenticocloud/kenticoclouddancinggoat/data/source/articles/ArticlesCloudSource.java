@@ -39,7 +39,7 @@ public class ArticlesCloudSource implements ArticlesDataSource {
         articles.add(new Article("article 3"));
         articles.add(new Article("article 4"));
 
-        callback.onArticlesLoaded(articles);
+        callback.onItemsLoaded(articles);
 
         if (articles.size() == 0){
             callback.onDataNotAvailable();
@@ -50,6 +50,6 @@ public class ArticlesCloudSource implements ArticlesDataSource {
     public void getArticle(@NonNull String articleId, @NonNull GetArticleCallback callback) {
         Article article = new Article("Single article 1");
 
-        callback.onArticleLoaded(article);
+        callback.onItemLoaded(article);
     }
 }

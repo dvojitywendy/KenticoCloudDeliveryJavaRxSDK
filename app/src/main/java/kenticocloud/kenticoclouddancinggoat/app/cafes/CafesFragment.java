@@ -127,7 +127,7 @@ public class CafesFragment extends Fragment implements CafesContract.View{
 
     @Override
     public void showLoadingTasksError() {
-        showMessage("error loading data");
+        showMessage("Error loading data");
     }
 
     private void showMessage(String message) {
@@ -149,12 +149,12 @@ public class CafesFragment extends Fragment implements CafesContract.View{
         private List<Cafe> _cafes;
         private CafeItemListener _cafeItemListener;
 
-        public CafesAdapter(List<Cafe> cafes, CafeItemListener itemListener) {
+        CafesAdapter(List<Cafe> cafes, CafeItemListener itemListener) {
             setList(cafes);
             _cafeItemListener = itemListener;
         }
 
-        public void replaceData(List<Cafe> cafes) {
+        void replaceData(List<Cafe> cafes) {
             setList(cafes);
             notifyDataSetChanged();
         }
@@ -202,7 +202,7 @@ public class CafesFragment extends Fragment implements CafesContract.View{
         }
     }
 
-    public interface CafeItemListener {
+    interface CafeItemListener {
 
         void onCafeClick(Cafe clickedCafe);
     }

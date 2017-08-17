@@ -9,6 +9,7 @@ import kenticocloud.kenticoclouddancinggoat.kentico_cloud.interfaces.item.common
  */
 
 public class Filters {
+
     public static class EqualsFilter implements IQueryParameter {
 
         private String _field;
@@ -18,8 +19,8 @@ public class Filters {
                 @NonNull String field,
                 String value
         ) {
-             _field = field;
-             _value = value;
+            _field = field;
+            _value = value;
         }
 
         public String getParam(){

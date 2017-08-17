@@ -12,6 +12,10 @@ import java.util.List;
 
 public class RawModels{
 
+    public class DeliveryItemResponseRaw {
+        public ContentItemRaw item;
+    }
+
     public class DeliveryItemListingResponseRaw {
         public ContentItemRaw[] items;
     }

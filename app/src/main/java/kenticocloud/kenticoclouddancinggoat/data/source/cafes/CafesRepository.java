@@ -26,35 +26,40 @@ public class CafesRepository implements CafesDataSource {
 
     @Override
     public void getCafes(@NonNull final LoadCafesCallback callback) {
-        checkNotNull(callback);
-
         _dataSource.getCafes(new LoadCafesCallback() {
             @Override
-            public void onCafesLoaded(List<Cafe> cafes) {
-                callback.onCafesLoaded(cafes);
+            public void onItemsLoaded(List<Cafe> cafes) {
+                callback.onItemsLoaded(cafes);
             }
 
             @Override
             public void onDataNotAvailable() {
                 callback.onDataNotAvailable();
+            }
+
+            @Override
+            public void onError() {
+                callback.onError();
             }
         });
     }
 
     @Override
-    public void getCafe(@NonNull String cafeId, @NonNull final GetCafeCallback callback) {
-        checkNotNull(cafeId);
-        checkNotNull(callback);
-
-        _dataSource.getCafe(cafeId, new GetCafeCallback() {
+    public void getCafe(@NonNull String codename, @NonNull final GetCafeCallback callback) {
+        _dataSource.getCafe(codename, new GetCafeCallback() {
             @Override
-            public void onCafeLoaded(Cafe cafe) {
-                callback.onCafeLoaded(cafe);
+            public void onItemLoaded(Cafe cafe) {
+                callback.onItemLoaded(cafe);
             }
 
             @Override
             public void onDataNotAvailable() {
                 callback.onDataNotAvailable();
+            }
+
+            @Override
+            public void onError() {
+                callback.onError();
             }
         });
     }

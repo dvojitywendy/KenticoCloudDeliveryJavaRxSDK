@@ -16,6 +16,7 @@ import kenticocloud.kenticoclouddancinggoat.kentico_cloud.interfaces.item.item.I
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.interfaces.item.item.IContentItemSystemAttributes;
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.ContentItem;
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.common.Filters;
+import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.common.Parameters;
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.item.DeliveryItemListingResponse;
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.item.RawModels;
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.utils.JsonHelper;
@@ -29,7 +30,7 @@ public final class MultipleItemQuery extends BaseItemQuery {
 
     private final String _itemsUrlAction = "/items";
 
-    public MultipleItemQuery(DeliveryClientConfig config) {
+    public MultipleItemQuery(@NonNull DeliveryClientConfig config) {
         super(config);
     }
 
@@ -42,6 +43,32 @@ public final class MultipleItemQuery extends BaseItemQuery {
     // filters
     public MultipleItemQuery equalsFilter(@NonNull String field, String value){
         this._parameters.add(new Filters.EqualsFilter(field, value));
+        return this;
+    }
+
+    // parameters
+    public MultipleItemQuery languageParameter(@NonNull String language){
+        this._parameters.add(new Parameters.LanguageParameter(language));
+        return this;
+    }
+
+    public MultipleItemQuery limitParameter(int limit){
+        this._parameters.add(new Parameters.LimitParameter(limit));
+        return this;
+    }
+
+    public MultipleItemQuery depthParameter(int limit){
+        this._parameters.add(new Parameters.DepthParameter(limit));
+        return this;
+    }
+
+    public MultipleItemQuery skipParameter(int skip){
+        this._parameters.add(new Parameters.SkipParameter(skip));
+        return this;
+    }
+
+    public MultipleItemQuery orderParameter(@NonNull String field, @NonNull Parameters.OrderType type){
+        this._parameters.add(new Parameters.OrderParameter(field, type));
         return this;
     }
 
@@ -60,14 +87,14 @@ public final class MultipleItemQuery extends BaseItemQuery {
                 .getObjectObservable(RawModels.DeliveryItemListingResponseRaw.class)
                 .map(new Function<RawModels.DeliveryItemListingResponseRaw, DeliveryItemListingResponse>() {
                     @Override
-                    public DeliveryItemListingResponse apply(RawModels.DeliveryItemListingResponseRaw deliveryItemListingResponseRaw) throws Exception {
+                    public DeliveryItemListingResponse apply(RawModels.DeliveryItemListingResponseRaw responseRaw) throws Exception {
                         // prepare a list of item
                         List<IContentItem> items = new ArrayList<IContentItem>();
 
                         // process each item
-                        for(int i = 0; i < deliveryItemListingResponseRaw.items.length; i++){
+                        for(int i = 0; i < responseRaw.items.length; i++){
                             // get item
-                            RawModels.ContentItemRaw item = deliveryItemListingResponseRaw.items[i];
+                            RawModels.ContentItemRaw item = responseRaw.items[i];
 
                             // get and parse fields
                             List<IField> fields = JsonHelper.getFields(item.elements);
@@ -82,7 +109,7 @@ public final class MultipleItemQuery extends BaseItemQuery {
                             items.add(mappedItem);
                         }
 
-                        return new DeliveryItemListingResponse(items);
+                        return new DeliveryItemListingResponse<IContentItem>(items);
                     }
                 });
     }

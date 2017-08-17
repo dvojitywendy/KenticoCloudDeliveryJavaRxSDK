@@ -38,7 +38,7 @@ public class ArticlesPresenter implements ArticlesContract.Presenter {
 
         _repository.getArticles(new ArticlesDataSource.LoadArticlesCallback() {
             @Override
-            public void onArticlesLoaded(List<Article> articles) {
+            public void onItemsLoaded(List<Article> articles) {
                 _view.setLoadingIndicator(false);
                 _view.showArticles(articles);
             }
@@ -46,6 +46,11 @@ public class ArticlesPresenter implements ArticlesContract.Presenter {
             @Override
             public void onDataNotAvailable() {
                 _view.showLoadingTasksError();
+            }
+
+            @Override
+            public void onError() {
+
             }
         });
     }

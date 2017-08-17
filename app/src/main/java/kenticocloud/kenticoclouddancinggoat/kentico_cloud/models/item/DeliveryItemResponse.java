@@ -13,4 +13,8 @@ public class DeliveryItemResponse<TItem extends IContentItem> {
     public DeliveryItemResponse(TItem item) {
         _item = item;
     }
+
+    public TItem getItem(){
+        return _item;
+    }
 }

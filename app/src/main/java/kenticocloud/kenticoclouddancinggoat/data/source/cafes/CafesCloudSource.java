@@ -25,6 +25,7 @@ import kenticocloud.kenticoclouddancinggoat.injection.Injection;
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.IDeliveryService;
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.interfaces.item.item.IContentItem;
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.item.DeliveryItemListingResponse;
+import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.item.DeliveryItemResponse;
 import okhttp3.Call;
 import okhttp3.ResponseBody;
 
@@ -42,7 +43,6 @@ public class CafesCloudSource implements CafesDataSource {
 
     // Prevent direct instantiation.
     private CafesCloudSource(@NonNull Context context) {
-        checkNotNull(context);
         _deliveryService = Injection.provideDeliveryService();
     }
 
@@ -69,13 +69,19 @@ public class CafesCloudSource implements CafesDataSource {
                     public void onNext(DeliveryItemListingResponse response) {
                         List<Cafe> cafes = new ArrayList<Cafe>();
                         List<IContentItem> items = response.getItems();
+
+                        if (items == null || items.size() == 0){
+                            callback.onDataNotAvailable();
+                            return;
+                        }
+
                         for(int i = 0; i < items.size(); i++){
                             IContentItem item = items.get(i);
                             Cafe cafe = new Cafe(item.GetStringValue("city"));
                             cafes.add(cafe);
                         }
 
-                        callback.onCafesLoaded(cafes);
+                        callback.onItemsLoaded(cafes);
                     }
 
                     @Override
@@ -91,9 +97,35 @@ public class CafesCloudSource implements CafesDataSource {
     }
 
     @Override
-    public void getCafe(@NonNull String articleId, @NonNull GetCafeCallback callback) {
-        Cafe cafe = new Cafe("Single cafe 1");
+    public void getCafe(@NonNull String codename, @NonNull final GetCafeCallback callback) {
+        _deliveryService.item(codename)
+                .get()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<DeliveryItemResponse>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                    }
 
-        callback.onCafeLoaded(cafe);
+                    @Override
+                    public void onNext(DeliveryItemResponse response) {
+                        if (response.getItem() == null){
+                            callback.onDataNotAvailable();
+                        }
+
+                        Cafe cafe = new Cafe(response.getItem().GetStringValue("city"));
+                        callback.onItemLoaded(cafe);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        callback.onDataNotAvailable();
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
     }
 }

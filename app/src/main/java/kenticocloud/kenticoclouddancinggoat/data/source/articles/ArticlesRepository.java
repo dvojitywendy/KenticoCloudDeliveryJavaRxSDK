@@ -19,41 +19,46 @@ public class ArticlesRepository implements  ArticlesDataSource {
     private final ArticlesDataSource _dataSource;
 
     // Prevent direct instantiation.
-    public ArticlesRepository(@NonNull ArticlesDataSource dataSource){
+    private ArticlesRepository(@NonNull ArticlesDataSource dataSource){
         _dataSource = checkNotNull(dataSource);
     }
 
     @Override
     public void getArticles(@NonNull final LoadArticlesCallback callback) {
-        checkNotNull(callback);
-
         _dataSource.getArticles(new LoadArticlesCallback() {
             @Override
-            public void onArticlesLoaded(List<Article> articles) {
-                callback.onArticlesLoaded(articles);
+            public void onItemsLoaded(List<Article> articles) {
+                callback.onItemsLoaded(articles);
             }
 
             @Override
             public void onDataNotAvailable() {
                 callback.onDataNotAvailable();
+            }
+
+            @Override
+            public void onError() {
+                callback.onError();
             }
         });
     }
 
     @Override
     public void getArticle(@NonNull String articleId, @NonNull final GetArticleCallback callback) {
-        checkNotNull(articleId);
-        checkNotNull(callback);
-
         _dataSource.getArticle(articleId, new GetArticleCallback() {
             @Override
-            public void onArticleLoaded(Article article) {
-                callback.onArticleLoaded(article);
+            public void onItemLoaded(Article article) {
+                callback.onItemLoaded(article);
             }
 
             @Override
             public void onDataNotAvailable() {
                 callback.onDataNotAvailable();
+            }
+
+            @Override
+            public void onError() {
+                callback.onError();
             }
         });
     }

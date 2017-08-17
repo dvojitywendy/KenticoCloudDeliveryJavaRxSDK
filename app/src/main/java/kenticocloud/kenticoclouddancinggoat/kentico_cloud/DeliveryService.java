@@ -28,13 +28,10 @@ public class DeliveryService implements IDeliveryService{
 
     private static DeliveryService INSTANCE;
 
-    private OkHttpClient client;
     private DeliveryClientConfig _config;
 
-
-    public DeliveryService(DeliveryClientConfig config) {
+    DeliveryService(DeliveryClientConfig config) {
         _config = config;
-        client = new OkHttpClient();
     }
 
     public static IDeliveryService getInstance(DeliveryClientConfig config) {
@@ -43,7 +40,6 @@ public class DeliveryService implements IDeliveryService{
         }
         return INSTANCE;
     }
-
 
     /**
      * Gets query for multiple items
@@ -54,53 +50,8 @@ public class DeliveryService implements IDeliveryService{
 
     /**
      * Gets query for single item
-     * @param {string} codename - Codename of item to retrieve
      */
-    public SingleItemQuery item(){
-        return new SingleItemQuery(_config);
-    }
-
-
-    private void getResponse(@NonNull String url, @NonNull final IDeliveryService.GetResponseRxCallback callback){
-        AndroidNetworking.get(url)
-                .setPriority(Priority.MEDIUM)
-                .build()
-                .getAsJSONArray(new JSONArrayRequestListener() {
-                    @Override
-                    public void onResponse(JSONArray response) {
-                        callback.onResponse(response);
-                    }
-                    @Override
-                    public void onError(ANError error) {
-                        // handle error
-                        callback.onError(error);
-                    }
-                });
-    }
-
-    @Override
-    public void get(@NonNull String url, @NonNull final IDeliveryService.GetResponseCallback callback) throws IOException {
-        client.newCall(getRequest(url))
-                .enqueue(new Callback() {
-                    @Override
-                    public void onFailure(final Call call, IOException e) {
-                        // Error
-                        callback.onFailure(call, e);
-                    }
-
-                    @Override
-                    public void onResponse(Call call, final Response response) throws IOException {
-                        ResponseBody responseBody = response.body();
-                        callback.onResponse(responseBody);
-                    }
-                });
-    }
-
-    private Request getRequest(String url) throws IOException {
-        Request request = new Request.Builder()
-                .url(url)
-                .build();
-
-       return request;
+    public SingleItemQuery item(@NonNull String itemCodename){
+        return new SingleItemQuery(_config, itemCodename);
     }
 }
