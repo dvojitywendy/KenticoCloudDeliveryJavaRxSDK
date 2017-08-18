@@ -16,6 +16,7 @@ import kenticocloud.kenticoclouddancinggoat.kentico_cloud.interfaces.item.item.I
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.interfaces.item.item.IContentItemSystemAttributes;
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.ContentItem;
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.common.Filters;
+import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.common.Parameters;
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.item.DeliveryItemListingResponse;
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.item.DeliveryItemResponse;
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.item.RawModels;
@@ -35,9 +36,20 @@ public class SingleItemQuery extends BaseItemQuery{
         _itemCodename = itemCodename;
     }
 
-    // filters
-    public void equalsFilter(@NonNull String field, String value){
-        this._parameters.add(new Filters.EqualsFilter(field, value));
+    // parameters
+    public SingleItemQuery elementsParameter(@NonNull List<String> elements){
+        this._parameters.add(new Parameters.ElementsParameter(elements));
+        return this;
+    }
+
+    public SingleItemQuery languageParameter(@NonNull String language){
+        this._parameters.add(new Parameters.LanguageParameter(language));
+        return this;
+    }
+
+    public SingleItemQuery depthParameter(int limit){
+        this._parameters.add(new Parameters.DepthParameter(limit));
+        return this;
     }
 
     // url builder

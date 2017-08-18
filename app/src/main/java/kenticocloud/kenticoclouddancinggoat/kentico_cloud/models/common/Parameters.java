@@ -2,13 +2,36 @@ package kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.common;
 
 import android.support.annotation.NonNull;
 
+import java.util.List;
+
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.interfaces.item.common.IQueryParameter;
+import kenticocloud.kenticoclouddancinggoat.kentico_cloud.utils.StringHelper;
 
 /**
  * Created by RichardS on 17. 8. 2017.
  */
 
 public class Parameters {
+
+    public static class ElementsParameter implements IQueryParameter {
+
+        private List<String> _elements;
+
+        public ElementsParameter(
+                @NonNull List<String> elements
+        ) {
+            _elements = elements;
+        }
+
+        public String getParam(){
+
+            return "elements";
+        }
+
+        public String getParamValue(){
+            return StringHelper.Join(_elements, ",");
+        }
+    }
 
     public static class LimitParameter implements IQueryParameter {
 

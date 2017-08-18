@@ -41,24 +41,76 @@ public final class MultipleItemQuery extends BaseItemQuery {
     }
 
     // filters
-    public MultipleItemQuery equalsFilter(@NonNull String field, String value){
+    public MultipleItemQuery equalsFilter(@NonNull String field, @NonNull String value){
         this._parameters.add(new Filters.EqualsFilter(field, value));
         return this;
     }
 
+    public MultipleItemQuery allFilter(@NonNull String field, @NonNull List<String> values){
+        this._parameters.add(new Filters.AllFilter(field, values));
+        return this;
+    }
+
+    public MultipleItemQuery rangeFilter(@NonNull String field, int lowerValue, int higherValue){
+        this._parameters.add(new Filters.RangeFilter(field, lowerValue, higherValue));
+        return this;
+    }
+
+    public MultipleItemQuery anyFilter(@NonNull String field, @NonNull List<String> values){
+        this._parameters.add(new Filters.AnyFilter(field, values));
+        return this;
+    }
+
+    public MultipleItemQuery containsFilter(@NonNull String field, @NonNull List<String> values){
+        this._parameters.add(new Filters.ContainsFilter(field, values));
+        return this;
+    }
+
+
+    public MultipleItemQuery inFilter(@NonNull String field, @NonNull List<String> values){
+        this._parameters.add(new Filters.Infilter(field, values));
+        return this;
+    }
+
+
+    public MultipleItemQuery greaterThanFilter(@NonNull String field, String value){
+        this._parameters.add(new Filters.GreaterThanFilter(field, value));
+        return this;
+    }
+
+    public MultipleItemQuery greaterThanOrEqualFilter(@NonNull String field, String value){
+        this._parameters.add(new Filters.GreaterThanOrEqualFilter(field, value));
+        return this;
+    }
+
+    public MultipleItemQuery lessThanFilter(@NonNull String field, String value){
+        this._parameters.add(new Filters.LessThanFilter(field, value));
+        return this;
+    }
+
+    public MultipleItemQuery lessThanOrEqualFilter(@NonNull String field, String value){
+        this._parameters.add(new Filters.LessThanOrEqualFilter(field, value));
+        return this;
+    }
+
     // parameters
+    public MultipleItemQuery elementsParameter(@NonNull List<String> elements){
+        this._parameters.add(new Parameters.ElementsParameter(elements));
+        return this;
+    }
+
     public MultipleItemQuery languageParameter(@NonNull String language){
         this._parameters.add(new Parameters.LanguageParameter(language));
         return this;
     }
 
-    public MultipleItemQuery limitParameter(int limit){
-        this._parameters.add(new Parameters.LimitParameter(limit));
+    public MultipleItemQuery depthParameter(int limit){
+        this._parameters.add(new Parameters.DepthParameter(limit));
         return this;
     }
 
-    public MultipleItemQuery depthParameter(int limit){
-        this._parameters.add(new Parameters.DepthParameter(limit));
+    public MultipleItemQuery limitParameter(int limit){
+        this._parameters.add(new Parameters.LimitParameter(limit));
         return this;
     }
 
