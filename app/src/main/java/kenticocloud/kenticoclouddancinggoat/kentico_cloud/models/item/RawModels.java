@@ -23,7 +23,6 @@ public class RawModels{
     public class ContentItemRaw{
         public ContentItemSystemAttributesRaw system;
         public Object elements;
-
     }
 
     public class ContentItemSystemAttributesRaw{

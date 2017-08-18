@@ -5,22 +5,18 @@ import android.support.annotation.NonNull;
 import com.androidnetworking.common.Priority;
 import com.rx2androidnetworking.Rx2AndroidNetworking;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Observable;
 import io.reactivex.functions.Function;
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.config.DeliveryClientConfig;
-import kenticocloud.kenticoclouddancinggoat.kentico_cloud.interfaces.item.common.IField;
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.interfaces.item.item.IContentItem;
-import kenticocloud.kenticoclouddancinggoat.kentico_cloud.interfaces.item.item.IContentItemSystemAttributes;
-import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.ContentItem;
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.common.Filters;
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.common.Parameters;
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.item.DeliveryItemListingResponse;
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.item.RawModels;
-import kenticocloud.kenticoclouddancinggoat.kentico_cloud.utils.JsonHelper;
-import kenticocloud.kenticoclouddancinggoat.kentico_cloud.utils.MapHelper;
+
+import static android.icu.lang.UCharacter.GraphemeClusterBreak.T;
 
 /**
  * Created by RichardS on 17. 8. 2017.
@@ -143,7 +139,16 @@ public final class MultipleItemQuery extends BaseItemQuery {
                         if (responseRaw.items == null) {
                             return null;
                         }
-                        return  new DeliveryItemListingResponse(_itemMapService.mapItems(responseRaw.items));
+
+                        // get mapped items
+                        List<IContentItem> items = _itemMapService.mapItems(responseRaw.items);
+
+                        // map items
+                        for(IContentItem item: items){
+                            item.mapProperties();
+                        }
+
+                        return  new DeliveryItemListingResponse(items);
                     }
                 });
     }

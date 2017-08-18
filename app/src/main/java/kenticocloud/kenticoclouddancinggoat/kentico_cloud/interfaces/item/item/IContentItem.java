@@ -29,4 +29,6 @@ public interface IContentItem {
      int GetIntValue(@NonNull String fieldName);
 
      Date getDateValue(@NonNull String fieldName);
+
+     void mapProperties();
 }

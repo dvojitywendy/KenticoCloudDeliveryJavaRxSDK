@@ -8,15 +8,15 @@ import kenticocloud.kenticoclouddancinggoat.kentico_cloud.interfaces.item.item.I
  * Created by RichardS on 17. 8. 2017.
  */
 
-public class DeliveryItemListingResponse<TItem extends IContentItem> {
+public class DeliveryItemListingResponse {
 
-    private List<TItem> _items;
+    private List<IContentItem> _items;
 
-    public DeliveryItemListingResponse(List<TItem> items) {
+    public DeliveryItemListingResponse(List<IContentItem> items) {
         _items = items;
     }
 
-    public List<TItem> getItems(){
+    public List<IContentItem> getItems(){
         return _items;
     }
 }

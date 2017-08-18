@@ -35,12 +35,10 @@ import static com.google.common.base.Preconditions.checkNotNull;
 public class Injection {
 
     public static ArticlesRepository provideArticlesRepository(@NonNull Context context) {
-        checkNotNull(context);
         return ArticlesRepository.getInstance(ArticlesCloudSource.getInstance(context));
     }
 
     public static CafesRepository provideCafessRepository(@NonNull Context context) {
-        checkNotNull(context);
         return CafesRepository.getInstance(CafesCloudSource.getInstance(context));
     }
 

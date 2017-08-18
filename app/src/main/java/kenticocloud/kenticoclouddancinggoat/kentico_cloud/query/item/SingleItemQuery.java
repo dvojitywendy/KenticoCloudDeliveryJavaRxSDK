@@ -69,11 +69,18 @@ public class SingleItemQuery extends BaseItemQuery{
                 .getObjectObservable(RawModels.DeliveryItemResponseRaw.class)
                 .map(new Function<RawModels.DeliveryItemResponseRaw, DeliveryItemResponse>() {
                     @Override
-                    public DeliveryItemResponse<IContentItem> apply(RawModels.DeliveryItemResponseRaw responseRaw) throws Exception {
+                    public DeliveryItemResponse apply(RawModels.DeliveryItemResponseRaw responseRaw) throws Exception {
                         if (responseRaw.item == null) {
                             return null;
                         }
-                        return new DeliveryItemResponse<IContentItem>(_itemMapService.mapItem(responseRaw.item));
+
+                        // get item
+                        IContentItem mappedItem = _itemMapService.mapItem(responseRaw.item);
+
+                        // map properties
+                        mappedItem.mapProperties();
+
+                        return new DeliveryItemResponse(mappedItem);
                     }
                 });
     }

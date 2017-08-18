@@ -189,7 +189,7 @@ public class CafesFragment extends Fragment implements CafesContract.View{
             final Cafe cafe = getItem(i);
 
             TextView titleTV = (TextView) rowView.findViewById(R.id.cafeTitleTV);
-            titleTV.setText(cafe.getTitle());
+            titleTV.setText(cafe.getCity());
 
             rowView.setOnClickListener(new View.OnClickListener() {
                 @Override

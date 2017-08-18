@@ -67,8 +67,8 @@ public class CafesCloudSource implements CafesDataSource {
 
                     @Override
                     public void onNext(DeliveryItemListingResponse response) {
+                        List<IContentItem> items = (response.getItems());
                         List<Cafe> cafes = new ArrayList<Cafe>();
-                        List<IContentItem> items = response.getItems();
 
                         if (items == null || items.size() == 0){
                             callback.onDataNotAvailable();
@@ -76,9 +76,8 @@ public class CafesCloudSource implements CafesDataSource {
                         }
 
                         for(int i = 0; i < items.size(); i++){
-                            IContentItem item = items.get(i);
-                            Cafe cafe = new Cafe();
-                            cafe.setTitle(item.GetStringValue("city"));
+                            Cafe cafe = (Cafe)items.get(i);
+                            // add to strongly typed list (this should be somehow solved with generics)
                             cafes.add(cafe);
                         }
 
@@ -114,9 +113,7 @@ public class CafesCloudSource implements CafesDataSource {
                             callback.onDataNotAvailable();
                         }
 
-                        Cafe cafe = new Cafe();
-                        cafe.setTitle(response.getItem().GetStringValue("city"));
-                        callback.onItemLoaded(cafe);
+                        callback.onItemLoaded((Cafe)response.getItem());
                     }
 
                     @Override

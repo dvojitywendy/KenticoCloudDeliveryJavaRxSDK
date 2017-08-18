@@ -15,7 +15,7 @@ import kenticocloud.kenticoclouddancinggoat.kentico_cloud.interfaces.item.item.I
  * Created by RichardS on 17. 8. 2017.
  */
 
-public class ContentItem implements IContentItem{
+public abstract class ContentItem implements IContentItem{
 
     private IContentItemSystemAttributes _system;
     private List<IField> _elements;
