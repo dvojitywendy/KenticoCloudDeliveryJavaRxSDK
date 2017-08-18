@@ -140,28 +140,10 @@ public final class MultipleItemQuery extends BaseItemQuery {
                 .map(new Function<RawModels.DeliveryItemListingResponseRaw, DeliveryItemListingResponse>() {
                     @Override
                     public DeliveryItemListingResponse apply(RawModels.DeliveryItemListingResponseRaw responseRaw) throws Exception {
-                        // prepare a list of item
-                        List<IContentItem> items = new ArrayList<IContentItem>();
-
-                        // process each item
-                        for(int i = 0; i < responseRaw.items.length; i++){
-                            // get item
-                            RawModels.ContentItemRaw item = responseRaw.items[i];
-
-                            // get and parse fields
-                            List<IField> fields = JsonHelper.getFields(item.elements);
-
-                            // system attributes
-                            IContentItemSystemAttributes system = MapHelper.mapSystemAttributes(item.system);
-
-                            // create content item
-                            IContentItem mappedItem = new ContentItem(system, fields);
-
-                            // add item
-                            items.add(mappedItem);
+                        if (responseRaw.items == null) {
+                            return null;
                         }
-
-                        return new DeliveryItemListingResponse<IContentItem>(items);
+                        return  new DeliveryItemListingResponse(_itemMapService.mapItems(responseRaw.items));
                     }
                 });
     }

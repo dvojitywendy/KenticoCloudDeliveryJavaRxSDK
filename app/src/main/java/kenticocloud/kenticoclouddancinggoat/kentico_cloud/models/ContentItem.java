@@ -20,19 +20,24 @@ public class ContentItem implements IContentItem{
     private IContentItemSystemAttributes _system;
     private List<IField> _elements;
 
-    public ContentItem(IContentItemSystemAttributes system, List<IField> elements){
-        _system = system;
-        _elements = elements;
-    }
-
     @Override
     public IContentItemSystemAttributes getSystem() {
         return _system;
     }
 
     @Override
+    public void setContentItemSystemAttributes(@NonNull IContentItemSystemAttributes system) {
+        _system = system;
+    }
+
+    @Override
     public List<IField> getElements() {
         return _elements;
+    }
+
+    @Override
+    public void setElements(@NonNull List<IField> elements) {
+        _elements = elements;
     }
 
     @Override

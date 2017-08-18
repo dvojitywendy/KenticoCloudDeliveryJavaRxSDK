@@ -70,24 +70,10 @@ public class SingleItemQuery extends BaseItemQuery{
                 .map(new Function<RawModels.DeliveryItemResponseRaw, DeliveryItemResponse>() {
                     @Override
                     public DeliveryItemResponse<IContentItem> apply(RawModels.DeliveryItemResponseRaw responseRaw) throws Exception {
-                        // prepare content item
-                        IContentItem mappedItem = null;
-
-                        if (responseRaw.item != null) {
-                            // get item
-                            RawModels.ContentItemRaw item = responseRaw.item;
-
-                            // get and parse fields
-                            List<IField> fields = JsonHelper.getFields(item.elements);
-
-                            // system attributes
-                            IContentItemSystemAttributes system = MapHelper.mapSystemAttributes(item.system);
-
-                            // create content item
-                            mappedItem = new ContentItem(system, fields);
+                        if (responseRaw.item == null) {
+                            return null;
                         }
-
-                        return new DeliveryItemResponse<IContentItem>(mappedItem);
+                        return new DeliveryItemResponse<IContentItem>(_itemMapService.mapItem(responseRaw.item));
                     }
                 });
     }

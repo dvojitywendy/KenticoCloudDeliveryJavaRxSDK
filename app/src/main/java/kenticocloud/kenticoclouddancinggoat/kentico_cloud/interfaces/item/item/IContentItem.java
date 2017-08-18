@@ -14,9 +14,13 @@ import kenticocloud.kenticoclouddancinggoat.kentico_cloud.interfaces.item.common
  */
 public interface IContentItem {
 
-     IContentItemSystemAttributes getSystem() ;
+     IContentItemSystemAttributes getSystem();
+
+     void setContentItemSystemAttributes(@NonNull IContentItemSystemAttributes system);
 
      List<IField> getElements();
+
+     void setElements(@NonNull List<IField> elements);
 
      IField getField(@NonNull String fieldName);
 

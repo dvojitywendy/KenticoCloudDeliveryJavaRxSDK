@@ -77,7 +77,8 @@ public class CafesCloudSource implements CafesDataSource {
 
                         for(int i = 0; i < items.size(); i++){
                             IContentItem item = items.get(i);
-                            Cafe cafe = new Cafe(item.GetStringValue("city"));
+                            Cafe cafe = new Cafe();
+                            cafe.setTitle(item.GetStringValue("city"));
                             cafes.add(cafe);
                         }
 
@@ -113,7 +114,8 @@ public class CafesCloudSource implements CafesDataSource {
                             callback.onDataNotAvailable();
                         }
 
-                        Cafe cafe = new Cafe(response.getItem().GetStringValue("city"));
+                        Cafe cafe = new Cafe();
+                        cafe.setTitle(response.getItem().GetStringValue("city"));
                         callback.onItemLoaded(cafe);
                     }
 

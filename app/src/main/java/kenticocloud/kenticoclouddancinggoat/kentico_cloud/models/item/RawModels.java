@@ -17,7 +17,7 @@ public class RawModels{
     }
 
     public class DeliveryItemListingResponseRaw {
-        public ContentItemRaw[] items;
+        public List<ContentItemRaw> items;
     }
 
     public class ContentItemRaw{
