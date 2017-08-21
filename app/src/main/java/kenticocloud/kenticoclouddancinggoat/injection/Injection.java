@@ -14,6 +14,7 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
+import kenticocloud.kenticoclouddancinggoat.app.config.AppConfig;
 import kenticocloud.kenticoclouddancinggoat.data.models.Cafe;
 import kenticocloud.kenticoclouddancinggoat.data.source.articles.ArticlesCloudSource;
 import kenticocloud.kenticoclouddancinggoat.data.source.articles.ArticlesRepository;
@@ -29,8 +30,7 @@ import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.item.TypeResolv
 import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
- * Enables injection of production implementations for
- * {@link ArticlesDataSource} at compile time.
+ * Enables injection of production implementations at compile time.
  */
 public class Injection {
 
@@ -43,19 +43,6 @@ public class Injection {
     }
 
     public static IDeliveryService provideDeliveryService() {
-        // Kentico cloud project id
-        String projectId = "683771be-aa26-4887-b1b6-482f56418ffd";
-
-        // Type resolvers are responsible for creating the strongly typed object out of type
-        List<TypeResolver> typeResolvers = new ArrayList<>();
-        typeResolvers.add(new TypeResolver("cafe", new Function<Void, IContentItem>() {
-            @Nullable
-            @Override
-            public IContentItem apply(@Nullable Void input) {
-                return new Cafe();
-            }
-        }));
-
-        return DeliveryService.getInstance(new DeliveryClientConfig(projectId, typeResolvers));
+        return DeliveryService.getInstance(new DeliveryClientConfig(AppConfig.KenticoCloudProjectId, AppConfig.getTypeResolvers()));
     }
 }

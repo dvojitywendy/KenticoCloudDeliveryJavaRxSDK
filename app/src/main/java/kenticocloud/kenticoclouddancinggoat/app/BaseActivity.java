@@ -1,7 +1,10 @@
 package kenticocloud.kenticoclouddancinggoat.app;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
@@ -13,13 +16,16 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.androidnetworking.AndroidNetworking;
 
 import kenticocloud.kenticoclouddancinggoat.R;
 import kenticocloud.kenticoclouddancinggoat.app.articles.ArticlesActivity;
 import kenticocloud.kenticoclouddancinggoat.app.cafes.CafesActivity;
+import kenticocloud.kenticoclouddancinggoat.app.cafes.CafesBroadcastReceiver;
 import kenticocloud.kenticoclouddancinggoat.util.NetworkHelper;
+import kenticocloud.kenticoclouddancinggoat.util.SyncHelper;
 
 /**
  * Created by RichardS on 16. 8. 2017.
@@ -103,6 +109,10 @@ public abstract class BaseActivity extends AppCompatActivity {
                 }
             }
         });
+
+        // start cafes sync
+        // commented for now to prevent unwanted notifications, enable once feature is finished
+        //startCafesSync();
     }
 
     protected void setupDrawerContent(final NavigationView navigationView) {
@@ -150,4 +160,12 @@ public abstract class BaseActivity extends AppCompatActivity {
         noConnectionLL.setVisibility(View.VISIBLE);
     }
 
+
+    /***
+     * This method is responsible for starting AlarmManager that periodically checks new content in cloud
+     * and sends notification if new item is received
+     */
+    public void startCafesSync(){
+        SyncHelper.setSyncClock(this, 30, new Intent(this, CafesBroadcastReceiver.class));
+    }
 }
