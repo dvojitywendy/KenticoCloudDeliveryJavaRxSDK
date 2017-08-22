@@ -2,6 +2,8 @@ package kenticocloud.kenticoclouddancinggoat.data.models;
 
 import android.support.annotation.Nullable;
 
+import org.json.JSONException;
+
 import java.text.ParseException;
 import java.util.Date;
 
@@ -30,7 +32,7 @@ public final class Article extends ContentItem{
         this._teaserImageUrl = teaserImageUrl;
     }
 
-    public String getTeaserImage() {
+    public String getTeaserImageUrl() {
         return _teaserImageUrl;
     }
 
@@ -59,9 +61,9 @@ public final class Article extends ContentItem{
     }
 
     @Override
-    public void mapProperties() throws ParseException {
+    public void mapProperties() throws ParseException, JSONException {
         this.setTitle(this.getStringValue("title"));
-        this.setTeaserImageUrl(this.getStringValue("teaser_image"));
+        this.setTeaserImageUrl(this.getAssetUrl("teaser_image"));
         this.setPostDate(this.getDateValue("post_date"));
         this.setSummary(this.getStringValue("summary"));
         this.setBodyCopy(this.getStringValue("body_copy"));

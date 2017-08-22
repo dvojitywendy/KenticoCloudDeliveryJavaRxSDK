@@ -2,6 +2,8 @@ package kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.common;
 
 import android.support.annotation.NonNull;
 
+import org.json.JSONObject;
+
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.interfaces.item.common.IField;
 
 /**
@@ -14,12 +16,14 @@ public class Field implements IField{
     private String _type;
     private String _name;
     private Object _value;
+    private JSONObject _fieldJson;
 
-    public Field(@NonNull String codename, @NonNull String type, @NonNull String name, @NonNull String value){
+    public Field(@NonNull String codename, @NonNull String type, @NonNull String name, @NonNull String value, @NonNull JSONObject fieldJson){
         _codename = codename;
         _type = type;
         _name = name;
         _value = value;
+        _fieldJson = fieldJson;
     }
 
     public String getType() {
@@ -32,6 +36,10 @@ public class Field implements IField{
 
     public Object getValue() {
         return _value;
+    }
+
+    public JSONObject getJsonValue() {
+        return _fieldJson;
     }
 
     public String getCodename() {

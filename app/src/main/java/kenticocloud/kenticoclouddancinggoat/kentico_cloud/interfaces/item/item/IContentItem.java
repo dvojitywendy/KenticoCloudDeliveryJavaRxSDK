@@ -2,6 +2,7 @@ package kenticocloud.kenticoclouddancinggoat.kentico_cloud.interfaces.item.item;
 
 import android.support.annotation.NonNull;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.ParseException;
@@ -31,5 +32,7 @@ public interface IContentItem {
 
      Date getDateValue(@NonNull String fieldName) throws ParseException;
 
-     void mapProperties() throws ParseException;
+     String getAssetUrl(@NonNull String fieldName) throws JSONException;
+
+     void mapProperties() throws ParseException, JSONException;
 }

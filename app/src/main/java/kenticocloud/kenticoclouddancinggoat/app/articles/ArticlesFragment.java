@@ -1,5 +1,8 @@
 package kenticocloud.kenticoclouddancinggoat.app.articles;
 
+import android.content.Context;
+import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
@@ -10,10 +13,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
+import java.io.InputStream;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -187,8 +195,13 @@ public class ArticlesFragment extends Fragment implements ArticlesContract.View{
 
             final Article article = getItem(i);
 
+            // title
             TextView titleTV = (TextView) rowView.findViewById(R.id.articleTitleTV);
             titleTV.setText(article.getTitle());
+
+            // image
+            final ImageView teaserIV = (ImageView) rowView.findViewById(R.id.articleTeaserIV);
+            Picasso.with(viewGroup.getContext()).load(article.getTeaserImageUrl()).into(teaserIV);
 
             rowView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -199,10 +212,43 @@ public class ArticlesFragment extends Fragment implements ArticlesContract.View{
 
             return rowView;
         }
+
+        private class DownloadImagesTask extends AsyncTask<String, Void, Drawable> {
+
+            ImageView _imageView;
+
+            public DownloadImagesTask(ImageView imageView){
+                _imageView = imageView;
+            }
+
+            @Override
+            protected Drawable doInBackground(String... urls) {
+                Drawable image = LoadImageFromWebOperations(urls[0]);
+
+                return image;
+            }
+
+            @Override
+            protected void onPostExecute(Drawable drawable) {
+                _imageView.setImageDrawable(drawable);
+            }
+        }
     }
 
-    public interface ArticleItemListener {
+    public static Drawable LoadImageFromWebOperations(String url) {
+        try {
+            InputStream is = (InputStream) new URL(url).getContent();
+            Drawable d = Drawable.createFromStream(is, "teaser");
+            return d;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    interface ArticleItemListener {
 
         void onArticleClick(Article clickedArticle);
     }
+
+
 }

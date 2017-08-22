@@ -3,11 +3,12 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/articleInfotest"
+    <ImageView
+        android:id="@+id/articleTeaserIV"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="There will be article:"/>
+        android:layout_height="match_parent"
+        android:contentDescription="@string/teaser_image" />
+
     <TextView
         android:id="@+id/articleTitleTV"
         android:layout_width="match_parent"

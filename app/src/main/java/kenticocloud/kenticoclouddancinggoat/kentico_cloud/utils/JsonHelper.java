@@ -43,7 +43,8 @@ public final class JsonHelper {
                         key,
                         fieldJson.getString("type"),
                         fieldJson.getString("name"),
-                        fieldJson.getString("value")
+                        fieldJson.getString("value"),
+                        fieldJson
                 );
                 fields.add(field);
             }

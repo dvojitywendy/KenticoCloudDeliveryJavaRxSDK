@@ -2,11 +2,11 @@ package kenticocloud.kenticoclouddancinggoat.kentico_cloud.models;
 
 import android.support.annotation.NonNull;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -84,5 +84,39 @@ public abstract class ContentItem implements IContentItem{
         }
 
         return DateHelper.parseIso8601((String)field.getValue());
+    }
+
+    @Override
+    public String getAssetUrl(@NonNull String fieldName) throws JSONException {
+        String valueField = "value";
+        String urlField = "url";
+        IField field = getField(fieldName);
+
+        if (field == null){
+            return null;
+        }
+
+        JSONObject fieldJson = field.getJsonValue();
+
+        if (fieldJson == null){
+            return null;
+        }
+
+        JSONArray valueJsonArray = fieldJson.getJSONArray(valueField);
+
+        if (valueJsonArray == null){
+            return null;
+        }
+
+        // get through all items in array and get the 'url' field
+        // there doesn't seem to be better support for this by default...
+        for (int i=0; i < valueJsonArray.length(); i++) {
+            JSONObject fieldV = valueJsonArray.getJSONObject(i);
+
+            // This is bad - it works only with 1 assets, return array in future
+            return fieldV.getString(urlField);
+        }
+
+        return null;
     }
 }

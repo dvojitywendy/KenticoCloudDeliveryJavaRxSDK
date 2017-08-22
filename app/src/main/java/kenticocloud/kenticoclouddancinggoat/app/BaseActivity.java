@@ -83,6 +83,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         ab.setHomeAsUpIndicator(R.drawable.ic_menu);
         ab.setDisplayHomeAsUpEnabled(true);
 
+
         // Set up the navigation drawer.
         _drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         _drawerLayout.setStatusBarBackground(R.color.colorPrimaryDark);
