@@ -52,8 +52,7 @@ public class CafesPresenter implements CafesContract.Presenter {
             }
 
             @Override
-            public void onError() {
-
+            public void onError(Throwable e) {
             }
         });
     }

@@ -4,12 +4,16 @@ import android.support.annotation.NonNull;
 
 import org.json.JSONObject;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.interfaces.item.common.IField;
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.interfaces.item.item.IContentItem;
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.interfaces.item.item.IContentItemSystemAttributes;
+import kenticocloud.kenticoclouddancinggoat.kentico_cloud.utils.DateHelper;
 
 /**
  * Created by RichardS on 17. 8. 2017.
@@ -53,20 +57,32 @@ public abstract class ContentItem implements IContentItem{
     }
 
     @Override
-    public String GetStringValue(@NonNull String fieldName) {
+    public String getStringValue(@NonNull String fieldName) {
         IField field = getField(fieldName);
         return field == null ? null : (String)field.getValue();
     }
 
     @Override
-    public int GetIntValue(@NonNull String fieldName) throws NullPointerException{
+    public int getIntValue(@NonNull String fieldName) throws NullPointerException{
         IField field = getField(fieldName);
-        return field == null ? null : (int)field.getValue();
+
+        Object fieldValue = field.getValue();
+
+        if (fieldValue == null){
+            return 0;
+        }
+
+        return (int)fieldValue;
     }
 
     @Override
-    public Date getDateValue(@NonNull String fieldName) {
+    public Date getDateValue(@NonNull String fieldName) throws ParseException {
         IField field = getField(fieldName);
-        return field == null ? null : (Date)field.getValue();
+
+        if (field == null){
+            return null;
+        }
+
+        return DateHelper.parseIso8601((String)field.getValue());
     }
 }

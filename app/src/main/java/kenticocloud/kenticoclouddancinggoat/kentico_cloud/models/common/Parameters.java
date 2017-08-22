@@ -29,7 +29,7 @@ public class Parameters {
         }
 
         public String getParamValue(){
-            return StringHelper.Join(_elements, ",");
+            return StringHelper.join(_elements, ",");
         }
     }
 

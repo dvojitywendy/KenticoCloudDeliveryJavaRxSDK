@@ -8,5 +8,5 @@ public interface ICallback {
 
     void onDataNotAvailable();
 
-    void onError();
+    void onError(Throwable e);
 }

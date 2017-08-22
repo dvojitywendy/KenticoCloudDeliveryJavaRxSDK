@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
+import kenticocloud.kenticoclouddancinggoat.data.models.Article;
 import kenticocloud.kenticoclouddancinggoat.data.models.Cafe;
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.interfaces.item.item.IContentItem;
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.item.TypeResolver;
@@ -21,11 +22,22 @@ public class AppConfig {
     public final static List<TypeResolver> getTypeResolvers(){
         // Type resolvers are responsible for creating the strongly typed object out of type
         List<TypeResolver> typeResolvers = new ArrayList<>();
+
+        // Cafe resolver
         typeResolvers.add(new TypeResolver("cafe", new Function<Void, IContentItem>() {
             @Nullable
             @Override
             public IContentItem apply(@Nullable Void input) {
                 return new Cafe();
+            }
+        }));
+
+        /// Article resolver
+        typeResolvers.add(new TypeResolver("article", new Function<Void, IContentItem>() {
+            @Nullable
+            @Override
+            public IContentItem apply(@Nullable Void input) {
+                return new Article();
             }
         }));
 

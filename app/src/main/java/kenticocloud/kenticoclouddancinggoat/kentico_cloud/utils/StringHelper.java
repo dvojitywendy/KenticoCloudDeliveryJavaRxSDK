@@ -10,7 +10,7 @@ import java.util.List;
 
 public class StringHelper {
 
-    public static String Join(@NonNull List<String> list, @NonNull String separator){
+    public static String join(@NonNull List<String> list, @NonNull String separator){
         String result = "";
         for (int i = 0; i < list.size(); i++){
             String item = list.get(i);

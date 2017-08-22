@@ -21,6 +21,7 @@ import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 import kenticocloud.kenticoclouddancinggoat.data.models.Article;
 import kenticocloud.kenticoclouddancinggoat.data.models.Cafe;
+import kenticocloud.kenticoclouddancinggoat.data.source.BaseCloudSource;
 import kenticocloud.kenticoclouddancinggoat.injection.Injection;
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.IDeliveryService;
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.interfaces.item.item.IContentItem;
@@ -35,15 +36,13 @@ import static com.google.common.base.Preconditions.checkNotNull;
  * Created by RichardS on 15. 8. 2017.
  */
 
-public class CafesCloudSource implements CafesDataSource {
+public class CafesCloudSource extends BaseCloudSource implements CafesDataSource {
 
     private static CafesCloudSource INSTANCE;
 
-    private IDeliveryService _deliveryService;
-
     // Prevent direct instantiation.
     private CafesCloudSource(@NonNull Context context) {
-        _deliveryService = Injection.provideDeliveryService();
+        super(Injection.provideDeliveryService());
     }
 
     public static CafesCloudSource getInstance(@NonNull Context context) {
@@ -86,7 +85,8 @@ public class CafesCloudSource implements CafesDataSource {
 
                     @Override
                     public void onError(Throwable e) {
-                        callback.onDataNotAvailable();
+
+                        callback.onError(e);
                     }
 
                     @Override

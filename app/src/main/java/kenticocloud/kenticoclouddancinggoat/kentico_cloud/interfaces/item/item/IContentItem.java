@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 
 import org.json.JSONObject;
 
+import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 
@@ -24,11 +25,11 @@ public interface IContentItem {
 
      IField getField(@NonNull String fieldName);
 
-     String GetStringValue(@NonNull String fieldName);
+     String getStringValue(@NonNull String fieldName);
 
-     int GetIntValue(@NonNull String fieldName);
+     int getIntValue(@NonNull String fieldName);
 
-     Date getDateValue(@NonNull String fieldName);
+     Date getDateValue(@NonNull String fieldName) throws ParseException;
 
-     void mapProperties();
+     void mapProperties() throws ParseException;
 }

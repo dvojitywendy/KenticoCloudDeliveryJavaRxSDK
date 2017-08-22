@@ -49,7 +49,7 @@ public class ArticlesPresenter implements ArticlesContract.Presenter {
             }
 
             @Override
-            public void onError() {
+            public void onError(Throwable e) {
 
             }
         });

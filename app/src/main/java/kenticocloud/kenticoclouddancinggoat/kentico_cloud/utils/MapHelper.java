@@ -11,7 +11,7 @@ import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.item.RawModels;
 public class MapHelper {
 
     public static IContentItemSystemAttributes mapSystemAttributes(RawModels.ContentItemSystemAttributesRaw systemRaw){
-        IContentItemSystemAttributes system = new ContentItemSystemAttributes(
+        return new ContentItemSystemAttributes(
                 systemRaw.id,
                 systemRaw.name,
                 systemRaw.codename,
@@ -20,7 +20,5 @@ public class MapHelper {
                 systemRaw.language,
                 systemRaw.sitemap_locations
         );
-
-        return system;
     }
 }

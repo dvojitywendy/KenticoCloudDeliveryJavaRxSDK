@@ -37,8 +37,8 @@ public class ArticlesRepository implements  ArticlesDataSource {
             }
 
             @Override
-            public void onError() {
-                callback.onError();
+            public void onError(Throwable e) {
+                callback.onError(e);
             }
         });
     }
@@ -57,8 +57,8 @@ public class ArticlesRepository implements  ArticlesDataSource {
             }
 
             @Override
-            public void onError() {
-                callback.onError();
+            public void onError(Throwable e) {
+                callback.onError(e);
             }
         });
     }

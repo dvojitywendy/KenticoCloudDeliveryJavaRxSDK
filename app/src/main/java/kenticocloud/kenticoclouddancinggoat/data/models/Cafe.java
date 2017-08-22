@@ -85,12 +85,12 @@ public final class Cafe extends ContentItem{
     }
 
     public void mapProperties(){
-        this.setCity(this.GetStringValue("city"));
-        this.setCountry(this.GetStringValue("country"));
-        this.setEmail(this.GetStringValue("email"));
-        this.setPhone(this.GetStringValue("phone"));
-        this.setState(this.GetStringValue("state"));
-        this.setStreet(this.GetStringValue("street"));
-        this.setZipCode(this.GetStringValue("zip_code"));
+        this.setCity(this.getStringValue("city"));
+        this.setCountry(this.getStringValue("country"));
+        this.setEmail(this.getStringValue("email"));
+        this.setPhone(this.getStringValue("phone"));
+        this.setState(this.getStringValue("state"));
+        this.setStreet(this.getStringValue("street"));
+        this.setZipCode(this.getStringValue("zip_code"));
     }
 }

@@ -38,8 +38,8 @@ public class CafesRepository implements CafesDataSource {
             }
 
             @Override
-            public void onError() {
-                callback.onError();
+            public void onError(Throwable e) {
+                callback.onError(e);
             }
         });
     }
@@ -58,8 +58,8 @@ public class CafesRepository implements CafesDataSource {
             }
 
             @Override
-            public void onError() {
-                callback.onError();
+            public void onError(Throwable e) {
+                callback.onError(e);
             }
         });
     }

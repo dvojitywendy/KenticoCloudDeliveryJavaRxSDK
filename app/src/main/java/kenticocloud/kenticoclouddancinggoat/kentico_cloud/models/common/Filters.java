@@ -59,7 +59,7 @@ public class Filters {
         }
 
         public String getParamValue(){
-            return StringHelper.Join(_values, ",");
+            return StringHelper.join(_values, ",");
         }
     }
 
@@ -82,7 +82,7 @@ public class Filters {
         }
 
         public String getParamValue(){
-            return StringHelper.Join(_values, ",");
+            return StringHelper.join(_values, ",");
         }
     }
 
@@ -105,7 +105,7 @@ public class Filters {
         }
 
         public String getParamValue(){
-            return StringHelper.Join(_values, ",");
+            return StringHelper.join(_values, ",");
         }
     }
 
@@ -128,7 +128,7 @@ public class Filters {
         }
 
         public String getParamValue(){
-            return StringHelper.Join(_values, ",");
+            return StringHelper.join(_values, ",");
         }
     }
 
