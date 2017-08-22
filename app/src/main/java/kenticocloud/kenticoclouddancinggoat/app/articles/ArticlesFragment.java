@@ -22,8 +22,11 @@ import com.squareup.picasso.Picasso;
 
 import java.io.InputStream;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import kenticocloud.kenticoclouddancinggoat.R;
 import kenticocloud.kenticoclouddancinggoat.app.shared.ScrollChildSwipeRefreshLayout;
@@ -202,6 +205,15 @@ public class ArticlesFragment extends Fragment implements ArticlesContract.View{
             // image
             final ImageView teaserIV = (ImageView) rowView.findViewById(R.id.articleTeaserIV);
             Picasso.with(viewGroup.getContext()).load(article.getTeaserImageUrl()).into(teaserIV);
+
+            // release date
+            TextView postDateTV = (TextView) rowView.findViewById(R.id.articlePostDateTV);
+            SimpleDateFormat postDf = new SimpleDateFormat("dd MMMM yyyy", Locale.ENGLISH);
+            postDateTV.setText(postDf.format(article.getPostDate()));
+
+            // summary
+            TextView summaryTV = (TextView) rowView.findViewById(R.id.articleSummaryTV);
+            summaryTV.setText(article.getSummary());
 
             rowView.setOnClickListener(new View.OnClickListener() {
                 @Override
