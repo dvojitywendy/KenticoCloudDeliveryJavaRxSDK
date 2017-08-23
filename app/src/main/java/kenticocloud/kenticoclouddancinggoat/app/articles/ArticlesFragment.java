@@ -1,8 +1,6 @@
 package kenticocloud.kenticoclouddancinggoat.app.articles;
 
-import android.content.Context;
-import android.graphics.drawable.Drawable;
-import android.os.AsyncTask;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
@@ -20,15 +18,13 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
-import java.io.InputStream;
-import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
 import kenticocloud.kenticoclouddancinggoat.R;
+import kenticocloud.kenticoclouddancinggoat.app.article_detail.ArticleDetailActivity;
 import kenticocloud.kenticoclouddancinggoat.app.shared.ScrollChildSwipeRefreshLayout;
 import kenticocloud.kenticoclouddancinggoat.data.models.Article;
 
@@ -67,12 +63,12 @@ public class ArticlesFragment extends Fragment implements ArticlesContract.View{
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.articles_frag, container, false);
 
-        // Set up tasks view
+        // Set up articles view
         ListView listView = (ListView) root.findViewById(R.id.articlesLV);
         listView.setAdapter(_adapter);
         _articlesView = (LinearLayout) root.findViewById(R.id.articlesLL);
 
-        // Set up  no tasks view
+        // Set up no articles view
         _noArticlesView = root.findViewById(R.id.noArticlesTV);
 
         // Set up progress indicator
@@ -136,8 +132,8 @@ public class ArticlesFragment extends Fragment implements ArticlesContract.View{
     }
 
     @Override
-    public void showLoadingTasksError() {
-        showMessage("error loading data");
+    public void showLoadingError() {
+        showMessage("Error loading data");
     }
 
     private void showMessage(String message) {
@@ -149,8 +145,10 @@ public class ArticlesFragment extends Fragment implements ArticlesContract.View{
      */
     ArticleItemListener articleItemListener = new ArticleItemListener() {
         @Override
-        public void onArticleClick(Article clickedTask) {
-            // to do some action when item is clicked
+        public void onArticleClick(Article clickedArticle) {
+            Intent articleDetailIntent = new Intent(getContext(), ArticleDetailActivity.class);
+            articleDetailIntent.putExtra("article_codename", clickedArticle.getSystem().getCodename());
+            startActivity(articleDetailIntent);
         }
     };
 
@@ -225,36 +223,6 @@ public class ArticlesFragment extends Fragment implements ArticlesContract.View{
             return rowView;
         }
 
-        private class DownloadImagesTask extends AsyncTask<String, Void, Drawable> {
-
-            ImageView _imageView;
-
-            public DownloadImagesTask(ImageView imageView){
-                _imageView = imageView;
-            }
-
-            @Override
-            protected Drawable doInBackground(String... urls) {
-                Drawable image = LoadImageFromWebOperations(urls[0]);
-
-                return image;
-            }
-
-            @Override
-            protected void onPostExecute(Drawable drawable) {
-                _imageView.setImageDrawable(drawable);
-            }
-        }
-    }
-
-    public static Drawable LoadImageFromWebOperations(String url) {
-        try {
-            InputStream is = (InputStream) new URL(url).getContent();
-            Drawable d = Drawable.createFromStream(is, "teaser");
-            return d;
-        } catch (Exception e) {
-            return null;
-        }
     }
 
     interface ArticleItemListener {

@@ -118,6 +118,11 @@ public class CafesFragment extends Fragment implements CafesContract.View{
     }
 
     @Override
+    public void showLoadingError() {
+
+    }
+
+    @Override
     public void showCafes(List<Cafe> cafes) {
         _adapter.replaceData(cafes);
 

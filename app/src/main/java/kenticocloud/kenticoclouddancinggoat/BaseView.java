@@ -5,5 +5,7 @@ package kenticocloud.kenticoclouddancinggoat;
  */
 
 public interface BaseView<T> {
+    void setLoadingIndicator(boolean active);
+    void showLoadingError();
     void setPresenter(T presenter);
 }

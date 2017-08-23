@@ -17,10 +17,10 @@ public interface ArticlesDataSource {
     interface LoadArticlesCallback extends IMultipleCallback<Article> {
     }
 
-    interface GetArticleCallback extends ISingleCallback<Article> {
+    interface LoadArticleCallback extends ISingleCallback<Article> {
     }
 
     void getArticles(@NonNull LoadArticlesCallback callback);
 
-    void getArticle(@NonNull String articleId, @NonNull GetArticleCallback callback);
+    void getArticle(@NonNull String codename, @NonNull LoadArticleCallback callback);
 }

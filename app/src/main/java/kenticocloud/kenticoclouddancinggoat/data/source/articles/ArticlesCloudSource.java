@@ -85,7 +85,7 @@ public class ArticlesCloudSource extends BaseCloudSource implements ArticlesData
     }
 
     @Override
-    public void getArticle(@NonNull String codename, @NonNull final GetArticleCallback callback) {
+    public void getArticle(@NonNull String codename, @NonNull final LoadArticleCallback callback) {
         _deliveryService.item(codename)
                 .get()
                 .subscribeOn(Schedulers.io())

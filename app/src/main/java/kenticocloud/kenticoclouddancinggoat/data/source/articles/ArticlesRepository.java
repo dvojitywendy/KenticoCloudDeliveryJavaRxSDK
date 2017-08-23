@@ -44,8 +44,8 @@ public class ArticlesRepository implements  ArticlesDataSource {
     }
 
     @Override
-    public void getArticle(@NonNull String articleId, @NonNull final GetArticleCallback callback) {
-        _dataSource.getArticle(articleId, new GetArticleCallback() {
+    public void getArticle(@NonNull String codename, @NonNull final LoadArticleCallback callback) {
+        _dataSource.getArticle(codename, new LoadArticleCallback() {
             @Override
             public void onItemLoaded(Article article) {
                 callback.onItemLoaded(article);

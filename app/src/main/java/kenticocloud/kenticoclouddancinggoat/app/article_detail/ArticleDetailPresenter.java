@@ -1,8 +1,6 @@
-package kenticocloud.kenticoclouddancinggoat.app.articles;
+package kenticocloud.kenticoclouddancinggoat.app.article_detail;
 
 import android.support.annotation.NonNull;
-
-import java.util.List;
 
 import kenticocloud.kenticoclouddancinggoat.data.models.Article;
 import kenticocloud.kenticoclouddancinggoat.data.source.articles.ArticlesDataSource;
@@ -14,33 +12,34 @@ import static com.google.common.base.Preconditions.checkNotNull;
  * Created by RichardS on 15. 8. 2017.
  */
 
-public class ArticlesPresenter implements ArticlesContract.Presenter {
+public class ArticleDetailPresenter implements ArticleDetailContract.Presenter {
 
+    private final String _articleCodename;
     private final ArticlesRepository _repository;
 
-    private final ArticlesContract.View _view;
+    private final ArticleDetailContract.View _view;
 
-    public ArticlesPresenter(@NonNull ArticlesRepository repository, @NonNull ArticlesContract.View view) {
+    public ArticleDetailPresenter(@NonNull ArticlesRepository repository, @NonNull ArticleDetailContract.View view, @NonNull String articleCodename) {
         _repository = checkNotNull(repository, "repository cannot be null");
         _view = checkNotNull(view, "view cannot be null!");
-
         _view.setPresenter(this);
+        _articleCodename = articleCodename;
     }
 
     @Override
     public void start() {
-        loadArticles();
+        loadArticle();
     }
 
     @Override
-    public void loadArticles() {
+    public void loadArticle() {
         _view.setLoadingIndicator(true);
 
-        _repository.getArticles(new ArticlesDataSource.LoadArticlesCallback() {
+        _repository.getArticle(_articleCodename, new ArticlesDataSource.LoadArticleCallback() {
+
             @Override
-            public void onItemsLoaded(List<Article> articles) {
-                _view.setLoadingIndicator(false);
-                _view.showArticles(articles);
+            public void onItemLoaded(Article item) {
+                _view.showArticle(item);
             }
 
             @Override
@@ -50,7 +49,7 @@ public class ArticlesPresenter implements ArticlesContract.Presenter {
 
             @Override
             public void onError(Throwable e) {
-
+                _view.showLoadingError();
             }
         });
     }

@@ -27,6 +27,11 @@
             android:name=".app.cafes.CafesActivity"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
+        <activity
+            android:name=".app.article_detail.ArticleDetailActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:parentActivityName=".app.articles.ArticlesActivity">
+        </activity>
         <receiver android:name=".app.cafes.CafesBroadcastReceiver" >
         </receiver>
     </application>

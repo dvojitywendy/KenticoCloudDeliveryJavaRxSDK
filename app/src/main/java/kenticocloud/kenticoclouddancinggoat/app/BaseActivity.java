@@ -1,12 +1,10 @@
 package kenticocloud.kenticoclouddancinggoat.app;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.NavUtils;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -16,7 +14,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.androidnetworking.AndroidNetworking;
 
@@ -46,19 +43,32 @@ public abstract class BaseActivity extends AppCompatActivity {
      * Implement to get activity specific layout
      * @return id of the layout
      */
-    protected abstract int getLayoutResourceId();
+    protected int getLayoutResourceId(){
+        return -1;
+    }
 
     /**
      * Gets resource to title
      * @return id of the title string
      */
-    protected abstract int getTitleResourceId();
+    protected int getTitleResourceId(){
+        return -1;
+    }
 
     /**
      * Gets menu item id
      * @return if of the menu item
      */
-    protected abstract int getMenuItemId();
+    protected int getMenuItemId(){
+        return -1;
+    }
+
+    /**
+     * Indicates if back button is shown in navigation drawer instead of menu items
+     */
+    protected boolean useBackButton(){
+        return false;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,15 +84,23 @@ public abstract class BaseActivity extends AppCompatActivity {
         setContentView(getLayoutResourceId());
 
         // Set title
-        setTitle(this.getTitleResourceId());
+        int titleResourceId = getTitleResourceId();
+        if (titleResourceId >= 0){
+            setTitle(this.getTitleResourceId());
+        }
 
         // Set up the toolbar.
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ActionBar ab = getSupportActionBar();
-        ab.setHomeAsUpIndicator(R.drawable.ic_menu);
-        ab.setDisplayHomeAsUpEnabled(true);
 
+        if (useBackButton()){
+            ab.setHomeAsUpIndicator(R.drawable.ic_arrow_back);
+        }
+        else{
+            ab.setHomeAsUpIndicator(R.drawable.ic_menu);
+        }
+        ab.setDisplayHomeAsUpEnabled(true);
 
         // Set up the navigation drawer.
         _drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -147,6 +165,10 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        if (useBackButton()){
+            NavUtils.navigateUpFromSameTask(this);
+            return false;
+        }
         switch (item.getItemId()) {
             case android.R.id.home:
                 // Open the navigation drawer when the home icon is selected from the toolbar.
