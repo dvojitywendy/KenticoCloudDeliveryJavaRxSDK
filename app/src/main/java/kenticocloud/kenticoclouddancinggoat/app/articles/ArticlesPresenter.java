@@ -45,12 +45,12 @@ public class ArticlesPresenter implements ArticlesContract.Presenter {
 
             @Override
             public void onDataNotAvailable() {
-                _view.showLoadingError();
+                _view.showNoData(true);
             }
 
             @Override
             public void onError(Throwable e) {
-
+                _view.showLoadingError();
             }
         });
     }

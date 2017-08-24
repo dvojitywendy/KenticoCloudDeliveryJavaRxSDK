@@ -2,6 +2,8 @@ package kenticocloud.kenticoclouddancinggoat.data.models;
 
 import android.support.annotation.Nullable;
 
+import org.json.JSONException;
+
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.interfaces.item.item.IContentItem;
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.ContentItem;
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.item.RawModels;
@@ -18,7 +20,7 @@ public final class Cafe extends ContentItem{
     private String zipCode;
     private String phone;
     private String email;
-    private String photo;
+    private String photoUrl;
 
     public void setCity(String city) {
         this.city = city;
@@ -76,15 +78,15 @@ public final class Cafe extends ContentItem{
         this.email = email;
     }
 
-    public String getPhoto() {
-        return photo;
+    public String getPhotoUrl() {
+        return photoUrl;
     }
 
-    public void setPhoto(String photo) {
-        this.photo = photo;
+    public void setPhotoUrl(String photoUrl) {
+        this.photoUrl = photoUrl;
     }
 
-    public void mapProperties(){
+    public void mapProperties() throws JSONException {
         this.setCity(this.getStringValue("city"));
         this.setCountry(this.getStringValue("country"));
         this.setEmail(this.getStringValue("email"));
@@ -92,5 +94,6 @@ public final class Cafe extends ContentItem{
         this.setState(this.getStringValue("state"));
         this.setStreet(this.getStringValue("street"));
         this.setZipCode(this.getStringValue("zip_code"));
+        this.setPhotoUrl(this.getAssetUrl("photo"));
     }
 }

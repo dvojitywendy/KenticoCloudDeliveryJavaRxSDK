@@ -17,10 +17,10 @@ public interface CafesDataSource {
     interface LoadCafesCallback extends IMultipleCallback<Cafe> {
     }
 
-    interface GetCafeCallback  extends ISingleCallback<Cafe> {
+    interface LoadCafeCallback  extends ISingleCallback<Cafe> {
     }
 
     void getCafes(@NonNull LoadCafesCallback callback);
 
-    void getCafe(@NonNull String codename, @NonNull GetCafeCallback  callback);
+    void getCafe(@NonNull String codename, @NonNull LoadCafeCallback  callback);
 }

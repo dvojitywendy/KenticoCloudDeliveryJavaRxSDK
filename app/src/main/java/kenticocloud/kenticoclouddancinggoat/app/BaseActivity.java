@@ -88,19 +88,24 @@ public abstract class BaseActivity extends AppCompatActivity {
         if (titleResourceId >= 0){
             setTitle(this.getTitleResourceId());
         }
+        else{
+            // set empty title
+            setTitle("");
+        }
 
         // Set up the toolbar.
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ActionBar ab = getSupportActionBar();
 
-        if (useBackButton()){
-            ab.setHomeAsUpIndicator(R.drawable.ic_arrow_back);
+        if (ab != null) {
+            if (useBackButton()) {
+                ab.setHomeAsUpIndicator(R.drawable.ic_arrow_back);
+            } else {
+                ab.setHomeAsUpIndicator(R.drawable.ic_menu);
+            }
+            ab.setDisplayHomeAsUpEnabled(true);
         }
-        else{
-            ab.setHomeAsUpIndicator(R.drawable.ic_menu);
-        }
-        ab.setDisplayHomeAsUpEnabled(true);
 
         // Set up the navigation drawer.
         _drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);

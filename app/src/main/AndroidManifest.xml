@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -14,6 +15,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/config_google_API_key" />
+
         <activity
             android:name=".app.articles.ArticlesActivity"
             android:label="@string/app_main_activity_title"
@@ -32,8 +39,14 @@
             android:theme="@style/AppTheme.NoActionBar"
             android:parentActivityName=".app.articles.ArticlesActivity">
         </activity>
+        <activity
+            android:name=".app.cafe_detail.CafeDetailActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:parentActivityName=".app.cafes.CafesActivity">
+        </activity>
         <receiver android:name=".app.cafes.CafesBroadcastReceiver" >
         </receiver>
     </application>
-
 </manifest>
+
+

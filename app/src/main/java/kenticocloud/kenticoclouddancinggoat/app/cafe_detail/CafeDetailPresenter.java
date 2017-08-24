@@ -1,8 +1,6 @@
-package kenticocloud.kenticoclouddancinggoat.app.cafes;
+package kenticocloud.kenticoclouddancinggoat.app.cafe_detail;
 
 import android.support.annotation.NonNull;
-
-import java.util.List;
 
 import kenticocloud.kenticoclouddancinggoat.data.models.Article;
 import kenticocloud.kenticoclouddancinggoat.data.models.Cafe;
@@ -17,38 +15,39 @@ import static com.google.common.base.Preconditions.checkNotNull;
  * Created by RichardS on 15. 8. 2017.
  */
 
-public class CafesPresenter implements CafesContract.Presenter {
+class CafeDetailPresenter implements CafeDetailContract.Presenter {
 
+    private final String _cafeCodename;
     private final CafesRepository _repository;
 
-    private final CafesContract.View _view;
+    private final CafeDetailContract.View _view;
 
-    public CafesPresenter(@NonNull CafesRepository repository, @NonNull CafesContract.View view) {
+    CafeDetailPresenter(@NonNull CafesRepository repository, @NonNull CafeDetailContract.View view, @NonNull String cafeCodename) {
         _repository = checkNotNull(repository, "repository cannot be null");
         _view = checkNotNull(view, "view cannot be null!");
-
         _view.setPresenter(this);
+        _cafeCodename = cafeCodename;
     }
 
     @Override
     public void start() {
-        loadCafes();
+        loadCafe();
     }
 
     @Override
-    public void loadCafes() {
+    public void loadCafe() {
         _view.setLoadingIndicator(true);
 
-        _repository.getCafes(new CafesDataSource.LoadCafesCallback() {
+        _repository.getCafe(_cafeCodename, new CafesDataSource.LoadCafeCallback() {
+
             @Override
-            public void onItemsLoaded(List<Cafe> cafes) {
-                _view.setLoadingIndicator(false);
-                _view.showCafes(cafes);
+            public void onItemLoaded(Cafe item) {
+                _view.showCafe(item);
             }
 
             @Override
             public void onDataNotAvailable() {
-                _view.showNoData(true);
+                _view.showLoadingError();
             }
 
             @Override

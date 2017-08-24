@@ -1,4 +1,7 @@
 <resources>
+    <!-- config -->
+    <string name="config_google_API_key">AIzaSyCOQ9ektD-0lc607MIiHCzKHfv2PPUmZGE</string>
+    
     <!-- global items -->
     <string name="app_name">Kentico Cloud Dancing Goat</string>
     <string name="app_main_activity_title">Dancing Goat</string>
@@ -23,4 +26,6 @@
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="teaser_image">Teaser image</string>
+    <string name="no_cafes">No cafes were found</string>
+    <string name="cafe">Cafe</string>
 </resources>

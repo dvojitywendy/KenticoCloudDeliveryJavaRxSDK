@@ -1,23 +1,29 @@
 package kenticocloud.kenticoclouddancinggoat.app.cafes;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import kenticocloud.kenticoclouddancinggoat.R;
+import kenticocloud.kenticoclouddancinggoat.app.cafe_detail.CafeDetailActivity;
 import kenticocloud.kenticoclouddancinggoat.app.shared.ScrollChildSwipeRefreshLayout;
 import kenticocloud.kenticoclouddancinggoat.data.models.Article;
 import kenticocloud.kenticoclouddancinggoat.data.models.Cafe;
@@ -118,24 +124,34 @@ public class CafesFragment extends Fragment implements CafesContract.View{
     }
 
     @Override
-    public void showLoadingError() {
-
-    }
-
-    @Override
     public void showCafes(List<Cafe> cafes) {
         _adapter.replaceData(cafes);
 
         _cafesView.setVisibility(View.VISIBLE);
-        _noCafesView.setVisibility(View.GONE);
     }
 
     @Override
-    public void showLoadingTasksError() {
-        showMessage("Error loading data");
+    public void showLoadingError() {
+        showMessage(getString(R.string.error_loading_data));
+    }
+
+    public void showNoData(boolean show){
+        if (show){
+            _noCafesView.setVisibility(View.VISIBLE);
+        }
+        else{
+            _noCafesView.setVisibility(View.GONE);
+
+        }
     }
 
     private void showMessage(String message) {
+        View view = getView();
+
+        if (view == null){
+            return;
+        }
+
         Snackbar.make(getView(), message, Snackbar.LENGTH_LONG).show();
     }
 
@@ -146,6 +162,9 @@ public class CafesFragment extends Fragment implements CafesContract.View{
         @Override
         public void onCafeClick(Cafe clickedCafe) {
             // to do some action when item is clicked
+            Intent cafeDetailIntent = new Intent(getContext(), CafeDetailActivity.class);
+            cafeDetailIntent.putExtra("cafe_codename", clickedCafe.getSystem().getCodename());
+            startActivity(cafeDetailIntent);
         }
     };
 
@@ -193,8 +212,33 @@ public class CafesFragment extends Fragment implements CafesContract.View{
 
             final Cafe cafe = getItem(i);
 
+            // cafe properties
             TextView titleTV = (TextView) rowView.findViewById(R.id.cafeTitleTV);
             titleTV.setText(cafe.getCity());
+
+            final ImageView teaserIV = (ImageView) rowView.findViewById(R.id.cafeTeaserIV);
+            Picasso.with(viewGroup.getContext()).load(cafe.getPhotoUrl()).into(teaserIV);
+
+            TextView streetLineTV = (TextView) rowView.findViewById(R.id.cafeStreetLineTV);
+            streetLineTV.setText(cafe.getStreet());
+
+            TextView cityLineTV = (TextView) rowView.findViewById(R.id.cafeCityLineTV);
+            cityLineTV.setText(cafe.getZipCode() + ", " + cafe.getCity());
+
+            TextView cafeCountryLineTV = (TextView) rowView.findViewById(R.id.cafeCountryLineTV);
+            if (TextUtils.isEmpty(cafe.getState())){
+                cafeCountryLineTV.setText(cafe.getCountry());
+            }
+            else{
+                cafeCountryLineTV.setText(cafe.getCountry() + ", " + cafe.getState());
+            }
+
+            TextView cafePhoneLineTV = (TextView) rowView.findViewById(R.id.cafePhoneLineTV);
+            cafePhoneLineTV.setText(cafe.getPhone());
+
+            TextView cafeEmailLineTV = (TextView) rowView.findViewById(R.id.cafeEmailLineTV);
+            cafeEmailLineTV.setText(cafe.getEmail());
+
 
             rowView.setOnClickListener(new View.OnClickListener() {
                 @Override

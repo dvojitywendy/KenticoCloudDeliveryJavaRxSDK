@@ -45,8 +45,8 @@ public class CafesRepository implements CafesDataSource {
     }
 
     @Override
-    public void getCafe(@NonNull String codename, @NonNull final GetCafeCallback callback) {
-        _dataSource.getCafe(codename, new GetCafeCallback() {
+    public void getCafe(@NonNull String codename, @NonNull final LoadCafeCallback callback) {
+        _dataSource.getCafe(codename, new LoadCafeCallback() {
             @Override
             public void onItemLoaded(Cafe cafe) {
                 callback.onItemLoaded(cafe);

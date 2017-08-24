@@ -97,7 +97,7 @@ public class CafesCloudSource extends BaseCloudSource implements CafesDataSource
     }
 
     @Override
-    public void getCafe(@NonNull String codename, @NonNull final GetCafeCallback callback) {
+    public void getCafe(@NonNull String codename, @NonNull final LoadCafeCallback callback) {
         _deliveryService.item(codename)
                 .get()
                 .subscribeOn(Schedulers.io())
@@ -118,7 +118,7 @@ public class CafesCloudSource extends BaseCloudSource implements CafesDataSource
 
                     @Override
                     public void onError(Throwable e) {
-                        callback.onDataNotAvailable();
+                        callback.onError(e);
                     }
 
                     @Override

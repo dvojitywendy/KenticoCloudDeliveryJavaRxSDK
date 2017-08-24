@@ -51,6 +51,10 @@ public class ArticleDetailFragment extends Fragment implements ArticleDetailCont
         super.onCreate(savedInstanceState);
     }
 
+    @Override
+    public void showNoData(boolean show){
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

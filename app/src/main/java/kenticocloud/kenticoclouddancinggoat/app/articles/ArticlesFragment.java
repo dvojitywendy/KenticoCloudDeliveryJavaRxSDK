@@ -126,22 +126,30 @@ public class ArticlesFragment extends Fragment implements ArticlesContract.View{
     @Override
     public void showArticles(List<Article> articles) {
         _adapter.replaceData(articles);
-
         _articlesView.setVisibility(View.VISIBLE);
-        _noArticlesView.setVisibility(View.GONE);
     }
 
     @Override
     public void showLoadingError() {
-        showMessage("Error loading data");
+        showMessage(getString(R.string.error_loading_data));
     }
 
     private void showMessage(String message) {
         Snackbar.make(getView(), message, Snackbar.LENGTH_LONG).show();
     }
 
+    public void showNoData(boolean show){
+        if (show){
+            _noArticlesView.setVisibility(View.VISIBLE);
+        }
+        else{
+            _noArticlesView.setVisibility(View.GONE);
+
+        }
+    }
+
     /**
-     * Listener for clicks on tasks in the ListView.
+     * Listener for clicks on items in the ListView.
      */
     ArticleItemListener articleItemListener = new ArticleItemListener() {
         @Override

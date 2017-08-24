@@ -1,23 +1,19 @@
-package kenticocloud.kenticoclouddancinggoat.app.cafes;
-
-import java.util.List;
+package kenticocloud.kenticoclouddancinggoat.app.cafe_detail;
 
 import kenticocloud.kenticoclouddancinggoat.BasePresenter;
 import kenticocloud.kenticoclouddancinggoat.BaseView;
-import kenticocloud.kenticoclouddancinggoat.data.models.Article;
 import kenticocloud.kenticoclouddancinggoat.data.models.Cafe;
 
 /**
  * Created by RichardS on 15. 8. 2017.
  */
 
-public interface CafesContract {
+interface CafeDetailContract {
     interface View extends BaseView<Presenter>{
-
-        void showCafes(List<Cafe> cafes);
+        void showCafe(Cafe cafe);
     }
 
     interface Presenter extends BasePresenter{
-        void loadCafes();
+        void loadCafe();
     }
 }
