@@ -52,7 +52,6 @@
                     android:layout_marginTop="15dp"/>
             </LinearLayout>
 
-
             <FrameLayout
                 android:id="@+id/contentFrame"
                 android:layout_width="match_parent"

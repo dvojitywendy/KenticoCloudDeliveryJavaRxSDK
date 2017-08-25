@@ -153,6 +153,7 @@ public class ArticleDetailFragment extends Fragment implements ArticleDetailCont
     @Override
     public void showLoadingError() {
         showMessage(getString(R.string.error_loading_data));
+        setLoadingIndicator(false);
     }
 
     private void showMessage(String message) {

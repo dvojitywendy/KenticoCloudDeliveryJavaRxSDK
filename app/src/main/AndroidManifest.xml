@@ -44,6 +44,10 @@
             android:theme="@style/AppTheme.NoActionBar"
             android:parentActivityName=".app.cafes.CafesActivity">
         </activity>
+        <activity
+            android:name=".app.coffees.CoffeesActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
         <receiver android:name=".app.cafes.CafesBroadcastReceiver" >
         </receiver>
     </application>

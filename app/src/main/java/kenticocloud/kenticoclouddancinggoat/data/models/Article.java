@@ -14,6 +14,9 @@ import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.ContentItem;
  */
 
 public final class Article extends ContentItem{
+
+    public static final String TYPE = "article";
+
     private String _title;
     private String _teaserImageUrl;
     private Date _postDate;

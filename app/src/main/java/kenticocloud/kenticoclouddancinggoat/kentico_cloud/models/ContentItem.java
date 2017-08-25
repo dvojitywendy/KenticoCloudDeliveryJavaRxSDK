@@ -72,7 +72,20 @@ public abstract class ContentItem implements IContentItem{
             return 0;
         }
 
-        return (int)fieldValue;
+        return Integer.parseInt(fieldValue.toString());
+    }
+
+    @Override
+    public double getDoubleValue(@NonNull String fieldName) throws NullPointerException{
+        IField field = getField(fieldName);
+
+        Object fieldValue = field.getValue();
+
+        if (fieldValue == null){
+            return 0;
+        }
+
+        return Double.parseDouble(fieldValue.toString());
     }
 
     @Override

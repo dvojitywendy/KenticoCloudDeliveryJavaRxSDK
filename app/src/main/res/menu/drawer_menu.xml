@@ -7,6 +7,10 @@
             android:icon="@drawable/ic_list"
             android:title="@string/main_menu_articles" />
         <item
+            android:id="@+id/coffees"
+            android:icon="@drawable/ic_local_drink"
+            android:title="@string/main_menu_coffees" />
+        <item
             android:id="@+id/cafes"
             android:icon="@drawable/ic_local_cafe"
             android:title="@string/main_menu_cafes" />

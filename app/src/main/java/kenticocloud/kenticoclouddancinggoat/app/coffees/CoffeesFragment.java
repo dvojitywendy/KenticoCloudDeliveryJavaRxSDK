@@ -1,6 +1,5 @@
-package kenticocloud.kenticoclouddancinggoat.app.articles;
+package kenticocloud.kenticoclouddancinggoat.app.coffees;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
@@ -18,15 +17,12 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 import kenticocloud.kenticoclouddancinggoat.R;
-import kenticocloud.kenticoclouddancinggoat.app.article_detail.ArticleDetailActivity;
 import kenticocloud.kenticoclouddancinggoat.app.shared.ScrollChildSwipeRefreshLayout;
-import kenticocloud.kenticoclouddancinggoat.data.models.Article;
+import kenticocloud.kenticoclouddancinggoat.data.models.Coffee;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -34,42 +30,42 @@ import static com.google.common.base.Preconditions.checkNotNull;
  * Created by RichardS on 15. 8. 2017.
  */
 
-public class ArticlesFragment extends Fragment implements ArticlesContract.View{
+public class CoffeesFragment extends Fragment implements CoffeesContract.View{
 
-    private ArticlesContract.Presenter _presenter;
+    private CoffeesContract.Presenter _presenter;
 
-    private ArticlesAdapter _adapter;
+    private CoffeesAdapter _adapter;
 
-    private View _noArticlesView;
-    private LinearLayout _articlesView;
+    private View _noCoffeesView;
+    private LinearLayout _coffeesView;
 
-    public ArticlesFragment() {
+    public CoffeesFragment() {
         // Requires empty public constructor
     }
 
-    public static ArticlesFragment newInstance() {
-        return new ArticlesFragment();
+    public static CoffeesFragment newInstance() {
+        return new CoffeesFragment();
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        _adapter = new ArticlesAdapter(new ArrayList<Article>(0), articleItemListener);
+        _adapter = new CoffeesAdapter(new ArrayList<Coffee>(0), coffeeItemListener);
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.articles_frag, container, false);
+        View root = inflater.inflate(R.layout.coffees_frag, container, false);
 
         // Set up articles view
-        ListView listView = (ListView) root.findViewById(R.id.articlesLV);
+        ListView listView = (ListView) root.findViewById(R.id.coffeesLV);
         listView.setAdapter(_adapter);
-        _articlesView = (LinearLayout) root.findViewById(R.id.articlesLL);
+        _coffeesView = (LinearLayout) root.findViewById(R.id.coffeesLL);
 
         // Set up no articles view
-        _noArticlesView = root.findViewById(R.id.noArticlesTV);
+        _noCoffeesView = root.findViewById(R.id.noCoffeesTV);
 
         // Set up progress indicator
         final ScrollChildSwipeRefreshLayout swipeRefreshLayout =
@@ -85,7 +81,7 @@ public class ArticlesFragment extends Fragment implements ArticlesContract.View{
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                _presenter.loadArticles();
+                _presenter.loadCoffees();
             }
         });
 
@@ -101,7 +97,7 @@ public class ArticlesFragment extends Fragment implements ArticlesContract.View{
     }
 
     @Override
-    public void setPresenter(ArticlesContract.Presenter presenter) {
+    public void setPresenter(CoffeesContract.Presenter presenter) {
         _presenter = checkNotNull(presenter);
     }
 
@@ -124,27 +120,34 @@ public class ArticlesFragment extends Fragment implements ArticlesContract.View{
     }
 
     @Override
-    public void showArticles(List<Article> articles) {
-        _adapter.replaceData(articles);
-        _articlesView.setVisibility(View.VISIBLE);
+    public void showCoffees(List<Coffee> coffees) {
+        _adapter.replaceData(coffees);
+        _coffeesView.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void showLoadingError() {
+
         showMessage(getString(R.string.error_loading_data));
         setLoadingIndicator(false);
     }
 
     private void showMessage(String message) {
-        Snackbar.make(getView(), message, Snackbar.LENGTH_LONG).show();
+        View view = getView();
+
+        if (view == null){
+            return;
+        }
+
+        Snackbar.make(view, message, Snackbar.LENGTH_LONG).show();
     }
 
     public void showNoData(boolean show){
         if (show){
-            _noArticlesView.setVisibility(View.VISIBLE);
+            _noCoffeesView.setVisibility(View.VISIBLE);
         }
         else{
-            _noArticlesView.setVisibility(View.GONE);
+            _noCoffeesView.setVisibility(View.GONE);
 
         }
     }
@@ -152,42 +155,42 @@ public class ArticlesFragment extends Fragment implements ArticlesContract.View{
     /**
      * Listener for clicks on items in the ListView.
      */
-    ArticleItemListener articleItemListener = new ArticleItemListener() {
+    CoffeeItemListener coffeeItemListener = new CoffeeItemListener() {
         @Override
-        public void onArticleClick(Article clickedArticle) {
-            Intent articleDetailIntent = new Intent(getContext(), ArticleDetailActivity.class);
-            articleDetailIntent.putExtra("article_codename", clickedArticle.getSystem().getCodename());
-            startActivity(articleDetailIntent);
+        public void onCoffeeClick(Coffee clickedCoffee) {
+            //Intent articleDetailIntent = new Intent(getContext(), ArticleDetailActivity.class);
+            //articleDetailIntent.putExtra("article_coffee", clickedCoffee.getSystem().getCodename());
+            //startActivity(articleDetailIntent);
         }
     };
 
-    private static class ArticlesAdapter extends BaseAdapter {
+    private static class CoffeesAdapter extends BaseAdapter {
 
-        private List<Article> _articles;
-        private ArticleItemListener _articleItemListener;
+        private List<Coffee> _coffees;
+        private CoffeeItemListener _coffeeItemListener;
 
-        public ArticlesAdapter(List<Article> articles, ArticleItemListener itemListener) {
-            setList(articles);
-            _articleItemListener = itemListener;
+        CoffeesAdapter(List<Coffee> coffees, CoffeeItemListener itemListener) {
+            setList(coffees);
+            _coffeeItemListener = itemListener;
         }
 
-        public void replaceData(List<Article> articles) {
-            setList(articles);
+        void replaceData(List<Coffee> coffees) {
+            setList(coffees);
             notifyDataSetChanged();
         }
 
-        private void setList(List<Article> articles) {
-            _articles = checkNotNull(articles);
+        private void setList(List<Coffee> coffees) {
+            _coffees = checkNotNull(coffees);
         }
 
         @Override
         public int getCount() {
-            return _articles.size();
+            return _coffees.size();
         }
 
         @Override
-        public Article getItem(int i) {
-            return _articles.get(i);
+        public Coffee getItem(int i) {
+            return _coffees.get(i);
         }
 
         @Override
@@ -200,32 +203,24 @@ public class ArticlesFragment extends Fragment implements ArticlesContract.View{
             View rowView = view;
             if (rowView == null) {
                 LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
-                rowView = inflater.inflate(R.layout.article_item, viewGroup, false);
+                rowView = inflater.inflate(R.layout.coffee_item, viewGroup, false);
             }
 
-            final Article article = getItem(i);
+            final Coffee coffee = getItem(i);
 
             // title
-            TextView titleTV = (TextView) rowView.findViewById(R.id.articleTitleTV);
-            titleTV.setText(article.getTitle());
+            TextView productNameTV = (TextView) rowView.findViewById(R.id.coffeeProductNameTV);
+            productNameTV.setText(coffee.getProductName());
 
             // image
-            final ImageView teaserIV = (ImageView) rowView.findViewById(R.id.articleTeaserIV);
-            Picasso.with(viewGroup.getContext()).load(article.getTeaserImageUrl()).into(teaserIV);
+            final ImageView imageIV = (ImageView) rowView.findViewById(R.id.coffeeImageIV);
+            Picasso.with(viewGroup.getContext()).load(coffee.getImageUrl()).into(imageIV);
 
-            // release date
-            TextView postDateTV = (TextView) rowView.findViewById(R.id.articlePostDateTV);
-            SimpleDateFormat postDf = new SimpleDateFormat("dd MMMM yyyy", Locale.ENGLISH);
-            postDateTV.setText(postDf.format(article.getPostDate()));
-
-            // summary
-            TextView summaryTV = (TextView) rowView.findViewById(R.id.articleSummaryTV);
-            summaryTV.setText(article.getSummary());
 
             rowView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    _articleItemListener.onArticleClick(article);
+                    _coffeeItemListener.onCoffeeClick(coffee);
                 }
             });
 
@@ -234,10 +229,8 @@ public class ArticlesFragment extends Fragment implements ArticlesContract.View{
 
     }
 
-    interface ArticleItemListener {
+    interface CoffeeItemListener {
 
-        void onArticleClick(Article clickedArticle);
+        void onCoffeeClick(Coffee clickedCoffee);
     }
-
-
 }

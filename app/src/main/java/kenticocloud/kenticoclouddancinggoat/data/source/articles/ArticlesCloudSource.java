@@ -43,7 +43,7 @@ public class ArticlesCloudSource extends BaseCloudSource implements ArticlesData
     @Override
     public void getArticles(@NonNull final LoadArticlesCallback callback) {
         _deliveryService.items()
-                .type("article")
+                .type(Article.TYPE)
                 .get()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

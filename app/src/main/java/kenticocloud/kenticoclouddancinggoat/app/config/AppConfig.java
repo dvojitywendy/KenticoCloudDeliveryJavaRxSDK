@@ -9,6 +9,7 @@ import javax.annotation.Nullable;
 
 import kenticocloud.kenticoclouddancinggoat.data.models.Article;
 import kenticocloud.kenticoclouddancinggoat.data.models.Cafe;
+import kenticocloud.kenticoclouddancinggoat.data.models.Coffee;
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.interfaces.item.item.IContentItem;
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.item.TypeResolver;
 
@@ -38,6 +39,15 @@ public class AppConfig {
             @Override
             public IContentItem apply(@Nullable Void input) {
                 return new Article();
+            }
+        }));
+
+        /// Coffee resolver
+        typeResolvers.add(new TypeResolver("coffee", new Function<Void, IContentItem>() {
+            @Nullable
+            @Override
+            public IContentItem apply(@Nullable Void input) {
+                return new Coffee();
             }
         }));
 

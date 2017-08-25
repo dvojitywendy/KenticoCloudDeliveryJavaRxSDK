@@ -34,5 +34,7 @@ public interface IContentItem {
 
      String getAssetUrl(@NonNull String fieldName) throws JSONException;
 
+     double getDoubleValue(@NonNull String fieldName) throws NullPointerException;
+
      void mapProperties() throws ParseException, JSONException;
 }

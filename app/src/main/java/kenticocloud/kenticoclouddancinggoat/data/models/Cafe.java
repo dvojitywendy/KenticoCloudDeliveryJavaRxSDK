@@ -13,6 +13,9 @@ import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.item.RawModels;
  */
 
 public final class Cafe extends ContentItem{
+
+    public static final String TYPE = "cafe";
+
     private String city;
     private String street;
     private String country;

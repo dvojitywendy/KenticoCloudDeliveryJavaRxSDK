@@ -178,11 +178,6 @@ public class CafeDetailFragment extends Fragment implements CafeDetailContract.V
             e.printStackTrace();
         }
 
-
-        LatLng sydney = new LatLng(-34, 151);
-        //_map.addMarker(new MarkerOptions().position(sydney).title("Marker Title").snippet("Marker Description"));
-        //_map.addMarker(new MarkerOptions().position(new LatLng(0, 0)).title("Marker"));
-
         setLoadingIndicator(false);
         _cafeDetailView.setVisibility(View.VISIBLE);
     }

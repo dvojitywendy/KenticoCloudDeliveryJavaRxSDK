@@ -10,6 +10,7 @@
     <string name="error_msg">Error occurred</string>
     <string name="error_network_not_available">Network not available</string>
     <string name="error_loading_data">Error loading data</string>
+    <string name="error_problem_fetching_data">There was a problem fetching data</string>
     <string name="try_again">TRY AGAIN</string>
 
     <!-- navigation drawer -->
@@ -21,6 +22,7 @@
     <!-- main menu items -->
     <string name="main_menu_cafes">Cafes</string>
     <string name="main_menu_articles">Articles</string>
+    <string name="main_menu_coffees">Coffees</string>
     <string name="main_menu_extra">Extra</string>
     <string name="main_menu_contact">Contact</string>
 
