@@ -17,6 +17,8 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.model.Marker;
 import com.squareup.picasso.Picasso;
 
 import com.google.android.gms.maps.GoogleMap;
@@ -25,9 +27,13 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.io.IOException;
+
 import kenticocloud.kenticoclouddancinggoat.R;
 import kenticocloud.kenticoclouddancinggoat.app.shared.ScrollChildSwipeRefreshLayout;
 import kenticocloud.kenticoclouddancinggoat.data.models.Cafe;
+import kenticocloud.kenticoclouddancinggoat.util.Location.LocationHelper;
+import kenticocloud.kenticoclouddancinggoat.util.Location.LocationInfo;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -158,15 +164,29 @@ public class CafeDetailFragment extends Fragment implements CafeDetailContract.V
         TextView cafeEmailTV = (TextView) view.findViewById(R.id.cafeDetailEmailTV);
         cafeEmailTV.setText(cafe.getEmail());
 
-        // init markers
+        // init marker
+        LocationInfo cafeLocation = null;
+        try {
+            cafeLocation = LocationHelper.getLocationFromAddress(getContext(), cafe.getStreet(), cafe.getCity(), cafe.getCountry());
+
+            if (cafeLocation != null){
+                LatLng cafeLatLng = new LatLng(cafeLocation.getLattitude(), cafeLocation.getLongtitude());
+                _map.addMarker(new MarkerOptions().position(cafeLatLng).title("Cafe"));
+                _map.moveCamera(CameraUpdateFactory.newLatLngZoom(cafeLatLng, 12));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
         LatLng sydney = new LatLng(-34, 151);
-        _map.addMarker(new MarkerOptions().position(sydney).title("Marker Title").snippet("Marker Description"));
-        _map.addMarker(new MarkerOptions().position(new LatLng(0, 0)).title("Marker"));
+        //_map.addMarker(new MarkerOptions().position(sydney).title("Marker Title").snippet("Marker Description"));
+        //_map.addMarker(new MarkerOptions().position(new LatLng(0, 0)).title("Marker"));
 
         setLoadingIndicator(false);
         _cafeDetailView.setVisibility(View.VISIBLE);
-
     }
+
 
     @Override
     public void onPause() {
