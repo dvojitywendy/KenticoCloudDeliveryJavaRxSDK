@@ -136,6 +136,11 @@ public class ArticlesFragment extends Fragment implements ArticlesContract.View{
     }
 
     private void showMessage(String message) {
+        View view = getView();
+
+        if (view == null){
+            return;
+        }
         Snackbar.make(getView(), message, Snackbar.LENGTH_LONG).show();
     }
 
@@ -166,12 +171,12 @@ public class ArticlesFragment extends Fragment implements ArticlesContract.View{
         private List<Article> _articles;
         private ArticleItemListener _articleItemListener;
 
-        public ArticlesAdapter(List<Article> articles, ArticleItemListener itemListener) {
+        ArticlesAdapter(List<Article> articles, ArticleItemListener itemListener) {
             setList(articles);
             _articleItemListener = itemListener;
         }
 
-        public void replaceData(List<Article> articles) {
+        void replaceData(List<Article> articles) {
             setList(articles);
             notifyDataSetChanged();
         }

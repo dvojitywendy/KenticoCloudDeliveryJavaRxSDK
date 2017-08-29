@@ -48,6 +48,11 @@
             android:name=".app.coffees.CoffeesActivity"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
+        <activity
+            android:name=".app.coffee_detail.CoffeeDetailActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:parentActivityName=".app.coffees.CoffeesActivity">
+        </activity>
         <receiver android:name=".app.cafes.CafesBroadcastReceiver" >
         </receiver>
     </application>

@@ -1,5 +1,6 @@
 package kenticocloud.kenticoclouddancinggoat.app.coffees;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
@@ -21,6 +22,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import kenticocloud.kenticoclouddancinggoat.R;
+import kenticocloud.kenticoclouddancinggoat.app.article_detail.ArticleDetailActivity;
+import kenticocloud.kenticoclouddancinggoat.app.coffee_detail.CoffeeDetailActivity;
 import kenticocloud.kenticoclouddancinggoat.app.shared.ScrollChildSwipeRefreshLayout;
 import kenticocloud.kenticoclouddancinggoat.data.models.Coffee;
 
@@ -158,9 +161,9 @@ public class CoffeesFragment extends Fragment implements CoffeesContract.View{
     CoffeeItemListener coffeeItemListener = new CoffeeItemListener() {
         @Override
         public void onCoffeeClick(Coffee clickedCoffee) {
-            //Intent articleDetailIntent = new Intent(getContext(), ArticleDetailActivity.class);
-            //articleDetailIntent.putExtra("article_coffee", clickedCoffee.getSystem().getCodename());
-            //startActivity(articleDetailIntent);
+            Intent coffeeDetailIntent = new Intent(getContext(), CoffeeDetailActivity.class);
+            coffeeDetailIntent.putExtra("coffee_codename", clickedCoffee.getSystem().getCodename());
+            startActivity(coffeeDetailIntent);
         }
     };
 
