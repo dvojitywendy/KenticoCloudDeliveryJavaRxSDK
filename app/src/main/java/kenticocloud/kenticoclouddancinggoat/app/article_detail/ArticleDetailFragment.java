@@ -16,12 +16,14 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.common.base.Function;
 import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
 import kenticocloud.kenticoclouddancinggoat.R;
+import kenticocloud.kenticoclouddancinggoat.app.core.BaseFragment;
 import kenticocloud.kenticoclouddancinggoat.app.shared.ScrollChildSwipeRefreshLayout;
 import kenticocloud.kenticoclouddancinggoat.data.models.Article;
 
@@ -31,12 +33,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
  * Created by RichardS on 15. 8. 2017.
  */
 
-public class ArticleDetailFragment extends Fragment implements ArticleDetailContract.View {
-
-    private ArticleDetailContract.Presenter _presenter;
-    private String articleCodename;
-
-    private LinearLayout _articleDetailView;
+public class ArticleDetailFragment extends BaseFragment<ArticleDetailContract.Presenter> implements ArticleDetailContract.View {
 
     public ArticleDetailFragment() {
         // Requires empty public constructor
@@ -47,73 +44,23 @@ public class ArticleDetailFragment extends Fragment implements ArticleDetailCont
     }
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected int getFragmentId(){
+        return R.layout.article_detail_frag;
     }
 
     @Override
-    public void showNoData(boolean show){
-    }
-
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.article_detail_frag, container, false);
-
-        // Set article LL
-        _articleDetailView = (LinearLayout) root.findViewById(R.id.articleDetailLL);
-
-        // Set up progress indicator
-        final ScrollChildSwipeRefreshLayout swipeRefreshLayout =
-                (ScrollChildSwipeRefreshLayout) root.findViewById(R.id.refresh_layout);
-        swipeRefreshLayout.setColorSchemeColors(
-                ContextCompat.getColor(getActivity(), R.color.colorPrimary),
-                ContextCompat.getColor(getActivity(), R.color.colorAccent),
-                ContextCompat.getColor(getActivity(), R.color.colorPrimaryDark)
-        );
-        // Set the scrolling view in the custom SwipeRefreshLayout.
-        swipeRefreshLayout.setScrollUpChild(_articleDetailView);
-
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                _presenter.loadArticle();
-            }
-        });
-
-        setHasOptionsMenu(true);
-
-        return root;
+    protected int getViewId(){
+        return R.id.articleDetailLL;
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        _presenter.start();
+    protected boolean hasScrollSwipeRefresh() {
+        return true;
     }
 
     @Override
-    public void setPresenter(ArticleDetailContract.Presenter presenter) {
-        _presenter = checkNotNull(presenter);
-    }
-
-    @Override
-    public void setLoadingIndicator(final boolean active) {
-        if (getView() == null) {
-            return;
-        }
-
-        final SwipeRefreshLayout srl =
-                (SwipeRefreshLayout) getView().findViewById(R.id.refresh_layout);
-
-        // Make sure setRefreshing() is called after the layout is done with everything else.
-        srl.post(new Runnable() {
-            @Override
-            public void run() {
-                srl.setRefreshing(active);
-            }
-        });
+    protected void onScrollSwipeRefresh() {
+        _presenter.loadArticle();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -146,26 +93,7 @@ public class ArticleDetailFragment extends Fragment implements ArticleDetailCont
         TextView bodyCopyTV = (TextView) view.findViewById(R.id.articleDetailBodyCopyTV);
         bodyCopyTV.setText(Html.fromHtml(article.getBodyCopy(), Html.FROM_HTML_MODE_COMPACT));
 
-        _articleDetailView.setVisibility(View.VISIBLE);
+        _fragmentView.setVisibility(View.VISIBLE);
 
     }
-
-    @Override
-    public void showLoadingError() {
-        showMessage(getString(R.string.error_loading_data));
-        setLoadingIndicator(false);
-    }
-
-    private void showMessage(String message) {
-        View view = getView();
-
-        if (view == null){
-            return;
-        }
-
-        Snackbar.make(getView(), message, Snackbar.LENGTH_LONG).show();
-    }
-
-
-
 }

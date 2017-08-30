@@ -28,6 +28,7 @@ import com.squareup.picasso.Picasso;
 import java.io.IOException;
 
 import kenticocloud.kenticoclouddancinggoat.R;
+import kenticocloud.kenticoclouddancinggoat.app.core.BaseFragment;
 import kenticocloud.kenticoclouddancinggoat.app.shared.ScrollChildSwipeRefreshLayout;
 import kenticocloud.kenticoclouddancinggoat.data.models.Cafe;
 import kenticocloud.kenticoclouddancinggoat.data.models.Coffee;
@@ -40,10 +41,8 @@ import static com.google.common.base.Preconditions.checkNotNull;
  * Created by RichardS on 15. 8. 2017.
  */
 
-public class CoffeeDetailFragment extends Fragment implements CoffeeDetailContract.View, OnMapReadyCallback  {
+public class CoffeeDetailFragment extends BaseFragment<CoffeeDetailContract.Presenter> implements CoffeeDetailContract.View, OnMapReadyCallback  {
 
-    private CoffeeDetailContract.Presenter _presenter;
-    private LinearLayout _coffeeDetailView;
     private GoogleMap _map;
 
     public CoffeeDetailFragment() {
@@ -55,76 +54,36 @@ public class CoffeeDetailFragment extends Fragment implements CoffeeDetailContra
     }
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected int getFragmentId(){
+        return R.layout.coffee_detail_frag;
     }
 
     @Override
-    public void showNoData(boolean show) {
+    protected int getViewId(){
+        return R.id.coffeeDetailLL;
+    }
+
+    @Override
+    protected boolean hasScrollSwipeRefresh() {
+        return true;
+    }
+
+    @Override
+    protected void onScrollSwipeRefresh() {
+        _presenter.loadCoffee();
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.coffee_detail_frag, container, false);
-
-        // Set coffee LL
-        _coffeeDetailView = (LinearLayout) root.findViewById(R.id.coffeeDetailLL);
-
-        setHasOptionsMenu(true);
-
-        // Set up progress indicator
-        final ScrollChildSwipeRefreshLayout swipeRefreshLayout =
-                (ScrollChildSwipeRefreshLayout) root.findViewById(R.id.refresh_layout);
-        swipeRefreshLayout.setColorSchemeColors(
-                ContextCompat.getColor(getActivity(), R.color.colorPrimary),
-                ContextCompat.getColor(getActivity(), R.color.colorAccent),
-                ContextCompat.getColor(getActivity(), R.color.colorPrimaryDark)
-        );
-        // Set the scrolling view in the custom SwipeRefreshLayout.
-        swipeRefreshLayout.setScrollUpChild(_coffeeDetailView);
-
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                _presenter.loadCoffee();
-            }
-        });
+        super.onCreateView(inflater, container, savedInstanceState);
 
         // init map
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        return root;
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        _presenter.start();
-    }
-
-    @Override
-    public void setPresenter(CoffeeDetailContract.Presenter presenter) {
-        _presenter = checkNotNull(presenter);
-    }
-
-    @Override
-    public void setLoadingIndicator(final boolean active) {
-        if (getView() == null) {
-            return;
-        }
-        final SwipeRefreshLayout srl =
-                (SwipeRefreshLayout) getView().findViewById(R.id.refresh_layout);
-
-        // Make sure setRefreshing() is called after the layout is done with everything else.
-        srl.post(new Runnable() {
-            @Override
-            public void run() {
-                srl.setRefreshing(active);
-            }
-        });
+        return _root;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -172,28 +131,7 @@ public class CoffeeDetailFragment extends Fragment implements CoffeeDetailContra
         }
 
         setLoadingIndicator(false);
-        _coffeeDetailView.setVisibility(View.VISIBLE);
-    }
-
-
-    @Override
-    public void onPause() {
-        super.onPause();
-    }
-
-    @Override
-    public void showLoadingError() {
-        showMessage(getString(R.string.error_loading_data));
-    }
-
-    private void showMessage(String message) {
-        View view = getView();
-
-        if (view == null){
-            return;
-        }
-
-        Snackbar.make(getView(), message, Snackbar.LENGTH_LONG).show();
+        _fragmentView.setVisibility(View.VISIBLE);
     }
 
     @Override

@@ -25,6 +25,8 @@ import java.util.Locale;
 
 import kenticocloud.kenticoclouddancinggoat.R;
 import kenticocloud.kenticoclouddancinggoat.app.article_detail.ArticleDetailActivity;
+import kenticocloud.kenticoclouddancinggoat.app.core.BaseFragment;
+import kenticocloud.kenticoclouddancinggoat.app.shared.CommunicationHub;
 import kenticocloud.kenticoclouddancinggoat.app.shared.ScrollChildSwipeRefreshLayout;
 import kenticocloud.kenticoclouddancinggoat.data.models.Article;
 
@@ -34,17 +36,37 @@ import static com.google.common.base.Preconditions.checkNotNull;
  * Created by RichardS on 15. 8. 2017.
  */
 
-public class ArticlesFragment extends Fragment implements ArticlesContract.View{
-
-    private ArticlesContract.Presenter _presenter;
+public class ArticlesFragment extends BaseFragment<ArticlesContract.Presenter> implements ArticlesContract.View{
 
     private ArticlesAdapter _adapter;
 
-    private View _noArticlesView;
-    private LinearLayout _articlesView;
-
     public ArticlesFragment() {
         // Requires empty public constructor
+    }
+
+    @Override
+    protected int getFragmentId(){
+        return R.layout.articles_frag;
+    }
+
+    @Override
+    protected int getViewId(){
+        return R.id.articlesLL;
+    }
+
+    @Override
+    protected boolean hasScrollSwipeRefresh() {
+        return true;
+    }
+
+    @Override
+    protected void onScrollSwipeRefresh() {
+        _presenter.loadArticles();
+    }
+
+    @Override
+    protected View scrollUpChildView() {
+        return _root.findViewById(R.id.articlesLV);
     }
 
     public static ArticlesFragment newInstance() {
@@ -61,97 +83,18 @@ public class ArticlesFragment extends Fragment implements ArticlesContract.View{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.articles_frag, container, false);
+        super.onCreateView(inflater, container, savedInstanceState);
 
-        // Set up articles view
-        ListView listView = (ListView) root.findViewById(R.id.articlesLV);
+        ListView listView = (ListView) _root.findViewById(R.id.articlesLV);
         listView.setAdapter(_adapter);
-        _articlesView = (LinearLayout) root.findViewById(R.id.articlesLL);
 
-        // Set up no articles view
-        _noArticlesView = root.findViewById(R.id.noArticlesTV);
-
-        // Set up progress indicator
-        final ScrollChildSwipeRefreshLayout swipeRefreshLayout =
-                (ScrollChildSwipeRefreshLayout) root.findViewById(R.id.refresh_layout);
-        swipeRefreshLayout.setColorSchemeColors(
-                ContextCompat.getColor(getActivity(), R.color.colorPrimary),
-                ContextCompat.getColor(getActivity(), R.color.colorAccent),
-                ContextCompat.getColor(getActivity(), R.color.colorPrimaryDark)
-        );
-        // Set the scrolling view in the custom SwipeRefreshLayout.
-        swipeRefreshLayout.setScrollUpChild(listView);
-
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                _presenter.loadArticles();
-            }
-        });
-
-        setHasOptionsMenu(true);
-
-        return root;
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        _presenter.start();
-    }
-
-    @Override
-    public void setPresenter(ArticlesContract.Presenter presenter) {
-        _presenter = checkNotNull(presenter);
-    }
-
-    @Override
-    public void setLoadingIndicator(final boolean active) {
-        if (getView() == null) {
-            return;
-        }
-
-        final SwipeRefreshLayout srl =
-                (SwipeRefreshLayout) getView().findViewById(R.id.refresh_layout);
-
-        // Make sure setRefreshing() is called after the layout is done with everything else.
-        srl.post(new Runnable() {
-            @Override
-            public void run() {
-                srl.setRefreshing(active);
-            }
-        });
+        return _root;
     }
 
     @Override
     public void showArticles(List<Article> articles) {
         _adapter.replaceData(articles);
-        _articlesView.setVisibility(View.VISIBLE);
-    }
-
-    @Override
-    public void showLoadingError() {
-        showMessage(getString(R.string.error_loading_data));
-        setLoadingIndicator(false);
-    }
-
-    private void showMessage(String message) {
-        View view = getView();
-
-        if (view == null){
-            return;
-        }
-        Snackbar.make(getView(), message, Snackbar.LENGTH_LONG).show();
-    }
-
-    public void showNoData(boolean show){
-        if (show){
-            _noArticlesView.setVisibility(View.VISIBLE);
-        }
-        else{
-            _noArticlesView.setVisibility(View.GONE);
-
-        }
+        _fragmentView.setVisibility(View.VISIBLE);
     }
 
     /**
@@ -161,7 +104,7 @@ public class ArticlesFragment extends Fragment implements ArticlesContract.View{
         @Override
         public void onArticleClick(Article clickedArticle) {
             Intent articleDetailIntent = new Intent(getContext(), ArticleDetailActivity.class);
-            articleDetailIntent.putExtra("article_codename", clickedArticle.getSystem().getCodename());
+            articleDetailIntent.putExtra(CommunicationHub.ArticleCodename.toString(), clickedArticle.getSystem().getCodename());
             startActivity(articleDetailIntent);
         }
     };
@@ -236,13 +179,10 @@ public class ArticlesFragment extends Fragment implements ArticlesContract.View{
 
             return rowView;
         }
-
     }
 
     interface ArticleItemListener {
 
         void onArticleClick(Article clickedArticle);
     }
-
-
 }

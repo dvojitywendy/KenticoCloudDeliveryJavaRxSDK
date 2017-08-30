@@ -14,13 +14,13 @@ import static com.google.common.base.Preconditions.checkNotNull;
  * Created by RichardS on 15. 8. 2017.
  */
 
-public class ArticlesPresenter implements ArticlesContract.Presenter {
+class ArticlesPresenter implements ArticlesContract.Presenter {
 
     private final ArticlesRepository _repository;
 
     private final ArticlesContract.View _view;
 
-    public ArticlesPresenter(@NonNull ArticlesRepository repository, @NonNull ArticlesContract.View view) {
+    ArticlesPresenter(@NonNull ArticlesRepository repository, @NonNull ArticlesContract.View view) {
         _repository = checkNotNull(repository, "repository cannot be null");
         _view = checkNotNull(view, "view cannot be null!");
 

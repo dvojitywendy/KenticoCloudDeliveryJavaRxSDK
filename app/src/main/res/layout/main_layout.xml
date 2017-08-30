@@ -38,11 +38,12 @@
                 android:layout_height="match_parent"
                 android:gravity="center" >
                 <TextView
-                    android:id="@+id/noConnectionTV"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/error_network_failure_msg"
-                    />
+                android:id="@+id/noConnectionTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/error_network_failure_msg"
+                />
+
                 <android.support.v7.widget.AppCompatButton
                     android:id="@+id/refreshConnectionACB"
                     android:layout_width="wrap_content"
@@ -51,6 +52,21 @@
                     android:text="@string/try_again"
                     android:layout_marginTop="15dp"/>
             </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:visibility="gone"
+            android:id="@+id/noDataLL"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center" >
+            <TextView
+                android:id="@+id/noDataTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/no_data"
+                />
+        </LinearLayout>
 
             <FrameLayout
                 android:id="@+id/contentFrame"

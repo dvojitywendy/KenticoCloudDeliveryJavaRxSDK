@@ -30,4 +30,5 @@
     <string name="teaser_image">Teaser image</string>
     <string name="no_cafes">No cafes were found</string>
     <string name="cafe">Cafe</string>
+    <string name="no_data">There is no data</string>
 </resources>

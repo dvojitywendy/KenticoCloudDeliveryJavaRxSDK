@@ -30,6 +30,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.io.IOException;
 
 import kenticocloud.kenticoclouddancinggoat.R;
+import kenticocloud.kenticoclouddancinggoat.app.core.BaseFragment;
 import kenticocloud.kenticoclouddancinggoat.app.shared.ScrollChildSwipeRefreshLayout;
 import kenticocloud.kenticoclouddancinggoat.data.models.Cafe;
 import kenticocloud.kenticoclouddancinggoat.util.Location.LocationHelper;
@@ -41,11 +42,9 @@ import static com.google.common.base.Preconditions.checkNotNull;
  * Created by RichardS on 15. 8. 2017.
  */
 
-public class CafeDetailFragment extends Fragment implements CafeDetailContract.View, OnMapReadyCallback  {
+public class CafeDetailFragment extends BaseFragment<CafeDetailContract.Presenter> implements CafeDetailContract.View, OnMapReadyCallback  {
 
-    private CafeDetailContract.Presenter _presenter;
     private GoogleMap _map;
-    private LinearLayout _cafeDetailView;
 
     public CafeDetailFragment() {
         // Requires empty public constructor
@@ -56,76 +55,36 @@ public class CafeDetailFragment extends Fragment implements CafeDetailContract.V
     }
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected int getFragmentId(){
+        return R.layout.cafe_detail_frag;
     }
 
     @Override
-    public void showNoData(boolean show) {
+    protected int getViewId(){
+        return R.id.cafeDetailRL;
+    }
+
+    @Override
+    protected boolean hasScrollSwipeRefresh() {
+        return true;
+    }
+
+    @Override
+    protected void onScrollSwipeRefresh() {
+        _presenter.loadCafe();
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.cafe_detail_frag, container, false);
-
-        // Set cafe LL
-        _cafeDetailView = (LinearLayout) root.findViewById(R.id.cafeDetailRL);
-
-        setHasOptionsMenu(true);
-
-        // Set up progress indicator
-        final ScrollChildSwipeRefreshLayout swipeRefreshLayout =
-                (ScrollChildSwipeRefreshLayout) root.findViewById(R.id.refresh_layout);
-        swipeRefreshLayout.setColorSchemeColors(
-                ContextCompat.getColor(getActivity(), R.color.colorPrimary),
-                ContextCompat.getColor(getActivity(), R.color.colorAccent),
-                ContextCompat.getColor(getActivity(), R.color.colorPrimaryDark)
-        );
-        // Set the scrolling view in the custom SwipeRefreshLayout.
-        swipeRefreshLayout.setScrollUpChild(_cafeDetailView);
-
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                _presenter.loadCafe();
-            }
-        });
+        super.onCreateView(inflater, container, savedInstanceState);
 
         // init map
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        return root;
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        _presenter.start();
-    }
-
-    @Override
-    public void setPresenter(CafeDetailContract.Presenter presenter) {
-        _presenter = checkNotNull(presenter);
-    }
-
-    @Override
-    public void setLoadingIndicator(final boolean active) {
-        if (getView() == null) {
-            return;
-        }
-        final SwipeRefreshLayout srl =
-                (SwipeRefreshLayout) getView().findViewById(R.id.refresh_layout);
-
-        // Make sure setRefreshing() is called after the layout is done with everything else.
-        srl.post(new Runnable() {
-            @Override
-            public void run() {
-                srl.setRefreshing(active);
-            }
-        });
+        return _root;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -178,28 +137,7 @@ public class CafeDetailFragment extends Fragment implements CafeDetailContract.V
         }
 
         setLoadingIndicator(false);
-        _cafeDetailView.setVisibility(View.VISIBLE);
-    }
-
-
-    @Override
-    public void onPause() {
-        super.onPause();
-    }
-
-    @Override
-    public void showLoadingError() {
-        showMessage(getString(R.string.error_loading_data));
-    }
-
-    private void showMessage(String message) {
-        View view = getView();
-
-        if (view == null){
-            return;
-        }
-
-        Snackbar.make(getView(), message, Snackbar.LENGTH_LONG).show();
+        _fragmentView.setVisibility(View.VISIBLE);
     }
 
     @Override

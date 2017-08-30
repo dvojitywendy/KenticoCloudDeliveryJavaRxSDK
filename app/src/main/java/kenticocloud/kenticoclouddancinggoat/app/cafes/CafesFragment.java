@@ -24,6 +24,8 @@ import java.util.List;
 
 import kenticocloud.kenticoclouddancinggoat.R;
 import kenticocloud.kenticoclouddancinggoat.app.cafe_detail.CafeDetailActivity;
+import kenticocloud.kenticoclouddancinggoat.app.core.BaseFragment;
+import kenticocloud.kenticoclouddancinggoat.app.shared.CommunicationHub;
 import kenticocloud.kenticoclouddancinggoat.app.shared.ScrollChildSwipeRefreshLayout;
 import kenticocloud.kenticoclouddancinggoat.data.models.Article;
 import kenticocloud.kenticoclouddancinggoat.data.models.Cafe;
@@ -34,14 +36,9 @@ import static com.google.common.base.Preconditions.checkNotNull;
  * Created by RichardS on 15. 8. 2017.
  */
 
-public class CafesFragment extends Fragment implements CafesContract.View{
-
-    private CafesContract.Presenter _presenter;
+public class CafesFragment extends BaseFragment<CafesContract.Presenter> implements CafesContract.View{
 
     private CafesAdapter _adapter;
-
-    private View _noCafesView;
-    private LinearLayout _cafesView;
 
     public CafesFragment() {
         // Requires empty public constructor
@@ -49,6 +46,31 @@ public class CafesFragment extends Fragment implements CafesContract.View{
 
     public static CafesFragment newInstance() {
         return new CafesFragment();
+    }
+
+    @Override
+    protected int getFragmentId(){
+        return R.layout.cafes_frag;
+    }
+
+    @Override
+    protected int getViewId(){
+        return R.id.cafesLL;
+    }
+
+    @Override
+    protected boolean hasScrollSwipeRefresh() {
+        return true;
+    }
+
+    @Override
+    protected void onScrollSwipeRefresh() {
+        _presenter.loadCafes();
+    }
+
+    @Override
+    protected View scrollUpChildView() {
+        return _root.findViewById(R.id.cafesLV);
     }
 
     @Override
@@ -61,98 +83,20 @@ public class CafesFragment extends Fragment implements CafesContract.View{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.cafes_frag, container, false);
+        super.onCreateView(inflater, container, savedInstanceState);
 
         // Set up tasks view
-        ListView listView = (ListView) root.findViewById(R.id.cafesLV);
+        ListView listView = (ListView) _root.findViewById(R.id.cafesLV);
         listView.setAdapter(_adapter);
-        _cafesView = (LinearLayout) root.findViewById(R.id.cafesLL);
 
-        // Set up  no cafes view
-        _noCafesView = root.findViewById(R.id.noCafesTV);
-
-        // Set up progress indicator
-        final ScrollChildSwipeRefreshLayout swipeRefreshLayout =
-                (ScrollChildSwipeRefreshLayout) root.findViewById(R.id.refresh_layout);
-        swipeRefreshLayout.setColorSchemeColors(
-                ContextCompat.getColor(getActivity(), R.color.colorPrimary),
-                ContextCompat.getColor(getActivity(), R.color.colorAccent),
-                ContextCompat.getColor(getActivity(), R.color.colorPrimaryDark)
-        );
-        // Set the scrolling view in the custom SwipeRefreshLayout.
-        swipeRefreshLayout.setScrollUpChild(listView);
-
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                _presenter.loadCafes();
-            }
-        });
-
-        setHasOptionsMenu(true);
-
-        return root;
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        _presenter.start();
-    }
-
-    @Override
-    public void setPresenter(CafesContract.Presenter presenter) {
-        _presenter = checkNotNull(presenter);
-    }
-
-    @Override
-    public void setLoadingIndicator(final boolean active) {
-        if (getView() == null) {
-            return;
-        }
-
-        final SwipeRefreshLayout srl =
-                (SwipeRefreshLayout) getView().findViewById(R.id.refresh_layout);
-
-        // Make sure setRefreshing() is called after the layout is done with everything else.
-        srl.post(new Runnable() {
-            @Override
-            public void run() {
-                srl.setRefreshing(active);
-            }
-        });
+        return _root;
     }
 
     @Override
     public void showCafes(List<Cafe> cafes) {
         _adapter.replaceData(cafes);
 
-        _cafesView.setVisibility(View.VISIBLE);
-    }
-
-    @Override
-    public void showLoadingError() {
-        showMessage(getString(R.string.error_loading_data));
-    }
-
-    public void showNoData(boolean show){
-        if (show){
-            _noCafesView.setVisibility(View.VISIBLE);
-        }
-        else{
-            _noCafesView.setVisibility(View.GONE);
-
-        }
-    }
-
-    private void showMessage(String message) {
-        View view = getView();
-
-        if (view == null){
-            return;
-        }
-
-        Snackbar.make(getView(), message, Snackbar.LENGTH_LONG).show();
+        _fragmentView.setVisibility(View.VISIBLE);
     }
 
     /**
@@ -163,7 +107,7 @@ public class CafesFragment extends Fragment implements CafesContract.View{
         public void onCafeClick(Cafe clickedCafe) {
             // to do some action when item is clicked
             Intent cafeDetailIntent = new Intent(getContext(), CafeDetailActivity.class);
-            cafeDetailIntent.putExtra("cafe_codename", clickedCafe.getSystem().getCodename());
+            cafeDetailIntent.putExtra(CommunicationHub.CafeCodename.toString(), clickedCafe.getSystem().getCodename());
             startActivity(cafeDetailIntent);
         }
     };

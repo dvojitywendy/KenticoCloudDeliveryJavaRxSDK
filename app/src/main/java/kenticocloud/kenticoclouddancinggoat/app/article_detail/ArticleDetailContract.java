@@ -1,9 +1,7 @@
 package kenticocloud.kenticoclouddancinggoat.app.article_detail;
 
-import android.support.annotation.NonNull;
-
-import kenticocloud.kenticoclouddancinggoat.BasePresenter;
-import kenticocloud.kenticoclouddancinggoat.BaseView;
+import kenticocloud.kenticoclouddancinggoat.app.core.IBasePresenter;
+import kenticocloud.kenticoclouddancinggoat.app.core.IBaseView;
 import kenticocloud.kenticoclouddancinggoat.data.models.Article;
 
 /**
@@ -11,11 +9,11 @@ import kenticocloud.kenticoclouddancinggoat.data.models.Article;
  */
 
 interface ArticleDetailContract {
-    interface View extends BaseView<Presenter>{
+    interface View extends IBaseView<Presenter> {
         void showArticle(Article article);
     }
 
-    interface Presenter extends BasePresenter{
+    interface Presenter extends IBasePresenter {
         void loadArticle();
     }
 }

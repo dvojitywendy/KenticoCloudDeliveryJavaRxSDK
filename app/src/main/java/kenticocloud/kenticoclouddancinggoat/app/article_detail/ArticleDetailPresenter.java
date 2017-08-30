@@ -12,14 +12,14 @@ import static com.google.common.base.Preconditions.checkNotNull;
  * Created by RichardS on 15. 8. 2017.
  */
 
-public class ArticleDetailPresenter implements ArticleDetailContract.Presenter {
+class ArticleDetailPresenter implements ArticleDetailContract.Presenter {
 
     private final String _articleCodename;
     private final ArticlesRepository _repository;
 
     private final ArticleDetailContract.View _view;
 
-    public ArticleDetailPresenter(@NonNull ArticlesRepository repository, @NonNull ArticleDetailContract.View view, @NonNull String articleCodename) {
+    ArticleDetailPresenter(@NonNull ArticlesRepository repository, @NonNull ArticleDetailContract.View view, @NonNull String articleCodename) {
         _repository = checkNotNull(repository, "repository cannot be null");
         _view = checkNotNull(view, "view cannot be null!");
         _view.setPresenter(this);

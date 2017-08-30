@@ -1,4 +1,4 @@
-package kenticocloud.kenticoclouddancinggoat.app;
+package kenticocloud.kenticoclouddancinggoat.app.core;
 
 import android.content.Intent;
 import android.os.Bundle;

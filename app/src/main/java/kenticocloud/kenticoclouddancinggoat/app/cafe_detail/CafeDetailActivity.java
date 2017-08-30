@@ -7,7 +7,8 @@ package kenticocloud.kenticoclouddancinggoat.app.cafe_detail;
 import android.os.Bundle;
 
 import kenticocloud.kenticoclouddancinggoat.R;
-import kenticocloud.kenticoclouddancinggoat.app.BaseActivity;
+import kenticocloud.kenticoclouddancinggoat.app.core.BaseActivity;
+import kenticocloud.kenticoclouddancinggoat.app.shared.CommunicationHub;
 import kenticocloud.kenticoclouddancinggoat.injection.Injection;
 import kenticocloud.kenticoclouddancinggoat.util.ActivityUtils;
 
@@ -34,7 +35,7 @@ public class CafeDetailActivity extends BaseActivity{
         }
 
         // get codename of the cafe from extra data
-        String cafeCodename = getIntent().getStringExtra("cafe_codename");
+        String cafeCodename = getIntent().getStringExtra(CommunicationHub.CafeCodename.toString());
 
         // Set fragment
         CafeDetailFragment cafeDetailFragment = (CafeDetailFragment) getSupportFragmentManager().findFragmentById(R.id.contentFrame);

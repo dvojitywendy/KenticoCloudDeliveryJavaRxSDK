@@ -17,13 +17,13 @@ import static com.google.common.base.Preconditions.checkNotNull;
  * Created by RichardS on 15. 8. 2017.
  */
 
-public class CafesPresenter implements CafesContract.Presenter {
+class CafesPresenter implements CafesContract.Presenter {
 
     private final CafesRepository _repository;
 
     private final CafesContract.View _view;
 
-    public CafesPresenter(@NonNull CafesRepository repository, @NonNull CafesContract.View view) {
+    CafesPresenter(@NonNull CafesRepository repository, @NonNull CafesContract.View view) {
         _repository = checkNotNull(repository, "repository cannot be null");
         _view = checkNotNull(view, "view cannot be null!");
 

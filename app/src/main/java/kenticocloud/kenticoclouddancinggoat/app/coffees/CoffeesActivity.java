@@ -4,12 +4,9 @@ package kenticocloud.kenticoclouddancinggoat.app.coffees;
  * Created by RichardS on 15. 8. 2017.
  */
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.view.View;
 
 import kenticocloud.kenticoclouddancinggoat.R;
-import kenticocloud.kenticoclouddancinggoat.app.BaseActivity;
+import kenticocloud.kenticoclouddancinggoat.app.core.BaseActivity;
 import kenticocloud.kenticoclouddancinggoat.injection.Injection;
 import kenticocloud.kenticoclouddancinggoat.util.ActivityUtils;
 

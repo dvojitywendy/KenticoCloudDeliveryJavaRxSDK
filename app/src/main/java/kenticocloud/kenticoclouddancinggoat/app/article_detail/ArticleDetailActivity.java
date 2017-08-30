@@ -5,14 +5,10 @@ package kenticocloud.kenticoclouddancinggoat.app.article_detail;
  */
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.view.View;
 
 import kenticocloud.kenticoclouddancinggoat.R;
-import kenticocloud.kenticoclouddancinggoat.app.BaseActivity;
-import kenticocloud.kenticoclouddancinggoat.app.articles.ArticlesFragment;
-import kenticocloud.kenticoclouddancinggoat.app.articles.ArticlesPresenter;
+import kenticocloud.kenticoclouddancinggoat.app.core.BaseActivity;
+import kenticocloud.kenticoclouddancinggoat.app.shared.CommunicationHub;
 import kenticocloud.kenticoclouddancinggoat.injection.Injection;
 import kenticocloud.kenticoclouddancinggoat.util.ActivityUtils;
 
@@ -39,7 +35,7 @@ public class ArticleDetailActivity extends BaseActivity{
         }
 
         // get codename of the article from extra data
-        String articleCodename = getIntent().getStringExtra("article_codename");
+        String articleCodename = getIntent().getStringExtra(CommunicationHub.ArticleCodename.toString());
 
         // Set fragment
         ArticleDetailFragment articleDetailFragment = (ArticleDetailFragment) getSupportFragmentManager().findFragmentById(R.id.contentFrame);
