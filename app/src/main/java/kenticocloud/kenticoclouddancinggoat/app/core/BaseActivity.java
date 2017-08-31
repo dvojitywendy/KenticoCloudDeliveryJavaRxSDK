@@ -20,7 +20,6 @@ import com.androidnetworking.AndroidNetworking;
 import kenticocloud.kenticoclouddancinggoat.R;
 import kenticocloud.kenticoclouddancinggoat.app.articles.ArticlesActivity;
 import kenticocloud.kenticoclouddancinggoat.app.cafes.CafesActivity;
-import kenticocloud.kenticoclouddancinggoat.app.cafes.CafesBroadcastReceiver;
 import kenticocloud.kenticoclouddancinggoat.app.coffees.CoffeesActivity;
 import kenticocloud.kenticoclouddancinggoat.util.NetworkHelper;
 import kenticocloud.kenticoclouddancinggoat.util.SyncHelper;
@@ -134,10 +133,6 @@ public abstract class BaseActivity extends AppCompatActivity {
                 }
             }
         });
-
-        // start cafes sync
-        // commented for now to prevent unwanted notifications, enable once feature is finished
-        //startCafesSync();
     }
 
     protected void setupDrawerContent(final NavigationView navigationView) {
@@ -191,14 +186,5 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void showConnectionNotAvailable(){
         LinearLayout noConnectionLL = (LinearLayout) findViewById(R.id.noConnectionLL);
         noConnectionLL.setVisibility(View.VISIBLE);
-    }
-
-
-    /***
-     * This method is responsible for starting AlarmManager that periodically checks new content in cloud
-     * and sends notification if new item is received
-     */
-    public void startCafesSync(){
-        SyncHelper.setSyncClock(this, 30, new Intent(this, CafesBroadcastReceiver.class));
     }
 }

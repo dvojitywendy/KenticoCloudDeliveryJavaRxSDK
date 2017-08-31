@@ -5,9 +5,6 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.SystemClock;
-import android.widget.Toast;
-
-import kenticocloud.kenticoclouddancinggoat.app.cafes.CafesBroadcastReceiver;
 
 import static android.content.Context.ALARM_SERVICE;
 
