@@ -40,34 +40,27 @@ public class CoffeesCloudSource extends BaseCloudSource implements CoffeesDataSo
 
     @Override
     public void getCoffees(@NonNull final LoadCoffeesCallback callback) {
-        _deliveryService.items()
+        _deliveryService.items(Coffee.class)
                 .type(Coffee.TYPE)
                 .get()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<DeliveryItemListingResponse>() {
+                .subscribe(new Observer<DeliveryItemListingResponse<Coffee>>() {
                     @Override
                     public void onSubscribe(Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(DeliveryItemListingResponse response) {
-                        List<IContentItem> items = (response.getItems());
-                        List<Coffee> coffees = new ArrayList<Coffee>();
+                    public void onNext(DeliveryItemListingResponse<Coffee> response) {
+                        List<Coffee> items = (response.getItems());
 
                         if (items == null || items.size() == 0){
                             callback.onDataNotAvailable();
                             return;
                         }
 
-                        for(int i = 0; i < items.size(); i++){
-                            Coffee coffee = (Coffee)items.get(i);
-                            // add to strongly typed list (this should be somehow solved with generics)
-                            coffees.add(coffee);
-                        }
-
-                        callback.onItemsLoaded(coffees);
+                        callback.onItemsLoaded(items);
                     }
 
                     @Override
@@ -84,23 +77,23 @@ public class CoffeesCloudSource extends BaseCloudSource implements CoffeesDataSo
 
     @Override
     public void getCoffee(@NonNull String codename, @NonNull final LoadCoffeeCallback callback) {
-        _deliveryService.item(codename)
+        _deliveryService.item(codename, Coffee.class)
                 .get()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<DeliveryItemResponse>() {
+                .subscribe(new Observer<DeliveryItemResponse<Coffee>>() {
                     @Override
                     public void onSubscribe(Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(DeliveryItemResponse response) {
+                    public void onNext(DeliveryItemResponse<Coffee> response) {
                         if (response.getItem() == null){
                             callback.onDataNotAvailable();
                         }
 
-                        callback.onItemLoaded((Coffee)response.getItem());
+                        callback.onItemLoaded(response.getItem());
                     }
 
                     @Override

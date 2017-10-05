@@ -2,7 +2,7 @@ package kenticocloud.kenticoclouddancinggoat.kentico_cloud.utils;
 
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.interfaces.item.item.IContentItemSystemAttributes;
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.ContentItemSystemAttributes;
-import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.item.RawModels;
+import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.item.CloudResponses;
 
 /**
  * Created by RichardS on 17. 8. 2017.
@@ -10,15 +10,15 @@ import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.item.RawModels;
 
 public class MapHelper {
 
-    public static IContentItemSystemAttributes mapSystemAttributes(RawModels.ContentItemSystemAttributesRaw systemRaw){
+    public static IContentItemSystemAttributes mapSystemAttributes(CloudResponses.ContentItemSystemAttributesRaw systemRaw){
         return new ContentItemSystemAttributes(
                 systemRaw.id,
                 systemRaw.name,
                 systemRaw.codename,
                 systemRaw.type,
-                systemRaw.last_modified,
+                systemRaw.lastModified,
                 systemRaw.language,
-                systemRaw.sitemap_locations
+                systemRaw.sitemapLocations
         );
     }
 }

@@ -6,14 +6,14 @@ import kenticocloud.kenticoclouddancinggoat.kentico_cloud.interfaces.item.item.I
  * Created by RichardS on 17. 8. 2017.
  */
 
-public class DeliveryItemResponse {
-    private IContentItem _item;
+public class DeliveryItemResponse<T extends IContentItem> {
+    private T _item;
 
-    public DeliveryItemResponse(IContentItem item) {
+    public DeliveryItemResponse(T item) {
         _item = item;
     }
 
-    public IContentItem getItem(){
+    public T getItem(){
         return _item;
     }
 }

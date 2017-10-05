@@ -35,14 +35,14 @@ public class DeliveryService implements IDeliveryService{
     /**
      * Gets query for multiple items
      */
-    public MultipleItemQuery items(){
-        return new MultipleItemQuery(_config);
+    public <T extends IContentItem> MultipleItemQuery items(Class<T> tclass){
+        return new MultipleItemQuery<T>(_config, tclass);
     }
 
     /**
      * Gets query for single item
      */
-    public SingleItemQuery item(@NonNull String itemCodename){
-        return new SingleItemQuery(_config, itemCodename);
+    public <T extends IContentItem> SingleItemQuery item(@NonNull String itemCodename, Class<T> tclass){
+        return new SingleItemQuery(_config, itemCodename, tclass);
     }
 }

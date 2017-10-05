@@ -8,17 +8,21 @@ import kenticocloud.kenticoclouddancinggoat.kentico_cloud.interfaces.item.item.I
 /**
  * Created by RichardS on 18. 8. 2017.
  */
-public class TypeResolver {
+public class TypeResolver<T extends IContentItem> {
 
-    private Function<Void, IContentItem> _resolver;
+    private Function<Void, T> _resolver;
     private String _type;
 
-    public TypeResolver(@NonNull String type, Function<Void, IContentItem> resolver){
+    public TypeResolver(@NonNull String type, Function<Void, T> resolver){
         _type = type;
         _resolver = resolver;
     }
 
-    public Function<Void, IContentItem> getResolver(){
+    public T createInstance(){
+        return _resolver.apply(null);
+    }
+
+    public Function<Void, T> getResolver(){
         return _resolver;
     }
 

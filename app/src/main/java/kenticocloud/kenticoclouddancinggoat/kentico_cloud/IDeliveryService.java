@@ -14,10 +14,10 @@ public interface IDeliveryService{
      /**
       * Gets query for multiple items
       */
-      <TItem extends IContentItem> MultipleItemQuery items();
+      <T extends IContentItem> MultipleItemQuery<T> items(Class<T> tclass);
 
      /**
       * Gets query for single item
       */
-     SingleItemQuery item(@NonNull String itemCodename);
+     <T extends IContentItem> SingleItemQuery<T> item(@NonNull String itemCodename, Class<T> tclass);
 }

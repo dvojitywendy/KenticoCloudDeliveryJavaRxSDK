@@ -1,6 +1,7 @@
 package kenticocloud.kenticoclouddancinggoat.data.source.articles;
 
 import android.content.Context;
+import android.database.Observable;
 import android.support.annotation.NonNull;
 
 import java.util.ArrayList;
@@ -42,34 +43,27 @@ public class ArticlesCloudSource extends BaseCloudSource implements ArticlesData
 
     @Override
     public void getArticles(@NonNull final LoadArticlesCallback callback) {
-        _deliveryService.items()
+        _deliveryService.items(Article.class)
                 .type(Article.TYPE)
                 .get()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<DeliveryItemListingResponse>() {
+                .subscribe(new Observer<DeliveryItemListingResponse<Article>>() {
                     @Override
                     public void onSubscribe(Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(DeliveryItemListingResponse response) {
-                        List<IContentItem> items = (response.getItems());
-                        List<Article> articles = new ArrayList<Article>();
+                    public void onNext(DeliveryItemListingResponse<Article> response) {
+                        List<Article> items = (response.getItems());
 
                         if (items == null || items.size() == 0){
                             callback.onDataNotAvailable();
                             return;
                         }
 
-                        for(int i = 0; i < items.size(); i++){
-                            Article article = (Article)items.get(i);
-                            // add to strongly typed list (this should be somehow solved with generics)
-                            articles.add(article);
-                        }
-
-                        callback.onItemsLoaded(articles);
+                        callback.onItemsLoaded(items);
                     }
 
                     @Override
@@ -86,23 +80,23 @@ public class ArticlesCloudSource extends BaseCloudSource implements ArticlesData
 
     @Override
     public void getArticle(@NonNull String codename, @NonNull final LoadArticleCallback callback) {
-        _deliveryService.item(codename)
+        _deliveryService.item(codename, Article.class)
                 .get()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<DeliveryItemResponse>() {
+                .subscribe(new Observer<DeliveryItemResponse<Article>>() {
                     @Override
                     public void onSubscribe(Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(DeliveryItemResponse response) {
+                    public void onNext(DeliveryItemResponse<Article> response) {
                         if (response.getItem() == null){
                             callback.onDataNotAvailable();
                         }
 
-                        callback.onItemLoaded((Article)response.getItem());
+                        callback.onItemLoaded(response.getItem());
                     }
 
                     @Override

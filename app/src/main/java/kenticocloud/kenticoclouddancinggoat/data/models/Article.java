@@ -1,19 +1,23 @@
 package kenticocloud.kenticoclouddancinggoat.data.models;
 
-import android.support.annotation.Nullable;
-
 import org.json.JSONException;
 
 import java.text.ParseException;
 import java.util.Date;
 
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.ContentItem;
+import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.elements.TextElement;
+import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.item.ElementMapping;
 
 /**
  * Created by RichardS on 15. 8. 2017.
  */
 
-public final class Article extends ContentItem{
+public final class Article extends ContentItem {
+
+    public Article(){
+        // required for Java Beans
+    }
 
     public static final String TYPE = "article";
 
@@ -22,6 +26,17 @@ public final class Article extends ContentItem{
     private Date _postDate;
     private String _summary;
     private String _bodyCopy;
+
+    @ElementMapping("title")
+    public TextElement testTitleElement;
+
+    public void setTestTitleElement(TextElement element){
+        this.testTitleElement = element;
+    }
+
+    public TextElement getTestTitleElement(){
+        return this.testTitleElement;
+    }
 
     public void setTitle(String title) {
         this._title = title;

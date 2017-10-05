@@ -1,12 +1,8 @@
 package kenticocloud.kenticoclouddancinggoat.data.models;
 
-import android.support.annotation.Nullable;
-
 import org.json.JSONException;
 
-import kenticocloud.kenticoclouddancinggoat.kentico_cloud.interfaces.item.item.IContentItem;
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.ContentItem;
-import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.item.RawModels;
 
 /**
  * Created by RichardS on 15. 8. 2017.
