@@ -24,7 +24,6 @@ public class DateTimeElement extends ContentElement<Date> {
         try {
             _value = DateHelper.parseIso8601(value.textValue());
         } catch (ParseException e) {
-            e.printStackTrace();
             throw new KenticoCloudException("Could not parse Date for field '" + codename + "'", e);
         }
     }

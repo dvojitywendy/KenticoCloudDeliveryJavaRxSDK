@@ -5,13 +5,14 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.elements.models.AssetModel;
+import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.elements.models.MultipleChoiceOption;
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.exceptions.KenticoCloudException;
 
-public class AssetsElement extends ContentElement<AssetModel[]> {
+public class MultipleChoiceElement extends ContentElement<MultipleChoiceOption[]> {
 
-    private AssetModel[] _value;
+    private MultipleChoiceOption[] _value;
 
-    public AssetsElement(
+    public MultipleChoiceElement(
             ObjectMapper objectMapper,
             String name,
             String codename,
@@ -21,14 +22,15 @@ public class AssetsElement extends ContentElement<AssetModel[]> {
         super(objectMapper, name, codename, type);
 
         try {
-            _value = _objectMapper.treeToValue(value, AssetModel[].class);
+            _value = _objectMapper.treeToValue(value, MultipleChoiceOption[].class);
         } catch (JsonProcessingException e) {
-            throw new KenticoCloudException("Could not map Assets element for '" + codename + "'", e);
+            e.printStackTrace();
+            throw new KenticoCloudException("Could not map MultipleChoice element for '" + codename + "'", e);
         }
     }
 
     @Override
-    public AssetModel[] getValue(){
+    public MultipleChoiceOption[] getValue(){
         return this._value;
     }
 }

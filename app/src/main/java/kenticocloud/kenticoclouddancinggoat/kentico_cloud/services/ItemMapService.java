@@ -23,6 +23,7 @@ import kenticocloud.kenticoclouddancinggoat.kentico_cloud.interfaces.item.item.I
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.elements.AssetsElement;
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.elements.ContentElement;
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.elements.DateTimeElement;
+import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.elements.MultipleChoiceElement;
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.elements.NumberElement;
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.elements.RichTextElement;
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.elements.TaxonomyElement;
@@ -175,6 +176,9 @@ public class ItemMapService {
             return new TaxonomyElement(_objectMapper,name, codename, type, value);
         }
 
+        if (Objects.equals(type, FieldType.multiple_choice.toString())){
+            return new MultipleChoiceElement(_objectMapper,name, codename, type, value);
+        }
 
         throw new KenticoCloudException("Field type '" + type + "' is not supported", null);
     }

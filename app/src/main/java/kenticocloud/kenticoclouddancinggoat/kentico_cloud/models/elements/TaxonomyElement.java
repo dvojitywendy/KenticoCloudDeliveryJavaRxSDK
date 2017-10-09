@@ -23,7 +23,6 @@ public class TaxonomyElement extends ContentElement<TaxonomyTerms[]> {
         try {
             _value = _objectMapper.treeToValue(value, TaxonomyTerms[].class);
         } catch (JsonProcessingException e) {
-            e.printStackTrace();
             throw new KenticoCloudException("Could not map Assets element for '" + codename + "'", e);
         }
     }

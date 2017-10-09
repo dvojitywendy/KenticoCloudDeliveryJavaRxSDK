@@ -6,12 +6,14 @@ import java.text.ParseException;
 import java.util.Date;
 
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.ContentItem;
+import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.elements.MultipleChoiceElement;
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.elements.TaxonomyElement;
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.elements.models.AssetModel;
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.elements.AssetsElement;
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.elements.DateTimeElement;
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.elements.RichTextElement;
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.elements.TextElement;
+import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.elements.models.MultipleChoiceOption;
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.elements.models.TaxonomyTerms;
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.item.ElementMapping;
 
@@ -40,6 +42,10 @@ public final class Article extends ContentItem {
 
     @ElementMapping("personas")
     public TaxonomyElement personas;
+
+
+    @ElementMapping("category")
+    public MultipleChoiceElement category;
 
     public String getTitle() {
         return title.getValue();
@@ -71,4 +77,6 @@ public final class Article extends ContentItem {
     }
 
     public TaxonomyTerms[] getPersonas() { return personas.getValue(); }
+
+    public MultipleChoiceOption[] getCategories() { return category.getValue(); }
 }

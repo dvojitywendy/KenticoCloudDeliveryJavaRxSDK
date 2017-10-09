@@ -8,5 +8,6 @@ public enum FieldType {
     url_slug,
     asset,
     number,
-    taxonomy
+    taxonomy,
+    multiple_choice
 }
