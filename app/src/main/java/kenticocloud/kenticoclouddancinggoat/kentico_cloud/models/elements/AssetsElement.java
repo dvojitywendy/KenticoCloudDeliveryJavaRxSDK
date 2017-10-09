@@ -12,14 +12,14 @@ public class AssetsElement extends ContentElement<AssetModel[]> {
     private AssetModel[] _value;
 
     public AssetsElement(
+            ObjectMapper objectMapper,
             String name,
             String codename,
             String type,
             JsonNode value
     ){
-        super(name, codename, type);
+        super(objectMapper, name, codename, type);
 
-        ObjectMapper _objectMapper = new ObjectMapper();
         try {
             _value = _objectMapper.treeToValue(value, AssetModel[].class);
         } catch (JsonProcessingException e) {

@@ -1,23 +1,35 @@
 package kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.elements;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class TaxonomyElement extends ContentElement<String> {
-    private String _value;
+import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.elements.models.AssetModel;
+import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.elements.models.TaxonomyTerms;
+import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.exceptions.KenticoCloudException;
+
+public class TaxonomyElement extends ContentElement<TaxonomyTerms[]> {
+    private TaxonomyTerms[] _value;
 
     public TaxonomyElement(
+            ObjectMapper objectMapper,
             String name,
             String codename,
             String type,
             JsonNode value
     ){
-        super(name, codename, type);
+        super(objectMapper, name, codename, type);
 
-        _value = value.textValue();
+        try {
+            _value = _objectMapper.treeToValue(value, TaxonomyTerms[].class);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            throw new KenticoCloudException("Could not map Assets element for '" + codename + "'", e);
+        }
     }
 
     @Override
-    public String getValue(){
+    public TaxonomyTerms[] getValue(){
         return this._value;
     }
 }

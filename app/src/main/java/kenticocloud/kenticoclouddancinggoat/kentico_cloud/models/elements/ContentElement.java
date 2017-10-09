@@ -1,15 +1,22 @@
 package kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.elements;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 public abstract class ContentElement<T> {
+
+    protected ObjectMapper _objectMapper;
+
     private String _name;
     private String _codename;
     private String _type;
 
     protected ContentElement(
+            ObjectMapper objectMapper,
             String name,
             String codename,
             String type
     ){
+        _objectMapper = objectMapper;
         _name = name;
         _codename = codename;
         _type = type;

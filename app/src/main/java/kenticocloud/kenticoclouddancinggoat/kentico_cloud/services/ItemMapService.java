@@ -25,6 +25,7 @@ import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.elements.Conten
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.elements.DateTimeElement;
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.elements.NumberElement;
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.elements.RichTextElement;
+import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.elements.TaxonomyElement;
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.elements.TextElement;
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.elements.UrlSlugElement;
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.exceptions.KenticoCloudException;
@@ -147,28 +148,33 @@ public class ItemMapService {
 
     private ContentElement mapElement(String name, String codename, String type, JsonNode value){
         if (Objects.equals(type, FieldType.text.toString())){
-            return new TextElement(name, codename, type, value);
+            return new TextElement(_objectMapper, name, codename, type, value);
         }
 
         if (Objects.equals(type, FieldType.date_time.toString())){
-            return new DateTimeElement(name, codename, type, value);
+            return new DateTimeElement(_objectMapper,name, codename, type, value);
         }
 
         if (Objects.equals(type, FieldType.rich_text.toString())){
-            return new RichTextElement(name, codename, type, value);
+            return new RichTextElement(_objectMapper,name, codename, type, value);
         }
 
         if (Objects.equals(type, FieldType.url_slug.toString())){
-            return new UrlSlugElement(name, codename, type, value);
+            return new UrlSlugElement(_objectMapper,name, codename, type, value);
         }
 
         if (Objects.equals(type, FieldType.asset.toString())){
-            return new AssetsElement(name, codename, type, value);
+            return new AssetsElement(_objectMapper,name, codename, type, value);
         }
 
         if (Objects.equals(type, FieldType.number.toString())){
-            return new NumberElement(name, codename, type, value);
+            return new NumberElement(_objectMapper,name, codename, type, value);
         }
+
+        if (Objects.equals(type, FieldType.taxonomy.toString())){
+            return new TaxonomyElement(_objectMapper,name, codename, type, value);
+        }
+
 
         throw new KenticoCloudException("Field type '" + type + "' is not supported", null);
     }

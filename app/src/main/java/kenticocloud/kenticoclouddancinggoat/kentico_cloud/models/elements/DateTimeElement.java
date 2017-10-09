@@ -1,6 +1,7 @@
 package kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.elements;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.text.ParseException;
 import java.util.Date;
@@ -12,12 +13,13 @@ public class DateTimeElement extends ContentElement<Date> {
     private Date _value;
 
     public DateTimeElement(
+            ObjectMapper objectMapper,
             String name,
             String codename,
             String type,
             JsonNode value
     ){
-        super(name, codename, type);
+        super(objectMapper, name, codename, type);
 
         try {
             _value = DateHelper.parseIso8601(value.textValue());

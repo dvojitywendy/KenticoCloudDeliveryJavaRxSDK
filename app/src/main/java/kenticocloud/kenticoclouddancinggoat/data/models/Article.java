@@ -6,11 +6,13 @@ import java.text.ParseException;
 import java.util.Date;
 
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.ContentItem;
+import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.elements.TaxonomyElement;
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.elements.models.AssetModel;
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.elements.AssetsElement;
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.elements.DateTimeElement;
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.elements.RichTextElement;
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.elements.TextElement;
+import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.elements.models.TaxonomyTerms;
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.item.ElementMapping;
 
 /**
@@ -35,6 +37,9 @@ public final class Article extends ContentItem {
 
     @ElementMapping("post_date")
     public DateTimeElement postDate;
+
+    @ElementMapping("personas")
+    public TaxonomyElement personas;
 
     public String getTitle() {
         return title.getValue();
@@ -65,4 +70,5 @@ public final class Article extends ContentItem {
         return bodyCopy.getValue();
     }
 
+    public TaxonomyTerms[] getPersonas() { return personas.getValue(); }
 }

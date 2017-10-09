@@ -7,5 +7,6 @@ public enum FieldType {
     rich_text,
     url_slug,
     asset,
-    number
+    number,
+    taxonomy
 }
