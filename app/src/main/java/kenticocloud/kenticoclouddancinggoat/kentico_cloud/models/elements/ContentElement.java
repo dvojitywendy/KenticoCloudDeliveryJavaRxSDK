@@ -1,6 +1,6 @@
 package kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.elements;
 
-public abstract class ContentElement {
+public abstract class ContentElement<T> {
     private String _name;
     private String _codename;
     private String _type;
@@ -14,6 +14,8 @@ public abstract class ContentElement {
         _codename = codename;
         _type = type;
     }
+
+    public abstract T getValue();
 
     public String getName(){
         return this._name;
@@ -38,4 +40,5 @@ public abstract class ContentElement {
     public void setType(String type){
         this._type = type;
     }
+
 }

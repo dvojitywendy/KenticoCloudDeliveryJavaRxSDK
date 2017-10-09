@@ -3,96 +3,83 @@ package kenticocloud.kenticoclouddancinggoat.data.models;
 import org.json.JSONException;
 
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.ContentItem;
+import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.elements.AssetsElement;
+import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.elements.TextElement;
+import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.elements.models.AssetModel;
+import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.item.ElementMapping;
 
 /**
  * Created by RichardS on 15. 8. 2017.
  */
 
-public final class Cafe extends ContentItem{
+public final class Cafe extends ContentItem {
 
     public static final String TYPE = "cafe";
 
-    private String city;
-    private String street;
-    private String country;
-    private String state;
-    private String zipCode;
-    private String phone;
-    private String email;
-    private String photoUrl;
+    @ElementMapping("city")
+    public TextElement city;
 
-    public void setCity(String city) {
-        this.city = city;
-    }
+    @ElementMapping("street")
+    public TextElement street;
+
+    @ElementMapping("country")
+    public TextElement country;
+
+    @ElementMapping("state")
+    public TextElement state;
+
+    @ElementMapping("zip_code")
+    public TextElement zipCode;
+
+    @ElementMapping("phone")
+    public TextElement phone;
+
+    @ElementMapping("email")
+    public TextElement email;
+
+    @ElementMapping("photo")
+    public AssetsElement photo;
 
     public String getCity() {
-        return city;
+        return city.getValue();
     }
 
     public String getStreet() {
-        return street;
-    }
-
-    public void setStreet(String street) {
-        this.street = street;
+        return street.getValue();
     }
 
     public String getCountry() {
-        return country;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
+        return country.getValue();
     }
 
     public String getState() {
-        return state;
-    }
-
-    public void setState(String state) {
-        this.state = state;
+        return state.getValue();
     }
 
     public String getZipCode() {
-        return zipCode;
-    }
-
-    public void setZipCode(String zipCode) {
-        this.zipCode = zipCode;
+        return zipCode.getValue();
     }
 
     public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
+        return phone.getValue();
     }
 
     public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
+        return email.getValue();
     }
 
     public String getPhotoUrl() {
-        return photoUrl;
-    }
 
-    public void setPhotoUrl(String photoUrl) {
-        this.photoUrl = photoUrl;
-    }
+        AssetModel[] assets = photo.getValue();
 
-    public void mapProperties() throws JSONException {
-        this.setCity(this.getStringValue("city"));
-        this.setCountry(this.getStringValue("country"));
-        this.setEmail(this.getStringValue("email"));
-        this.setPhone(this.getStringValue("phone"));
-        this.setState(this.getStringValue("state"));
-        this.setStreet(this.getStringValue("street"));
-        this.setZipCode(this.getStringValue("zip_code"));
-        this.setPhotoUrl(this.getAssetUrl("photo"));
+        if (assets == null){
+            return null;
+        }
+
+        if (assets.length == 0){
+            return null;
+        }
+
+        return assets[0].url;
     }
 }

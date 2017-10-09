@@ -2,10 +2,10 @@ package kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.elements;
 
 import com.fasterxml.jackson.databind.JsonNode;
 
-public class TextElement extends ContentElement<String> {
-    private String _value;
+public class NumberElement extends ContentElement<Double> {
+    private Double _value;
 
-    public TextElement(
+    public NumberElement(
             String name,
             String codename,
             String type,
@@ -13,11 +13,11 @@ public class TextElement extends ContentElement<String> {
     ){
         super(name, codename, type);
 
-        _value = value.textValue();
+        _value = value.doubleValue();
     }
 
     @Override
-    public String getValue(){
+    public Double getValue(){
         return this._value;
     }
 }

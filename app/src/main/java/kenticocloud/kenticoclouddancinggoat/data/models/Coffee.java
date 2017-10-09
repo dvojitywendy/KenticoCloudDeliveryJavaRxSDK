@@ -1,11 +1,18 @@
 package kenticocloud.kenticoclouddancinggoat.data.models;
 
 import org.json.JSONException;
+import org.w3c.dom.Text;
 
 import java.text.ParseException;
 import java.util.Date;
 
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.ContentItem;
+import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.elements.AssetsElement;
+import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.elements.NumberElement;
+import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.elements.RichTextElement;
+import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.elements.TextElement;
+import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.elements.models.AssetModel;
+import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.item.ElementMapping;
 
 /**
  * Created by RichardS on 15. 8. 2017.
@@ -15,99 +22,73 @@ public final class Coffee extends ContentItem{
 
     public static final String TYPE = "coffee";
 
-    private String _productName;
-    private double _price;
-    private String _imageUrl;
-    private String _shortDescription;
-    private String _longDescription;
-    private String _farm;
-    private String _country;
-    private String _variety;
-    private String _altitude;
+    @ElementMapping("product_name")
+    public TextElement productName;
 
-    public void setProductName(String productName) {
-        this._productName = productName;
-    }
+    @ElementMapping("price")
+    public NumberElement price;
 
-    public String getProductName() {
-        return _productName;
-    }
+    @ElementMapping("image")
+    public AssetsElement image;
 
-    public void setPrice(double price) {
-        this._price = price;
-    }
+    @ElementMapping("short_description")
+    public RichTextElement shortDescription;
 
-    public double getPrice() {
-        return _price;
-    }
+    @ElementMapping("long_description")
+    public RichTextElement longDescription;
 
-    public void setImageUrl(String imageUrl) {
-        this._imageUrl = imageUrl;
-    }
+    @ElementMapping("farm")
+    public TextElement farm;
+
+    @ElementMapping("country")
+    public TextElement country;
+
+    @ElementMapping("variety")
+    public TextElement variety;
+
+    @ElementMapping("altitude")
+    public TextElement altitude;
+
+    public String getProductName() { return productName.getValue(); }
+
+    public double getPrice() { return price.getValue(); }
 
     public String getImageUrl() {
-        return _imageUrl;
-    }
+        AssetModel[] assets = image.getValue();
 
-    public void setShortDescription(String description) {
-        this._shortDescription = description;
+        if (assets == null){
+            return null;
+        }
+
+        if (assets.length == 0){
+            return null;
+        }
+
+        return assets[0].url;
     }
 
     public String getShortDescription() {
-        return _shortDescription;
-    }
-
-    public void setLongDescription(String description) {
-        this._longDescription = description;
+        return shortDescription.getValue();
     }
 
     public String getLongDescription() {
-        return _longDescription;
-    }
-
-    public void setFarm(String farm) {
-        this._farm = farm;
+        return longDescription.getValue();
     }
 
     public String getFarm() {
-        return _farm;
-    }
-
-    public void setCountry(String country) {
-        this._country = country;
+        return farm.getValue();
     }
 
     public String getCountry() {
-        return _country;
-    }
-
-    public void setVariety(String variety) {
-        this._variety = variety;
+        return country.getValue();
     }
 
     public String getVariety() {
-        return _variety;
-    }
-
-
-    public void setAltitude(String altitude) {
-        this._altitude = altitude;
+        return variety.getValue();
     }
 
     public String getAltitude() {
-        return _altitude;
+        return altitude.getValue();
     }
 
-    @Override
-    public void mapProperties() throws ParseException, JSONException {
-        this.setProductName(this.getStringValue("product_name"));
-        this.setPrice(this.getDoubleValue("price"));
-        this.setImageUrl(this.getAssetUrl("image"));
-        this.setShortDescription(this.getStringValue("short_description"));
-        this.setLongDescription(this.getStringValue("long_description"));
-        this.setFarm(this.getStringValue("farm"));
-        this.setCountry(this.getStringValue("country"));
-        this.setVariety(this.getStringValue("variety"));
-        this.setAltitude(this.getStringValue("altitude"));
-    }
 }

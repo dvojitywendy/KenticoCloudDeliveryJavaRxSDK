@@ -71,7 +71,7 @@ public class CloudResponses {
         public String type;
 
         @JsonProperty("value")
-        public Object value;
+        public JsonNode value;
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)

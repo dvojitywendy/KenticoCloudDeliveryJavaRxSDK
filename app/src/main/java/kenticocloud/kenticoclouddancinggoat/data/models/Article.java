@@ -6,6 +6,10 @@ import java.text.ParseException;
 import java.util.Date;
 
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.ContentItem;
+import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.elements.models.AssetModel;
+import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.elements.AssetsElement;
+import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.elements.DateTimeElement;
+import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.elements.RichTextElement;
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.elements.TextElement;
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.item.ElementMapping;
 
@@ -15,75 +19,50 @@ import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.item.ElementMap
 
 public final class Article extends ContentItem {
 
-    public Article(){
-        // required for Java Beans
-    }
-
     public static final String TYPE = "article";
 
-    private String _title;
-    private String _teaserImageUrl;
-    private Date _postDate;
-    private String _summary;
-    private String _bodyCopy;
+    @ElementMapping("summary")
+    public TextElement summary;
 
     @ElementMapping("title")
-    public TextElement testTitleElement;
+    public TextElement title;
 
-    public void setTestTitleElement(TextElement element){
-        this.testTitleElement = element;
-    }
+    @ElementMapping("teaser_image")
+    public AssetsElement teaserImage;
 
-    public TextElement getTestTitleElement(){
-        return this.testTitleElement;
-    }
+    @ElementMapping("body_copy")
+    public RichTextElement bodyCopy;
 
-    public void setTitle(String title) {
-        this._title = title;
-    }
+    @ElementMapping("post_date")
+    public DateTimeElement postDate;
 
     public String getTitle() {
-        return _title;
+        return title.getValue();
     }
 
-    public void setTeaserImageUrl(String teaserImageUrl) {
-        this._teaserImageUrl = teaserImageUrl;
-    }
+    public String getTeaserImageUrl(){
+        AssetModel[] assets = this.teaserImage.getValue();
+        if (assets == null){
+            return null;
+        }
 
-    public String getTeaserImageUrl() {
-        return _teaserImageUrl;
-    }
+        if (assets.length == 0){
+            return null;
+        }
 
-    public void setPostDate(Date postDate) {
-        this._postDate = postDate;
+        return assets[0].url;
     }
 
     public Date getPostDate() {
-        return _postDate;
-    }
-
-    public void setSummary(String summary) {
-        this._summary = summary;
+        return postDate.getValue();
     }
 
     public String getSummary() {
-        return _summary;
-    }
-
-    public void setBodyCopy(String bodyCopy) {
-        this._bodyCopy = bodyCopy;
+        return summary.getValue();
     }
 
     public String getBodyCopy() {
-        return _bodyCopy;
+        return bodyCopy.getValue();
     }
 
-    @Override
-    public void mapProperties() throws ParseException, JSONException {
-        this.setTitle(this.getStringValue("title"));
-        this.setTeaserImageUrl(this.getAssetUrl("teaser_image"));
-        this.setPostDate(this.getDateValue("post_date"));
-        this.setSummary(this.getStringValue("summary"));
-        this.setBodyCopy(this.getStringValue("body_copy"));
-    }
 }
