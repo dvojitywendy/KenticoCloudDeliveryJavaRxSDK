@@ -31,13 +31,13 @@ public class ResponseMapService {
     public<T extends IContentItem> DeliveryItemResponse<T> mapItemResponse(Class<T> tClass, JSONObject cloudResponse) throws JSONException, IOException {
         CloudResponses.DeliveryItemResponseRaw rawResponse = _objectMapper.readValue(cloudResponse.toString(), CloudResponses.DeliveryItemResponseRaw.class);
 
-        return new DeliveryItemResponse<T>(_itemMapService.mapItem(tClass, rawResponse.item));
+        return new DeliveryItemResponse<T>(_itemMapService.mapItem(tClass, rawResponse.item, rawResponse.modularContent));
     }
 
     public<T extends IContentItem> DeliveryItemListingResponse<T> mapItemListingResponse(Class<T> tClass, JSONObject cloudResponse) throws JSONException, IOException {
         CloudResponses.DeliveryItemListingResponseRaw rawResponse = _objectMapper.readValue(cloudResponse.toString(), CloudResponses.DeliveryItemListingResponseRaw.class);
 
-        return new DeliveryItemListingResponse<T>(_itemMapService.mapItems(tClass, rawResponse.items));
+        return new DeliveryItemListingResponse<T>(_itemMapService.mapItems(tClass, rawResponse.items, rawResponse.modularContent));
     }
 }
 

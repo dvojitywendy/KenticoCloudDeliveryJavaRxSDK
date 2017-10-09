@@ -9,5 +9,6 @@ public enum FieldType {
     asset,
     number,
     taxonomy,
-    multiple_choice
+    multiple_choice,
+    modular_content
 }

@@ -43,6 +43,9 @@ public class CloudResponses {
 
         @JsonProperty("item")
         public ContentItemRaw item;
+
+        @JsonProperty("modular_content")
+        public JsonNode modularContent;
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)

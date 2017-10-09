@@ -9,10 +9,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.apache.commons.beanutils.ConstructorUtils;
 
+import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.UndeclaredThrowableException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 
@@ -23,6 +25,7 @@ import kenticocloud.kenticoclouddancinggoat.kentico_cloud.interfaces.item.item.I
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.elements.AssetsElement;
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.elements.ContentElement;
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.elements.DateTimeElement;
+import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.elements.ModularContentElement;
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.elements.MultipleChoiceElement;
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.elements.NumberElement;
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.elements.RichTextElement;
@@ -43,22 +46,23 @@ public class ItemMapService {
 
     private DeliveryClientConfig _config;
     private ObjectMapper _objectMapper = new ObjectMapper();
+    private List<IContentItem> _processedModularItems = new ArrayList<>();
 
     public ItemMapService(@NonNull DeliveryClientConfig config){
         _config = config;
     }
 
-    public <T extends IContentItem> List<T> mapItems(Class<T> tClass, List<CloudResponses.ContentItemRaw> rawItems) throws KenticoCloudException {
+    public <T extends IContentItem> List<T> mapItems(Class<T> tClass, List<CloudResponses.ContentItemRaw> rawItems, JsonNode modularContent) throws KenticoCloudException {
         List<T> mappedItems = new ArrayList<>();
 
         for(CloudResponses.ContentItemRaw rawItem : rawItems){
-            mappedItems.add(mapItem(tClass, rawItem));
+            mappedItems.add(mapItem(tClass, rawItem, modularContent));
         }
 
         return mappedItems;
     }
 
-    public <T extends IContentItem> T mapItem(Class<T> tClass, CloudResponses.ContentItemRaw rawItem) throws KenticoCloudException {
+    public <T extends IContentItem> T mapItem(Class<T> tClass, CloudResponses.ContentItemRaw rawItem, JsonNode modularContent) throws KenticoCloudException {
         T mappedItem = null;
         List<ContentElement<?>> elements = new ArrayList<>();
 
@@ -66,19 +70,29 @@ public class ItemMapService {
             // try getting the mapped item using the resolver if available
             mappedItem = tryGetInstanceFromTypeResolver(_config.getTypeResolvers(), rawItem.system.type);
 
-
-            // try getting the mapped item using class parameter if type resolver was not found
-            if (mappedItem == null){
-                mappedItem = tClass.cast(ConstructorUtils.invokeConstructor(tClass, null));
-            }
-
             // Error if mapped item could not instantiated
             if (mappedItem == null){
                 throw new KenticoCloudException("Cannot create a strongly typed instance of '" + rawItem.system.type + "'", null);
             }
 
+            // try adding the item to prevent infinite recursion in case of modular items)
+            boolean itemFound = false;
+            for (IContentItem processedItem : this._processedModularItems) {
+                if (processedItem.getSystem().getCodename().equalsIgnoreCase(rawItem.system.codename)){
+                    itemFound = true;
+                    break;
+                }
+            }
+
+            if (!itemFound){
+                this._processedModularItems.add(mappedItem);
+            }
+
+            // system attributes
+            mappedItem.setContentItemSystemAttributes(MapHelper.mapSystemAttributes(rawItem.system));
+
             // get properties
-            Field[] fields = tClass.getDeclaredFields();
+            Field[] fields = mappedItem.getClass().getDeclaredFields();
 
             // map elements into all linked properties
             for (Field field : fields) {
@@ -93,67 +107,44 @@ public class ItemMapService {
                 String elementCodename = elementMapping.value();
                 JsonNode elementNode = rawItem.elements.get(elementCodename);
 
-                if (elementNode == null){
+                if (elementNode == null) {
                     throw new KenticoCloudException("Could not map property '" + field.getName() + "' with element mapping to '" + elementCodename + "' for type '" + rawItem.system.type + "'", null);
                 }
 
                 CloudResponses.ElementRaw elementRaw = null;
 
-                try {
-                    // get element POJO
-                    elementRaw = _objectMapper.treeToValue(elementNode, CloudResponses.ElementRaw.class);
-                } catch (JsonProcessingException e) {
-                    throw new KenticoCloudException("Invalid element mapping. This error indicates an issue with SDK", e);
-                }
+                // get element POJO
+                elementRaw = _objectMapper.treeToValue(elementNode, CloudResponses.ElementRaw.class);
 
                 // proceed as the property was annotated with {@link ElementMapping)
                 if (elementRaw.value != null) {
 
-                    ContentElement<?> element =  mapElement(elementRaw.name, elementCodename, elementRaw.type, elementRaw.value);
+                    ContentElement<?> element = mapElement(elementRaw.name, elementCodename, elementRaw.type, elementRaw.value, modularContent);
                     field.set(mappedItem, element);
                     elements.add(element);
                 }
             }
-        } catch (NoSuchMethodException |
-                IllegalAccessException |
-                InvocationTargetException |
-                InstantiationException ex) {
-            handleReflectionException(ex);
+
+            // elements
+            mappedItem.setElements(elements);
+
+            return mappedItem;
+        }
+        catch (JsonProcessingException ex) {
+            Log.e(SDKConfig.AppTag, Log.getStackTraceString(ex));
+            throw new KenticoCloudException("Invalid element mapping. This error indicates an issue with SDK", ex);
         }
         catch (Exception ex){
             Log.e(SDKConfig.AppTag, Log.getStackTraceString(ex));
             throw new KenticoCloudException(ex.getMessage(), ex);
         }
-
-        if (mappedItem == null){
-            throw new KenticoCloudException("Item could not be mapped", null);
-        }
-
-        // system attributes
-        mappedItem.setContentItemSystemAttributes(MapHelper.mapSystemAttributes(rawItem.system));
-
-        // elements
-        mappedItem.setElements(elements);
-
-        return mappedItem;
     }
 
-    private static void handleReflectionException(Exception ex) {
-        Log.e(SDKConfig.AppTag, Log.getStackTraceString(ex));
-        
-        if (ex instanceof NoSuchMethodException) {
-            throw new IllegalStateException("Method not found: " + ex.getMessage());
+    private ContentElement mapElement(String name, String codename, String type, JsonNode value, JsonNode modularContent){
+        if (Objects.equals(type, FieldType.modular_content.toString())){
+            return mapModularContentElement(name, codename, type, value, modularContent);
         }
-        if (ex instanceof IllegalAccessException) {
-            throw new IllegalStateException("Could not access method: " + ex.getMessage());
-        }
-        if (ex instanceof RuntimeException) {
-            throw (RuntimeException) ex;
-        }
-        throw new UndeclaredThrowableException(ex);
-    }
 
-    private ContentElement mapElement(String name, String codename, String type, JsonNode value){
         if (Objects.equals(type, FieldType.text.toString())){
             return new TextElement(_objectMapper, name, codename, type, value);
         }
@@ -187,6 +178,55 @@ public class ItemMapService {
         }
 
         throw new KenticoCloudException("Field type '" + type + "' is not supported", null);
+    }
+
+    private ModularContentElement mapModularContentElement(String name, String fieldCodename, String type, JsonNode fieldValue, JsonNode modularContent) {
+        ArrayList<IContentItem>  fieldModularItems = new ArrayList<>();
+        Iterator<JsonNode> iterator = fieldValue.elements();
+
+        while(iterator.hasNext()){
+            String modularItemCodename = iterator.next().textValue();
+
+            IContentItem modularItem = null;
+
+            // take item from process items as to avoid infinite recursion
+            for (IContentItem processedItem : this._processedModularItems){
+                if (processedItem.getSystem().getCodename().equalsIgnoreCase(modularItemCodename)){
+                    // item found in processed item, use it
+                    modularItem = processedItem;
+                    break;
+                }
+            }
+
+            if (modularItem == null){
+                // try getting the item from modular content response
+                JsonNode modularItemFromResponse = modularContent.get(modularItemCodename);
+
+                if (modularItemFromResponse == null){
+                    Log.w(SDKConfig.AppTag, "Could not map modular element field '" + fieldCodename + "' because the modular item '" + modularItemCodename + "' is not present in response. Make sure you set 'Depth' parameter if you need this item.");
+                    break;
+                }
+
+                CloudResponses.ContentItemRaw contentItemRaw = null;
+
+                try {
+                    contentItemRaw = _objectMapper.readValue(modularItemFromResponse.toString(), CloudResponses.ContentItemRaw.class);
+                } catch (IOException e) {
+                    throw new KenticoCloudException("Could not parse item response for modular element '" + fieldCodename + "'", e);
+                }
+
+                modularItem = this.mapItem(IContentItem.class, contentItemRaw, modularContent);
+            }
+
+            if (modularItem == null){
+                Log.w(SDKConfig.AppTag, "Modular item '" + modularItemCodename + "' could not be resolved for field '" + fieldCodename + "'", null);
+                break;
+            }
+
+            fieldModularItems.add(modularItem);
+        }
+
+        return new ModularContentElement<IContentItem>(_objectMapper, name, fieldCodename, type, fieldValue, fieldModularItems);
     }
 
     private <T extends IContentItem> T tryGetInstanceFromTypeResolver(@NonNull List<TypeResolver> typeResolvers, @NonNull String type){

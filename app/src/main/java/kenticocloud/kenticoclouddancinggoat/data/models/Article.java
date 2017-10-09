@@ -3,9 +3,11 @@ package kenticocloud.kenticoclouddancinggoat.data.models;
 import org.json.JSONException;
 
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Date;
 
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.ContentItem;
+import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.elements.ModularContentElement;
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.elements.MultipleChoiceElement;
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.elements.TaxonomyElement;
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.elements.models.AssetModel;
@@ -43,9 +45,11 @@ public final class Article extends ContentItem {
     @ElementMapping("personas")
     public TaxonomyElement personas;
 
-
     @ElementMapping("category")
     public MultipleChoiceElement category;
+
+    @ElementMapping("related_articles")
+    public ModularContentElement<Article> relatedArticles;
 
     public String getTitle() {
         return title.getValue();
@@ -79,4 +83,6 @@ public final class Article extends ContentItem {
     public TaxonomyTerms[] getPersonas() { return personas.getValue(); }
 
     public MultipleChoiceOption[] getCategories() { return category.getValue(); }
+
+    public ArrayList<Article> getRelatedArticles() { return relatedArticles.getValue(); }
 }
