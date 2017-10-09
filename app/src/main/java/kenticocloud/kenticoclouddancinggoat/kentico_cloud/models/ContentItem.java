@@ -23,7 +23,7 @@ import kenticocloud.kenticoclouddancinggoat.kentico_cloud.utils.DateHelper;
 public abstract class ContentItem implements IContentItem {
 
     private IContentItemSystemAttributes _system;
-    private List<ContentElement> _elements;
+    private List<ContentElement<?>> _elements;
 
     @Override
     public IContentItemSystemAttributes getSystem() {
@@ -36,12 +36,12 @@ public abstract class ContentItem implements IContentItem {
     }
 
     @Override
-    public List<ContentElement> getElements() {
+    public List<ContentElement<?>> getElements() {
         return _elements;
     }
 
     @Override
-    public void setElements(@NonNull List<ContentElement> elements) {
+    public void setElements(@NonNull List<ContentElement<?>> elements) {
         _elements = elements;
     }
 

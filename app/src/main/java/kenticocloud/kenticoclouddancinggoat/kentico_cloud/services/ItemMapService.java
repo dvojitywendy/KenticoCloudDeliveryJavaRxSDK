@@ -60,6 +60,7 @@ public class ItemMapService {
 
     public <T extends IContentItem> T mapItem(Class<T> tClass, CloudResponses.ContentItemRaw rawItem) throws KenticoCloudException {
         T mappedItem = null;
+        List<ContentElement<?>> elements = new ArrayList<>();
 
         try {
             // try getting the mapped item using the resolver if available
@@ -108,7 +109,9 @@ public class ItemMapService {
                 // proceed as the property was annotated with {@link ElementMapping)
                 if (elementRaw.value != null) {
 
-                    field.set(mappedItem, mapElement(elementRaw.name, elementCodename, elementRaw.type, elementRaw.value));
+                    ContentElement<?> element =  mapElement(elementRaw.name, elementCodename, elementRaw.type, elementRaw.value);
+                    field.set(mappedItem, element);
+                    elements.add(element);
                 }
             }
         } catch (NoSuchMethodException |
@@ -128,6 +131,9 @@ public class ItemMapService {
 
         // system attributes
         mappedItem.setContentItemSystemAttributes(MapHelper.mapSystemAttributes(rawItem.system));
+
+        // elements
+        mappedItem.setElements(elements);
 
         return mappedItem;
     }

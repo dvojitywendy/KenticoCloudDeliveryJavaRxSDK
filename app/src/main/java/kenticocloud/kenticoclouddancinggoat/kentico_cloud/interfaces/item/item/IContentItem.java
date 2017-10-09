@@ -2,6 +2,8 @@ package kenticocloud.kenticoclouddancinggoat.kentico_cloud.interfaces.item.item;
 
 import android.support.annotation.NonNull;
 
+import com.fasterxml.jackson.databind.JsonNode;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -21,7 +23,8 @@ public interface IContentItem {
 
      void setContentItemSystemAttributes(@NonNull IContentItemSystemAttributes system);
 
-     List<ContentElement> getElements();
+     List<ContentElement<?>> getElements();
 
-     void setElements(@NonNull List<ContentElement> elements);
+     void setElements(@NonNull List<ContentElement<?>> elements);
+
 }
