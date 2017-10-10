@@ -38,7 +38,7 @@ public class DeliveryService implements IDeliveryService{
 
     /**
      * Use to fetch single item from Kentico Cloud
-     * @param <TItem> Class representing the type you want to return. Use 'IContentItem' if multiple types can be returned
+     * @param <TItem> Class represetnting the type you want to return. Use 'IContentItem' if multiple types can be returned
      *               or if you don't know what types will be returned beforehands.
      * @return Query to get the item
      */
