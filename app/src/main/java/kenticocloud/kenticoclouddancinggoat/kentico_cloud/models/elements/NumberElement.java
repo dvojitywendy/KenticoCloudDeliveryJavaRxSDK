@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class NumberElement extends ContentElement<Double> {
-    private Double _value;
+    private Double value;
 
     public NumberElement(
             ObjectMapper objectMapper,
@@ -15,11 +15,11 @@ public class NumberElement extends ContentElement<Double> {
     ){
         super(objectMapper, name, codename, type);
 
-        _value = value.doubleValue();
+        this.value = value.doubleValue();
     }
 
     @Override
     public Double getValue(){
-        return this._value;
+        return this.value;
     }
 }

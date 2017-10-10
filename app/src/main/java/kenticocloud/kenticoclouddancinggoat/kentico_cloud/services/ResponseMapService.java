@@ -15,29 +15,29 @@ import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.item.CloudRespo
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.item.DeliveryItemListingResponse;
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.item.DeliveryItemResponse;
 
-/**
- * Created by RichardS on 4. 10. 2017.
- */
-
 public class ResponseMapService {
 
-    private ItemMapService _itemMapService;
-    private ObjectMapper _objectMapper = new ObjectMapper();
+    private ItemMapService itemMapService;
+    private ObjectMapper objectMapper = new ObjectMapper();
 
     public ResponseMapService(@NonNull ItemMapService itemMapService){
-        _itemMapService = itemMapService;
+        this.itemMapService = itemMapService;
     }
 
-    public<T extends IContentItem> DeliveryItemResponse<T> mapItemResponse(Class<T> tClass, JSONObject cloudResponse) throws JSONException, IOException {
-        CloudResponses.DeliveryItemResponseRaw rawResponse = _objectMapper.readValue(cloudResponse.toString(), CloudResponses.DeliveryItemResponseRaw.class);
+    public<TItem extends IContentItem> DeliveryItemResponse<TItem> mapItemResponse(JSONObject cloudResponse) throws JSONException, IOException, IllegalAccessException {
+        CloudResponses.DeliveryItemResponseRaw rawResponse = this.objectMapper.readValue(cloudResponse.toString(), CloudResponses.DeliveryItemResponseRaw.class);
 
-        return new DeliveryItemResponse<T>(_itemMapService.mapItem(tClass, rawResponse.item, rawResponse.modularContent));
+        TItem item = this.itemMapService.mapItem(rawResponse.item, rawResponse.modularContent);
+
+        return new DeliveryItemResponse<>(item);
     }
 
-    public<T extends IContentItem> DeliveryItemListingResponse<T> mapItemListingResponse(Class<T> tClass, JSONObject cloudResponse) throws JSONException, IOException {
-        CloudResponses.DeliveryItemListingResponseRaw rawResponse = _objectMapper.readValue(cloudResponse.toString(), CloudResponses.DeliveryItemListingResponseRaw.class);
+    public<TItem extends IContentItem> DeliveryItemListingResponse<TItem> mapItemListingResponse(JSONObject cloudResponse) throws JSONException, IOException, IllegalAccessException {
+        CloudResponses.DeliveryItemListingResponseRaw rawResponse = this.objectMapper.readValue(cloudResponse.toString(), CloudResponses.DeliveryItemListingResponseRaw.class);
 
-        return new DeliveryItemListingResponse<T>(_itemMapService.mapItems(tClass, rawResponse.items, rawResponse.modularContent));
+        List<TItem> items = this.itemMapService.mapItems(rawResponse.items, rawResponse.modularContent);
+
+        return new DeliveryItemListingResponse<TItem>(items);
     }
 }
 

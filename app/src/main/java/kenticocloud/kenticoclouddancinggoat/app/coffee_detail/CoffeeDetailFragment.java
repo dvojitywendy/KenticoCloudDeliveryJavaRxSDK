@@ -4,17 +4,11 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.Html;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -29,21 +23,13 @@ import java.io.IOException;
 
 import kenticocloud.kenticoclouddancinggoat.R;
 import kenticocloud.kenticoclouddancinggoat.app.core.BaseFragment;
-import kenticocloud.kenticoclouddancinggoat.app.shared.ScrollChildSwipeRefreshLayout;
-import kenticocloud.kenticoclouddancinggoat.data.models.Cafe;
 import kenticocloud.kenticoclouddancinggoat.data.models.Coffee;
 import kenticocloud.kenticoclouddancinggoat.util.Location.LocationHelper;
 import kenticocloud.kenticoclouddancinggoat.util.Location.LocationInfo;
 
-import static com.google.common.base.Preconditions.checkNotNull;
-
-/**
- * Created by RichardS on 15. 8. 2017.
- */
-
 public class CoffeeDetailFragment extends BaseFragment<CoffeeDetailContract.Presenter> implements CoffeeDetailContract.View, OnMapReadyCallback  {
 
-    private GoogleMap _map;
+    private GoogleMap map;
 
     public CoffeeDetailFragment() {
         // Requires empty public constructor
@@ -70,7 +56,7 @@ public class CoffeeDetailFragment extends BaseFragment<CoffeeDetailContract.Pres
 
     @Override
     protected void onScrollSwipeRefresh() {
-        _presenter.loadCoffee();
+        this.presenter.loadCoffee();
     }
 
     @Nullable
@@ -83,7 +69,7 @@ public class CoffeeDetailFragment extends BaseFragment<CoffeeDetailContract.Pres
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        return _root;
+        return this.root;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -123,26 +109,26 @@ public class CoffeeDetailFragment extends BaseFragment<CoffeeDetailContract.Pres
 
             if (cafeLocation != null){
                 LatLng cafeLatLng = new LatLng(cafeLocation.getLattitude(), cafeLocation.getLongtitude());
-                _map.addMarker(new MarkerOptions().position(cafeLatLng).title("Coffee origin"));
-                _map.moveCamera(CameraUpdateFactory.newLatLngZoom(cafeLatLng, 3));
+                this.map.addMarker(new MarkerOptions().position(cafeLatLng).title("Coffee origin"));
+                this.map.moveCamera(CameraUpdateFactory.newLatLngZoom(cafeLatLng, 3));
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         setLoadingIndicator(false);
-        _fragmentView.setVisibility(View.VISIBLE);
+        this.fragmentView.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        _map = googleMap;
+        this.map = googleMap;
 
-        _map.getUiSettings().setZoomGesturesEnabled(true);
+        this.map.getUiSettings().setZoomGesturesEnabled(true);
         // scroll not enabled because it does not play nice with scroll that is required
         // it also causes issues when map takes full screen
-        _map.getUiSettings().setScrollGesturesEnabled(false);
+        this.map.getUiSettings().setScrollGesturesEnabled(false);
 
-        _map.getUiSettings().setMapToolbarEnabled(true);
+        this.map.getUiSettings().setMapToolbarEnabled(true);
     }
 }

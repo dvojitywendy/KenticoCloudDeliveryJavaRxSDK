@@ -4,30 +4,23 @@ import android.support.annotation.NonNull;
 
 import java.util.List;
 
-import kenticocloud.kenticoclouddancinggoat.data.models.Article;
 import kenticocloud.kenticoclouddancinggoat.data.models.Cafe;
-import kenticocloud.kenticoclouddancinggoat.data.source.articles.ArticlesDataSource;
-import kenticocloud.kenticoclouddancinggoat.data.source.articles.ArticlesRepository;
 import kenticocloud.kenticoclouddancinggoat.data.source.cafes.CafesDataSource;
 import kenticocloud.kenticoclouddancinggoat.data.source.cafes.CafesRepository;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-/**
- * Created by RichardS on 15. 8. 2017.
- */
-
 class CafesPresenter implements CafesContract.Presenter {
 
-    private final CafesRepository _repository;
+    private final CafesRepository repository;
 
-    private final CafesContract.View _view;
+    private final CafesContract.View view;
 
     CafesPresenter(@NonNull CafesRepository repository, @NonNull CafesContract.View view) {
-        _repository = checkNotNull(repository, "repository cannot be null");
-        _view = checkNotNull(view, "view cannot be null!");
+        this.repository = checkNotNull(repository, "repository cannot be null");
+        this.view = checkNotNull(view, "view cannot be null!");
 
-        _view.setPresenter(this);
+        this.view.setPresenter(this);
     }
 
     @Override
@@ -37,23 +30,23 @@ class CafesPresenter implements CafesContract.Presenter {
 
     @Override
     public void loadCafes() {
-        _view.setLoadingIndicator(true);
+        this.view.setLoadingIndicator(true);
 
-        _repository.getCafes(new CafesDataSource.LoadCafesCallback() {
+        this.repository.getCafes(new CafesDataSource.LoadCafesCallback() {
             @Override
             public void onItemsLoaded(List<Cafe> cafes) {
-                _view.setLoadingIndicator(false);
-                _view.showCafes(cafes);
+                view.setLoadingIndicator(false);
+                view.showCafes(cafes);
             }
 
             @Override
             public void onDataNotAvailable() {
-                _view.showNoData(true);
+                view.showNoData(true);
             }
 
             @Override
             public void onError(Throwable e) {
-                _view.showLoadingError();
+                view.showLoadingError();
             }
         });
     }

@@ -22,7 +22,7 @@ public class MultipleChoiceElement extends ContentElement<MultipleChoiceOption[]
         super(objectMapper, name, codename, type);
 
         try {
-            _value = _objectMapper.treeToValue(value, MultipleChoiceOption[].class);
+            _value = this.objectMapper.treeToValue(value, MultipleChoiceOption[].class);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
             throw new KenticoCloudException("Could not map MultipleChoice element for '" + codename + "'", e);

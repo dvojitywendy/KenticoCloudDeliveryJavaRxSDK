@@ -3,17 +3,12 @@ package kenticocloud.kenticoclouddancinggoat.app.cafes;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -26,19 +21,13 @@ import kenticocloud.kenticoclouddancinggoat.R;
 import kenticocloud.kenticoclouddancinggoat.app.cafe_detail.CafeDetailActivity;
 import kenticocloud.kenticoclouddancinggoat.app.core.BaseFragment;
 import kenticocloud.kenticoclouddancinggoat.app.shared.CommunicationHub;
-import kenticocloud.kenticoclouddancinggoat.app.shared.ScrollChildSwipeRefreshLayout;
-import kenticocloud.kenticoclouddancinggoat.data.models.Article;
 import kenticocloud.kenticoclouddancinggoat.data.models.Cafe;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-/**
- * Created by RichardS on 15. 8. 2017.
- */
-
 public class CafesFragment extends BaseFragment<CafesContract.Presenter> implements CafesContract.View{
 
-    private CafesAdapter _adapter;
+    private CafesAdapter adapter;
 
     public CafesFragment() {
         // Requires empty public constructor
@@ -65,18 +54,18 @@ public class CafesFragment extends BaseFragment<CafesContract.Presenter> impleme
 
     @Override
     protected void onScrollSwipeRefresh() {
-        _presenter.loadCafes();
+        this.presenter.loadCafes();
     }
 
     @Override
     protected View scrollUpChildView() {
-        return _root.findViewById(R.id.cafesLV);
+        return this.root.findViewById(R.id.cafesLV);
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        _adapter = new CafesAdapter(new ArrayList<Cafe>(0), cafeItemListener);
+        this.adapter = new CafesAdapter(new ArrayList<Cafe>(0), cafeItemListener);
     }
 
     @Nullable
@@ -86,17 +75,17 @@ public class CafesFragment extends BaseFragment<CafesContract.Presenter> impleme
         super.onCreateView(inflater, container, savedInstanceState);
 
         // Set up tasks view
-        ListView listView = (ListView) _root.findViewById(R.id.cafesLV);
-        listView.setAdapter(_adapter);
+        ListView listView = (ListView) this.root.findViewById(R.id.cafesLV);
+        listView.setAdapter(this.adapter);
 
-        return _root;
+        return this.root;
     }
 
     @Override
     public void showCafes(List<Cafe> cafes) {
-        _adapter.replaceData(cafes);
+        this.adapter.replaceData(cafes);
 
-        _fragmentView.setVisibility(View.VISIBLE);
+        this.fragmentView.setVisibility(View.VISIBLE);
     }
 
     /**

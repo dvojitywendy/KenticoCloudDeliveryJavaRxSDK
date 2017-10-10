@@ -3,9 +3,8 @@ package kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.elements.model
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- * Created by RichardS on 9. 10. 2017.
+ * Model representing multiple choice option response
  */
-
 public class MultipleChoiceOption {
 
     MultipleChoiceOption(){}

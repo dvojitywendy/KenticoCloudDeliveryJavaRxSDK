@@ -2,30 +2,25 @@ package kenticocloud.kenticoclouddancinggoat.app.coffee_detail;
 
 import android.support.annotation.NonNull;
 
-import kenticocloud.kenticoclouddancinggoat.data.models.Cafe;
 import kenticocloud.kenticoclouddancinggoat.data.models.Coffee;
-import kenticocloud.kenticoclouddancinggoat.data.source.cafes.CafesDataSource;
 import kenticocloud.kenticoclouddancinggoat.data.source.coffees.CoffeesDataSource;
 import kenticocloud.kenticoclouddancinggoat.data.source.coffees.CoffeesRepository;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-/**
- * Created by RichardS on 15. 8. 2017.
- */
 
 class CoffeeDetailPresenter implements CoffeeDetailContract.Presenter {
 
-    private final String _coffeeCodename;
-    private final CoffeesRepository _repository;
+    private final String coffeeCodename;
+    private final CoffeesRepository repository;
 
-    private final CoffeeDetailContract.View _view;
+    private final CoffeeDetailContract.View view;
 
     CoffeeDetailPresenter(@NonNull CoffeesRepository repository, @NonNull CoffeeDetailContract.View view, @NonNull String coffeeCodename) {
-        _repository = checkNotNull(repository, "repository cannot be null");
-        _view = checkNotNull(view, "view cannot be null!");
-        _view.setPresenter(this);
-        _coffeeCodename = coffeeCodename;
+        this.repository = checkNotNull(repository, "repository cannot be null");
+        this.view = checkNotNull(view, "view cannot be null!");
+        this.view.setPresenter(this);
+        this.coffeeCodename = coffeeCodename;
     }
 
     @Override
@@ -35,23 +30,23 @@ class CoffeeDetailPresenter implements CoffeeDetailContract.Presenter {
 
     @Override
     public void loadCoffee() {
-        _view.setLoadingIndicator(true);
+        this.view.setLoadingIndicator(true);
 
-        _repository.getCoffee(_coffeeCodename, new CoffeesDataSource.LoadCoffeeCallback() {
+        this.repository.getCoffee(this.coffeeCodename, new CoffeesDataSource.LoadCoffeeCallback() {
 
             @Override
             public void onItemLoaded(Coffee item) {
-                _view.showCoffee(item);
+                view.showCoffee(item);
             }
 
             @Override
             public void onDataNotAvailable() {
-                _view.showLoadingError();
+                view.showLoadingError();
             }
 
             @Override
             public void onError(Throwable e) {
-                _view.showLoadingError();
+                view.showLoadingError();
             }
         });
     }

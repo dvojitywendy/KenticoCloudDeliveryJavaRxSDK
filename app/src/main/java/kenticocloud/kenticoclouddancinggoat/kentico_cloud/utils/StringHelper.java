@@ -4,9 +4,6 @@ import android.support.annotation.NonNull;
 
 import java.util.List;
 
-/**
- * Created by RichardS on 18. 8. 2017.
- */
 
 public class StringHelper {
 

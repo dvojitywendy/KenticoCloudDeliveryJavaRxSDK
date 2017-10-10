@@ -8,19 +8,19 @@ import kenticocloud.kenticoclouddancinggoat.kentico_cloud.interfaces.item.common
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.utils.StringHelper;
 
 /**
- * Created by RichardS on 17. 8. 2017.
+ * URL parameter
  */
 
 public class Parameters {
 
     public static class ElementsParameter implements IQueryParameter {
 
-        private List<String> _elements;
+        private List<String> elements;
 
         public ElementsParameter(
                 @NonNull List<String> elements
         ) {
-            _elements = elements;
+            this.elements = elements;
         }
 
         public String getParam(){
@@ -29,18 +29,18 @@ public class Parameters {
         }
 
         public String getParamValue(){
-            return StringHelper.join(_elements, ",");
+            return StringHelper.join(this.elements, ",");
         }
     }
 
     public static class LimitParameter implements IQueryParameter {
 
-        private int _limit;
+        private int limit;
 
         public LimitParameter(
                 int limit
         ) {
-            _limit = limit;
+            this.limit = limit;
         }
 
         public String getParam(){
@@ -49,18 +49,18 @@ public class Parameters {
         }
 
         public String getParamValue(){
-            return Integer.toString(this._limit);
+            return Integer.toString(this.limit);
         }
     }
 
     public static class SkipParameter implements IQueryParameter {
 
-        private int _skip;
+        private int skip;
 
         public SkipParameter(
                 int skip
         ) {
-            _skip = skip;
+            this.skip = skip;
         }
 
         public String getParam(){
@@ -69,21 +69,21 @@ public class Parameters {
         }
 
         public String getParamValue(){
-            return Integer.toString(this._skip);
+            return Integer.toString(this.skip);
         }
     }
 
     public static class OrderParameter implements IQueryParameter {
 
-        private String _field;
-        private OrderType _orderType;
+        private String field;
+        private OrderType orderType;
 
         public OrderParameter(
                 @NonNull String field,
                 @NonNull OrderType type
         ) {
-            _orderType = type;
-            _field = field;
+            orderType = type;
+            this.field = field;
         }
 
         public String getParam(){
@@ -91,18 +91,18 @@ public class Parameters {
         }
 
         public String getParamValue(){
-            return _field + "[" + _orderType.toString() + "]";
+            return field + "[" + orderType.toString() + "]";
         }
     }
 
     public static class DepthParameter implements IQueryParameter{
 
-        private int _depth;
+        private int depth;
 
         public DepthParameter(
                 int depth
         ) {
-            _depth = depth;
+            this.depth = depth;
         }
 
         public String getParam(){
@@ -111,18 +111,18 @@ public class Parameters {
         }
 
         public String getParamValue(){
-            return Integer.toString(this._depth);
+            return Integer.toString(this.depth);
         }
     }
 
     public static class LanguageParameter implements IQueryParameter {
 
-        private String _language;
+        private String language;
 
         public LanguageParameter(
                 @NonNull String language
         ) {
-            _language = language;
+            this.language = language;
         }
 
         public String getParam(){
@@ -131,28 +131,7 @@ public class Parameters {
         }
 
         public String getParamValue() {
-            return _language;
-        }
-    }
-
-    public enum OrderType {
-        Asc("asc"),
-        Desc("desc");
-        private final String text;
-
-        /**
-         * @param text text of enum
-         */
-        private OrderType(final String text) {
-            this.text = text;
-        }
-
-        /* (non-Javadoc)
-         * @see java.lang.Enum#toString()
-         */
-        @Override
-        public String toString() {
-            return text;
+            return this.language;
         }
     }
 }

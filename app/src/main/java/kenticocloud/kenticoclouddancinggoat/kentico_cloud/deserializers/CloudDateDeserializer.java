@@ -9,8 +9,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class CloudDateDeserializer
-        extends StdDeserializer<Date> {
+public class CloudDateDeserializer extends StdDeserializer<Date> {
 
     private static SimpleDateFormat formatter
             = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");

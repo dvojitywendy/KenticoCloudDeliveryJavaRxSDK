@@ -1,8 +1,6 @@
 package kenticocloud.kenticoclouddancinggoat.app.articles;
 
-/**
- * Created by RichardS on 15. 8. 2017.
- */
+
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -45,7 +43,7 @@ public class ArticlesActivity extends BaseActivity{
         });
 
         // Check connection
-        if (!_networkHelper.isNetworkAvailable(this.getApplicationContext())){
+        if (!this.networkHelper.isNetworkAvailable(this.getApplicationContext())){
             showConnectionNotAvailable();
             return;
         }

@@ -10,10 +10,6 @@ import java.util.List;
 
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.deserializers.CloudDateDeserializer;
 
-/**
- * Created by RichardS on 17. 8. 2017.
- */
-
 public class CloudResponses {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -65,7 +61,9 @@ public class CloudResponses {
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static class ElementRaw {
 
-        ElementRaw(){}
+        ElementRaw(){
+            // Mandatory constructor
+        }
 
         @JsonProperty("name")
         public String name;

@@ -18,10 +18,6 @@ import kenticocloud.kenticoclouddancinggoat.kentico_cloud.interfaces.item.item.I
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.item.DeliveryItemListingResponse;
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.item.DeliveryItemResponse;
 
-/**
- * Created by RichardS on 15. 8. 2017.
- */
-
 public class CoffeesCloudSource extends BaseCloudSource implements CoffeesDataSource {
 
     private static CoffeesCloudSource INSTANCE;
@@ -40,7 +36,7 @@ public class CoffeesCloudSource extends BaseCloudSource implements CoffeesDataSo
 
     @Override
     public void getCoffees(@NonNull final LoadCoffeesCallback callback) {
-        _deliveryService.items(Coffee.class)
+        this.deliveryService.<Coffee>items()
                 .type(Coffee.TYPE)
                 .get()
                 .subscribeOn(Schedulers.io())
@@ -77,7 +73,7 @@ public class CoffeesCloudSource extends BaseCloudSource implements CoffeesDataSo
 
     @Override
     public void getCoffee(@NonNull String codename, @NonNull final LoadCoffeeCallback callback) {
-        _deliveryService.item(codename, Coffee.class)
+        this.deliveryService.<Coffee>item(codename)
                 .get()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

@@ -4,11 +4,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 public abstract class ContentElement<T> {
 
-    protected ObjectMapper _objectMapper;
+    protected ObjectMapper objectMapper;
 
-    private String _name;
-    private String _codename;
-    private String _type;
+    private String name;
+    private String codename;
+    private String type;
 
     protected ContentElement(
             ObjectMapper objectMapper,
@@ -16,36 +16,36 @@ public abstract class ContentElement<T> {
             String codename,
             String type
     ){
-        _objectMapper = objectMapper;
-        _name = name;
-        _codename = codename;
-        _type = type;
+        this.objectMapper = objectMapper;
+        this.name = name;
+        this.codename = codename;
+        this.type = type;
     }
 
     public abstract T getValue();
 
     public String getName(){
-        return this._name;
+        return this.name;
     }
 
     public void setName(String name){
-        this._name = name;
+        this.name = name;
     }
 
     public String getCodename(){
-        return this._codename;
+        return this.codename;
     }
 
     public void setCodename(String codename){
-        this._codename = codename;
+        this.codename = codename;
     }
 
     public String getType(){
-        return this._type;
+        return this.type;
     }
 
     public void setType(String type){
-        this._type = type;
+        this.type = type;
     }
 
 }

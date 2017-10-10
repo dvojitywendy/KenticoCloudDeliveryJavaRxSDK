@@ -10,7 +10,7 @@ import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.exceptions.Kent
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.utils.DateHelper;
 
 public class DateTimeElement extends ContentElement<Date> {
-    private Date _value;
+    private Date value;
 
     public DateTimeElement(
             ObjectMapper objectMapper,
@@ -22,7 +22,7 @@ public class DateTimeElement extends ContentElement<Date> {
         super(objectMapper, name, codename, type);
 
         try {
-            _value = DateHelper.parseIso8601(value.textValue());
+            this.value = DateHelper.parseIso8601(value.textValue());
         } catch (ParseException e) {
             throw new KenticoCloudException("Could not parse Date for field '" + codename + "'", e);
         }
@@ -30,6 +30,6 @@ public class DateTimeElement extends ContentElement<Date> {
 
     @Override
     public Date getValue(){
-        return this._value;
+        return this.value;
     }
 }

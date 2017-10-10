@@ -10,10 +10,6 @@ import android.widget.FrameLayout;
 
 import com.google.android.gms.maps.SupportMapFragment;
 
-/**
- * Created by RichardS on 24. 8. 2017.
- */
-
 public class ScrollGoogleMap extends SupportMapFragment {
     private OnTouchListener mListener;
 
@@ -23,6 +19,7 @@ public class ScrollGoogleMap extends SupportMapFragment {
 
         TouchableWrapper frameLayout = new TouchableWrapper(getActivity());
 
+        assert ((ViewGroup) layout) != null;
         ((ViewGroup) layout).addView(frameLayout,
                 new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
 

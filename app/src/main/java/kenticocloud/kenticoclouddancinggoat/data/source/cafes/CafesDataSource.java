@@ -9,10 +9,6 @@ import kenticocloud.kenticoclouddancinggoat.data.models.Cafe;
 import kenticocloud.kenticoclouddancinggoat.data.source.IMultipleCallback;
 import kenticocloud.kenticoclouddancinggoat.data.source.ISingleCallback;
 
-/**
- * Created by RichardS on 15. 8. 2017.
- */
-
 public interface CafesDataSource {
     interface LoadCafesCallback extends IMultipleCallback<Cafe> {
     }

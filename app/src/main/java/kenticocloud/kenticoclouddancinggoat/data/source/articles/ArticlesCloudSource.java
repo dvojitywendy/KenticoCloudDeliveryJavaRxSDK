@@ -21,10 +21,6 @@ import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.item.DeliveryIt
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-/**
- * Created by RichardS on 15. 8. 2017.
- */
-
 public class ArticlesCloudSource extends BaseCloudSource implements ArticlesDataSource {
 
     private static ArticlesCloudSource INSTANCE;
@@ -43,7 +39,7 @@ public class ArticlesCloudSource extends BaseCloudSource implements ArticlesData
 
     @Override
     public void getArticles(@NonNull final LoadArticlesCallback callback) {
-        _deliveryService.items(Article.class)
+        this.deliveryService.<Article>items()
                 .type(Article.TYPE)
                 .get()
                 .subscribeOn(Schedulers.io())
@@ -80,7 +76,7 @@ public class ArticlesCloudSource extends BaseCloudSource implements ArticlesData
 
     @Override
     public void getArticle(@NonNull String codename, @NonNull final LoadArticleCallback callback) {
-        _deliveryService.item(codename, Article.class)
+        this.deliveryService.<Article>item(codename)
                 .get()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

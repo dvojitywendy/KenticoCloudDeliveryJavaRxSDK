@@ -9,24 +9,20 @@ import kenticocloud.kenticoclouddancinggoat.data.models.Coffee;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-/**
- * Created by RichardS on 15. 8. 2017.
- */
-
 public class CoffeesRepository implements CoffeesDataSource {
 
     private static CoffeesRepository INSTANCE = null;
 
-    private final CoffeesDataSource _dataSource;
+    private final CoffeesDataSource dataSource;
 
     // Prevent direct instantiation.
     private CoffeesRepository(@NonNull CoffeesDataSource dataSource){
-        _dataSource = checkNotNull(dataSource);
+        this.dataSource = checkNotNull(dataSource);
     }
 
     @Override
     public void getCoffees(@NonNull final LoadCoffeesCallback callback) {
-        _dataSource.getCoffees(new LoadCoffeesCallback() {
+        this.dataSource.getCoffees(new LoadCoffeesCallback() {
             @Override
             public void onItemsLoaded(List<Coffee> coffees) {
                 callback.onItemsLoaded(coffees);
@@ -46,7 +42,7 @@ public class CoffeesRepository implements CoffeesDataSource {
 
     @Override
     public void getCoffee(@NonNull String codename, @NonNull final LoadCoffeeCallback callback) {
-        _dataSource.getCoffee(codename, new LoadCoffeeCallback() {
+        this.dataSource.getCoffee(codename, new LoadCoffeeCallback() {
             @Override
             public void onItemLoaded(Coffee coffee) {
                 callback.onItemLoaded(coffee);

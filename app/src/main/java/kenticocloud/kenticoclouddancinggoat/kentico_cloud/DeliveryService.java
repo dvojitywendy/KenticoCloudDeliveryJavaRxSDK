@@ -18,13 +18,17 @@ public class DeliveryService implements IDeliveryService{
 
     private static DeliveryService INSTANCE;
 
-    private DeliveryClientConfig _config;
+    private DeliveryClientConfig config;
 
     private DeliveryService(DeliveryClientConfig config) {
-
-        _config = config;
+        this.config = config;
     }
 
+    /**
+     * Gets static instance of Delivery client
+     * @param config Delivery client configuration
+     * @return Delivery client instance
+     */
     public static IDeliveryService getInstance(DeliveryClientConfig config) {
         if (INSTANCE == null) {
             INSTANCE = new DeliveryService(config);
@@ -33,16 +37,23 @@ public class DeliveryService implements IDeliveryService{
     }
 
     /**
-     * Gets query for multiple items
+     * Use to fetch single item from Kentico Cloud
+     * @param <TItem> Class representing the type you want to return. Use 'IContentItem' if multiple types can be returned
+     *               or if you don't know what types will be returned beforehands.
+     * @return Query to get the item
      */
-    public <T extends IContentItem> MultipleItemQuery items(Class<T> tclass){
-        return new MultipleItemQuery<T>(_config, tclass);
+    public <TItem extends IContentItem> MultipleItemQuery<TItem> items(){
+        return new MultipleItemQuery<>(this.config);
     }
 
     /**
-     * Gets query for single item
+     * Use to fetch single item from Kentico Cloud
+     * @param itemCodename Codename of the item
+     * @param <TItem> Class representing the type you want to return. Use 'IContentItem' if multiple types can be returned
+     *               or if you don't know what types will be returned beforehands.
+     * @return Query to get the item
      */
-    public <T extends IContentItem> SingleItemQuery item(@NonNull String itemCodename, Class<T> tclass){
-        return new SingleItemQuery(_config, itemCodename, tclass);
+    public <TItem extends IContentItem> SingleItemQuery<TItem> item(@NonNull String itemCodename){
+        return new SingleItemQuery<>(this.config, itemCodename);
     }
 }

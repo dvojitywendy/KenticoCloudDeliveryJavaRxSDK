@@ -3,7 +3,7 @@ package kenticocloud.kenticoclouddancinggoat.kentico_cloud.interfaces.item.item;
 import java.util.Date;
 
 /**
- * Created by RichardS on 17. 8. 2017.
+ * System attributes of Kentico Cloud item
  */
 
 public interface IContentItemSystemAttributes {

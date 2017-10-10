@@ -18,10 +18,6 @@ import static android.app.Notification.DEFAULT_SOUND;
 import static android.app.Notification.DEFAULT_VIBRATE;
 import static android.content.ContentValues.TAG;
 
-/**
- * Created by RichardS on 31. 8. 2017.
- */
-
 public class DGFirebaseMessagingService extends FirebaseMessagingService {
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {

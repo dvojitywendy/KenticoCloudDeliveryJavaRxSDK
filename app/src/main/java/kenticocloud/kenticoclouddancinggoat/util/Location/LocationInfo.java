@@ -1,9 +1,5 @@
 package kenticocloud.kenticoclouddancinggoat.util.Location;
 
-/**
- * Created by RichardS on 25. 8. 2017.
- */
-
 public class LocationInfo {
 
     private double _latitude;

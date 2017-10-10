@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.interfaces.item.item.IContentItem;
 
 public class ModularContentElement<TItem extends IContentItem> extends ContentElement<ArrayList<TItem>> {
-    private ArrayList<TItem> _value;
+    private ArrayList<TItem> value;
 
     public ModularContentElement(
             ObjectMapper objectMapper,
@@ -20,11 +20,11 @@ public class ModularContentElement<TItem extends IContentItem> extends ContentEl
     ){
         super(objectMapper, name, codename, type);
 
-        _value = items;
+        this.value = items;
     }
 
     @Override
     public ArrayList<TItem> getValue(){
-        return this._value;
+        return this.value;
     }
 }

@@ -3,16 +3,11 @@ package kenticocloud.kenticoclouddancinggoat.app.articles;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -27,18 +22,13 @@ import kenticocloud.kenticoclouddancinggoat.R;
 import kenticocloud.kenticoclouddancinggoat.app.article_detail.ArticleDetailActivity;
 import kenticocloud.kenticoclouddancinggoat.app.core.BaseFragment;
 import kenticocloud.kenticoclouddancinggoat.app.shared.CommunicationHub;
-import kenticocloud.kenticoclouddancinggoat.app.shared.ScrollChildSwipeRefreshLayout;
 import kenticocloud.kenticoclouddancinggoat.data.models.Article;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-/**
- * Created by RichardS on 15. 8. 2017.
- */
-
 public class ArticlesFragment extends BaseFragment<ArticlesContract.Presenter> implements ArticlesContract.View{
 
-    private ArticlesAdapter _adapter;
+    private ArticlesAdapter adapter;
 
     public ArticlesFragment() {
         // Requires empty public constructor
@@ -61,12 +51,12 @@ public class ArticlesFragment extends BaseFragment<ArticlesContract.Presenter> i
 
     @Override
     protected void onScrollSwipeRefresh() {
-        _presenter.loadArticles();
+        this.presenter.loadArticles();
     }
 
     @Override
     protected View scrollUpChildView() {
-        return _root.findViewById(R.id.articlesLV);
+        return this.root.findViewById(R.id.articlesLV);
     }
 
     public static ArticlesFragment newInstance() {
@@ -76,7 +66,7 @@ public class ArticlesFragment extends BaseFragment<ArticlesContract.Presenter> i
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        _adapter = new ArticlesAdapter(new ArrayList<Article>(0), articleItemListener);
+        this.adapter = new ArticlesAdapter(new ArrayList<Article>(0), articleItemListener);
     }
 
     @Nullable
@@ -85,16 +75,16 @@ public class ArticlesFragment extends BaseFragment<ArticlesContract.Presenter> i
                              Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
 
-        ListView listView = (ListView) _root.findViewById(R.id.articlesLV);
-        listView.setAdapter(_adapter);
+        ListView listView = (ListView) this.root.findViewById(R.id.articlesLV);
+        listView.setAdapter(adapter);
 
-        return _root;
+        return this.root;
     }
 
     @Override
     public void showArticles(List<Article> articles) {
-        _adapter.replaceData(articles);
-        _fragmentView.setVisibility(View.VISIBLE);
+        adapter.replaceData(articles);
+        fragmentView.setVisibility(View.VISIBLE);
     }
 
     /**

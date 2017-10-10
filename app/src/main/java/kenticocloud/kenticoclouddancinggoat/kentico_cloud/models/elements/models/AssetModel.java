@@ -4,9 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- * Created by RichardS on 9. 10. 2017.
+ * Model representing Asset response
  */
-
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class AssetModel {
 

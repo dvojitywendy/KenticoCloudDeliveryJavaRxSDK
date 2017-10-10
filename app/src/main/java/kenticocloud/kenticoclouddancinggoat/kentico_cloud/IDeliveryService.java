@@ -6,18 +6,22 @@ import kenticocloud.kenticoclouddancinggoat.kentico_cloud.interfaces.item.item.I
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.query.item.MultipleItemQuery;
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.query.item.SingleItemQuery;
 
-/**
- * Created by RichardS on 10. 8. 2017.
- */
 public interface IDeliveryService{
 
-     /**
-      * Gets query for multiple items
-      */
-      <T extends IContentItem> MultipleItemQuery<T> items(Class<T> tclass);
+    /**
+     * Use to fetch single item from Kentico Cloud
+     * @param <TItem> Class representing the type you want to return. Use 'IContentItem' if multiple types can be returned
+     *               or if you don't know what types will be returned beforehands.
+     * @return Query to get the item
+     */
+    public <TItem extends IContentItem> MultipleItemQuery<TItem> items();
 
-     /**
-      * Gets query for single item
-      */
-     <T extends IContentItem> SingleItemQuery<T> item(@NonNull String itemCodename, Class<T> tclass);
+    /**
+     * Use to fetch single item from Kentico Cloud
+     * @param itemCodename Codename of the item
+     * @param <TItem> Class representing the type you want to return. Use 'IContentItem' if multiple types can be returned
+     *               or if you don't know what types will be returned beforehands.
+     * @return Query to get the item
+     */
+    public <TItem extends IContentItem> SingleItemQuery<TItem> item(@NonNull String itemCodename);
 }

@@ -1,8 +1,5 @@
 package kenticocloud.kenticoclouddancinggoat.util;
 
-/**
- * Created by RichardS on 15. 8. 2017.
- */
 
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -23,8 +20,6 @@ public class ActivityUtils {
      */
     public static void addFragmentToActivity (@NonNull FragmentManager fragmentManager,
                                               @NonNull Fragment fragment, int frameId) {
-        checkNotNull(fragmentManager);
-        checkNotNull(fragment);
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.add(frameId, fragment);
         transaction.commit();

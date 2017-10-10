@@ -24,20 +24,17 @@ import kenticocloud.kenticoclouddancinggoat.app.coffees.CoffeesActivity;
 import kenticocloud.kenticoclouddancinggoat.util.NetworkHelper;
 import kenticocloud.kenticoclouddancinggoat.util.SyncHelper;
 
-/**
- * Created by RichardS on 16. 8. 2017.
- */
 public abstract class BaseActivity extends AppCompatActivity {
 
     /**
      * Drawer layout
      */
-    protected DrawerLayout _drawerLayout;
+    protected DrawerLayout drawerLayout;
 
     /**
      * Network helper
      */
-    protected NetworkHelper _networkHelper;
+    protected NetworkHelper networkHelper;
 
      /**
      * Implement to get activity specific layout
@@ -78,7 +75,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         AndroidNetworking.initialize(getApplicationContext());
 
         // Init network helper
-        this._networkHelper = NetworkHelper.getInstance();
+        this.networkHelper = NetworkHelper.getInstance();
 
         // Render proper layout for child activity
         setContentView(getLayoutResourceId());
@@ -108,8 +105,8 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
 
         // Set up the navigation drawer.
-        _drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        _drawerLayout.setStatusBarBackground(R.color.colorPrimaryDark);
+        this.drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        this.drawerLayout.setStatusBarBackground(R.color.colorPrimaryDark);
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         if (navigationView != null) {
             setupDrawerContent(navigationView);
@@ -121,7 +118,7 @@ public abstract class BaseActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // check connection again
-                if (_networkHelper.isNetworkAvailable(getApplicationContext())){
+                if (networkHelper.isNetworkAvailable(getApplicationContext())){
                     // reload activity
                     finish();
                     startActivity(getIntent());
@@ -162,7 +159,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
                         // Close the navigation drawer when an item is selected.
                         menuItem.setChecked(true);
-                        _drawerLayout.closeDrawers();
+                        drawerLayout.closeDrawers();
                         return true;
                     }
                 });
@@ -177,7 +174,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case android.R.id.home:
                 // Open the navigation drawer when the home icon is selected from the toolbar.
-                _drawerLayout.openDrawer(GravityCompat.START);
+                this.drawerLayout.openDrawer(GravityCompat.START);
                 return true;
         }
         return super.onOptionsItemSelected(item);

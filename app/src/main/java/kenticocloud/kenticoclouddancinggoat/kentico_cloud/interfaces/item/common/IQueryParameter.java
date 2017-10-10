@@ -1,9 +1,8 @@
 package kenticocloud.kenticoclouddancinggoat.kentico_cloud.interfaces.item.common;
 
 /**
- * Created by RichardS on 17. 8. 2017.
+ * Query parameter that is used to construct URL such as: domain.com?param=paramValue
  */
-
 public interface IQueryParameter {
     String getParam();
     String getParamValue();

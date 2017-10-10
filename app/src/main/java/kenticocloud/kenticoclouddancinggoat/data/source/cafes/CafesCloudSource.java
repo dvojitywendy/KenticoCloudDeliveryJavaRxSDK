@@ -32,10 +32,6 @@ import okhttp3.ResponseBody;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-/**
- * Created by RichardS on 15. 8. 2017.
- */
-
 public class CafesCloudSource extends BaseCloudSource implements CafesDataSource {
 
     private static CafesCloudSource INSTANCE;
@@ -54,7 +50,7 @@ public class CafesCloudSource extends BaseCloudSource implements CafesDataSource
 
     @Override
     public void getCafes(@NonNull final LoadCafesCallback callback) {
-        _deliveryService.items(Cafe.class)
+        this.deliveryService.<Cafe>items()
                 .type(Cafe.TYPE)
                 .get()
                 .subscribeOn(Schedulers.io())
@@ -91,7 +87,7 @@ public class CafesCloudSource extends BaseCloudSource implements CafesDataSource
 
     @Override
     public void getCafe(@NonNull String codename, @NonNull final LoadCafeCallback callback) {
-        _deliveryService.item(codename, Cafe.class)
+        this.deliveryService.<Cafe>item(codename)
                 .get()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

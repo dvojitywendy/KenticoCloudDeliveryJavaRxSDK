@@ -1,9 +1,5 @@
 package kenticocloud.kenticoclouddancinggoat.app.article_detail;
 
-/**
- * Created by RichardS on 15. 8. 2017.
- */
-
 import android.os.Bundle;
 
 import kenticocloud.kenticoclouddancinggoat.R;
@@ -29,7 +25,7 @@ public class ArticleDetailActivity extends BaseActivity{
         super.onCreate(savedInstanceState);
 
         // Check connection
-        if (!_networkHelper.isNetworkAvailable(this.getApplicationContext())){
+        if (!this.networkHelper.isNetworkAvailable(this.getApplicationContext())){
             showConnectionNotAvailable();
             return;
         }

@@ -4,9 +4,6 @@ import kenticocloud.kenticoclouddancinggoat.kentico_cloud.interfaces.item.item.I
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.ContentItemSystemAttributes;
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.item.CloudResponses;
 
-/**
- * Created by RichardS on 17. 8. 2017.
- */
 
 public class MapHelper {
 

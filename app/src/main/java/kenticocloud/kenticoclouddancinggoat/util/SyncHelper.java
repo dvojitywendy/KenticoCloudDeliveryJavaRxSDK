@@ -8,10 +8,6 @@ import android.os.SystemClock;
 
 import static android.content.Context.ALARM_SERVICE;
 
-/**
- * Created by RichardS on 21. 8. 2017.
- */
-
 public class SyncHelper {
     public static void setSyncClock(Context context, int timeIntervalInSeconds, Intent intentReceiver)
     {

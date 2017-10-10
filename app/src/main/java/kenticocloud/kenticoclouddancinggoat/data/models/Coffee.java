@@ -14,10 +14,6 @@ import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.elements.TextEl
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.elements.models.AssetModel;
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.item.ElementMapping;
 
-/**
- * Created by RichardS on 15. 8. 2017.
- */
-
 public final class Coffee extends ContentItem{
 
     public static final String TYPE = "coffee";

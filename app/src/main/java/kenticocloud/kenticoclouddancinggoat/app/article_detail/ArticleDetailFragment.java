@@ -1,22 +1,12 @@
 package kenticocloud.kenticoclouddancinggoat.app.article_detail;
 
 import android.os.Build;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.Html;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.google.common.base.Function;
 import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
@@ -24,14 +14,7 @@ import java.util.Locale;
 
 import kenticocloud.kenticoclouddancinggoat.R;
 import kenticocloud.kenticoclouddancinggoat.app.core.BaseFragment;
-import kenticocloud.kenticoclouddancinggoat.app.shared.ScrollChildSwipeRefreshLayout;
 import kenticocloud.kenticoclouddancinggoat.data.models.Article;
-
-import static com.google.common.base.Preconditions.checkNotNull;
-
-/**
- * Created by RichardS on 15. 8. 2017.
- */
 
 public class ArticleDetailFragment extends BaseFragment<ArticleDetailContract.Presenter> implements ArticleDetailContract.View {
 
@@ -60,7 +43,7 @@ public class ArticleDetailFragment extends BaseFragment<ArticleDetailContract.Pr
 
     @Override
     protected void onScrollSwipeRefresh() {
-        _presenter.loadArticle();
+        this.presenter.loadArticle();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -93,7 +76,7 @@ public class ArticleDetailFragment extends BaseFragment<ArticleDetailContract.Pr
         TextView bodyCopyTV = (TextView) view.findViewById(R.id.articleDetailBodyCopyTV);
         bodyCopyTV.setText(Html.fromHtml(article.getBodyCopy(), Html.FROM_HTML_MODE_COMPACT));
 
-        _fragmentView.setVisibility(View.VISIBLE);
+        this.fragmentView.setVisibility(View.VISIBLE);
 
     }
 }

@@ -19,10 +19,6 @@ import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.elements.models
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.elements.models.TaxonomyTerms;
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.item.ElementMapping;
 
-/**
- * Created by RichardS on 15. 8. 2017.
- */
-
 public final class Article extends ContentItem {
 
     public static final String TYPE = "article";

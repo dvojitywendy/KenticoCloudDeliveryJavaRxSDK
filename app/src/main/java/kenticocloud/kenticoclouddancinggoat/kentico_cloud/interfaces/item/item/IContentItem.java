@@ -2,20 +2,12 @@ package kenticocloud.kenticoclouddancinggoat.kentico_cloud.interfaces.item.item;
 
 import android.support.annotation.NonNull;
 
-import com.fasterxml.jackson.databind.JsonNode;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.text.ParseException;
-import java.util.Date;
 import java.util.List;
 
-import kenticocloud.kenticoclouddancinggoat.kentico_cloud.interfaces.item.common.IField;
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.elements.ContentElement;
 
 /**
- * Created by RichardS on 17. 8. 2017.
+ * Represents Kentico Cloud Content item
  */
 public interface IContentItem {
 

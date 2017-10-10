@@ -9,7 +9,7 @@ import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.exceptions.Kent
 
 public class AssetsElement extends ContentElement<AssetModel[]> {
 
-    private AssetModel[] _value;
+    private AssetModel[] value;
 
     public AssetsElement(
             ObjectMapper objectMapper,
@@ -21,7 +21,7 @@ public class AssetsElement extends ContentElement<AssetModel[]> {
         super(objectMapper, name, codename, type);
 
         try {
-            _value = _objectMapper.treeToValue(value, AssetModel[].class);
+            this.value = objectMapper.treeToValue(value, AssetModel[].class);
         } catch (JsonProcessingException e) {
             throw new KenticoCloudException("Could not map Assets element for '" + codename + "'", e);
         }
@@ -29,6 +29,6 @@ public class AssetsElement extends ContentElement<AssetModel[]> {
 
     @Override
     public AssetModel[] getValue(){
-        return this._value;
+        return this.value;
     }
 }

@@ -14,24 +14,18 @@ import kenticocloud.kenticoclouddancinggoat.kentico_cloud.services.ItemMapServic
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.services.QueryService;
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.services.ResponseMapService;
 
-/**
- * Created by RichardS on 17. 8. 2017.
- */
-
 public abstract class BaseItemQuery<T extends IContentItem> extends QueryService {
 
-    protected List<IQueryParameter> _parameters = new ArrayList<>();
+    protected List<IQueryParameter> parameters = new ArrayList<>();
 
-    protected DeliveryClientConfig _config;
-    protected ResponseMapService _responseMapService;
-    protected Class<T> _tClass;
+    protected DeliveryClientConfig config;
+    protected ResponseMapService responseMapService;
 
-    protected BaseItemQuery(@NonNull DeliveryClientConfig config, Class<T> tClass){
+    protected BaseItemQuery(@NonNull DeliveryClientConfig config){
         super(config);
 
-        _tClass = tClass;
-        _config = config;
-        _responseMapService = new ResponseMapService(new ItemMapService(config));
+        this.config = config;
+        this.responseMapService = new ResponseMapService(new ItemMapService(config));
     }
 
 }

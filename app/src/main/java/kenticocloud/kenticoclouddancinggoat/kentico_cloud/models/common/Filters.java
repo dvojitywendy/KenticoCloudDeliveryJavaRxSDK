@@ -7,246 +7,245 @@ import java.util.List;
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.interfaces.item.common.IQueryParameter;
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.utils.StringHelper;
 
-/**
- * Created by RichardS on 17. 8. 2017.
- */
 
+/**
+ * Represents URL filter used for querying items
+ */
 public class Filters {
 
     public static class EqualsFilter implements IQueryParameter {
 
-        private String _field;
-        private String _value;
+        private String field;
+        private String value;
 
         public EqualsFilter(
                 @NonNull String field,
                 String value
         ) {
-            _field = field;
-            _value = value;
+            this.field = field;
+            this.value = value;
         }
 
         public String getParam(){
 
-            return this._field.trim();
+            return this.field.trim();
         }
 
         public String getParamValue(){
-            if (this._value == null) {
+            if (this.value == null) {
                 return null;
             }
 
-            return this._value.trim();
+            return this.value.trim();
         }
     }
 
     public static class AllFilter implements IQueryParameter {
 
-        private String _field;
-        private List<String> _values;
+        private String field;
+        private List<String> values;
 
         public AllFilter(
                 @NonNull String field,
-                @NonNull List<String> values
+                List<String> values
         ) {
-            _field = field;
-            _values = values;
+            this.field = field;
+            this.values = values;
         }
 
         public String getParam(){
 
-            return this._field.trim() + "[all]";
+            return this.field.trim() + "[all]";
         }
 
         public String getParamValue(){
-            return StringHelper.join(_values, ",");
+            return StringHelper.join(values, ",");
         }
     }
 
     public static class AnyFilter implements IQueryParameter {
 
-        private String _field;
-        private List<String> _values;
+        private String field;
+        private List<String> values;
 
         public AnyFilter(
                 @NonNull String field,
-                @NonNull List<String> values
+                List<String> values
         ) {
-            _field = field;
-            _values = values;
+            this.field = field;
+            this.values = values;
         }
 
         public String getParam(){
 
-            return this._field.trim() + "[any]";
+            return this.field.trim() + "[any]";
         }
 
         public String getParamValue(){
-            return StringHelper.join(_values, ",");
+            return StringHelper.join(values, ",");
         }
     }
 
     public static class ContainsFilter implements IQueryParameter {
 
-        private String _field;
-        private List<String> _values;
+        private String field;
+        private List<String> values;
 
         public ContainsFilter(
                 @NonNull String field,
-                @NonNull List<String> values
+                List<String> values
         ) {
-            _field = field;
-            _values = values;
+            this.field = field;
+            this.values = values;
         }
 
         public String getParam(){
 
-            return this._field.trim() + "[contains]";
+            return this.field.trim() + "[contains]";
         }
 
         public String getParamValue(){
-            return StringHelper.join(_values, ",");
+            return StringHelper.join(values, ",");
         }
     }
 
     public static class Infilter implements IQueryParameter {
 
-        private String _field;
-        private List<String> _values;
+        private String field;
+        private List<String> values;
 
         public Infilter(
                 @NonNull String field,
-                @NonNull List<String> values
+                List<String> values
         ) {
-            _field = field;
-            _values = values;
+            this.field = field;
+            this.values = values;
         }
 
         public String getParam(){
 
-            return this._field.trim() + "[in]";
+            return this.field.trim() + "[in]";
         }
 
         public String getParamValue(){
-            return StringHelper.join(_values, ",");
+            return StringHelper.join(values, ",");
         }
     }
 
 
     public static class GreaterThanFilter implements IQueryParameter {
 
-        private String _field;
-        private String _value;
+        private String field;
+        private String value;
 
         public GreaterThanFilter(
                 @NonNull String field,
                 String value
         ) {
-            _field = field;
-            _value = value;
+            this.field = field;
+            this.value = value;
         }
 
         public String getParam(){
 
-            return this._field.trim() + "[gt]";
+            return this.field.trim() + "[gt]";
         }
 
         public String getParamValue(){
-            return this._value.trim();
+            return this.value.trim();
         }
     }
 
     public static class LessThanFilter implements IQueryParameter {
 
-        private String _field;
-        private String _value;
+        private String field;
+        private String value;
 
         public LessThanFilter(
                 @NonNull String field,
                 String value
         ) {
-            _field = field;
-            _value = value;
+            this.field = field;
+            this.value = value;
         }
 
         public String getParam(){
 
-            return this._field.trim() + "[lt]";
+            return this.field.trim() + "[lt]";
         }
 
         public String getParamValue(){
-            return this._value.trim();
+            return this.value.trim();
         }
     }
 
     public static class LessThanOrEqualFilter implements IQueryParameter {
 
-        private String _field;
-        private String _value;
+        private String field;
+        private String value;
 
         public LessThanOrEqualFilter(
                 @NonNull String field,
                 String value
         ) {
-            _field = field;
-            _value = value;
+            this.field = field;
+            this.value = value;
         }
 
         public String getParam(){
 
-            return this._field.trim() + "[lte]";
+            return this.field.trim() + "[lte]";
         }
 
         public String getParamValue(){
-            return this._value.trim();
+            return this.value.trim();
         }
     }
     public static class GreaterThanOrEqualFilter implements IQueryParameter {
 
-        private String _field;
-        private String _value;
+        private String field;
+        private String value;
 
         public GreaterThanOrEqualFilter(
                 @NonNull String field,
                 String value
         ) {
-            _field = field;
-            _value = value;
+            this.field = field;
+            this.value = value;
         }
 
         public String getParam(){
 
-            return this._field.trim() + "[gte]";
+            return this.field.trim() + "[gte]";
         }
 
         public String getParamValue(){
-            return this._value.trim();
+            return this.value.trim();
         }
     }
     public static class RangeFilter implements IQueryParameter {
 
-        private String _field;
-        private int _lowerValue;
-        private int _higherValue;
+        private String field;
+        private int lowerValue;
+        private int higherValue;
 
         public RangeFilter(
                 @NonNull String field,
                 int lowerValue,
                 int higherValue
         ) {
-            _field = field;
-            _lowerValue = lowerValue;
-            _higherValue = higherValue;
+            this.field = field;
+            this.lowerValue = lowerValue;
+            this.higherValue = higherValue;
         }
 
         public String getParam(){
 
-            return this._field.trim() + "[range]";
+            return this.field.trim() + "[range]";
         }
 
         public String getParamValue(){
-            return _lowerValue + "," + _higherValue;
+            return lowerValue + "," + higherValue;
         }
     }
-
 }

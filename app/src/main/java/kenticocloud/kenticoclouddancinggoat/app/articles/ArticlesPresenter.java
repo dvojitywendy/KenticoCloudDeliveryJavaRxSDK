@@ -10,21 +10,17 @@ import kenticocloud.kenticoclouddancinggoat.data.source.articles.ArticlesReposit
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-/**
- * Created by RichardS on 15. 8. 2017.
- */
-
 class ArticlesPresenter implements ArticlesContract.Presenter {
 
-    private final ArticlesRepository _repository;
+    private final ArticlesRepository repository;
 
-    private final ArticlesContract.View _view;
+    private final ArticlesContract.View view;
 
     ArticlesPresenter(@NonNull ArticlesRepository repository, @NonNull ArticlesContract.View view) {
-        _repository = checkNotNull(repository, "repository cannot be null");
-        _view = checkNotNull(view, "view cannot be null!");
+        this.repository = checkNotNull(repository, "repository cannot be null");
+        this.view = checkNotNull(view, "view cannot be null!");
 
-        _view.setPresenter(this);
+        this.view.setPresenter(this);
     }
 
     @Override
@@ -34,23 +30,23 @@ class ArticlesPresenter implements ArticlesContract.Presenter {
 
     @Override
     public void loadArticles() {
-        _view.setLoadingIndicator(true);
+        this.view.setLoadingIndicator(true);
 
-        _repository.getArticles(new ArticlesDataSource.LoadArticlesCallback() {
+        this.repository.getArticles(new ArticlesDataSource.LoadArticlesCallback() {
             @Override
             public void onItemsLoaded(List<Article> articles) {
-                _view.setLoadingIndicator(false);
-                _view.showArticles(articles);
+                view.setLoadingIndicator(false);
+                view.showArticles(articles);
             }
 
             @Override
             public void onDataNotAvailable() {
-                _view.showNoData(true);
+                view.showNoData(true);
             }
 
             @Override
             public void onError(Throwable e) {
-                _view.showLoadingError();
+                view.showLoadingError();
             }
         });
     }

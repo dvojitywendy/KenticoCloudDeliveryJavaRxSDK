@@ -1,13 +1,9 @@
 package kenticocloud.kenticoclouddancinggoat.app.notifications;
 
-/**
- * Created by RichardS on 31. 8. 2017.
- */
-
 import android.util.Log;
 
-        import com.google.firebase.iid.FirebaseInstanceId;
-        import com.google.firebase.iid.FirebaseInstanceIdService;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.FirebaseInstanceIdService;
 
 
 public class DGFirebaseInstanceIDService extends FirebaseInstanceIdService {

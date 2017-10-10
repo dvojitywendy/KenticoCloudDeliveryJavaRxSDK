@@ -7,17 +7,16 @@ import java.util.Date;
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.interfaces.item.item.IContentItemSystemAttributes;
 
 /**
- * Created by RichardS on 17. 8. 2017.
+ * Content item system attributes
  */
-
 public class ContentItemSystemAttributes implements IContentItemSystemAttributes{
-    private String _id;
-    private String _name;
-    private String _codename;
-    private String _type;
-    private Date _lastModified;
-    private String _language;
-    private String[] _sitemap_locations;
+    private String id;
+    private String name;
+    private String codename;
+    private String type;
+    private Date lastModified;
+    private String language;
+    private String[] sitemap_locations;
 
     public ContentItemSystemAttributes(
             @NonNull String id,
@@ -28,40 +27,40 @@ public class ContentItemSystemAttributes implements IContentItemSystemAttributes
             @NonNull String language,
             String[] sitemapLocations
             ){
-        _id = id;
-        _name = name;
-        _language = language;
-        _type = type;
-        _lastModified = lastModified;
-        _sitemap_locations = sitemapLocations;
-        _codename = codename;
+        this.id = id;
+        this.name = name;
+        this.language = language;
+        this.type = type;
+        this.lastModified = lastModified;
+        this.sitemap_locations = sitemapLocations;
+        this.codename = codename;
     }
 
     public String[] getSitemapLocations() {
-        return _sitemap_locations;
+        return sitemap_locations;
     }
 
     public String getLanguage() {
-        return _language;
+        return language;
     }
 
     public Date getLastModified() {
-        return _lastModified;
+        return lastModified;
     }
 
     public String getType() {
-        return _type;
+        return type;
     }
 
     public String getCodename() {
-        return _codename;
+        return codename;
     }
 
     public String getName() {
-        return _name;
+        return name;
     }
 
     public String getId() {
-        return _id;
+        return id;
     }
 }

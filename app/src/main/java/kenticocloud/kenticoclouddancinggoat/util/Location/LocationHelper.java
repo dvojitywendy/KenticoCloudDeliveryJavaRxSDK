@@ -7,9 +7,6 @@ import android.location.Geocoder;
 import java.io.IOException;
 import java.util.List;
 
-/**
- * Created by RichardS on 25. 8. 2017.
- */
 
 public class LocationHelper {
 

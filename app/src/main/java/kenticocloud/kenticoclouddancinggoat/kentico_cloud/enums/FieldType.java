@@ -1,6 +1,8 @@
 package kenticocloud.kenticoclouddancinggoat.kentico_cloud.enums;
 
-
+/**
+ * Represents codename of element type fetched from Kentico Cloud
+ */
 public enum FieldType {
     text,
     date_time,

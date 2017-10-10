@@ -24,13 +24,9 @@ import kenticocloud.kenticoclouddancinggoat.data.models.Coffee;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-/**
- * Created by RichardS on 15. 8. 2017.
- */
-
 public class CoffeesFragment extends BaseFragment<CoffeesContract.Presenter> implements CoffeesContract.View{
 
-    private CoffeesAdapter _adapter;
+    private CoffeesAdapter adapter;
 
     public CoffeesFragment() {
         // Requires empty public constructor
@@ -57,19 +53,19 @@ public class CoffeesFragment extends BaseFragment<CoffeesContract.Presenter> imp
 
     @Override
     protected void onScrollSwipeRefresh() {
-        _presenter.loadCoffees();
+        this.presenter.loadCoffees();
     }
 
     @Override
     protected View scrollUpChildView() {
-        return _root.findViewById(R.id.coffeesLV);
+        return this.root.findViewById(R.id.coffeesLV);
     }
 
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        _adapter = new CoffeesAdapter(new ArrayList<Coffee>(0), coffeeItemListener);
+        this.adapter = new CoffeesAdapter(new ArrayList<Coffee>(0), coffeeItemListener);
     }
 
     @Nullable
@@ -79,16 +75,16 @@ public class CoffeesFragment extends BaseFragment<CoffeesContract.Presenter> imp
         super.onCreateView(inflater, container, savedInstanceState);
 
         // Set up articles view
-        ListView listView = (ListView) _root.findViewById(R.id.coffeesLV);
-        listView.setAdapter(_adapter);
+        ListView listView = (ListView) this.root.findViewById(R.id.coffeesLV);
+        listView.setAdapter(this.adapter);
 
-        return _root;
+        return this.root;
     }
 
     @Override
     public void showCoffees(List<Coffee> coffees) {
-        _adapter.replaceData(coffees);
-        _fragmentView.setVisibility(View.VISIBLE);
+        this.adapter.replaceData(coffees);
+        this.fragmentView.setVisibility(View.VISIBLE);
     }
 
     /**

@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class UrlSlugElement extends ContentElement<String> {
-    private String _value;
+    private String value;
 
     public UrlSlugElement(
             ObjectMapper objectMapper,
@@ -15,11 +15,11 @@ public class UrlSlugElement extends ContentElement<String> {
     ){
         super(objectMapper, name, codename, type);
 
-        _value = value.textValue();
+        this.value = value.textValue();
     }
 
     @Override
     public String getValue(){
-        return this._value;
+        return this.value;
     }
 }

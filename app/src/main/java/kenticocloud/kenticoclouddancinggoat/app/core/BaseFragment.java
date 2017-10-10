@@ -15,16 +15,13 @@ import kenticocloud.kenticoclouddancinggoat.app.shared.ScrollChildSwipeRefreshLa
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-/**
- * Created by RichardS on 29. 8. 2017.
- */
 
 public abstract class BaseFragment<TPresenter extends IBasePresenter> extends Fragment implements IBaseView<TPresenter>{
 
-    protected View _fragmentView;
-    protected View _root;
-    protected TPresenter _presenter;
-    protected View _noDataView;
+    protected View fragmentView;
+    protected View root;
+    protected TPresenter presenter;
+    protected View noDataView;
 
     /***
      * Called when refreshing view scroll swipe
@@ -59,24 +56,24 @@ public abstract class BaseFragment<TPresenter extends IBasePresenter> extends Fr
      */
     protected View scrollUpChildView(){
         // by default the fragment layout is used
-        return _root.findViewById(getFragmentId());
+        return this.root.findViewById(getFragmentId());
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        _root = inflater.inflate(this.getFragmentId(), container, false);
+        this.root = inflater.inflate(this.getFragmentId(), container, false);
 
         // Set fragment LL
-        _fragmentView = (View) _root.findViewById(this.getViewId());
+        this.fragmentView = (View) this.root.findViewById(this.getViewId());
 
         setHasOptionsMenu(true);
 
         // Set up progress indicator
         if (this.hasScrollSwipeRefresh()) {
             final ScrollChildSwipeRefreshLayout swipeRefreshLayout =
-                    (ScrollChildSwipeRefreshLayout) _root.findViewById(R.id.refresh_layout);
+                    (ScrollChildSwipeRefreshLayout) this.root.findViewById(R.id.refresh_layout);
             swipeRefreshLayout.setColorSchemeColors(
                     ContextCompat.getColor(getActivity(), R.color.colorPrimary),
                     ContextCompat.getColor(getActivity(), R.color.colorAccent),
@@ -94,20 +91,20 @@ public abstract class BaseFragment<TPresenter extends IBasePresenter> extends Fr
         }
 
         // set no data view
-        _noDataView = _root.findViewById(R.id.noDataLL);
+        this.noDataView = this.root.findViewById(R.id.noDataLL);
 
-        return _root;
+        return this.root;
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        _presenter.start();
+        this.presenter.start();
     }
 
     @Override
     public void setPresenter(TPresenter presenter) {
-        _presenter = checkNotNull(presenter);
+        this.presenter = checkNotNull(presenter);
     }
 
     @Override
@@ -149,10 +146,10 @@ public abstract class BaseFragment<TPresenter extends IBasePresenter> extends Fr
     @Override
     public void showNoData(boolean show){
         if (show){
-            _noDataView.setVisibility(View.VISIBLE);
+            this.noDataView.setVisibility(View.VISIBLE);
         }
         else{
-            _noDataView.setVisibility(View.GONE);
+            this.noDataView.setVisibility(View.GONE);
         }
     }
 }

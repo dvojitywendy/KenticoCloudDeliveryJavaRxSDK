@@ -13,21 +13,17 @@ import kenticocloud.kenticoclouddancinggoat.data.source.coffees.CoffeesRepositor
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-/**
- * Created by RichardS on 15. 8. 2017.
- */
-
 class CoffeesPresenter implements CoffeesContract.Presenter {
 
-    private final CoffeesRepository _repository;
+    private final CoffeesRepository repository;
 
-    private final CoffeesContract.View _view;
+    private final CoffeesContract.View view;
 
     CoffeesPresenter(@NonNull CoffeesRepository repository, @NonNull CoffeesContract.View view) {
-        _repository = checkNotNull(repository, "repository cannot be null");
-        _view = checkNotNull(view, "view cannot be null!");
+        this.repository = checkNotNull(repository, "repository cannot be null");
+        this.view = checkNotNull(view, "view cannot be null!");
 
-        _view.setPresenter(this);
+        this.view.setPresenter(this);
     }
 
     @Override
@@ -37,23 +33,23 @@ class CoffeesPresenter implements CoffeesContract.Presenter {
 
     @Override
     public void loadCoffees() {
-        _view.setLoadingIndicator(true);
+        this.view.setLoadingIndicator(true);
 
-        _repository.getCoffees(new CoffeesDataSource.LoadCoffeesCallback() {
+        this.repository.getCoffees(new CoffeesDataSource.LoadCoffeesCallback() {
             @Override
             public void onItemsLoaded(List<Coffee> coffees) {
-                _view.setLoadingIndicator(false);
-                _view.showCoffees(coffees);
+                view.setLoadingIndicator(false);
+                view.showCoffees(coffees);
             }
 
             @Override
             public void onDataNotAvailable() {
-                _view.showNoData(true);
+                view.showNoData(true);
             }
 
             @Override
             public void onError(Throwable e) {
-                _view.showLoadingError();
+                view.showLoadingError();
             }
         });
     }

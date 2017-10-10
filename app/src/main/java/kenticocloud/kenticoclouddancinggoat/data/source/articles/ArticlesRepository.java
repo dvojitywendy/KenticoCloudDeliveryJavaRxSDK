@@ -8,24 +8,20 @@ import kenticocloud.kenticoclouddancinggoat.data.models.Article;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-/**
- * Created by RichardS on 15. 8. 2017.
- */
-
 public class ArticlesRepository implements  ArticlesDataSource {
 
     private static ArticlesRepository INSTANCE = null;
 
-    private final ArticlesDataSource _dataSource;
+    private final ArticlesDataSource dataSource;
 
     // Prevent direct instantiation.
     private ArticlesRepository(@NonNull ArticlesDataSource dataSource){
-        _dataSource = checkNotNull(dataSource);
+        this.dataSource = checkNotNull(dataSource);
     }
 
     @Override
     public void getArticles(@NonNull final LoadArticlesCallback callback) {
-        _dataSource.getArticles(new LoadArticlesCallback() {
+        this.dataSource.getArticles(new LoadArticlesCallback() {
             @Override
             public void onItemsLoaded(List<Article> articles) {
                 callback.onItemsLoaded(articles);
@@ -45,7 +41,7 @@ public class ArticlesRepository implements  ArticlesDataSource {
 
     @Override
     public void getArticle(@NonNull String codename, @NonNull final LoadArticleCallback callback) {
-        _dataSource.getArticle(codename, new LoadArticleCallback() {
+        this.dataSource.getArticle(codename, new LoadArticleCallback() {
             @Override
             public void onItemLoaded(Article article) {
                 callback.onItemLoaded(article);

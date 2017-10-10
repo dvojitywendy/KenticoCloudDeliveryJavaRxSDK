@@ -8,17 +8,13 @@ import java.util.List;
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.config.DeliveryClientConfig;
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.interfaces.item.common.IQueryParameter;
 
-/**
- * Created by RichardS on 17. 8. 2017.
- */
-
 public abstract class QueryService {
 
-    protected final String baseDeliveryApiUrl = "https://deliver.kenticocloud.com";
-    protected DeliveryClientConfig _config;
+    protected final String DELIVERY_API_URL = "https://deliver.kenticocloud.com";
+    protected DeliveryClientConfig config;
 
     protected QueryService(DeliveryClientConfig config){
-        _config = config;
+        this.config = config;
     }
 
 
@@ -27,11 +23,11 @@ public abstract class QueryService {
     }
 
     private String getDeliveryUrl(){
-        return baseDeliveryApiUrl;
+        return DELIVERY_API_URL;
     }
 
     private String getBaseUrl(){
-        return this.getDeliveryUrl() + '/' + _config.getProjectId();
+        return this.getDeliveryUrl() + '/' + this.config.getProjectId();
     }
 
     private String addParametersToUrl(@NonNull String url, List<IQueryParameter> parameters){
