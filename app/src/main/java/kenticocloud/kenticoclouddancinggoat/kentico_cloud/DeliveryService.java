@@ -2,15 +2,8 @@ package kenticocloud.kenticoclouddancinggoat.kentico_cloud;
 
 import android.support.annotation.NonNull;
 
-import com.google.common.base.Function;
-
-import javax.annotation.Nullable;
-
-import kenticocloud.kenticoclouddancinggoat.data.models.Cafe;
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.config.DeliveryClientConfig;
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.interfaces.item.item.IContentItem;
-import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.ContentItem;
-import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.item.TypeResolver;
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.query.item.MultipleItemQuery;
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.query.item.SingleItemQuery;
 

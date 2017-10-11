@@ -1,4 +1,4 @@
-package kenticocloud.kenticoclouddancinggoat.kentico_cloud.services;
+package kenticocloud.kenticoclouddancinggoat.kentico_cloud.services.map;
 
 import android.support.annotation.NonNull;
 import android.util.Log;
@@ -34,14 +34,15 @@ import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.item.ElementMap
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.item.TypeResolver;
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.utils.MapHelper;
 
-public class ItemMapService {
+public class TypeMapService {
 
     private DeliveryClientConfig config;
-    private ObjectMapper objectMapper = new ObjectMapper();
+    private ObjectMapper objectMapper;
     private List<IContentItem> processedModularItems = new ArrayList<>();
 
-    public ItemMapService(@NonNull DeliveryClientConfig config){
+    public TypeMapService(@NonNull DeliveryClientConfig config, @NonNull ObjectMapper objectMapper){
         this.config = config;
+        this.objectMapper = objectMapper;
     }
 
     public <TItem extends IContentItem> List<TItem> mapItems(List<CloudResponses.ContentItemRaw> rawItems, JsonNode modularContent) throws KenticoCloudException, JsonProcessingException, IllegalAccessException {

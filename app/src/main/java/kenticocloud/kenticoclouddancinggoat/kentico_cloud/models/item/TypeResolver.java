@@ -10,6 +10,11 @@ public class TypeResolver<TItem extends IContentItem> {
     private Function<Void, TItem> _resolver;
     private String _type;
 
+    /**
+     * Type resolvers are used to create strongy typed objects for given Kentico content type identified by its codename
+     * @param type Codename of Kentico Content type
+     * @param resolver Function that returns instance of IContentItem class representing content type
+     */
     public TypeResolver(@NonNull String type, Function<Void, TItem> resolver){
         _type = type;
         _resolver = resolver;

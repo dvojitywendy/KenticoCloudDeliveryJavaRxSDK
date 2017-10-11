@@ -1,4 +1,4 @@
-package kenticocloud.kenticoclouddancinggoat.kentico_cloud.services;
+package kenticocloud.kenticoclouddancinggoat.kentico_cloud.services.map;
 
 import android.support.annotation.NonNull;
 
@@ -10,18 +10,20 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.List;
 
+import kenticocloud.kenticoclouddancinggoat.kentico_cloud.config.DeliveryClientConfig;
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.interfaces.item.item.IContentItem;
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.item.CloudResponses;
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.item.DeliveryItemListingResponse;
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.item.DeliveryItemResponse;
+import kenticocloud.kenticoclouddancinggoat.kentico_cloud.services.map.ItemMapService;
 
 public class ResponseMapService {
 
     private ItemMapService itemMapService;
     private ObjectMapper objectMapper = new ObjectMapper();
 
-    public ResponseMapService(@NonNull ItemMapService itemMapService){
-        this.itemMapService = itemMapService;
+    public ResponseMapService(@NonNull DeliveryClientConfig config){
+        this.itemMapService = new ItemMapService(config, this.objectMapper);
     }
 
     public<TItem extends IContentItem> DeliveryItemResponse<TItem> mapItemResponse(JSONObject cloudResponse) throws JSONException, IOException, IllegalAccessException {
