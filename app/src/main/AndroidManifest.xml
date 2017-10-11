@@ -54,6 +54,10 @@
             android:theme="@style/AppTheme.NoActionBar"
             android:parentActivityName=".app.coffees.CoffeesActivity">
         </activity>
+        <activity
+            android:name=".app.test.TestActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
 
         <service
             android:name=".app.notifications.DGFirebaseMessagingService">

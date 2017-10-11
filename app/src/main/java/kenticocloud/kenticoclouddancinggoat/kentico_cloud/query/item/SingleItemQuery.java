@@ -23,7 +23,7 @@ import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.item.DeliveryIt
 
 public class SingleItemQuery<TItem extends IContentItem> extends BaseItemQuery<TItem> {
 
-    private final String URL_PATH = "/items/";
+    private static final String URL_PATH = "/items/";
     private final String itemCodename;
 
     public SingleItemQuery(@NonNull DeliveryClientConfig config, @NonNull String itemCodename) {

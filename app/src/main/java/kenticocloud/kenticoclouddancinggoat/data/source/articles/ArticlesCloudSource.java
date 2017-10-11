@@ -1,10 +1,8 @@
 package kenticocloud.kenticoclouddancinggoat.data.source.articles;
 
 import android.content.Context;
-import android.database.Observable;
 import android.support.annotation.NonNull;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Observer;
@@ -12,10 +10,8 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import kenticocloud.kenticoclouddancinggoat.data.models.Article;
-import kenticocloud.kenticoclouddancinggoat.data.models.Cafe;
 import kenticocloud.kenticoclouddancinggoat.data.source.BaseCloudSource;
 import kenticocloud.kenticoclouddancinggoat.injection.Injection;
-import kenticocloud.kenticoclouddancinggoat.kentico_cloud.interfaces.item.item.IContentItem;
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.item.DeliveryItemListingResponse;
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.item.DeliveryItemResponse;
 

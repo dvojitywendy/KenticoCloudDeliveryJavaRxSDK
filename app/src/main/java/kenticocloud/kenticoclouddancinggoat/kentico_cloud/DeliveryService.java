@@ -6,6 +6,8 @@ import kenticocloud.kenticoclouddancinggoat.kentico_cloud.config.DeliveryClientC
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.interfaces.item.item.IContentItem;
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.query.item.MultipleItemQuery;
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.query.item.SingleItemQuery;
+import kenticocloud.kenticoclouddancinggoat.kentico_cloud.query.type.MultipleTypeQuery;
+import kenticocloud.kenticoclouddancinggoat.kentico_cloud.query.type.SingleTypeQuery;
 
 public class DeliveryService implements IDeliveryService{
 
@@ -29,24 +31,21 @@ public class DeliveryService implements IDeliveryService{
         return INSTANCE;
     }
 
-    /**
-     * Use to fetch single item from Kentico Cloud
-     * @param <TItem> Class represetnting the type you want to return. Use 'IContentItem' if multiple types can be returned
-     *               or if you don't know what types will be returned beforehands.
-     * @return Query to get the item
-     */
     public <TItem extends IContentItem> MultipleItemQuery<TItem> items(){
         return new MultipleItemQuery<>(this.config);
     }
 
-    /**
-     * Use to fetch single item from Kentico Cloud
-     * @param itemCodename Codename of the item
-     * @param <TItem> Class representing the type you want to return. Use 'IContentItem' if multiple types can be returned
-     *               or if you don't know what types will be returned beforehands.
-     * @return Query to get the item
-     */
     public <TItem extends IContentItem> SingleItemQuery<TItem> item(@NonNull String itemCodename){
         return new SingleItemQuery<>(this.config, itemCodename);
+    }
+
+    @Override
+    public SingleTypeQuery type(@NonNull String typeCodename) {
+        return new SingleTypeQuery(this.config, typeCodename);
+    }
+
+    @Override
+    public MultipleTypeQuery types() {
+        return new MultipleTypeQuery(this.config);
     }
 }

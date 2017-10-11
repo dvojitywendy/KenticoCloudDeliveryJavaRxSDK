@@ -18,6 +18,8 @@ import kenticocloud.kenticoclouddancinggoat.kentico_cloud.config.DeliveryClientC
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.config.SDKConfig;
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.enums.FieldType;
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.interfaces.item.item.IContentItem;
+import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.ContentItemSystemAttributes;
+import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.element.ElementMapping;
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.elements.AssetsElement;
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.elements.ContentElement;
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.elements.DateTimeElement;
@@ -29,10 +31,8 @@ import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.elements.Taxono
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.elements.TextElement;
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.elements.UrlSlugElement;
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.exceptions.KenticoCloudException;
-import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.item.CloudResponses;
-import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.item.ElementMapping;
+import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.item.ItemCloudResponses;
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.item.TypeResolver;
-import kenticocloud.kenticoclouddancinggoat.kentico_cloud.utils.MapHelper;
 
 public class ItemMapService {
 
@@ -45,17 +45,17 @@ public class ItemMapService {
         this.objectMapper = objectMapper;
     }
 
-    public <TItem extends IContentItem> List<TItem> mapItems(List<CloudResponses.ContentItemRaw> rawItems, JsonNode modularContent) throws KenticoCloudException, JsonProcessingException, IllegalAccessException {
+    public <TItem extends IContentItem> List<TItem> mapItems(List<ItemCloudResponses.ContentItemRaw> rawItems, JsonNode modularContent) throws KenticoCloudException, JsonProcessingException, IllegalAccessException {
         List<TItem> mappedItems = new ArrayList<>();
 
-        for(CloudResponses.ContentItemRaw rawItem : rawItems){
+        for(ItemCloudResponses.ContentItemRaw rawItem : rawItems){
             mappedItems.add(this.<TItem>mapItem(rawItem, modularContent));
         }
 
         return mappedItems;
     }
 
-    public <TItem extends IContentItem> TItem mapItem(CloudResponses.ContentItemRaw rawItem, JsonNode modularContent) throws KenticoCloudException, JsonProcessingException, IllegalAccessException {
+    public <TItem extends IContentItem> TItem mapItem(ItemCloudResponses.ContentItemRaw rawItem, JsonNode modularContent) throws KenticoCloudException, JsonProcessingException, IllegalAccessException {
         TItem mappedItem = null;
         List<ContentElement<?>> elements = new ArrayList<>();
 
@@ -81,7 +81,7 @@ public class ItemMapService {
             }
 
             // system attributes
-            mappedItem.setContentItemSystemAttributes(MapHelper.mapSystemAttributes(rawItem.system));
+            mappedItem.setContentItemSystemAttributes(this.mapSystemAttributes(rawItem.system));
 
             // get properties
             Field[] fields = mappedItem.getClass().getDeclaredFields();
@@ -103,10 +103,10 @@ public class ItemMapService {
                     throw new KenticoCloudException("Could not map property '" + field.getName() + "' with element mapping to '" + elementCodename + "' for type '" + rawItem.system.type + "'", null);
                 }
 
-                CloudResponses.ElementRaw elementRaw = null;
+                ItemCloudResponses.ElementRaw elementRaw = null;
 
                 // get element POJO
-                elementRaw = this.objectMapper.treeToValue(elementNode, CloudResponses.ElementRaw.class);
+                elementRaw = this.objectMapper.treeToValue(elementNode, ItemCloudResponses.ElementRaw.class);
 
                 // proceed as the property was annotated with {@link ElementMapping)
                 if (elementRaw.value != null) {
@@ -190,10 +190,10 @@ public class ItemMapService {
                     break;
                 }
 
-                CloudResponses.ContentItemRaw contentItemRaw = null;
+                ItemCloudResponses.ContentItemRaw contentItemRaw = null;
 
                 try {
-                    contentItemRaw = this.objectMapper.readValue(modularItemFromResponse.toString(), CloudResponses.ContentItemRaw.class);
+                    contentItemRaw = this.objectMapper.readValue(modularItemFromResponse.toString(), ItemCloudResponses.ContentItemRaw.class);
                 } catch (IOException e) {
                     throw new KenticoCloudException("Could not parse item response for modular element '" + fieldCodename + "'", e);
                 }
@@ -222,5 +222,17 @@ public class ItemMapService {
             }
         }
         return null;
+    }
+
+    public ContentItemSystemAttributes mapSystemAttributes(ItemCloudResponses.ContentItemSystemAttributesRaw systemRaw){
+        return new ContentItemSystemAttributes(
+                systemRaw.id,
+                systemRaw.name,
+                systemRaw.codename,
+                systemRaw.type,
+                systemRaw.lastModified,
+                systemRaw.language,
+                systemRaw.sitemapLocations
+        );
     }
 }

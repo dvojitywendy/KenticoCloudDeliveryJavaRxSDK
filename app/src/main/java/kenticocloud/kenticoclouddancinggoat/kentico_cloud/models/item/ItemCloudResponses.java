@@ -9,8 +9,9 @@ import java.util.Date;
 import java.util.List;
 
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.deserializers.CloudDateDeserializer;
+import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.common.CommonCloudResponses;
 
-public class CloudResponses {
+public class ItemCloudResponses {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static class DeliveryItemListingResponseRaw {
@@ -26,7 +27,7 @@ public class CloudResponses {
         public JsonNode modularContent;
 
         @JsonProperty("pagination")
-        public JsonNode pagination;
+        public CommonCloudResponses.PaginationRaw pagination;
 
     }
 
@@ -100,9 +101,6 @@ public class CloudResponses {
         @JsonProperty("sitemap_locations")
         public String[] sitemapLocations;
 
-        /**
-         * Use custom deserializer
-         */
         @JsonProperty("last_modified")
         @JsonDeserialize(using = CloudDateDeserializer.class)
         public Date lastModified;

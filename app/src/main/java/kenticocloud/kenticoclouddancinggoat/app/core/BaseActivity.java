@@ -21,6 +21,7 @@ import kenticocloud.kenticoclouddancinggoat.R;
 import kenticocloud.kenticoclouddancinggoat.app.articles.ArticlesActivity;
 import kenticocloud.kenticoclouddancinggoat.app.cafes.CafesActivity;
 import kenticocloud.kenticoclouddancinggoat.app.coffees.CoffeesActivity;
+import kenticocloud.kenticoclouddancinggoat.app.test.TestActivity;
 import kenticocloud.kenticoclouddancinggoat.util.NetworkHelper;
 import kenticocloud.kenticoclouddancinggoat.util.SyncHelper;
 
@@ -153,6 +154,10 @@ public abstract class BaseActivity extends AppCompatActivity {
                                 case R.id.coffees:
                                     Intent coffeesIntent = new Intent(navigationView.getContext(), CoffeesActivity.class);
                                     startActivity(coffeesIntent);
+                                    break;
+                                case R.id.test:
+                                    Intent testIntent = new Intent(navigationView.getContext(), TestActivity.class);
+                                    startActivity(testIntent);
                                     break;
                             }
                         }

@@ -5,13 +5,13 @@ import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.common.IDeliver
 
 public class DeliveryItemResponse<TItem extends IContentItem> implements IDeliveryResponse {
 
-    private TItem _item;
+    private TItem item;
 
     public DeliveryItemResponse(TItem item) {
-        _item = item;
+        this.item = item;
     }
 
     public TItem getItem(){
-        return _item;
+        return this.item;
     }
 }

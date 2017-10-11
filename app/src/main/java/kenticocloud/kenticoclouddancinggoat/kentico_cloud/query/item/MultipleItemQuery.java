@@ -25,7 +25,7 @@ import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.item.DeliveryIt
 
 public final class MultipleItemQuery<TItem extends IContentItem> extends BaseItemQuery<TItem> {
 
-    private final String URL_PATH = "/items";
+    private static final String URL_PATH = "/items";
 
     public MultipleItemQuery(@NonNull DeliveryClientConfig config) {
         super(config);
