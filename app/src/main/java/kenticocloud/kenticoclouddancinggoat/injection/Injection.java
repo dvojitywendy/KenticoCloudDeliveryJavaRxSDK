@@ -10,9 +10,9 @@ import kenticocloud.kenticoclouddancinggoat.data.source.cafes.CafesCloudSource;
 import kenticocloud.kenticoclouddancinggoat.data.source.cafes.CafesRepository;
 import kenticocloud.kenticoclouddancinggoat.data.source.coffees.CoffeesCloudSource;
 import kenticocloud.kenticoclouddancinggoat.data.source.coffees.CoffeesRepository;
-import kenticocloud.kenticoclouddancinggoat.kentico_cloud.DeliveryService;
-import kenticocloud.kenticoclouddancinggoat.kentico_cloud.IDeliveryService;
-import kenticocloud.kenticoclouddancinggoat.kentico_cloud.config.DeliveryClientConfig;
+import com.kenticocloud.delivery.services.DeliveryService;
+import com.kenticocloud.delivery.services.IDeliveryService;
+import com.kenticocloud.delivery.config.DeliveryClientConfig;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
