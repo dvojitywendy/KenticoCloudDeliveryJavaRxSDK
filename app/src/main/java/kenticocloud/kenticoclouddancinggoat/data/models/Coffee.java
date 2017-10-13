@@ -1,18 +1,12 @@
 package kenticocloud.kenticoclouddancinggoat.data.models;
 
-import org.json.JSONException;
-import org.w3c.dom.Text;
-
-import java.text.ParseException;
-import java.util.Date;
-
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.ContentItem;
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.elements.AssetsElement;
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.elements.NumberElement;
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.elements.RichTextElement;
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.elements.TextElement;
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.elements.models.AssetModel;
-import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.item.ElementMapping;
+import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.element.ElementMapping;
 
 public final class Coffee extends ContentItem{
 

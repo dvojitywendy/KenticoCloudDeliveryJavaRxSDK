@@ -7,21 +7,26 @@ import kenticocloud.kenticoclouddancinggoat.kentico_cloud.interfaces.item.item.I
 
 public class TypeResolver<TItem extends IContentItem> {
 
-    private Function<Void, TItem> _resolver;
-    private String _type;
+    private Function<Void, TItem> resolver;
+    private String type;
 
+    /**
+     * Type resolvers are used to create strongy typed objects for given Kentico content type identified by its codename
+     * @param type Codename of Kentico Content type
+     * @param resolver Function that returns instance of IContentItem class representing content type
+     */
     public TypeResolver(@NonNull String type, Function<Void, TItem> resolver){
-        _type = type;
-        _resolver = resolver;
+        this.type = type;
+        this.resolver = resolver;
     }
 
     public TItem createInstance(){
-        return _resolver.apply(null);
+        return this.resolver.apply(null);
     }
 
     public Function<Void, TItem> getResolver(){
-        return _resolver;
+        return this.resolver;
     }
 
-    public String getType(){ return _type; }
+    public String getType(){ return this.type; }
 }

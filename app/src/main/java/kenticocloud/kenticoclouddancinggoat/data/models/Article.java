@@ -1,8 +1,5 @@
 package kenticocloud.kenticoclouddancinggoat.data.models;
 
-import org.json.JSONException;
-
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -17,7 +14,7 @@ import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.elements.RichTe
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.elements.TextElement;
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.elements.models.MultipleChoiceOption;
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.elements.models.TaxonomyTerms;
-import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.item.ElementMapping;
+import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.element.ElementMapping;
 
 public final class Article extends ContentItem {
 

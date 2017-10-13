@@ -1,4 +1,4 @@
-package kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.item;
+package kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.element;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

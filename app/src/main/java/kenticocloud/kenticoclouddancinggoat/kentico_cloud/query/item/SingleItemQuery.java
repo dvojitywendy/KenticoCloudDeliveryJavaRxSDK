@@ -21,9 +21,9 @@ import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.common.Paramete
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.exceptions.KenticoCloudException;
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.item.DeliveryItemResponse;
 
-public class SingleItemQuery<T extends IContentItem> extends BaseItemQuery<T> {
+public class SingleItemQuery<TItem extends IContentItem> extends BaseItemQuery<TItem> {
 
-    private final String URL_PATH = "/items/";
+    private static final String URL_PATH = "/items/";
     private final String itemCodename;
 
     public SingleItemQuery(@NonNull DeliveryClientConfig config, @NonNull String itemCodename) {
@@ -31,42 +31,40 @@ public class SingleItemQuery<T extends IContentItem> extends BaseItemQuery<T> {
         this.itemCodename = itemCodename;
     }
 
+    @Override
+    public String getQueryUrl(){
+        String action = URL_PATH + this.itemCodename;
+
+        return this.queryService.getUrl(action, parameters);
+    }
+
     // parameters
-    public SingleItemQuery<T> elementsParameter(@NonNull List<String> elements){
+    public SingleItemQuery<TItem> elementsParameter(@NonNull List<String> elements){
         this.parameters.add(new Parameters.ElementsParameter(elements));
         return this;
     }
 
-    public SingleItemQuery<T> languageParameter(@NonNull String language){
+    public SingleItemQuery<TItem> languageParameter(@NonNull String language){
         this.parameters.add(new Parameters.LanguageParameter(language));
         return this;
     }
 
-    public SingleItemQuery<T> depthParameter(int limit){
+    public SingleItemQuery<TItem> depthParameter(int limit){
         this.parameters.add(new Parameters.DepthParameter(limit));
         return this;
     }
 
-    // url builder
-    private String getSingleItemUrl(){
-        String action = URL_PATH + this.itemCodename;
-
-        return getUrl(action, parameters);
-    }
-
     // observable
-    public Observable<DeliveryItemResponse<T>> get() {
-        String url = getSingleItemUrl();
-
-        return Rx2AndroidNetworking.get(url)
+    public Observable<DeliveryItemResponse<TItem>> get() {
+        return Rx2AndroidNetworking.get(getQueryUrl())
                 .setPriority(Priority.MEDIUM)
                 .build()
                 .getJSONObjectObservable()
-                .map(new Function<JSONObject, DeliveryItemResponse<T>>() {
+                .map(new Function<JSONObject, DeliveryItemResponse<TItem>>() {
                     @Override
-                    public DeliveryItemResponse<T> apply(JSONObject jsonObject) throws KenticoCloudException {
+                    public DeliveryItemResponse<TItem> apply(JSONObject jsonObject) throws KenticoCloudException {
                         try {
-                            return responseMapService.<T>mapItemResponse(jsonObject);
+                            return responseMapService.<TItem>mapItemResponse(jsonObject);
                         } catch (JSONException | IOException | IllegalAccessException ex) {
                             Log.e(SDKConfig.APP_TAG, ex.getMessage());
                             throw new KenticoCloudException("Could not get item response with error: " + ex.getMessage(), ex);

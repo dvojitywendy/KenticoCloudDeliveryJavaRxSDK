@@ -8,18 +8,13 @@ import java.util.List;
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.config.DeliveryClientConfig;
 import kenticocloud.kenticoclouddancinggoat.kentico_cloud.interfaces.item.common.IQueryParameter;
 
-public abstract class QueryService {
+public final class QueryService {
 
-    protected final String DELIVERY_API_URL = "https://deliver.kenticocloud.com";
-    protected DeliveryClientConfig config;
+    private final String DELIVERY_API_URL = "https://deliver.kenticocloud.com";
+    private DeliveryClientConfig config;
 
-    protected QueryService(DeliveryClientConfig config){
+    public QueryService(DeliveryClientConfig config){
         this.config = config;
-    }
-
-
-    protected String getUrl(@NonNull String action, List<IQueryParameter> parameters){
-        return addParametersToUrl(getBaseUrl() + action, parameters);
     }
 
     private String getDeliveryUrl(){
@@ -35,17 +30,23 @@ public abstract class QueryService {
             return url;
         }
 
+        StringBuilder urlBuilder = new StringBuilder(url);
         for(int i = 0; i < parameters.size(); i++) {
             IQueryParameter parameter = parameters.get(i);
             if (i == 0) {
                 // first item
-                url += "?" + parameter.getParam() + "=" + parameter.getParamValue();
+                urlBuilder.append("?").append(parameter.getParam()).append("=").append(parameter.getParamValue());
             } else {
                 // after first items
-                url += "&" + parameter.getParam() + "=" + parameter.getParamValue();
+                urlBuilder.append("&").append(parameter.getParam()).append("=").append(parameter.getParamValue());
             }
         }
+        url = urlBuilder.toString();
 
         return url;
+    }
+
+    public String getUrl(@NonNull String action, List<IQueryParameter> parameters){
+        return addParametersToUrl(getBaseUrl() + action, parameters);
     }
 }

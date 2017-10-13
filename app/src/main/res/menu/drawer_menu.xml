@@ -14,6 +14,7 @@
             android:id="@+id/cafes"
             android:icon="@drawable/ic_local_cafe"
             android:title="@string/main_menu_cafes" />
+
     </group>
 
     <item android:title="@string/main_menu_extra">
@@ -22,6 +23,10 @@
                 android:id="@+id/nav_share"
                 android:icon="@drawable/ic_menu_share"
                 android:title="@string/main_menu_contact" />
+            <item
+                android:id="@+id/test"
+                android:icon="@drawable/ic_settings"
+                android:title="@string/main_menu_test" />
         </menu>
     </item>
 
