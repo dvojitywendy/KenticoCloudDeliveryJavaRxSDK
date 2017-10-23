@@ -10,7 +10,7 @@ import javax.annotation.Nullable;
 import kenticocloud.kenticoclouddancinggoat.data.models.Article;
 import kenticocloud.kenticoclouddancinggoat.data.models.Cafe;
 import kenticocloud.kenticoclouddancinggoat.data.models.Coffee;
-import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.item.TypeResolver;
+import com.kenticocloud.delivery.models.item.TypeResolver;
 
 public class AppConfig {
     public final static String KENTICO_CLOUD_PROJECT_ID = "683771be-aa26-4887-b1b6-482f56418ffd";

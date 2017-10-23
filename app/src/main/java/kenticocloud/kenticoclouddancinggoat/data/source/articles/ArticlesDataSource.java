@@ -2,11 +2,9 @@ package kenticocloud.kenticoclouddancinggoat.data.source.articles;
 
 import android.support.annotation.NonNull;
 
-import java.util.List;
-
 import kenticocloud.kenticoclouddancinggoat.data.models.Article;
-import kenticocloud.kenticoclouddancinggoat.data.source.IMultipleCallback;
-import kenticocloud.kenticoclouddancinggoat.data.source.ISingleCallback;
+import com.kenticocloud.delivery.data.IMultipleCallback;
+import com.kenticocloud.delivery.data.ISingleCallback;
 
 public interface ArticlesDataSource {
 

@@ -10,10 +10,10 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import kenticocloud.kenticoclouddancinggoat.data.models.Article;
-import kenticocloud.kenticoclouddancinggoat.data.source.BaseCloudSource;
+import com.kenticocloud.delivery.data.BaseCloudSource;
 import kenticocloud.kenticoclouddancinggoat.injection.Injection;
-import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.item.DeliveryItemListingResponse;
-import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.item.DeliveryItemResponse;
+import com.kenticocloud.delivery.models.item.DeliveryItemListingResponse;
+import com.kenticocloud.delivery.models.item.DeliveryItemResponse;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 

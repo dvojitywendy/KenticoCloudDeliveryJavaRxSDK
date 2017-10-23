@@ -3,18 +3,18 @@ package kenticocloud.kenticoclouddancinggoat.data.models;
 import java.util.ArrayList;
 import java.util.Date;
 
-import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.ContentItem;
-import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.elements.ModularContentElement;
-import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.elements.MultipleChoiceElement;
-import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.elements.TaxonomyElement;
-import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.elements.models.AssetModel;
-import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.elements.AssetsElement;
-import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.elements.DateTimeElement;
-import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.elements.RichTextElement;
-import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.elements.TextElement;
-import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.elements.models.MultipleChoiceOption;
-import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.elements.models.TaxonomyTerms;
-import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.element.ElementMapping;
+import com.kenticocloud.delivery.models.ContentItem;
+import com.kenticocloud.delivery.models.elements.ModularContentElement;
+import com.kenticocloud.delivery.models.elements.MultipleChoiceElement;
+import com.kenticocloud.delivery.models.elements.TaxonomyElement;
+import com.kenticocloud.delivery.models.elements.models.AssetModel;
+import com.kenticocloud.delivery.models.elements.AssetsElement;
+import com.kenticocloud.delivery.models.elements.DateTimeElement;
+import com.kenticocloud.delivery.models.elements.RichTextElement;
+import com.kenticocloud.delivery.models.elements.TextElement;
+import com.kenticocloud.delivery.models.elements.models.MultipleChoiceOption;
+import com.kenticocloud.delivery.models.elements.models.TaxonomyTerms;
+import com.kenticocloud.delivery.models.element.ElementMapping;
 
 public final class Article extends ContentItem {
 

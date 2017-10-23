@@ -1,10 +1,10 @@
 package kenticocloud.kenticoclouddancinggoat.data.models;
 
-import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.ContentItem;
-import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.elements.AssetsElement;
-import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.elements.TextElement;
-import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.elements.models.AssetModel;
-import kenticocloud.kenticoclouddancinggoat.kentico_cloud.models.element.ElementMapping;
+import com.kenticocloud.delivery.models.ContentItem;
+import com.kenticocloud.delivery.models.elements.AssetsElement;
+import com.kenticocloud.delivery.models.elements.TextElement;
+import com.kenticocloud.delivery.models.elements.models.AssetModel;
+import com.kenticocloud.delivery.models.element.ElementMapping;
 
 public final class Cafe extends ContentItem {
 

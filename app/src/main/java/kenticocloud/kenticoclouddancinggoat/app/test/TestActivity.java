@@ -5,7 +5,7 @@ import android.os.Bundle;
 import kenticocloud.kenticoclouddancinggoat.R;
 import kenticocloud.kenticoclouddancinggoat.app.core.BaseActivity;
 import kenticocloud.kenticoclouddancinggoat.injection.Injection;
-import kenticocloud.kenticoclouddancinggoat.kentico_cloud.IDeliveryService;
+import com.kenticocloud.delivery.services.IDeliveryService;
 import kenticocloud.kenticoclouddancinggoat.util.ActivityUtils;
 
 public class TestActivity extends BaseActivity {
