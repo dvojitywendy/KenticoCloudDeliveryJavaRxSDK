@@ -73,7 +73,8 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         // init android networking
-        AndroidNetworking.initialize(getApplicationContext());
+        // TODO: seems like this is not required after all, verify and remove if possible
+        //AndroidNetworking.initialize(getApplicationContext());
 
         // Init network helper
         this.networkHelper = NetworkHelper.getInstance();

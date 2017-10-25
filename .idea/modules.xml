@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/KenticoCloudDancingGoat.iml" filepath="$PROJECT_DIR$/KenticoCloudDancingGoat.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/cloud-android-dancing-goat.iml" filepath="$PROJECT_DIR$/cloud-android-dancing-goat.iml" />
+      <module fileurl="file://$PROJECT_DIR$/delivery-android-rx-sdk-test/delivery-android-rx-sdk-test.iml" filepath="$PROJECT_DIR$/delivery-android-rx-sdk-test/delivery-android-rx-sdk-test.iml" />
       <module fileurl="file://$PROJECT_DIR$/delivery-android-sdk/delivery-android-sdk.iml" filepath="$PROJECT_DIR$/delivery-android-sdk/delivery-android-sdk.iml" />
       <module fileurl="file://$PROJECT_DIR$/delivery-java-rx-sdk/delivery-java-rx-sdk.iml" filepath="$PROJECT_DIR$/delivery-java-rx-sdk/delivery-java-rx-sdk.iml" />
       <module fileurl="file://$PROJECT_DIR$/sample-java-app/sample-java-app.iml" filepath="$PROJECT_DIR$/sample-java-app/sample-java-app.iml" />

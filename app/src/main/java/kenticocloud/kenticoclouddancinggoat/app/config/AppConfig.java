@@ -1,12 +1,11 @@
 package kenticocloud.kenticoclouddancinggoat.app.config;
 
-import com.google.common.base.Function;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Nullable;
 
+import io.reactivex.functions.Function;
 import kenticocloud.kenticoclouddancinggoat.data.models.Article;
 import kenticocloud.kenticoclouddancinggoat.data.models.Cafe;
 import kenticocloud.kenticoclouddancinggoat.data.models.Coffee;
@@ -20,7 +19,7 @@ public class AppConfig {
         // Type resolvers are responsible for creating the strongly typed object out of type
         List<TypeResolver<?>> typeResolvers = new ArrayList<>();
 
-        // Cafe resolver
+        // Cafe resolvers
         typeResolvers.add(new TypeResolver<>(Cafe.TYPE, new Function<Void, Cafe>() {
             @Nullable
             @Override
