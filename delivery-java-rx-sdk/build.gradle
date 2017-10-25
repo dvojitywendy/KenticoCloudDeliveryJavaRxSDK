@@ -6,8 +6,6 @@ dependencies {
     compile 'com.fasterxml.jackson.core:jackson-core:2.9.1'
     compile 'com.fasterxml.jackson.core:jackson-annotations:2.9.1'
     compile 'com.fasterxml.jackson.core:jackson-databind:2.9.1'
-    compile 'com.squareup.retrofit2:adapter-rxjava2:2.2.0'
-    compile 'com.squareup.retrofit2:retrofit:2.3.0'
     compile 'io.reactivex.rxjava2:rxjava:2.1.5'
 }
 

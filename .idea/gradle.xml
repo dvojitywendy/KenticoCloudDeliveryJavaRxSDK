@@ -9,9 +9,11 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
-            <option value="$PROJECT_DIR$/delivery-android-rx-sdk-test" />
+            <option value="$PROJECT_DIR$/com.kenticocloud.rxjava2" />
             <option value="$PROJECT_DIR$/delivery-android-sdk" />
             <option value="$PROJECT_DIR$/delivery-java-rx-sdk" />
+            <option value="$PROJECT_DIR$/delivery-rxandroid" />
+            <option value="$PROJECT_DIR$/delivery-rxjava2" />
             <option value="$PROJECT_DIR$/sample-java-app" />
           </set>
         </option>

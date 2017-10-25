@@ -1,1 +1,1 @@
-include ':app', ':delivery-android-sdk', ':sample-java-app', ':delivery-java-rx-sdk', ':delivery-android-rx-sdk-test'
+include ':app', ':delivery-android-sdk', ':sample-java-app', ':delivery-java-rx-sdk', ':delivery-rxandroid', ':delivery-rxjava2', ':com.kenticocloud.rxjava2'

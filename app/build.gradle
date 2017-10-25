@@ -56,7 +56,7 @@ dependencies {
     compile 'com.fasterxml.jackson.core:jackson-databind:2.9.1'
     //compile project(':delivery-android-sdk')
     compile project(path: ':delivery-java-rx-sdk')
-    compile project(path: ':delivery-android-rx-sdk-test')
+    compile project(path: ':delivery-rxandroid')
 }
 
 apply plugin: 'com.google.gms.google-services'
