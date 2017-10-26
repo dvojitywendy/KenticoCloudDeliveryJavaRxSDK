@@ -1,7 +1,19 @@
+// It is important to include external dependencies in final JAR or they will not be present in runtime
+// For more information see: https://discuss.gradle.org/t/how-to-include-dependencies-in-jar/19571/5
+
 apply plugin: 'java'
+
+version = '1.0'
+sourceCompatibility = "1.7"
+targetCompatibility = "1.7"
 
 repositories {
     mavenCentral()
+}
+
+configurations {
+    // configuration that holds jars to include in the jar
+    extraLibs
 }
 
 dependencies {
@@ -9,7 +21,14 @@ dependencies {
     compile project(path: ':delivery-java-rx-core')
     compile project(path: ':delivery-rxjava2')
     compile 'io.reactivex.rxjava2:rxjava:2.1.5'
+    extraLibs group: 'io.reactivex.rxjava2', name: 'rxjava', version: '2.1.5'
+    configurations.compile.extendsFrom(configurations.extraLibs)
 }
 
-sourceCompatibility = "1.7"
-targetCompatibility = "1.7"
+jar {
+    from {
+        configurations.extraLibs.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
+
+
