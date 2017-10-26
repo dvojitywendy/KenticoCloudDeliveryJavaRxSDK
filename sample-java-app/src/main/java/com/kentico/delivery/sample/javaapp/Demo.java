@@ -5,6 +5,9 @@ import com.kentico.delivery.core.interfaces.item.item.IContentItem;
 import com.kentico.delivery.core.models.item.DeliveryItemListingResponse;
 import com.kentico.delivery.core.services.IDeliveryService;
 import com.kentico.delivery.rxjava2.DeliveryRxJava2;
+import com.kentico.delivery.sample.javaapp.models.Article;
+
+import java.util.List;
 
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
@@ -18,15 +21,15 @@ public class Demo {
     }
 
     public void runTests(){
-        this.deliveryService.items().get().subscribe(new Observer<DeliveryItemListingResponse<IContentItem>>() {
+        this.deliveryService.<Article>items().type(Article.TYPE).get().subscribe(new Observer<DeliveryItemListingResponse<Article>>() {
             @Override
             public void onSubscribe(Disposable disposable) {
 
             }
 
             @Override
-            public void onNext(DeliveryItemListingResponse<IContentItem> iContentItemDeliveryItemListingResponse) {
-
+            public void onNext(DeliveryItemListingResponse<Article> iContentItemDeliveryItemListingResponse) {
+                List<Article> articles = iContentItemDeliveryItemListingResponse.getItems();
             }
 
             @Override

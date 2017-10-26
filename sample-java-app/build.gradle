@@ -28,6 +28,7 @@ dependencies {
     extraLibs 'com.fasterxml.jackson.core:jackson-annotations:2.9.1'
     extraLibs 'com.fasterxml.jackson.core:jackson-databind:2.9.1'
     extraLibs group: 'io.reactivex.rxjava2', name: 'rxjava', version: '2.1.5'
+    extraLibs 'com.squareup.okhttp3:okhttp:3.9.0'
     configurations.compile.extendsFrom(configurations.extraLibs)
 }
 
