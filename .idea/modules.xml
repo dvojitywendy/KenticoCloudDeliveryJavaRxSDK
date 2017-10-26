@@ -3,10 +3,16 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/KenticoCloudDancingGoat.iml" filepath="$PROJECT_DIR$/KenticoCloudDancingGoat.iml" />
+      <module fileurl="file://$PROJECT_DIR$/KenticoCloudDeliveryJavaRxSDK.iml" filepath="$PROJECT_DIR$/KenticoCloudDeliveryJavaRxSDK.iml" />
+      <module fileurl="file://$PROJECT_DIR$/delivery-java-rx-core/delivery-java-rx-core.iml" filepath="$PROJECT_DIR$/delivery-java-rx-core/delivery-java-rx-core.iml" />
       <module fileurl="file://$PROJECT_DIR$/delivery-java-rx-core/delivery-java-rx-core.iml" filepath="$PROJECT_DIR$/delivery-java-rx-core/delivery-java-rx-core.iml" />
       <module fileurl="file://$PROJECT_DIR$/delivery-rxandroid/delivery-rxandroid.iml" filepath="$PROJECT_DIR$/delivery-rxandroid/delivery-rxandroid.iml" />
+      <module fileurl="file://$PROJECT_DIR$/delivery-rxandroid/delivery-rxandroid.iml" filepath="$PROJECT_DIR$/delivery-rxandroid/delivery-rxandroid.iml" />
+      <module fileurl="file://$PROJECT_DIR$/delivery-rxjava2/delivery-rxjava2.iml" filepath="$PROJECT_DIR$/delivery-rxjava2/delivery-rxjava2.iml" />
       <module fileurl="file://$PROJECT_DIR$/delivery-rxjava2/delivery-rxjava2.iml" filepath="$PROJECT_DIR$/delivery-rxjava2/delivery-rxjava2.iml" />
       <module fileurl="file://$PROJECT_DIR$/sample-android-app/sample-android-app.iml" filepath="$PROJECT_DIR$/sample-android-app/sample-android-app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sample-android-app/sample-android-app.iml" filepath="$PROJECT_DIR$/sample-android-app/sample-android-app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sample-java-app/sample-java-app.iml" filepath="$PROJECT_DIR$/sample-java-app/sample-java-app.iml" />
       <module fileurl="file://$PROJECT_DIR$/sample-java-app/sample-java-app.iml" filepath="$PROJECT_DIR$/sample-java-app/sample-java-app.iml" />
     </modules>
   </component>
