@@ -26,5 +26,7 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.amitshekhar.android:rx2-android-networking:1.0.0'
     testCompile 'junit:junit:4.12'
-    compile project(path: ':delivery-java-rx-sdk')
+    compile (project(path: ':delivery-java-rx-core')){
+        exclude group: 'org.json', module: 'json'
+    }
 }
