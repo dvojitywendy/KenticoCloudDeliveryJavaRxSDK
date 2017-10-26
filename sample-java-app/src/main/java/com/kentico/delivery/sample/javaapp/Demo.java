@@ -30,6 +30,7 @@ public class Demo {
             @Override
             public void onNext(DeliveryItemListingResponse<Article> iContentItemDeliveryItemListingResponse) {
                 List<Article> articles = iContentItemDeliveryItemListingResponse.getItems();
+                System.out.println(articles.get(0).getSystem().getCodename());
             }
 
             @Override
