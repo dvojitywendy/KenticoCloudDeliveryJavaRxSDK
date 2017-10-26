@@ -21,6 +21,12 @@ dependencies {
     compile project(path: ':delivery-java-rx-core')
     compile project(path: ':delivery-rxjava2')
     compile 'io.reactivex.rxjava2:rxjava:2.1.5'
+
+    // extra libs to be included in JAR
+    extraLibs group: 'org.json', name: 'json', version: '20070829'
+    extraLibs 'com.fasterxml.jackson.core:jackson-core:2.9.1'
+    extraLibs 'com.fasterxml.jackson.core:jackson-annotations:2.9.1'
+    extraLibs 'com.fasterxml.jackson.core:jackson-databind:2.9.1'
     extraLibs group: 'io.reactivex.rxjava2', name: 'rxjava', version: '2.1.5'
     configurations.compile.extendsFrom(configurations.extraLibs)
 }

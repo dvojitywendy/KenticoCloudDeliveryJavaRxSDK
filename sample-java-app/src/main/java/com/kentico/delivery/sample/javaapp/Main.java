@@ -17,7 +17,7 @@ public class Main {
                 });
 
 
-        //Demo demo = new Demo(getDeliveryService());
-        //demo.runTests();
+        Demo demo = new Demo();
+        demo.runTests();
     }
 }
