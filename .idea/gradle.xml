@@ -8,8 +8,11 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/app" />
-            <option value="$PROJECT_DIR$/delivery-android-sdk" />
+            <option value="$PROJECT_DIR$/delivery-java-rx-core" />
+            <option value="$PROJECT_DIR$/delivery-rxandroid" />
+            <option value="$PROJECT_DIR$/delivery-rxjava2" />
+            <option value="$PROJECT_DIR$/sample-android-app" />
+            <option value="$PROJECT_DIR$/sample-java-app" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />
