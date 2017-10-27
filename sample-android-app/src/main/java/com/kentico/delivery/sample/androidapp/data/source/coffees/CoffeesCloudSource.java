@@ -13,17 +13,18 @@ package com.kentico.delivery.sample.androidapp.data.source.coffees;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
+import com.kentico.delivery.core.data.BaseCloudSource;
+import com.kentico.delivery.core.models.item.DeliveryItemListingResponse;
+import com.kentico.delivery.core.models.item.DeliveryItemResponse;
+import com.kentico.delivery.sample.androidapp.data.models.Coffee;
+import com.kentico.delivery.sample.androidapp.injection.Injection;
+
 import java.util.List;
 
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
-import com.kentico.delivery.sample.androidapp.data.models.Coffee;
-import com.kentico.delivery.core.data.BaseCloudSource;
-import com.kentico.delivery.sample.androidapp.injection.Injection;
-import com.kentico.delivery.core.models.item.DeliveryItemListingResponse;
-import com.kentico.delivery.core.models.item.DeliveryItemResponse;
 
 public class CoffeesCloudSource extends BaseCloudSource implements CoffeesDataSource {
 

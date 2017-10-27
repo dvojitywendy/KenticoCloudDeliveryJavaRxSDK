@@ -12,17 +12,18 @@ package com.kentico.delivery.sample.androidapp.app.test;
 
 import android.support.annotation.NonNull;
 
+import com.kentico.delivery.core.models.item.DeliveryItemListingResponse;
+import com.kentico.delivery.core.models.type.DeliverySingleTypeResponse;
+import com.kentico.delivery.core.models.type.DeliveryTypeListingResponse;
+import com.kentico.delivery.core.services.IDeliveryService;
+import com.kentico.delivery.sample.androidapp.data.models.Cafe;
+
 import java.util.List;
 
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
-import com.kentico.delivery.sample.androidapp.data.models.Cafe;
-import com.kentico.delivery.core.services.IDeliveryService;
-import com.kentico.delivery.core.models.item.DeliveryItemListingResponse;
-import com.kentico.delivery.core.models.type.DeliverySingleTypeResponse;
-import com.kentico.delivery.core.models.type.DeliveryTypeListingResponse;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 

@@ -11,6 +11,7 @@
 package com.kentico.delivery.core.models;
 
 import com.kentico.delivery.core.interfaces.item.item.IContentItemSystemAttributes;
+
 import java.util.Date;
 
 /**

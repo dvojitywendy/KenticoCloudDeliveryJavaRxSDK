@@ -11,10 +11,10 @@
 package com.kentico.delivery.sample.androidapp.data.models;
 
 import com.kentico.delivery.core.models.ContentItem;
+import com.kentico.delivery.core.models.element.ElementMapping;
 import com.kentico.delivery.core.models.elements.AssetsElement;
 import com.kentico.delivery.core.models.elements.TextElement;
 import com.kentico.delivery.core.models.elements.models.AssetModel;
-import com.kentico.delivery.core.models.element.ElementMapping;
 
 public final class Cafe extends ContentItem {
 

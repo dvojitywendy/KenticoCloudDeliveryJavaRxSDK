@@ -12,11 +12,11 @@ package com.kentico.delivery.sample.androidapp.app.cafes;
 
 import android.support.annotation.NonNull;
 
-import java.util.List;
-
 import com.kentico.delivery.sample.androidapp.data.models.Cafe;
 import com.kentico.delivery.sample.androidapp.data.source.cafes.CafesDataSource;
 import com.kentico.delivery.sample.androidapp.data.source.cafes.CafesRepository;
+
+import java.util.List;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 

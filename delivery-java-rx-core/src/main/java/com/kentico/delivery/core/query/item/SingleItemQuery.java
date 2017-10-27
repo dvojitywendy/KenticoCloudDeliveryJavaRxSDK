@@ -15,7 +15,7 @@ import com.kentico.delivery.core.interfaces.item.item.IContentItem;
 import com.kentico.delivery.core.models.common.Parameters;
 import com.kentico.delivery.core.models.exceptions.KenticoCloudException;
 import com.kentico.delivery.core.models.item.DeliveryItemResponse;
-
+import com.kentico.delivery.core.request.IRequestService;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -23,7 +23,6 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.List;
 
-import com.kentico.delivery.core.request.IRequestService;
 import io.reactivex.Observable;
 import io.reactivex.functions.Function;
 

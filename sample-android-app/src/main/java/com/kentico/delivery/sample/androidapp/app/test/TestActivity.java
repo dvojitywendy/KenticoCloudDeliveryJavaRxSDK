@@ -12,11 +12,11 @@ package com.kentico.delivery.sample.androidapp.app.test;
 
 import android.os.Bundle;
 
+import com.kentico.delivery.core.services.IDeliveryService;
+import com.kentico.delivery.sample.androidapp.R;
 import com.kentico.delivery.sample.androidapp.app.core.BaseActivity;
 import com.kentico.delivery.sample.androidapp.injection.Injection;
-import com.kentico.delivery.core.services.IDeliveryService;
 import com.kentico.delivery.sample.androidapp.util.ActivityUtils;
-import com.kentico.delivery.sample.androidapp.R;
 
 public class TestActivity extends BaseActivity {
 

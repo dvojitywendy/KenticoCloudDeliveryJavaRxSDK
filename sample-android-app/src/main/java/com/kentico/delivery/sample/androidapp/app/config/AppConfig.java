@@ -10,16 +10,17 @@
 
 package com.kentico.delivery.sample.androidapp.app.config;
 
+import com.kentico.delivery.core.models.item.TypeResolver;
+import com.kentico.delivery.sample.androidapp.data.models.Article;
+import com.kentico.delivery.sample.androidapp.data.models.Cafe;
+import com.kentico.delivery.sample.androidapp.data.models.Coffee;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Nullable;
 
 import io.reactivex.functions.Function;
-import com.kentico.delivery.sample.androidapp.data.models.Article;
-import com.kentico.delivery.sample.androidapp.data.models.Cafe;
-import com.kentico.delivery.sample.androidapp.data.models.Coffee;
-import com.kentico.delivery.core.models.item.TypeResolver;
 
 public class AppConfig {
     public final static String KENTICO_CLOUD_PROJECT_ID = "683771be-aa26-4887-b1b6-482f56418ffd";

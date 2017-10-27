@@ -10,12 +10,13 @@
 
 package com.kentico.delivery.core.services;
 
+import com.kentico.delivery.core.interfaces.item.common.IQueryParameter;
+
 import org.json.JSONObject;
 
-import com.kentico.delivery.core.interfaces.item.common.IQueryParameter;
-import io.reactivex.Observable;
-
 import java.util.List;
+
+import io.reactivex.Observable;
 
 public interface IQueryService {
 

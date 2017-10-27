@@ -12,11 +12,11 @@ package com.kentico.delivery.sample.androidapp.app.articles;
 
 import android.support.annotation.NonNull;
 
-import java.util.List;
-
 import com.kentico.delivery.sample.androidapp.data.models.Article;
 import com.kentico.delivery.sample.androidapp.data.source.articles.ArticlesDataSource;
 import com.kentico.delivery.sample.androidapp.data.source.articles.ArticlesRepository;
+
+import java.util.List;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 

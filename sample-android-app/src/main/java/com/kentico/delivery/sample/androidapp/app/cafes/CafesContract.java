@@ -10,11 +10,11 @@
 
 package com.kentico.delivery.sample.androidapp.app.cafes;
 
-import java.util.List;
-
 import com.kentico.delivery.sample.androidapp.app.core.IBasePresenter;
 import com.kentico.delivery.sample.androidapp.app.core.IBaseView;
 import com.kentico.delivery.sample.androidapp.data.models.Cafe;
+
+import java.util.List;
 
 interface CafesContract {
     interface View extends IBaseView<Presenter> {

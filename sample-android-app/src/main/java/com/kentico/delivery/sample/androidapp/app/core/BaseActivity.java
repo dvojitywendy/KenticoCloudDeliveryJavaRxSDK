@@ -25,15 +25,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 
-import com.androidnetworking.AndroidNetworking;
-
 import com.kentico.delivery.sample.androidapp.R;
 import com.kentico.delivery.sample.androidapp.app.articles.ArticlesActivity;
 import com.kentico.delivery.sample.androidapp.app.cafes.CafesActivity;
 import com.kentico.delivery.sample.androidapp.app.coffees.CoffeesActivity;
 import com.kentico.delivery.sample.androidapp.app.test.TestActivity;
 import com.kentico.delivery.sample.androidapp.util.NetworkHelper;
-import com.kentico.delivery.sample.androidapp.util.SyncHelper;
 
 public abstract class BaseActivity extends AppCompatActivity {
 

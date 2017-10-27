@@ -10,9 +10,7 @@
 
 package com.kentico.delivery.sample.javaapp;
 
-import java.util.Scanner;
-
-import io.reactivex.*;
+import io.reactivex.Flowable;
 import io.reactivex.functions.Consumer;
 
 public class Main {

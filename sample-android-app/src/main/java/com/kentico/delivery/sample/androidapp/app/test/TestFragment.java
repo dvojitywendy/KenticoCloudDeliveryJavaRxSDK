@@ -16,10 +16,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.List;
-
 import com.kentico.delivery.sample.androidapp.R;
 import com.kentico.delivery.sample.androidapp.app.core.BaseFragment;
+
+import java.util.List;
 
 public class TestFragment extends BaseFragment<TestContract.Presenter> implements TestContract.View{
 

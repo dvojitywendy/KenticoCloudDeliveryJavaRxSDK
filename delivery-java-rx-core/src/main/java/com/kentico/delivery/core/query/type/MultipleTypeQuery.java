@@ -14,12 +14,12 @@ import com.kentico.delivery.core.config.DeliveryClientConfig;
 import com.kentico.delivery.core.models.common.Parameters;
 import com.kentico.delivery.core.models.exceptions.KenticoCloudException;
 import com.kentico.delivery.core.models.type.DeliveryTypeListingResponse;
+import com.kentico.delivery.core.request.IRequestService;
 
 import org.json.JSONObject;
 
 import java.io.IOException;
 
-import com.kentico.delivery.core.request.IRequestService;
 import io.reactivex.Observable;
 import io.reactivex.functions.Function;
 

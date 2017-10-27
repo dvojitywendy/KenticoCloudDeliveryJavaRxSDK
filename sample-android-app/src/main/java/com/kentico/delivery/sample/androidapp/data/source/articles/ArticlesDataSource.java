@@ -12,9 +12,9 @@ package com.kentico.delivery.sample.androidapp.data.source.articles;
 
 import android.support.annotation.NonNull;
 
-import com.kentico.delivery.sample.androidapp.data.models.Article;
 import com.kentico.delivery.core.data.IMultipleCallback;
 import com.kentico.delivery.core.data.ISingleCallback;
+import com.kentico.delivery.sample.androidapp.data.models.Article;
 
 public interface ArticlesDataSource {
 

@@ -28,14 +28,13 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.kentico.delivery.sample.androidapp.R;
-import com.squareup.picasso.Picasso;
-
-import java.io.IOException;
-
 import com.kentico.delivery.sample.androidapp.app.core.BaseFragment;
 import com.kentico.delivery.sample.androidapp.data.models.Coffee;
 import com.kentico.delivery.sample.androidapp.util.Location.LocationHelper;
 import com.kentico.delivery.sample.androidapp.util.Location.LocationInfo;
+import com.squareup.picasso.Picasso;
+
+import java.io.IOException;
 
 public class CoffeeDetailFragment extends BaseFragment<CoffeeDetailContract.Presenter> implements CoffeeDetailContract.View, OnMapReadyCallback  {
 

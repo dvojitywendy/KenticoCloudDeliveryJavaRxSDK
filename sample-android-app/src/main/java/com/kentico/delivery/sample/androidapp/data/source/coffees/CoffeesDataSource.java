@@ -12,9 +12,9 @@ package com.kentico.delivery.sample.androidapp.data.source.coffees;
 
 import android.support.annotation.NonNull;
 
-import com.kentico.delivery.sample.androidapp.data.models.Coffee;
 import com.kentico.delivery.core.data.IMultipleCallback;
 import com.kentico.delivery.core.data.ISingleCallback;
+import com.kentico.delivery.sample.androidapp.data.models.Coffee;
 
 public interface CoffeesDataSource {
 

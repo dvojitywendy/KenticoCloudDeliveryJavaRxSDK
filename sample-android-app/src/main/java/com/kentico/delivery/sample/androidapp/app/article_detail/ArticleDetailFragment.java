@@ -18,13 +18,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.kentico.delivery.sample.androidapp.R;
+import com.kentico.delivery.sample.androidapp.app.core.BaseFragment;
+import com.kentico.delivery.sample.androidapp.data.models.Article;
 import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
 import java.util.Locale;
-
-import com.kentico.delivery.sample.androidapp.app.core.BaseFragment;
-import com.kentico.delivery.sample.androidapp.data.models.Article;
 
 public class ArticleDetailFragment extends BaseFragment<ArticleDetailContract.Presenter> implements ArticleDetailContract.View {
 

@@ -16,7 +16,6 @@ import android.support.annotation.NonNull;
 import com.kentico.delivery.android.DeliveryAndroidService;
 import com.kentico.delivery.core.config.DeliveryClientConfig;
 import com.kentico.delivery.core.services.IDeliveryService;
-
 import com.kentico.delivery.sample.androidapp.app.config.AppConfig;
 import com.kentico.delivery.sample.androidapp.data.source.articles.ArticlesCloudSource;
 import com.kentico.delivery.sample.androidapp.data.source.articles.ArticlesRepository;
@@ -24,8 +23,6 @@ import com.kentico.delivery.sample.androidapp.data.source.cafes.CafesCloudSource
 import com.kentico.delivery.sample.androidapp.data.source.cafes.CafesRepository;
 import com.kentico.delivery.sample.androidapp.data.source.coffees.CoffeesCloudSource;
 import com.kentico.delivery.sample.androidapp.data.source.coffees.CoffeesRepository;
-
-import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * Enables injection of production implementations at compile time.

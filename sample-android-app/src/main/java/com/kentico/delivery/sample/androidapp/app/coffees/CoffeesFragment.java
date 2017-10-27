@@ -21,16 +21,15 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.squareup.picasso.Picasso;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import com.kentico.delivery.sample.androidapp.R;
 import com.kentico.delivery.sample.androidapp.app.coffee_detail.CoffeeDetailActivity;
 import com.kentico.delivery.sample.androidapp.app.core.BaseFragment;
 import com.kentico.delivery.sample.androidapp.app.shared.CommunicationHub;
 import com.kentico.delivery.sample.androidapp.data.models.Coffee;
+import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 

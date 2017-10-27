@@ -11,7 +11,6 @@
 package com.kentico.delivery.sample.javaapp;
 
 import com.kentico.delivery.core.config.DeliveryClientConfig;
-import com.kentico.delivery.core.interfaces.item.item.IContentItem;
 import com.kentico.delivery.core.models.item.DeliveryItemListingResponse;
 import com.kentico.delivery.core.models.type.DeliveryTypeListingResponse;
 import com.kentico.delivery.core.services.IDeliveryService;
