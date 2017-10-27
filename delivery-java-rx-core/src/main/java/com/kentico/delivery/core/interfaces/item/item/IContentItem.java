@@ -10,7 +10,7 @@
 
 package com.kentico.delivery.core.interfaces.item.item;
 
-import com.kentico.delivery.core.models.elements.ContentElement;
+import com.kentico.delivery.core.elements.ContentElement;
 
 import java.util.List;
 

@@ -8,40 +8,28 @@
  *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.kentico.delivery.core.models;
+package com.kentico.delivery.core.elements;
 
-import com.kentico.delivery.core.interfaces.item.item.IContentItem;
-import com.kentico.delivery.core.interfaces.item.item.IContentItemSystemAttributes;
-import com.kentico.delivery.core.models.elements.ContentElement;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
-import java.util.List;
+public class UrlSlugElement extends ContentElement<String> {
+    private String value;
 
-/**
- * Base class for all types representing Kentico Cloud items
- */
-public abstract class ContentItem implements IContentItem {
+    public UrlSlugElement(
+            ObjectMapper objectMapper,
+            String name,
+            String codename,
+            String type,
+            JsonNode value
+    ){
+        super(objectMapper, name, codename, type);
 
-    private IContentItemSystemAttributes system;
-    private List<ContentElement<?>> elements;
-
-    @Override
-    public IContentItemSystemAttributes getSystem() {
-        return this.system;
+        this.value = value.textValue();
     }
 
     @Override
-    public void setContentItemSystemAttributes( IContentItemSystemAttributes system) {
-        this.system = system;
+    public String getValue(){
+        return this.value;
     }
-
-    @Override
-    public List<ContentElement<?>> getElements() {
-        return this.elements;
-    }
-
-    @Override
-    public void setElements( List<ContentElement<?>> elements) {
-        this.elements = elements;
-    }
-
 }

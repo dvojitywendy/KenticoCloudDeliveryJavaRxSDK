@@ -8,15 +8,19 @@
  *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.kentico.delivery.core.models.elements;
+package com.kentico.delivery.core.elements;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.kentico.delivery.core.elements.models.MultipleChoiceOption;
+import com.kentico.delivery.core.models.exceptions.KenticoCloudException;
 
-public class UrlSlugElement extends ContentElement<String> {
-    private String value;
+public class MultipleChoiceElement extends ContentElement<MultipleChoiceOption[]> {
 
-    public UrlSlugElement(
+    private MultipleChoiceOption[] _value;
+
+    public MultipleChoiceElement(
             ObjectMapper objectMapper,
             String name,
             String codename,
@@ -25,11 +29,16 @@ public class UrlSlugElement extends ContentElement<String> {
     ){
         super(objectMapper, name, codename, type);
 
-        this.value = value.textValue();
+        try {
+            _value = this.objectMapper.treeToValue(value, MultipleChoiceOption[].class);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            throw new KenticoCloudException("Could not map MultipleChoice element for '" + codename + "'", e);
+        }
     }
 
     @Override
-    public String getValue(){
-        return this.value;
+    public MultipleChoiceOption[] getValue(){
+        return this._value;
     }
 }

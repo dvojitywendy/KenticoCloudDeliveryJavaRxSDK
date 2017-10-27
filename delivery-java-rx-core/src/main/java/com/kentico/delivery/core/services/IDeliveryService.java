@@ -13,6 +13,8 @@ package com.kentico.delivery.core.services;
 import com.kentico.delivery.core.interfaces.item.item.IContentItem;
 import com.kentico.delivery.core.query.item.MultipleItemQuery;
 import com.kentico.delivery.core.query.item.SingleItemQuery;
+import com.kentico.delivery.core.query.taxonomy.MultipleTaxonomyQuery;
+import com.kentico.delivery.core.query.taxonomy.SingleTaxonomyQuery;
 import com.kentico.delivery.core.query.type.MultipleTypeQuery;
 import com.kentico.delivery.core.query.type.SingleTypeQuery;
 import com.kentico.delivery.core.request.IRequestService;
@@ -28,29 +30,42 @@ public interface IDeliveryService{
      * Query to fetch multiple items
      * @param <TItem> Class representing the type you want to return. Use 'IContentItem' if multiple types can be returned
      *               or if you don't know what types will be returned beforehands.
-     * @return Query to get the item
+     * @return Query for item
      */
      <TItem extends IContentItem> MultipleItemQuery<TItem> items();
 
      /**
      * Query to fetch single item
-     * @param itemCodename Codename of the item
+     * @param codename Codename of the item
      * @param <TItem> Class representing the type you want to return. Use 'IContentItem' if multiple types can be returned
      *               or if you don't know what types will be returned beforehands.
-     * @return Query to get the item
+     * @return Query for item
      */
-     <TItem extends IContentItem> SingleItemQuery<TItem> item( String itemCodename);
+     <TItem extends IContentItem> SingleItemQuery<TItem> item( String codename);
 
      /**
      * Query to fetch single type
-     * @param typeCodename Type codename
-     * @return Query to get the type
+     * @param codename Type codename
+     * @return Query for type
      */
-     SingleTypeQuery type( String typeCodename);
+     SingleTypeQuery type( String codename);
 
-    /**
+     /**
      * Query to fetch multiple types
-     * @return Qury to get multiple types
+     * @return Query for types
      */
      MultipleTypeQuery types();
+
+     /**
+     * Query to fetch multiple taxonomies
+     * @return Query for taxonomies
+     */
+     MultipleTaxonomyQuery taxonomies();
+
+    /**
+     * Query to fetch single taxonomy
+     * @param codename Codename of the taxonomy group
+     * @return Query for taxonomy
+     */
+     SingleTaxonomyQuery taxonomy(String codename);
 }

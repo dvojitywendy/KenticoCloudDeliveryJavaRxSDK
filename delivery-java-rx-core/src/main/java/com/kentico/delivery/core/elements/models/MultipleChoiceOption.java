@@ -8,32 +8,21 @@
  *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.kentico.delivery.core.models.elements;
+package com.kentico.delivery.core.elements.models;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.kentico.delivery.core.interfaces.item.item.IContentItem;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.util.ArrayList;
+/**
+ * Model representing multiple choice option response
+ */
+public class MultipleChoiceOption {
 
-public class ModularContentElement<TItem extends IContentItem> extends ContentElement<ArrayList<TItem>> {
-    private ArrayList<TItem> value;
+    MultipleChoiceOption(){}
 
-    public ModularContentElement(
-            ObjectMapper objectMapper,
-            String name,
-            String codename,
-            String type,
-            JsonNode value,
-            ArrayList<TItem> items
-    ){
-        super(objectMapper, name, codename, type);
+    @JsonProperty("name")
+    public String name;
 
-        this.value = items;
-    }
+    @JsonProperty("codename")
+    public String codename;
 
-    @Override
-    public ArrayList<TItem> getValue(){
-        return this.value;
-    }
 }

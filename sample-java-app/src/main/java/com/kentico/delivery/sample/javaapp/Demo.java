@@ -12,7 +12,10 @@ package com.kentico.delivery.sample.javaapp;
 
 import com.kentico.delivery.core.config.DeliveryClientConfig;
 import com.kentico.delivery.core.models.item.DeliveryItemListingResponse;
+import com.kentico.delivery.core.models.taxonomy.DeliveryTaxonomyListingResponse;
+import com.kentico.delivery.core.models.taxonomy.DeliveryTaxonomyResponse;
 import com.kentico.delivery.core.models.type.DeliveryTypeListingResponse;
+import com.kentico.delivery.core.models.type.DeliveryTypeResponse;
 import com.kentico.delivery.core.services.IDeliveryService;
 import com.kentico.delivery.rxjava2.DeliveryRxJava2;
 import com.kentico.delivery.sample.javaapp.models.Article;
@@ -56,7 +59,6 @@ public class Demo {
             }
         });
 
-
         this.deliveryService.types().get().subscribe(new Observer<DeliveryTypeListingResponse>() {
             @Override
             public void onSubscribe(@NonNull Disposable d) {
@@ -78,7 +80,74 @@ public class Demo {
 
             }
         });
+
+        this.deliveryService.type("about_us").get().subscribe(new Observer<DeliveryTypeResponse>() {
+            @Override
+            public void onSubscribe(@NonNull Disposable d) {
+
+            }
+
+            @Override
+            public void onNext(@NonNull DeliveryTypeResponse deliveryTypeResponse) {
+                System.out.println("Type: " + deliveryTypeResponse.getType().getSystem().getName());
+            }
+
+            @Override
+            public void onError(@NonNull Throwable e) {
+
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        });
+
+        this.deliveryService.taxonomies().get().subscribe(new Observer<DeliveryTaxonomyListingResponse>() {
+            @Override
+            public void onSubscribe(@NonNull Disposable d) {
+
+            }
+
+            @Override
+            public void onNext(@NonNull DeliveryTaxonomyListingResponse deliveryTaxonomyListingResponse) {
+                System.out.println("Taxonomies: " + deliveryTaxonomyListingResponse.getTaxonomies().get(0).getSystem().getName());
+            }
+
+            @Override
+            public void onError(@NonNull Throwable e) {
+
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        });
+
+        this.deliveryService.taxonomy("personas").get().subscribe(new Observer<DeliveryTaxonomyResponse>() {
+            @Override
+            public void onSubscribe(@NonNull Disposable d) {
+
+            }
+
+            @Override
+            public void onNext(@NonNull DeliveryTaxonomyResponse deliveryTaxonomyResponse) {
+                System.out.println("Taxonomy: " + deliveryTaxonomyResponse.getTaxonomy().getSystem().getName());
+            }
+
+            @Override
+            public void onError(@NonNull Throwable e) {
+
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        });
     }
+
 
     private IDeliveryService getDeliveryService(){
         return DeliveryRxJava2.getInstance(new DeliveryClientConfig(AppConfig.KENTICO_CLOUD_PROJECT_ID, AppConfig.getTypeResolvers()));

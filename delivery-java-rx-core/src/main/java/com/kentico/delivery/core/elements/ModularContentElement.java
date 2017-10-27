@@ -8,21 +8,32 @@
  *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.kentico.delivery.core.models.type;
+package com.kentico.delivery.core.elements;
 
-import com.kentico.delivery.core.models.common.IDeliveryResponse;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.kentico.delivery.core.interfaces.item.item.IContentItem;
 
-public class DeliverySingleTypeResponse implements IDeliveryResponse {
+import java.util.ArrayList;
 
-    private ContentType type;
+public class ModularContentElement<TItem extends IContentItem> extends ContentElement<ArrayList<TItem>> {
+    private ArrayList<TItem> value;
 
-    public DeliverySingleTypeResponse(
-            ContentType type
+    public ModularContentElement(
+            ObjectMapper objectMapper,
+            String name,
+            String codename,
+            String type,
+            JsonNode value,
+            ArrayList<TItem> items
     ){
-        this.type = type;
+        super(objectMapper, name, codename, type);
+
+        this.value = items;
     }
 
-    public ContentType getType() {
-        return this.type;
+    @Override
+    public ArrayList<TItem> getValue(){
+        return this.value;
     }
 }

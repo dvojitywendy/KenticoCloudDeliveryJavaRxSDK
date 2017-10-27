@@ -8,54 +8,31 @@
  *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.kentico.delivery.core.models.elements;
+package com.kentico.delivery.core.elements.models;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-public abstract class ContentElement<T> {
+/**
+ * Model representing Asset response
+ */
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class AssetModel {
 
-    protected ObjectMapper objectMapper;
+    AssetModel(){}
 
-    private String name;
-    private String codename;
-    private String type;
+    @JsonProperty("name")
+    public String name;
 
-    protected ContentElement(
-            ObjectMapper objectMapper,
-            String name,
-            String codename,
-            String type
-    ){
-        this.objectMapper = objectMapper;
-        this.name = name;
-        this.codename = codename;
-        this.type = type;
-    }
+    @JsonProperty("type")
+    public String type;
 
-    public abstract T getValue();
+    @JsonProperty("description")
+    public String description;
 
-    public String getName(){
-        return this.name;
-    }
+    @JsonProperty("url")
+    public String url;
 
-    public void setName(String name){
-        this.name = name;
-    }
-
-    public String getCodename(){
-        return this.codename;
-    }
-
-    public void setCodename(String codename){
-        this.codename = codename;
-    }
-
-    public String getType(){
-        return this.type;
-    }
-
-    public void setType(String type){
-        this.type = type;
-    }
-
+    @JsonProperty("size")
+    public long size;
 }

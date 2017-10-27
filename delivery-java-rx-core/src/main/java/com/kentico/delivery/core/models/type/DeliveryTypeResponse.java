@@ -8,25 +8,21 @@
  *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.kentico.delivery.core.query.type;
+package com.kentico.delivery.core.models.type;
 
-import com.kentico.delivery.core.config.DeliveryClientConfig;
-import com.kentico.delivery.core.interfaces.item.common.IQueryParameter;
-import com.kentico.delivery.core.query.BaseQuery;
-import com.kentico.delivery.core.request.IRequestService;
-import com.kentico.delivery.core.services.map.ResponseMapService;
+import com.kentico.delivery.core.models.common.IDeliveryResponse;
 
-import java.util.ArrayList;
-import java.util.List;
+public class DeliveryTypeResponse implements IDeliveryResponse {
 
-public abstract class BaseTypeQuery extends BaseQuery {
+    private ContentType type;
 
-    protected List<IQueryParameter> parameters = new ArrayList<>();
-
-    protected DeliveryClientConfig config;
-
-    protected BaseTypeQuery( DeliveryClientConfig config, IRequestService requestService){
-        super(config, requestService);
+    public DeliveryTypeResponse(
+            ContentType type
+    ){
+        this.type = type;
     }
 
+    public ContentType getType() {
+        return this.type;
+    }
 }

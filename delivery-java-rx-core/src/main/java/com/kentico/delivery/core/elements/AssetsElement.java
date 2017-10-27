@@ -8,18 +8,19 @@
  *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.kentico.delivery.core.models.elements;
+package com.kentico.delivery.core.elements;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.kentico.delivery.core.models.elements.models.TaxonomyTerms;
+import com.kentico.delivery.core.elements.models.AssetModel;
 import com.kentico.delivery.core.models.exceptions.KenticoCloudException;
 
-public class TaxonomyElement extends ContentElement<TaxonomyTerms[]> {
-    private TaxonomyTerms[] _value;
+public class AssetsElement extends ContentElement<AssetModel[]> {
 
-    public TaxonomyElement(
+    private AssetModel[] value;
+
+    public AssetsElement(
             ObjectMapper objectMapper,
             String name,
             String codename,
@@ -29,14 +30,14 @@ public class TaxonomyElement extends ContentElement<TaxonomyTerms[]> {
         super(objectMapper, name, codename, type);
 
         try {
-            _value = this.objectMapper.treeToValue(value, TaxonomyTerms[].class);
+            this.value = objectMapper.treeToValue(value, AssetModel[].class);
         } catch (JsonProcessingException e) {
             throw new KenticoCloudException("Could not map Assets element for '" + codename + "'", e);
         }
     }
 
     @Override
-    public TaxonomyTerms[] getValue(){
-        return this._value;
+    public AssetModel[] getValue(){
+        return this.value;
     }
 }

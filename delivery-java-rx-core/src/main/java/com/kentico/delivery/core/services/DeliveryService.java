@@ -14,6 +14,8 @@ import com.kentico.delivery.core.config.DeliveryClientConfig;
 import com.kentico.delivery.core.interfaces.item.item.IContentItem;
 import com.kentico.delivery.core.query.item.MultipleItemQuery;
 import com.kentico.delivery.core.query.item.SingleItemQuery;
+import com.kentico.delivery.core.query.taxonomy.MultipleTaxonomyQuery;
+import com.kentico.delivery.core.query.taxonomy.SingleTaxonomyQuery;
 import com.kentico.delivery.core.query.type.MultipleTypeQuery;
 import com.kentico.delivery.core.query.type.SingleTypeQuery;
 import com.kentico.delivery.core.request.IRequestService;
@@ -37,13 +39,19 @@ public abstract class DeliveryService implements IDeliveryService {
         return new SingleItemQuery<>(this.config, this.getRequestService(), itemCodename);
     }
 
-    @Override
     public SingleTypeQuery type(String typeCodename) {
         return new SingleTypeQuery(this.config, this.getRequestService(), typeCodename);
     }
 
-    @Override
     public MultipleTypeQuery types() {
         return new MultipleTypeQuery(this.config, this.getRequestService());
+    }
+
+    public MultipleTaxonomyQuery taxonomies(){
+        return new MultipleTaxonomyQuery(this.config, this.getRequestService());
+    }
+
+    public SingleTaxonomyQuery taxonomy(String codename){
+        return new SingleTaxonomyQuery(this.config, this.getRequestService(), codename);
     }
 }

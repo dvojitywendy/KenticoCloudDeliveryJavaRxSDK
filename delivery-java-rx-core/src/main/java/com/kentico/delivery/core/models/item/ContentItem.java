@@ -8,36 +8,40 @@
  *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.kentico.delivery.core.models.elements;
+package com.kentico.delivery.core.models.item;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.kentico.delivery.core.models.elements.models.AssetModel;
-import com.kentico.delivery.core.models.exceptions.KenticoCloudException;
+import com.kentico.delivery.core.interfaces.item.item.IContentItem;
+import com.kentico.delivery.core.interfaces.item.item.IContentItemSystemAttributes;
+import com.kentico.delivery.core.elements.ContentElement;
 
-public class AssetsElement extends ContentElement<AssetModel[]> {
+import java.util.List;
 
-    private AssetModel[] value;
+/**
+ * Base class for all types representing Kentico Cloud items
+ */
+public abstract class ContentItem implements IContentItem {
 
-    public AssetsElement(
-            ObjectMapper objectMapper,
-            String name,
-            String codename,
-            String type,
-            JsonNode value
-    ){
-        super(objectMapper, name, codename, type);
+    private IContentItemSystemAttributes system;
+    private List<ContentElement<?>> elements;
 
-        try {
-            this.value = objectMapper.treeToValue(value, AssetModel[].class);
-        } catch (JsonProcessingException e) {
-            throw new KenticoCloudException("Could not map Assets element for '" + codename + "'", e);
-        }
+    @Override
+    public IContentItemSystemAttributes getSystem() {
+        return this.system;
     }
 
     @Override
-    public AssetModel[] getValue(){
-        return this.value;
+    public void setContentItemSystemAttributes( IContentItemSystemAttributes system) {
+        this.system = system;
     }
+
+    @Override
+    public List<ContentElement<?>> getElements() {
+        return this.elements;
+    }
+
+    @Override
+    public void setElements( List<ContentElement<?>> elements) {
+        this.elements = elements;
+    }
+
 }

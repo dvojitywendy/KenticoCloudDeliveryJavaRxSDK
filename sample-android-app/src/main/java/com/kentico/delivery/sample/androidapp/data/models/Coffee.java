@@ -10,13 +10,13 @@
 
 package com.kentico.delivery.sample.androidapp.data.models;
 
-import com.kentico.delivery.core.models.ContentItem;
+import com.kentico.delivery.core.models.item.ContentItem;
 import com.kentico.delivery.core.models.element.ElementMapping;
-import com.kentico.delivery.core.models.elements.AssetsElement;
-import com.kentico.delivery.core.models.elements.NumberElement;
-import com.kentico.delivery.core.models.elements.RichTextElement;
-import com.kentico.delivery.core.models.elements.TextElement;
-import com.kentico.delivery.core.models.elements.models.AssetModel;
+import com.kentico.delivery.core.elements.AssetsElement;
+import com.kentico.delivery.core.elements.NumberElement;
+import com.kentico.delivery.core.elements.RichTextElement;
+import com.kentico.delivery.core.elements.TextElement;
+import com.kentico.delivery.core.elements.models.AssetModel;
 
 public final class Coffee extends ContentItem{
 

@@ -8,28 +8,26 @@
  *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.kentico.delivery.core.models.elements;
+package com.kentico.delivery.core.query.taxonomy;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.kentico.delivery.core.config.DeliveryClientConfig;
+import com.kentico.delivery.core.interfaces.item.common.IQueryParameter;
+import com.kentico.delivery.core.query.BaseQuery;
+import com.kentico.delivery.core.request.IRequestService;
+import com.kentico.delivery.core.services.map.ResponseMapService;
 
-public class NumberElement extends ContentElement<Double> {
-    private Double value;
+import java.util.ArrayList;
+import java.util.List;
 
-    public NumberElement(
-            ObjectMapper objectMapper,
-            String name,
-            String codename,
-            String type,
-            JsonNode value
-    ){
-        super(objectMapper, name, codename, type);
+public abstract class BaseTaxonomyQuery extends BaseQuery {
 
-        this.value = value.doubleValue();
+    protected List<IQueryParameter> parameters = new ArrayList<>();
+
+    protected DeliveryClientConfig config;
+
+    protected BaseTaxonomyQuery(DeliveryClientConfig config, IRequestService requestService){
+        super(config, requestService);
+        this.config = config;
     }
 
-    @Override
-    public Double getValue(){
-        return this.value;
-    }
 }

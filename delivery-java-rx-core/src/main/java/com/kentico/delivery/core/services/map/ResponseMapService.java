@@ -16,7 +16,10 @@ import com.kentico.delivery.core.interfaces.item.item.IContentItem;
 import com.kentico.delivery.core.models.item.DeliveryItemListingResponse;
 import com.kentico.delivery.core.models.item.DeliveryItemResponse;
 import com.kentico.delivery.core.models.item.ItemCloudResponses;
-import com.kentico.delivery.core.models.type.DeliverySingleTypeResponse;
+import com.kentico.delivery.core.models.taxonomy.DeliveryTaxonomyListingResponse;
+import com.kentico.delivery.core.models.taxonomy.DeliveryTaxonomyResponse;
+import com.kentico.delivery.core.models.taxonomy.TaxonomyCloudResponses;
+import com.kentico.delivery.core.models.type.DeliveryTypeResponse;
 import com.kentico.delivery.core.models.type.DeliveryTypeListingResponse;
 import com.kentico.delivery.core.models.type.TypeCloudResponses;
 
@@ -31,11 +34,13 @@ public final class ResponseMapService {
     private PaginationMapService paginationMapService;
     private ItemMapService itemMapService;
     private TypeMapService typeMapService;
+    private TaxonomyMapService taxonomyMapService;
     private ObjectMapper objectMapper = new ObjectMapper();
 
     public ResponseMapService( DeliveryClientConfig config){
         this.itemMapService = new ItemMapService(config, this.objectMapper);
         this.typeMapService = new TypeMapService(config, this.objectMapper);
+        this.taxonomyMapService = new TaxonomyMapService(config, this.objectMapper);
         this.paginationMapService = new PaginationMapService(config, this.objectMapper);
     }
 
@@ -52,19 +57,31 @@ public final class ResponseMapService {
 
         List<TItem> items = this.itemMapService.mapItems(rawResponse.items, rawResponse.modularContent);
 
-        return new DeliveryItemListingResponse<TItem>(items, this.paginationMapService.mapPagination(rawResponse.pagination));
+        return new DeliveryItemListingResponse<>(items, this.paginationMapService.mapPagination(rawResponse.pagination));
     }
 
-    public DeliverySingleTypeResponse mapDeliverySingleTypeResponse(JSONObject cloudResponse) throws IOException {
+    public DeliveryTypeResponse mapDeliverySingleTypeResponse(JSONObject cloudResponse) throws IOException {
         TypeCloudResponses.DeliverySingleTypeResponseRaw rawResponse = this.objectMapper.readValue(cloudResponse.toString(), TypeCloudResponses.DeliverySingleTypeResponseRaw.class);
 
-        return new DeliverySingleTypeResponse(this.typeMapService.mapType(rawResponse));
+        return new DeliveryTypeResponse(this.typeMapService.mapType(rawResponse));
     }
 
     public DeliveryTypeListingResponse mapDeliveryMultipleTypesResponse(JSONObject cloudResponse) throws IOException {
         TypeCloudResponses.DeliveryMultipleTypeResponseRaw rawResponse = this.objectMapper.readValue(cloudResponse.toString(), TypeCloudResponses.DeliveryMultipleTypeResponseRaw.class);
 
         return new DeliveryTypeListingResponse(this.typeMapService.mapTypes(rawResponse.types), this.paginationMapService.mapPagination(rawResponse.pagination));
+    }
+
+    public DeliveryTaxonomyListingResponse mapDeliveryTaxonomyListingResponse(JSONObject cloudResponse) throws IOException {
+        TaxonomyCloudResponses.TaxonomyMultipleResponseRaw rawResponse = this.objectMapper.readValue(cloudResponse.toString(), TaxonomyCloudResponses.TaxonomyMultipleResponseRaw.class);
+
+        return new DeliveryTaxonomyListingResponse(this.taxonomyMapService.mapTaxonomies(rawResponse.taxonomies), this.paginationMapService.mapPagination(rawResponse.pagination));
+    }
+
+    public DeliveryTaxonomyResponse mapDeliveryTaxonomyResponse(JSONObject cloudResponse) throws IOException {
+        TaxonomyCloudResponses.TaxonomySingleResponseRaw rawResponse = this.objectMapper.readValue(cloudResponse.toString(), TaxonomyCloudResponses.TaxonomySingleResponseRaw .class);
+
+        return new DeliveryTaxonomyResponse(this.taxonomyMapService.mapTaxonomy(rawResponse.system, rawResponse.terms));
     }
 }
 

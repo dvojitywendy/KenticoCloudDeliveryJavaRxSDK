@@ -8,31 +8,42 @@
  *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.kentico.delivery.core.models.elements.models;
+package com.kentico.delivery.core.models.taxonomy;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Date;
 
-/**
- * Model representing Asset response
- */
-@JsonIgnoreProperties(ignoreUnknown = true)
-public class AssetModel {
+public class TaxonomySystemAttributes {
 
-    AssetModel(){}
+    private String id;
+    private String name;
+    private String codename;
+    private Date lastModified;
 
-    @JsonProperty("name")
-    public String name;
+    public TaxonomySystemAttributes(
+            String id,
+            String name,
+            String codename,
+            Date lastModified
+    ){
+        this.id = id;
+        this.name = name;
+        this.codename = codename;
+        this.lastModified = lastModified;
+    }
 
-    @JsonProperty("type")
-    public String type;
+    public String getId() {
+        return id;
+    }
 
-    @JsonProperty("description")
-    public String description;
+    public String getName() {
+        return name;
+    }
 
-    @JsonProperty("url")
-    public String url;
+    public String getCodename() {
+        return codename;
+    }
 
-    @JsonProperty("size")
-    public long size;
+    public Date getLastModified() {
+        return lastModified;
+    }
 }

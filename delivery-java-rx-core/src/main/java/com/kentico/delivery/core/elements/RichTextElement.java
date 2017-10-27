@@ -8,25 +8,28 @@
  *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.kentico.delivery.core.query.type;
+package com.kentico.delivery.core.elements;
 
-import com.kentico.delivery.core.config.DeliveryClientConfig;
-import com.kentico.delivery.core.interfaces.item.common.IQueryParameter;
-import com.kentico.delivery.core.query.BaseQuery;
-import com.kentico.delivery.core.request.IRequestService;
-import com.kentico.delivery.core.services.map.ResponseMapService;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
-import java.util.ArrayList;
-import java.util.List;
+public class RichTextElement extends ContentElement<String> {
+    private String value;
 
-public abstract class BaseTypeQuery extends BaseQuery {
+    public RichTextElement(
+            ObjectMapper objectMapper,
+            String name,
+            String codename,
+            String type,
+            JsonNode value
+    ){
+        super(objectMapper, name, codename, type);
 
-    protected List<IQueryParameter> parameters = new ArrayList<>();
-
-    protected DeliveryClientConfig config;
-
-    protected BaseTypeQuery( DeliveryClientConfig config, IRequestService requestService){
-        super(config, requestService);
+        this.value = value.textValue();
     }
 
+    @Override
+    public String getValue(){
+        return this.value;
+    }
 }

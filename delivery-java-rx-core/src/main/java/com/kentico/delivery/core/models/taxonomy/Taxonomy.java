@@ -8,37 +8,28 @@
  *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.kentico.delivery.core.models.elements;
+package com.kentico.delivery.core.models.taxonomy;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.kentico.delivery.core.models.exceptions.KenticoCloudException;
-import com.kentico.delivery.core.utils.DateHelper;
+import java.util.List;
 
-import java.text.ParseException;
-import java.util.Date;
+public class Taxonomy {
 
-public class DateTimeElement extends ContentElement<Date> {
-    private Date value;
+    private TaxonomySystemAttributes system;
+    private List<TaxonomyTerms> terms;
 
-    public DateTimeElement(
-            ObjectMapper objectMapper,
-            String name,
-            String codename,
-            String type,
-            JsonNode value
+    public Taxonomy(
+            TaxonomySystemAttributes system,
+            List<TaxonomyTerms> terms
     ){
-        super(objectMapper, name, codename, type);
-
-        try {
-            this.value = DateHelper.parseIso8601(value.textValue());
-        } catch (ParseException e) {
-            throw new KenticoCloudException("Could not parse Date for field '" + codename + "'", e);
-        }
+        this.system = system;
+        this.terms = terms;
     }
 
-    @Override
-    public Date getValue(){
-        return this.value;
+    public TaxonomySystemAttributes getSystem() {
+        return system;
+    }
+
+    public List<TaxonomyTerms> getTerms() {
+        return terms;
     }
 }

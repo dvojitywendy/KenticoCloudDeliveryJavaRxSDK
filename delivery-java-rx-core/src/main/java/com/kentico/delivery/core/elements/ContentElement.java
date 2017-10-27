@@ -8,25 +8,54 @@
  *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.kentico.delivery.core.query.type;
+package com.kentico.delivery.core.elements;
 
-import com.kentico.delivery.core.config.DeliveryClientConfig;
-import com.kentico.delivery.core.interfaces.item.common.IQueryParameter;
-import com.kentico.delivery.core.query.BaseQuery;
-import com.kentico.delivery.core.request.IRequestService;
-import com.kentico.delivery.core.services.map.ResponseMapService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
-import java.util.ArrayList;
-import java.util.List;
+public abstract class ContentElement<T> {
 
-public abstract class BaseTypeQuery extends BaseQuery {
+    protected ObjectMapper objectMapper;
 
-    protected List<IQueryParameter> parameters = new ArrayList<>();
+    private String name;
+    private String codename;
+    private String type;
 
-    protected DeliveryClientConfig config;
+    protected ContentElement(
+            ObjectMapper objectMapper,
+            String name,
+            String codename,
+            String type
+    ){
+        this.objectMapper = objectMapper;
+        this.name = name;
+        this.codename = codename;
+        this.type = type;
+    }
 
-    protected BaseTypeQuery( DeliveryClientConfig config, IRequestService requestService){
-        super(config, requestService);
+    public abstract T getValue();
+
+    public String getName(){
+        return this.name;
+    }
+
+    public void setName(String name){
+        this.name = name;
+    }
+
+    public String getCodename(){
+        return this.codename;
+    }
+
+    public void setCodename(String codename){
+        this.codename = codename;
+    }
+
+    public String getType(){
+        return this.type;
+    }
+
+    public void setType(String type){
+        this.type = type;
     }
 
 }

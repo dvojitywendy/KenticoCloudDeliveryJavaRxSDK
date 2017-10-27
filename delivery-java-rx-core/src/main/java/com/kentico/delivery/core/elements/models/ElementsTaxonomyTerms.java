@@ -8,28 +8,26 @@
  *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.kentico.delivery.core.models.elements;
+package com.kentico.delivery.core.elements.models;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.kentico.delivery.core.models.taxonomy.TaxonomyCloudResponses;
 
-public class TextElement extends ContentElement<String> {
-    private String value;
+import java.util.List;
 
-    public TextElement(
-            ObjectMapper objectMapper,
-            String name,
-            String codename,
-            String type,
-            JsonNode value
-    ){
-        super(objectMapper, name, codename, type);
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class ElementsTaxonomyTerms {
 
-        this.value = value.textValue();
-    }
+    ElementsTaxonomyTerms(){}
 
-    @Override
-    public String getValue(){
-        return this.value;
-    }
+    @JsonProperty("name")
+    public String name;
+
+    @JsonProperty("codename")
+    public String codename;
+
+    @JsonProperty("terms")
+    public List<TaxonomyCloudResponses.TaxonomyTermsRaw> terms;
+
 }

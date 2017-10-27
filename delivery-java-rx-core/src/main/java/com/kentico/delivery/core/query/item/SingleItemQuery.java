@@ -68,7 +68,6 @@ public class SingleItemQuery<TItem extends IContentItem> extends BaseItemQuery<T
                         try {
                             return responseMapService.<TItem>mapItemResponse(jsonObject);
                         } catch (JSONException | IOException | IllegalAccessException ex) {
-                            //Log.e(SDKConfig.APP_TAG, ex.getMessage());
                             throw new KenticoCloudException("Could not get item response with error: " + ex.getMessage(), ex);
                         }
                     }

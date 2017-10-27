@@ -10,11 +10,11 @@
 
 package com.kentico.delivery.sample.javaapp.models;
 
-import com.kentico.delivery.core.models.ContentItem;
+import com.kentico.delivery.core.models.item.ContentItem;
 import com.kentico.delivery.core.models.element.ElementMapping;
-import com.kentico.delivery.core.models.elements.AssetsElement;
-import com.kentico.delivery.core.models.elements.TextElement;
-import com.kentico.delivery.core.models.elements.models.AssetModel;
+import com.kentico.delivery.core.elements.AssetsElement;
+import com.kentico.delivery.core.elements.TextElement;
+import com.kentico.delivery.core.elements.models.AssetModel;
 
 public final class Cafe extends ContentItem {
 

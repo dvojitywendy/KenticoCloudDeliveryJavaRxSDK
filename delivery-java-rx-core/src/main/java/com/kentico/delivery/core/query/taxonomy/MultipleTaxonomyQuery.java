@@ -8,12 +8,14 @@
  *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.kentico.delivery.core.query.type;
+package com.kentico.delivery.core.query.taxonomy;
 
 import com.kentico.delivery.core.config.DeliveryClientConfig;
 import com.kentico.delivery.core.models.common.Parameters;
 import com.kentico.delivery.core.models.exceptions.KenticoCloudException;
+import com.kentico.delivery.core.models.taxonomy.DeliveryTaxonomyListingResponse;
 import com.kentico.delivery.core.models.type.DeliveryTypeListingResponse;
+import com.kentico.delivery.core.query.type.BaseTypeQuery;
 import com.kentico.delivery.core.request.IRequestService;
 
 import org.json.JSONObject;
@@ -23,11 +25,11 @@ import java.io.IOException;
 import io.reactivex.Observable;
 import io.reactivex.functions.Function;
 
-public class MultipleTypeQuery extends BaseTypeQuery {
+public class MultipleTaxonomyQuery extends BaseTypeQuery {
 
-    private static final String URL_PATH = "/types";
+    private static final String URL_PATH = "/taxonomies";
 
-    public MultipleTypeQuery( DeliveryClientConfig config, IRequestService requestService) {
+    public MultipleTaxonomyQuery(DeliveryClientConfig config, IRequestService requestService) {
         super(config, requestService);
     }
 
@@ -36,26 +38,26 @@ public class MultipleTypeQuery extends BaseTypeQuery {
         return this.queryService.getUrl(URL_PATH, parameters);
     }
 
-    public MultipleTypeQuery limitParameter(int limit){
+    public MultipleTaxonomyQuery limitParameter(int limit){
         this.parameters.add(new Parameters.LimitParameter(limit));
         return this;
     }
 
-    public MultipleTypeQuery skipParameter(int skip){
+    public MultipleTaxonomyQuery skipParameter(int skip){
         this.parameters.add(new Parameters.SkipParameter(skip));
         return this;
     }
 
     // observable
-    public Observable<DeliveryTypeListingResponse> get() {
+    public Observable<DeliveryTaxonomyListingResponse> get() {
         return this.queryService.<JSONObject>getRequest(this.getQueryUrl())
-                .map(new Function<JSONObject, DeliveryTypeListingResponse>() {
+                .map(new Function<JSONObject, DeliveryTaxonomyListingResponse>() {
                     @Override
-                    public DeliveryTypeListingResponse apply(JSONObject jsonObject) throws KenticoCloudException {
+                    public DeliveryTaxonomyListingResponse apply(JSONObject jsonObject) throws KenticoCloudException {
                         try {
-                            return responseMapService.mapDeliveryMultipleTypesResponse(jsonObject);
+                            return responseMapService.mapDeliveryTaxonomyListingResponse(jsonObject);
                         } catch (IOException ex) {
-                            throw new KenticoCloudException("Could not get types response with error: " + ex.getMessage(), ex);
+                            throw new KenticoCloudException("Could not get taxonomies response with error: " + ex.getMessage(), ex);
                         }
                     }
                 });

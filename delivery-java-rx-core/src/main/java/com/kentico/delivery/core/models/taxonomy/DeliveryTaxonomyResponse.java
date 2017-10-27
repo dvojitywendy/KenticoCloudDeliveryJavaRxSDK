@@ -8,25 +8,24 @@
  *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.kentico.delivery.core.query.type;
+package com.kentico.delivery.core.models.taxonomy;
 
-import com.kentico.delivery.core.config.DeliveryClientConfig;
-import com.kentico.delivery.core.interfaces.item.common.IQueryParameter;
-import com.kentico.delivery.core.query.BaseQuery;
-import com.kentico.delivery.core.request.IRequestService;
-import com.kentico.delivery.core.services.map.ResponseMapService;
+import com.kentico.delivery.core.models.common.IDeliveryResponse;
+import com.kentico.delivery.core.models.common.Pagination;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public abstract class BaseTypeQuery extends BaseQuery {
+public class DeliveryTaxonomyResponse implements IDeliveryResponse {
 
-    protected List<IQueryParameter> parameters = new ArrayList<>();
+    private Taxonomy taxonomy;
 
-    protected DeliveryClientConfig config;
-
-    protected BaseTypeQuery( DeliveryClientConfig config, IRequestService requestService){
-        super(config, requestService);
+    public DeliveryTaxonomyResponse(
+            Taxonomy taxonomy
+   ){
+        this.taxonomy = taxonomy;
     }
 
+    public Taxonomy getTaxonomy() {
+        return taxonomy;
+    }
 }

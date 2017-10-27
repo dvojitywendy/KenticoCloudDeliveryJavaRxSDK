@@ -13,7 +13,7 @@ package com.kentico.delivery.sample.androidapp.app.test;
 import android.support.annotation.NonNull;
 
 import com.kentico.delivery.core.models.item.DeliveryItemListingResponse;
-import com.kentico.delivery.core.models.type.DeliverySingleTypeResponse;
+import com.kentico.delivery.core.models.type.DeliveryTypeResponse;
 import com.kentico.delivery.core.models.type.DeliveryTypeListingResponse;
 import com.kentico.delivery.core.services.IDeliveryService;
 import com.kentico.delivery.sample.androidapp.data.models.Cafe;
@@ -51,14 +51,14 @@ class TestPresenter implements TestContract.Presenter {
                 .get()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<DeliverySingleTypeResponse>() {
+                .subscribe(new Observer<DeliveryTypeResponse>() {
                     @Override
                     public void onSubscribe(Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(DeliverySingleTypeResponse deliverySingleTypeResponse) {
+                    public void onNext(DeliveryTypeResponse deliverySingleTypeResponse) {
 
                     }
 

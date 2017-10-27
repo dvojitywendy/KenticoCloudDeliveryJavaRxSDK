@@ -10,18 +10,18 @@
 
 package com.kentico.delivery.sample.androidapp.data.models;
 
-import com.kentico.delivery.core.models.ContentItem;
+import com.kentico.delivery.core.elements.models.ElementsTaxonomyTerms;
+import com.kentico.delivery.core.models.item.ContentItem;
 import com.kentico.delivery.core.models.element.ElementMapping;
-import com.kentico.delivery.core.models.elements.AssetsElement;
-import com.kentico.delivery.core.models.elements.DateTimeElement;
-import com.kentico.delivery.core.models.elements.ModularContentElement;
-import com.kentico.delivery.core.models.elements.MultipleChoiceElement;
-import com.kentico.delivery.core.models.elements.RichTextElement;
-import com.kentico.delivery.core.models.elements.TaxonomyElement;
-import com.kentico.delivery.core.models.elements.TextElement;
-import com.kentico.delivery.core.models.elements.models.AssetModel;
-import com.kentico.delivery.core.models.elements.models.MultipleChoiceOption;
-import com.kentico.delivery.core.models.elements.models.TaxonomyTerms;
+import com.kentico.delivery.core.elements.AssetsElement;
+import com.kentico.delivery.core.elements.DateTimeElement;
+import com.kentico.delivery.core.elements.ModularContentElement;
+import com.kentico.delivery.core.elements.MultipleChoiceElement;
+import com.kentico.delivery.core.elements.RichTextElement;
+import com.kentico.delivery.core.elements.TaxonomyElement;
+import com.kentico.delivery.core.elements.TextElement;
+import com.kentico.delivery.core.elements.models.AssetModel;
+import com.kentico.delivery.core.elements.models.MultipleChoiceOption;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -83,7 +83,7 @@ public final class Article extends ContentItem {
         return bodyCopy.getValue();
     }
 
-    public TaxonomyTerms[] getPersonas() { return personas.getValue(); }
+    public ElementsTaxonomyTerms[] getPersonas() { return personas.getValue(); }
 
     public MultipleChoiceOption[] getCategories() { return category.getValue(); }
 

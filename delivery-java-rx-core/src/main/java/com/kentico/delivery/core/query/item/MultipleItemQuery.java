@@ -141,7 +141,6 @@ public final class MultipleItemQuery<TItem extends IContentItem> extends BaseIte
                         try {
                             return responseMapService.<TItem>mapItemListingResponse(jsonObject);
                         } catch (JSONException | IOException | IllegalAccessException ex) {
-                            //Log.e(SDKConfig.APP_TAG, ex.getMessage());
                             throw new KenticoCloudException("Could not get multiple items response with error: " + ex.getMessage(), ex);
                         }
                     }

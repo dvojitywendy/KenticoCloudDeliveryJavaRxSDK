@@ -12,7 +12,7 @@ package com.kentico.delivery.core.query.type;
 
 import com.kentico.delivery.core.config.DeliveryClientConfig;
 import com.kentico.delivery.core.models.exceptions.KenticoCloudException;
-import com.kentico.delivery.core.models.type.DeliverySingleTypeResponse;
+import com.kentico.delivery.core.models.type.DeliveryTypeResponse;
 import com.kentico.delivery.core.request.IRequestService;
 
 import org.json.JSONObject;
@@ -40,15 +40,14 @@ public class SingleTypeQuery extends BaseTypeQuery {
     }
 
     // observable
-    public Observable<DeliverySingleTypeResponse> get() {
+    public Observable<DeliveryTypeResponse> get() {
         return this.queryService.<JSONObject>getRequest(this.getQueryUrl())
-                .map(new Function<JSONObject, DeliverySingleTypeResponse>() {
+                .map(new Function<JSONObject, DeliveryTypeResponse>() {
                     @Override
-                    public DeliverySingleTypeResponse apply(JSONObject jsonObject) throws KenticoCloudException {
+                    public DeliveryTypeResponse apply(JSONObject jsonObject) throws KenticoCloudException {
                         try {
                             return responseMapService.mapDeliverySingleTypeResponse(jsonObject);
                         } catch (IOException ex) {
-                            //Log.e(SDKConfig.APP_TAG, ex.getMessage());
                             throw new KenticoCloudException("Could not get type response with error: " + ex.getMessage(), ex);
                         }
                     }
