@@ -16,7 +16,7 @@ import com.kentico.delivery.core.models.common.IDeliveryResponse;
 import com.kentico.delivery.core.request.IRequestService;
 import com.kentico.delivery.core.services.IQueryService;
 import com.kentico.delivery.core.services.QueryService;
-import com.kentico.delivery.core.services.map.ResponseMapService;
+import com.kentico.delivery.core.services.ResponseMapService;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -18,7 +18,7 @@ import com.kentico.delivery.core.config.DeliveryClientConfig;
 import com.kentico.delivery.core.enums.FieldType;
 import com.kentico.delivery.core.interfaces.item.item.IContentItem;
 import com.kentico.delivery.core.models.item.ContentItemSystemAttributes;
-import com.kentico.delivery.core.models.element.ElementMapping;
+import com.kentico.delivery.core.models.item.ElementMapping;
 import com.kentico.delivery.core.elements.AssetsElement;
 import com.kentico.delivery.core.elements.ContentElement;
 import com.kentico.delivery.core.elements.DateTimeElement;

@@ -8,11 +8,13 @@
  *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.kentico.delivery.core.services.map;
+package com.kentico.delivery.core.services;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kentico.delivery.core.config.DeliveryClientConfig;
 import com.kentico.delivery.core.interfaces.item.item.IContentItem;
+import com.kentico.delivery.core.models.element.DeliveryContentTypeElementResponse;
+import com.kentico.delivery.core.models.element.ElementCloudResponses;
 import com.kentico.delivery.core.models.item.DeliveryItemListingResponse;
 import com.kentico.delivery.core.models.item.DeliveryItemResponse;
 import com.kentico.delivery.core.models.item.ItemCloudResponses;
@@ -22,6 +24,11 @@ import com.kentico.delivery.core.models.taxonomy.TaxonomyCloudResponses;
 import com.kentico.delivery.core.models.type.DeliveryTypeResponse;
 import com.kentico.delivery.core.models.type.DeliveryTypeListingResponse;
 import com.kentico.delivery.core.models.type.TypeCloudResponses;
+import com.kentico.delivery.core.services.map.ContentElementMapService;
+import com.kentico.delivery.core.services.map.ItemMapService;
+import com.kentico.delivery.core.services.map.PaginationMapService;
+import com.kentico.delivery.core.services.map.TaxonomyMapService;
+import com.kentico.delivery.core.services.map.TypeMapService;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -31,17 +38,20 @@ import java.util.List;
 
 public final class ResponseMapService {
 
+    private ObjectMapper objectMapper = new ObjectMapper();
+
     private PaginationMapService paginationMapService;
     private ItemMapService itemMapService;
     private TypeMapService typeMapService;
     private TaxonomyMapService taxonomyMapService;
-    private ObjectMapper objectMapper = new ObjectMapper();
+    private ContentElementMapService contentElementMapService;
 
     public ResponseMapService( DeliveryClientConfig config){
         this.itemMapService = new ItemMapService(config, this.objectMapper);
         this.typeMapService = new TypeMapService(config, this.objectMapper);
         this.taxonomyMapService = new TaxonomyMapService(config, this.objectMapper);
         this.paginationMapService = new PaginationMapService(config, this.objectMapper);
+        this.contentElementMapService = new ContentElementMapService(config, this.objectMapper);
     }
 
     public<TItem extends IContentItem> DeliveryItemResponse<TItem> mapItemResponse(JSONObject cloudResponse) throws JSONException, IOException, IllegalAccessException {
@@ -82,6 +92,13 @@ public final class ResponseMapService {
         TaxonomyCloudResponses.TaxonomySingleResponseRaw rawResponse = this.objectMapper.readValue(cloudResponse.toString(), TaxonomyCloudResponses.TaxonomySingleResponseRaw .class);
 
         return new DeliveryTaxonomyResponse(this.taxonomyMapService.mapTaxonomy(rawResponse.system, rawResponse.terms));
+    }
+
+
+    public DeliveryContentTypeElementResponse mapDeliveryContentTypeResponse(JSONObject cloudResponse) throws IOException {
+        ElementCloudResponses.ContentTypeElementResponseRaw rawResponse = this.objectMapper.readValue(cloudResponse.toString(), ElementCloudResponses.ContentTypeElementResponseRaw.class);
+
+        return new DeliveryContentTypeElementResponse(this.contentElementMapService.mapContentTypeElement(rawResponse));
     }
 }
 

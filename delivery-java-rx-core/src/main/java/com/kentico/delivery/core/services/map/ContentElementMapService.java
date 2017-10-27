@@ -52,6 +52,16 @@ public class ContentElementMapService {
         return elements;
     }
 
+    public ContentTypeElement mapContentTypeElement(ElementCloudResponses.ContentTypeElementResponseRaw response) throws JsonProcessingException {
+
+        return new ContentTypeElement(
+                response.name,
+                response.codename,
+                response.type,
+                response.taxonomyGroup,
+                response.options == null ? null : this.mapOptions(response.options));
+    }
+
     public ContentTypeElement mapContentTypeElement(String elementCodename, JsonNode elementNode) throws JsonProcessingException {
         String name = elementNode.get("name") == null ? null : elementNode.get("name").asText();
         String type = elementNode.get("type") == null ? null : elementNode.get("type").asText();

@@ -12,7 +12,7 @@ package com.kentico.delivery.sample.javaapp.models;
 
 import com.kentico.delivery.core.elements.models.ElementsTaxonomyTerms;
 import com.kentico.delivery.core.models.item.ContentItem;
-import com.kentico.delivery.core.models.element.ElementMapping;
+import com.kentico.delivery.core.models.item.ElementMapping;
 import com.kentico.delivery.core.elements.AssetsElement;
 import com.kentico.delivery.core.elements.DateTimeElement;
 import com.kentico.delivery.core.elements.ModularContentElement;
@@ -22,11 +22,9 @@ import com.kentico.delivery.core.elements.TaxonomyElement;
 import com.kentico.delivery.core.elements.TextElement;
 import com.kentico.delivery.core.elements.models.AssetModel;
 import com.kentico.delivery.core.elements.models.MultipleChoiceOption;
-import com.kentico.delivery.core.models.taxonomy.TaxonomyTerms;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 public final class Article extends ContentItem {
 

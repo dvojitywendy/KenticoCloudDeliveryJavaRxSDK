@@ -10,16 +10,19 @@
 
 package com.kentico.delivery.core.models.element;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import com.kentico.delivery.core.models.common.IDeliveryResponse;
 
-/**
- * Can be placed on fields to indicate that it should be mapped to an element
- */
-@Target({ElementType.FIELD})
-@Retention(RetentionPolicy.RUNTIME)
-public @interface ElementMapping {
-    String value();
+public class DeliveryContentTypeElementResponse implements IDeliveryResponse {
+
+    private ContentTypeElement element;
+
+    public DeliveryContentTypeElementResponse(
+            ContentTypeElement element
+    ){
+        this.element = element;
+    }
+
+    public ContentTypeElement getElement() {
+        return element;
+    }
 }

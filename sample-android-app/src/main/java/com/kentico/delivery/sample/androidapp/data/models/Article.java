@@ -12,7 +12,7 @@ package com.kentico.delivery.sample.androidapp.data.models;
 
 import com.kentico.delivery.core.elements.models.ElementsTaxonomyTerms;
 import com.kentico.delivery.core.models.item.ContentItem;
-import com.kentico.delivery.core.models.element.ElementMapping;
+import com.kentico.delivery.core.models.item.ElementMapping;
 import com.kentico.delivery.core.elements.AssetsElement;
 import com.kentico.delivery.core.elements.DateTimeElement;
 import com.kentico.delivery.core.elements.ModularContentElement;

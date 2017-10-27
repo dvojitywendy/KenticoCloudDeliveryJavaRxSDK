@@ -11,6 +11,7 @@
 package com.kentico.delivery.core.services;
 
 import com.kentico.delivery.core.interfaces.item.item.IContentItem;
+import com.kentico.delivery.core.query.element.SingleContentTypeElement;
 import com.kentico.delivery.core.query.item.MultipleItemQuery;
 import com.kentico.delivery.core.query.item.SingleItemQuery;
 import com.kentico.delivery.core.query.taxonomy.MultipleTaxonomyQuery;
@@ -68,4 +69,12 @@ public interface IDeliveryService{
      * @return Query for taxonomy
      */
      SingleTaxonomyQuery taxonomy(String codename);
+
+    /**
+     * Query to fetch single element of content type
+     * @param typeCodename Codename of the content type
+     * @param elementCodename Codename of the element
+     * @return Query for content type element
+     */
+    SingleContentTypeElement contenTypeElement(String typeCodename, String elementCodename);
 }

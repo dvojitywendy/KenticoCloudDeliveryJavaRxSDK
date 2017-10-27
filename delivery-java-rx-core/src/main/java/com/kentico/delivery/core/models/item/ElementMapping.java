@@ -8,25 +8,18 @@
  *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.kentico.delivery.core.query.taxonomy;
+package com.kentico.delivery.core.models.item;
 
-import com.kentico.delivery.core.config.DeliveryClientConfig;
-import com.kentico.delivery.core.interfaces.item.common.IQueryParameter;
-import com.kentico.delivery.core.query.BaseQuery;
-import com.kentico.delivery.core.request.IRequestService;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public abstract class BaseTaxonomyQuery extends BaseQuery {
-
-    protected List<IQueryParameter> parameters = new ArrayList<>();
-
-    protected DeliveryClientConfig config;
-
-    protected BaseTaxonomyQuery(DeliveryClientConfig config, IRequestService requestService){
-        super(config, requestService);
-        this.config = config;
-    }
-
+/**
+ * Can be placed on fields to indicate that it should be mapped to an element
+ */
+@Target({ElementType.FIELD})
+@Retention(RetentionPolicy.RUNTIME)
+public @interface ElementMapping {
+    String value();
 }

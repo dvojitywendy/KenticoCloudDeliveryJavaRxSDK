@@ -11,6 +11,7 @@
 package com.kentico.delivery.sample.javaapp;
 
 import com.kentico.delivery.core.config.DeliveryClientConfig;
+import com.kentico.delivery.core.models.element.DeliveryContentTypeElementResponse;
 import com.kentico.delivery.core.models.item.DeliveryItemListingResponse;
 import com.kentico.delivery.core.models.taxonomy.DeliveryTaxonomyListingResponse;
 import com.kentico.delivery.core.models.taxonomy.DeliveryTaxonomyResponse;
@@ -134,6 +135,28 @@ public class Demo {
             @Override
             public void onNext(@NonNull DeliveryTaxonomyResponse deliveryTaxonomyResponse) {
                 System.out.println("Taxonomy: " + deliveryTaxonomyResponse.getTaxonomy().getSystem().getName());
+            }
+
+            @Override
+            public void onError(@NonNull Throwable e) {
+
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        });
+
+        this.deliveryService.contenTypeElement(Article.TYPE, "title").get().subscribe(new Observer<DeliveryContentTypeElementResponse>() {
+            @Override
+            public void onSubscribe(@NonNull Disposable d) {
+
+            }
+
+            @Override
+            public void onNext(@NonNull DeliveryContentTypeElementResponse deliveryContentTypeElementResponse) {
+                System.out.println("Element: " + deliveryContentTypeElementResponse.getElement().getName());
             }
 
             @Override

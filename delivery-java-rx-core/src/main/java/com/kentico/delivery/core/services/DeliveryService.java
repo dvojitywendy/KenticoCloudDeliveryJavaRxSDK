@@ -12,6 +12,7 @@ package com.kentico.delivery.core.services;
 
 import com.kentico.delivery.core.config.DeliveryClientConfig;
 import com.kentico.delivery.core.interfaces.item.item.IContentItem;
+import com.kentico.delivery.core.query.element.SingleContentTypeElement;
 import com.kentico.delivery.core.query.item.MultipleItemQuery;
 import com.kentico.delivery.core.query.item.SingleItemQuery;
 import com.kentico.delivery.core.query.taxonomy.MultipleTaxonomyQuery;
@@ -53,5 +54,9 @@ public abstract class DeliveryService implements IDeliveryService {
 
     public SingleTaxonomyQuery taxonomy(String codename){
         return new SingleTaxonomyQuery(this.config, this.getRequestService(), codename);
+    }
+
+    public SingleContentTypeElement contenTypeElement(String typeCodename, String elementCodename){
+        return new SingleContentTypeElement(this.config, this.getRequestService(), typeCodename, elementCodename);
     }
 }

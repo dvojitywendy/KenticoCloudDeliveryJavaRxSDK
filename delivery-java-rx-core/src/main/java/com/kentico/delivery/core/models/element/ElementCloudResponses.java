@@ -12,10 +12,15 @@ package com.kentico.delivery.core.models.element;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.kentico.delivery.core.deserializers.CloudDateDeserializer;
+import com.kentico.delivery.core.models.item.ItemCloudResponses;
 
+import java.util.Date;
 import java.util.List;
 
 public class ElementCloudResponses {
+
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static class ContentTypeElementRaw {
@@ -40,7 +45,15 @@ public class ElementCloudResponses {
         public String taxonomyGroup;
 
         @JsonProperty("options")
-        public List<ContentTypeElementOptionRaw> options;
+        public ContentTypeElementOptionRaw[] options;
+    }
+
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    public static class ContentTypeElementResponseRaw extends ContentTypeElementRaw{
+
+        ContentTypeElementResponseRaw() {
+            // Mandatory constructor
+        }
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
