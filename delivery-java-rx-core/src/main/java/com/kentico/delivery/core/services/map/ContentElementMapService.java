@@ -27,10 +27,14 @@ public class ContentElementMapService {
         List<ContentTypeElement> elements = new ArrayList<>();
         Iterator<Map.Entry<String, JsonNode>> iterator = elementsNode.fields();
 
-        for (Iterator<Map.Entry<String, JsonNode>> it = iterator; it.hasNext(); ) {
+        for (; iterator.hasNext(); ) {
 
-            String elementCodename = it.next().getKey();
-            JsonNode elementNode = it.next().getValue();
+            Map.Entry<String, JsonNode> item = iterator.next();
+            if (item == null){
+                continue;
+            }
+            String elementCodename = item.getKey();
+            JsonNode elementNode = item.getValue();
 
             elements.add(this.mapContentTypeElement(elementCodename, elementNode));
         }
