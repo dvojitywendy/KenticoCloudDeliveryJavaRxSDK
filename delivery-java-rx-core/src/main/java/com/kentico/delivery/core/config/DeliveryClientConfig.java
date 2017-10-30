@@ -16,6 +16,8 @@ import java.util.List;
 
 public final class DeliveryClientConfig {
 
+    public final String DELIVERY_API_URL = "https://deliver.kenticocloud.com";
+
     private String projectId;
     private List<TypeResolver<?>> typeResolvers;
 

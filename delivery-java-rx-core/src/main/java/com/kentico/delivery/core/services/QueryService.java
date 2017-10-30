@@ -22,7 +22,6 @@ import io.reactivex.Observable;
 
 public final class QueryService implements IQueryService{
 
-    private final String DELIVERY_API_URL = "https://deliver.kenticocloud.com";
     private DeliveryClientConfig config;
     private IRequestService requestService;
 
@@ -32,7 +31,7 @@ public final class QueryService implements IQueryService{
     }
 
     private String getDeliveryUrl(){
-        return DELIVERY_API_URL;
+        return config.DELIVERY_API_URL;
     }
 
     private String getBaseUrl(){
