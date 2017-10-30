@@ -8,18 +8,23 @@
  *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.kentico.delivery.core.query.element;
+package com.kentico.delivery.android;
 
-import com.kentico.delivery.core.adapters.IHttpAdapter;
-import com.kentico.delivery.core.config.DeliveryClientConfig;
-import com.kentico.delivery.core.query.BaseQuery;
+import com.androidnetworking.common.Priority;
 import com.kentico.delivery.core.adapters.IRxAdapter;
+import com.rx2androidnetworking.Rx2AndroidNetworking;
 
+import org.json.JSONObject;
 
-abstract class BaseContentTypeElementQuery extends BaseQuery {
+import io.reactivex.Observable;
 
-    BaseContentTypeElementQuery(DeliveryClientConfig config, IRxAdapter requestService, IHttpAdapter httpAdapter){
-        super(config, requestService, httpAdapter);
+public class AndroidRxAdapter implements IRxAdapter {
+
+    @Override
+    public Observable<JSONObject> get(String url) {
+        return Rx2AndroidNetworking.get(url)
+                .setPriority(Priority.MEDIUM)
+                .build()
+                .getJSONObjectObservable();
     }
 }
-

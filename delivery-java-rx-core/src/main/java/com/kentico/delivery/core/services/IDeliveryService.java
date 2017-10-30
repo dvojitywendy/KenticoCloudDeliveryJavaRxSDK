@@ -10,6 +10,7 @@
 
 package com.kentico.delivery.core.services;
 
+import com.kentico.delivery.core.adapters.IHttpAdapter;
 import com.kentico.delivery.core.interfaces.item.item.IContentItem;
 import com.kentico.delivery.core.query.element.SingleContentTypeElement;
 import com.kentico.delivery.core.query.item.MultipleItemQuery;
@@ -18,14 +19,19 @@ import com.kentico.delivery.core.query.taxonomy.MultipleTaxonomyQuery;
 import com.kentico.delivery.core.query.taxonomy.SingleTaxonomyQuery;
 import com.kentico.delivery.core.query.type.MultipleTypeQuery;
 import com.kentico.delivery.core.query.type.SingleTypeQuery;
-import com.kentico.delivery.core.request.IRequestService;
+import com.kentico.delivery.core.adapters.IRxAdapter;
 
 public interface IDeliveryService{
 
     /**
-     * Request service used for HTTP requests and fetching Observable
+     * Request service used fetching Observables
      */
-    IRequestService getRequestService();
+    IRxAdapter getRxAdapter();
+
+    /**
+    * Request service used for making HTTP requests and fetching JSON response
+     */
+    IHttpAdapter getHttpAdapter();
 
     /**
      * Query to fetch multiple items

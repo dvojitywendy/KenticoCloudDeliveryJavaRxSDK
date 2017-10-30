@@ -10,14 +10,15 @@
 
 package com.kentico.delivery.core.query.type;
 
+import com.kentico.delivery.core.adapters.IHttpAdapter;
 import com.kentico.delivery.core.config.DeliveryClientConfig;
 import com.kentico.delivery.core.query.BaseQuery;
-import com.kentico.delivery.core.request.IRequestService;
+import com.kentico.delivery.core.adapters.IRxAdapter;
 
 public abstract class BaseTypeQuery extends BaseQuery {
 
-    protected BaseTypeQuery( DeliveryClientConfig config, IRequestService requestService){
-        super(config, requestService);
+    protected BaseTypeQuery(DeliveryClientConfig config, IRxAdapter requestService, IHttpAdapter httpAdapter){
+        super(config, requestService, httpAdapter);
     }
 
 }

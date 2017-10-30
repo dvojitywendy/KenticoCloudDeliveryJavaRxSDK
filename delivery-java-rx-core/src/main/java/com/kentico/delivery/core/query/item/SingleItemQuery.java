@@ -10,12 +10,14 @@
 
 package com.kentico.delivery.core.query.item;
 
+import com.kentico.delivery.core.adapters.IHttpAdapter;
 import com.kentico.delivery.core.config.DeliveryClientConfig;
 import com.kentico.delivery.core.interfaces.item.item.IContentItem;
+import com.kentico.delivery.core.models.common.IDeliveryResponse;
 import com.kentico.delivery.core.models.common.Parameters;
 import com.kentico.delivery.core.models.exceptions.KenticoCloudException;
 import com.kentico.delivery.core.models.item.DeliveryItemResponse;
-import com.kentico.delivery.core.request.IRequestService;
+import com.kentico.delivery.core.adapters.IRxAdapter;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -31,8 +33,8 @@ public class SingleItemQuery<TItem extends IContentItem> extends BaseItemQuery<T
     private static final String URL_PATH = "/items/";
     private final String itemCodename;
 
-    public SingleItemQuery(DeliveryClientConfig config, IRequestService requestService, String itemCodename) {
-        super(config, requestService);
+    public SingleItemQuery(DeliveryClientConfig config, IRxAdapter requestService, IHttpAdapter httpAdapter, String itemCodename) {
+        super(config, requestService, httpAdapter);
         this.itemCodename = itemCodename;
     }
 
@@ -59,9 +61,8 @@ public class SingleItemQuery<TItem extends IContentItem> extends BaseItemQuery<T
         return this;
     }
 
-    // observable
-    public Observable<DeliveryItemResponse<TItem>> get() {
-        return this.queryService.<JSONObject>getRequest(this.getQueryUrl())
+    public Observable<DeliveryItemResponse<TItem>> getObservable() {
+        return this.queryService.<JSONObject>getObservable(this.getQueryUrl())
                 .map(new Function<JSONObject, DeliveryItemResponse<TItem>>() {
                     @Override
                     public DeliveryItemResponse<TItem> apply(JSONObject jsonObject) throws KenticoCloudException {
@@ -72,5 +73,14 @@ public class SingleItemQuery<TItem extends IContentItem> extends BaseItemQuery<T
                         }
                     }
                 });
+    }
+
+    @Override
+    public DeliveryItemResponse<TItem> get() {
+        try {
+            return responseMapService.<TItem>mapItemResponse(this.queryService.getJson(this.getQueryUrl()));
+        } catch (JSONException | IOException | IllegalAccessException ex) {
+            throw new KenticoCloudException("Could not get item response with error: " + ex.getMessage(), ex);
+        }
     }
 }

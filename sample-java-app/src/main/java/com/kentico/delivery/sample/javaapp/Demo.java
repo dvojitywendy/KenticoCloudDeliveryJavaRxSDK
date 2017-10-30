@@ -37,7 +37,7 @@ public class Demo {
 
     public void runTests(){
 
-        this.deliveryService.<Article>items().type(Article.TYPE).get().subscribe(new Observer<DeliveryItemListingResponse<Article>>() {
+        this.deliveryService.<Article>items().type(Article.TYPE).getObservable().subscribe(new Observer<DeliveryItemListingResponse<Article>>() {
             @Override
             public void onSubscribe(Disposable disposable) {
 
@@ -60,7 +60,7 @@ public class Demo {
             }
         });
 
-        this.deliveryService.types().get().subscribe(new Observer<DeliveryTypeListingResponse>() {
+        this.deliveryService.types().getObservable().subscribe(new Observer<DeliveryTypeListingResponse>() {
             @Override
             public void onSubscribe(@NonNull Disposable d) {
 
@@ -82,7 +82,7 @@ public class Demo {
             }
         });
 
-        this.deliveryService.type("about_us").get().subscribe(new Observer<DeliveryTypeResponse>() {
+        this.deliveryService.type("about_us").getObservable().subscribe(new Observer<DeliveryTypeResponse>() {
             @Override
             public void onSubscribe(@NonNull Disposable d) {
 
@@ -104,7 +104,7 @@ public class Demo {
             }
         });
 
-        this.deliveryService.taxonomies().get().subscribe(new Observer<DeliveryTaxonomyListingResponse>() {
+        this.deliveryService.taxonomies().getObservable().subscribe(new Observer<DeliveryTaxonomyListingResponse>() {
             @Override
             public void onSubscribe(@NonNull Disposable d) {
 
@@ -126,7 +126,7 @@ public class Demo {
             }
         });
 
-        this.deliveryService.taxonomy("personas").get().subscribe(new Observer<DeliveryTaxonomyResponse>() {
+        this.deliveryService.taxonomy("personas").getObservable().subscribe(new Observer<DeliveryTaxonomyResponse>() {
             @Override
             public void onSubscribe(@NonNull Disposable d) {
 
@@ -148,7 +148,7 @@ public class Demo {
             }
         });
 
-        this.deliveryService.contenTypeElement(Article.TYPE, "title").get().subscribe(new Observer<DeliveryContentTypeElementResponse>() {
+        this.deliveryService.contenTypeElement(Article.TYPE, "title").getObservable().subscribe(new Observer<DeliveryContentTypeElementResponse>() {
             @Override
             public void onSubscribe(@NonNull Disposable d) {
 
@@ -169,6 +169,8 @@ public class Demo {
 
             }
         });
+
+        System.out.println(this.deliveryService.taxonomies().get().getTaxonomies().get(0).getSystem().getName());
     }
 
 

@@ -10,7 +10,7 @@
 
 package com.kentico.delivery.rxjava2;
 
-import com.kentico.delivery.core.request.IRequestService;
+import com.kentico.delivery.core.adapters.IRxAdapter;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -25,7 +25,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 
-public class RxJava2RequestService implements IRequestService {
+public class Java2RxAdapter implements IRxAdapter {
 
     /*
     TODO: verify that its safe to define okhttpclient statically, reason by doing so is so that its not initialized with every request
@@ -33,7 +33,7 @@ public class RxJava2RequestService implements IRequestService {
     private static final OkHttpClient client = new OkHttpClient();
 
     @Override
-    public Observable<JSONObject> getRequest(final String url){
+    public Observable<JSONObject> get(final String url){
 
         return Observable.defer(new Callable<ObservableSource<JSONObject>>() {
             @Override public Observable<JSONObject> call() {

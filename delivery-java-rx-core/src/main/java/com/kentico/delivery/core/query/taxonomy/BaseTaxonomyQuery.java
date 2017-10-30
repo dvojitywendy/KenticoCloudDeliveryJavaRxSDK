@@ -10,10 +10,11 @@
 
 package com.kentico.delivery.core.query.taxonomy;
 
+import com.kentico.delivery.core.adapters.IHttpAdapter;
 import com.kentico.delivery.core.config.DeliveryClientConfig;
 import com.kentico.delivery.core.interfaces.item.common.IQueryParameter;
 import com.kentico.delivery.core.query.BaseQuery;
-import com.kentico.delivery.core.request.IRequestService;
+import com.kentico.delivery.core.adapters.IRxAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,8 +25,8 @@ public abstract class BaseTaxonomyQuery extends BaseQuery {
 
     protected DeliveryClientConfig config;
 
-    protected BaseTaxonomyQuery(DeliveryClientConfig config, IRequestService requestService){
-        super(config, requestService);
+    protected BaseTaxonomyQuery(DeliveryClientConfig config, IRxAdapter requestService, IHttpAdapter httpAdapter){
+        super(config, requestService, httpAdapter);
         this.config = config;
     }
 

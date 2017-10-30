@@ -10,12 +10,13 @@
 
 package com.kentico.delivery.core.query.taxonomy;
 
+import com.kentico.delivery.core.adapters.IHttpAdapter;
 import com.kentico.delivery.core.config.DeliveryClientConfig;
+import com.kentico.delivery.core.models.common.IDeliveryResponse;
 import com.kentico.delivery.core.models.exceptions.KenticoCloudException;
 import com.kentico.delivery.core.models.taxonomy.DeliveryTaxonomyResponse;
-import com.kentico.delivery.core.models.type.DeliveryTypeResponse;
 import com.kentico.delivery.core.query.type.BaseTypeQuery;
-import com.kentico.delivery.core.request.IRequestService;
+import com.kentico.delivery.core.adapters.IRxAdapter;
 
 import org.json.JSONObject;
 
@@ -29,8 +30,8 @@ public class SingleTaxonomyQuery extends BaseTypeQuery {
     private static final String URL_PATH = "/taxonomies/";
     private final String taxonomyCodename;
 
-    public SingleTaxonomyQuery(DeliveryClientConfig config, IRequestService requestService, String taxonomyCodename) {
-        super(config, requestService);
+    public SingleTaxonomyQuery(DeliveryClientConfig config, IRxAdapter requestService, IHttpAdapter httpAdapter, String taxonomyCodename) {
+        super(config, requestService, httpAdapter);
         this.taxonomyCodename = taxonomyCodename;
     }
 
@@ -42,8 +43,8 @@ public class SingleTaxonomyQuery extends BaseTypeQuery {
     }
 
     // observable
-    public Observable<DeliveryTaxonomyResponse> get() {
-        return this.queryService.<JSONObject>getRequest(this.getQueryUrl())
+    public Observable<DeliveryTaxonomyResponse> getObservable() {
+        return this.queryService.<JSONObject>getObservable(this.getQueryUrl())
                 .map(new Function<JSONObject, DeliveryTaxonomyResponse>() {
                     @Override
                     public DeliveryTaxonomyResponse apply(JSONObject jsonObject) throws KenticoCloudException {
@@ -54,5 +55,14 @@ public class SingleTaxonomyQuery extends BaseTypeQuery {
                         }
                     }
                 });
+    }
+
+    @Override
+    public DeliveryTaxonomyResponse get() {
+        try {
+            return responseMapService.mapDeliveryTaxonomyResponse(this.queryService.getJson(this.getQueryUrl()));
+        } catch (IOException ex) {
+            throw new KenticoCloudException("Could not get taxonomy response with error: " + ex.getMessage(), ex);
+        }
     }
 }

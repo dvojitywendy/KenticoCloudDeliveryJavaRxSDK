@@ -22,5 +22,7 @@ public interface IQueryService {
 
     String getUrl( String action, List<IQueryParameter> parameters);
 
-    Observable<JSONObject> getRequest(String url);
+    Observable<JSONObject> getObservable(String url);
+
+    JSONObject getJson(String url);
 }

@@ -10,10 +10,12 @@
 
 package com.kentico.delivery.core.query;
 
+import com.kentico.delivery.core.adapters.IAdapter;
+import com.kentico.delivery.core.adapters.IHttpAdapter;
 import com.kentico.delivery.core.config.DeliveryClientConfig;
 import com.kentico.delivery.core.interfaces.item.common.IQueryParameter;
 import com.kentico.delivery.core.models.common.IDeliveryResponse;
-import com.kentico.delivery.core.request.IRequestService;
+import com.kentico.delivery.core.adapters.IRxAdapter;
 import com.kentico.delivery.core.services.IQueryService;
 import com.kentico.delivery.core.services.QueryService;
 import com.kentico.delivery.core.services.ResponseMapService;
@@ -31,10 +33,10 @@ public abstract class BaseQuery {
     protected ResponseMapService responseMapService;
     protected IQueryService queryService;
 
-    protected BaseQuery(DeliveryClientConfig config, IRequestService requestService){
+    protected BaseQuery(DeliveryClientConfig config, IRxAdapter rxAdapter, IHttpAdapter httpAdapter){
         this.config = config;
         this.responseMapService = new ResponseMapService(config);
-        this.queryService = new QueryService(config, requestService);
+        this.queryService = new QueryService(config, rxAdapter, httpAdapter);
     }
 
     /**
@@ -47,5 +49,11 @@ public abstract class BaseQuery {
      * Gets observable to fetch IDeliveryResposne from Kentico Cloud
      * @return Observable to get Delivery response
      */
-    public abstract Observable<? extends IDeliveryResponse> get();
+    public abstract Observable<? extends IDeliveryResponse> getObservable();
+
+    /**
+     * Gets delivery response
+     * @return Delivery response
+     */
+    public abstract IDeliveryResponse get();
 }

@@ -46,7 +46,7 @@ public class ArticlesCloudSource extends BaseCloudSource implements ArticlesData
     public void getArticles(@NonNull final LoadArticlesCallback callback) {
         this.deliveryService.<Article>items()
                 .type(Article.TYPE)
-                .get()
+                .getObservable()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<DeliveryItemListingResponse<Article>>() {
@@ -82,7 +82,7 @@ public class ArticlesCloudSource extends BaseCloudSource implements ArticlesData
     @Override
     public void getArticle(@NonNull String codename, @NonNull final LoadArticleCallback callback) {
         this.deliveryService.<Article>item(codename)
-                .get()
+                .getObservable()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<DeliveryItemResponse<Article>>() {

@@ -11,15 +11,17 @@
 package com.kentico.delivery.rxjava2;
 
 
+import com.kentico.delivery.core.adapters.IHttpAdapter;
 import com.kentico.delivery.core.config.DeliveryClientConfig;
-import com.kentico.delivery.core.request.IRequestService;
+import com.kentico.delivery.core.adapters.IRxAdapter;
 import com.kentico.delivery.core.services.DeliveryService;
 import com.kentico.delivery.core.services.IDeliveryService;
 
 public class DeliveryRxJava2 extends DeliveryService implements IDeliveryService {
 
     private static IDeliveryService INSTANCE;
-    private static IRequestService REQUEST_SERVICE;
+    private static IRxAdapter rxAdapter;
+    private static IHttpAdapter httpAdapter;
 
     /**
      * Gets static instance of Delivery client for Android use
@@ -30,8 +32,11 @@ public class DeliveryRxJava2 extends DeliveryService implements IDeliveryService
         if (INSTANCE == null) {
             INSTANCE = new DeliveryRxJava2(config);
         }
-        if (REQUEST_SERVICE == null) {
-            REQUEST_SERVICE = new RxJava2RequestService();
+        if (rxAdapter == null) {
+            rxAdapter = new Java2RxAdapter();
+        }
+        if (httpAdapter == null) {
+            httpAdapter = new JavaHttpAdapter();
         }
         return INSTANCE;
     }
@@ -41,7 +46,12 @@ public class DeliveryRxJava2 extends DeliveryService implements IDeliveryService
     }
 
     @Override
-    public IRequestService getRequestService() {
-        return REQUEST_SERVICE;
+    public IRxAdapter getRxAdapter() {
+        return rxAdapter;
+    }
+
+    @Override
+    public IHttpAdapter getHttpAdapter() {
+        return httpAdapter;
     }
 }

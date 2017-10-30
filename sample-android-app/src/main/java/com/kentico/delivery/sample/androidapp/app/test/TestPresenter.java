@@ -48,7 +48,7 @@ class TestPresenter implements TestContract.Presenter {
         this.view.setLoadingIndicator(true);
 
         this.deliveryService.type("coffee")
-                .get()
+                .getObservable()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<DeliveryTypeResponse>() {
@@ -76,7 +76,7 @@ class TestPresenter implements TestContract.Presenter {
 
         this.deliveryService.types()
                 .limitParameter(5)
-                .get()
+                .getObservable()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<DeliveryTypeListingResponse>() {
@@ -103,7 +103,7 @@ class TestPresenter implements TestContract.Presenter {
 
         this.deliveryService.<Cafe>items()
                 .type(Cafe.TYPE)
-                .get()
+                .getObservable()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<DeliveryItemListingResponse<Cafe>>() {

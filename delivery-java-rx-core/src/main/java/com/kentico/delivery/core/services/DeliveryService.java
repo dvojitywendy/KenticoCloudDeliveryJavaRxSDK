@@ -10,6 +10,7 @@
 
 package com.kentico.delivery.core.services;
 
+import com.kentico.delivery.core.adapters.IHttpAdapter;
 import com.kentico.delivery.core.config.DeliveryClientConfig;
 import com.kentico.delivery.core.interfaces.item.item.IContentItem;
 import com.kentico.delivery.core.query.element.SingleContentTypeElement;
@@ -19,44 +20,44 @@ import com.kentico.delivery.core.query.taxonomy.MultipleTaxonomyQuery;
 import com.kentico.delivery.core.query.taxonomy.SingleTaxonomyQuery;
 import com.kentico.delivery.core.query.type.MultipleTypeQuery;
 import com.kentico.delivery.core.query.type.SingleTypeQuery;
-import com.kentico.delivery.core.request.IRequestService;
+import com.kentico.delivery.core.adapters.IRxAdapter;
 
 public abstract class DeliveryService implements IDeliveryService {
 
     protected DeliveryClientConfig config;
-    protected IRequestService requestService;
 
     protected DeliveryService(DeliveryClientConfig config) {
         this.config = config;
     }
 
-    abstract public IRequestService getRequestService();
+    abstract public IRxAdapter getRxAdapter();
+    abstract public IHttpAdapter getHttpAdapter();
 
     public <TItem extends IContentItem> MultipleItemQuery<TItem> items(){
-        return new MultipleItemQuery<>(this.config, this.getRequestService());
+        return new MultipleItemQuery<>(this.config, this.getRxAdapter(), this.getHttpAdapter());
     }
 
     public <TItem extends IContentItem> SingleItemQuery<TItem> item(String itemCodename){
-        return new SingleItemQuery<>(this.config, this.getRequestService(), itemCodename);
+        return new SingleItemQuery<>(this.config, this.getRxAdapter(), this.getHttpAdapter(), itemCodename);
     }
 
     public SingleTypeQuery type(String typeCodename) {
-        return new SingleTypeQuery(this.config, this.getRequestService(), typeCodename);
+        return new SingleTypeQuery(this.config, this.getRxAdapter(), this.getHttpAdapter(), typeCodename);
     }
 
     public MultipleTypeQuery types() {
-        return new MultipleTypeQuery(this.config, this.getRequestService());
+        return new MultipleTypeQuery(this.config, this.getRxAdapter(), this.getHttpAdapter());
     }
 
     public MultipleTaxonomyQuery taxonomies(){
-        return new MultipleTaxonomyQuery(this.config, this.getRequestService());
+        return new MultipleTaxonomyQuery(this.config, this.getRxAdapter(), this.getHttpAdapter());
     }
 
     public SingleTaxonomyQuery taxonomy(String codename){
-        return new SingleTaxonomyQuery(this.config, this.getRequestService(), codename);
+        return new SingleTaxonomyQuery(this.config, this.getRxAdapter(), this.getHttpAdapter(), codename);
     }
 
     public SingleContentTypeElement contenTypeElement(String typeCodename, String elementCodename){
-        return new SingleContentTypeElement(this.config, this.getRequestService(), typeCodename, elementCodename);
+        return new SingleContentTypeElement(this.config, this.getRxAdapter(), this.getHttpAdapter(), typeCodename, elementCodename);
     }
 }

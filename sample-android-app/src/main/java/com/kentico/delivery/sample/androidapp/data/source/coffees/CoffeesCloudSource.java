@@ -46,7 +46,7 @@ public class CoffeesCloudSource extends BaseCloudSource implements CoffeesDataSo
     public void getCoffees(@NonNull final LoadCoffeesCallback callback) {
         this.deliveryService.<Coffee>items()
                 .type(Coffee.TYPE)
-                .get()
+                .getObservable()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<DeliveryItemListingResponse<Coffee>>() {
@@ -82,7 +82,7 @@ public class CoffeesCloudSource extends BaseCloudSource implements CoffeesDataSo
     @Override
     public void getCoffee(@NonNull String codename, @NonNull final LoadCoffeeCallback callback) {
         this.deliveryService.<Coffee>item(codename)
-                .get()
+                .getObservable()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<DeliveryItemResponse<Coffee>>() {

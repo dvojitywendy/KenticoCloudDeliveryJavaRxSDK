@@ -11,15 +11,18 @@
 package com.kentico.delivery.android;
 
 
+import com.kentico.delivery.core.adapters.IHttpAdapter;
 import com.kentico.delivery.core.config.DeliveryClientConfig;
-import com.kentico.delivery.core.request.IRequestService;
+import com.kentico.delivery.core.adapters.IRxAdapter;
 import com.kentico.delivery.core.services.DeliveryService;
 import com.kentico.delivery.core.services.IDeliveryService;
 
 public class DeliveryAndroidService extends DeliveryService implements IDeliveryService {
 
     private static IDeliveryService INSTANCE;
-    private static IRequestService REQUEST_SERVICE;
+
+    private static IRxAdapter rxAdapter;
+    private static IHttpAdapter httpAdapter;
 
     /**
      * Gets static instance of Delivery client for Android use
@@ -30,8 +33,11 @@ public class DeliveryAndroidService extends DeliveryService implements IDelivery
         if (INSTANCE == null) {
             INSTANCE = new DeliveryAndroidService(config);
         }
-        if (REQUEST_SERVICE == null) {
-            REQUEST_SERVICE = new AndroidRequestService();
+        if (rxAdapter == null) {
+            rxAdapter = new AndroidRxAdapter();
+        }
+        if (httpAdapter == null) {
+            httpAdapter = new AndroidHttpAdapter();
         }
         return INSTANCE;
     }
@@ -41,7 +47,13 @@ public class DeliveryAndroidService extends DeliveryService implements IDelivery
     }
 
     @Override
-    public IRequestService getRequestService() {
-        return REQUEST_SERVICE;
+    public IRxAdapter getRxAdapter() {
+        return rxAdapter;
     }
+
+    @Override
+    public IHttpAdapter getHttpAdapter() {
+        return httpAdapter;
+    }
+
 }

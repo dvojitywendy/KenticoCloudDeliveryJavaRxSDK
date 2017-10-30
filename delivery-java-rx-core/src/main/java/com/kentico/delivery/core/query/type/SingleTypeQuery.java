@@ -10,10 +10,12 @@
 
 package com.kentico.delivery.core.query.type;
 
+import com.kentico.delivery.core.adapters.IHttpAdapter;
 import com.kentico.delivery.core.config.DeliveryClientConfig;
+import com.kentico.delivery.core.models.common.IDeliveryResponse;
 import com.kentico.delivery.core.models.exceptions.KenticoCloudException;
 import com.kentico.delivery.core.models.type.DeliveryTypeResponse;
-import com.kentico.delivery.core.request.IRequestService;
+import com.kentico.delivery.core.adapters.IRxAdapter;
 
 import org.json.JSONObject;
 
@@ -27,8 +29,8 @@ public class SingleTypeQuery extends BaseTypeQuery {
     private static final String URL_PATH = "/types/";
     private final String typeCodename;
 
-    public SingleTypeQuery(DeliveryClientConfig config, IRequestService requestService, String typeCodename) {
-        super(config, requestService);
+    public SingleTypeQuery(DeliveryClientConfig config, IRxAdapter requestService, IHttpAdapter httpAdapter, String typeCodename) {
+        super(config, requestService, httpAdapter);
         this.typeCodename = typeCodename;
     }
 
@@ -40,8 +42,8 @@ public class SingleTypeQuery extends BaseTypeQuery {
     }
 
     // observable
-    public Observable<DeliveryTypeResponse> get() {
-        return this.queryService.<JSONObject>getRequest(this.getQueryUrl())
+    public Observable<DeliveryTypeResponse> getObservable() {
+        return this.queryService.<JSONObject>getObservable(this.getQueryUrl())
                 .map(new Function<JSONObject, DeliveryTypeResponse>() {
                     @Override
                     public DeliveryTypeResponse apply(JSONObject jsonObject) throws KenticoCloudException {
@@ -52,5 +54,14 @@ public class SingleTypeQuery extends BaseTypeQuery {
                         }
                     }
                 });
+    }
+
+    @Override
+    public IDeliveryResponse get() {
+        try {
+            return responseMapService.mapDeliverySingleTypeResponse(this.queryService.getJson(this.getQueryUrl()));
+        } catch (IOException ex) {
+            throw new KenticoCloudException("Could not get type response with error: " + ex.getMessage(), ex);
+        }
     }
 }

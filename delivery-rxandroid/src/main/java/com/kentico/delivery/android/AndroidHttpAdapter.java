@@ -8,14 +8,40 @@
  *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.kentico.delivery.core.request;
+package com.kentico.delivery.android;
 
+
+import com.kentico.delivery.core.adapters.IHttpAdapter;
+import com.kentico.delivery.core.models.exceptions.KenticoCloudException;
+
+import org.json.JSONException;
 import org.json.JSONObject;
 
-import io.reactivex.Observable;
+import java.io.IOException;
 
-public interface IRequestService {
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
-    Observable<JSONObject> getRequest(String url);
+public class AndroidHttpAdapter implements IHttpAdapter {
 
+    private static OkHttpClient okHttpClient = new OkHttpClient();
+
+    @Override
+    public JSONObject get(String url) {
+        Request request = new Request.Builder()
+                .url(url)
+                .build();
+
+        Response response = null;
+        try {
+            response = okHttpClient.newCall(request).execute();
+
+            return new JSONObject(response.body().string());
+
+        } catch (IOException | JSONException e) {
+            e.printStackTrace();
+            throw new KenticoCloudException(e.getMessage(), e);
+        }
+    }
 }

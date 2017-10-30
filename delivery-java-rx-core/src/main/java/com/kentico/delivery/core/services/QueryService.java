@@ -10,9 +10,10 @@
 
 package com.kentico.delivery.core.services;
 
+import com.kentico.delivery.core.adapters.IHttpAdapter;
 import com.kentico.delivery.core.config.DeliveryClientConfig;
 import com.kentico.delivery.core.interfaces.item.common.IQueryParameter;
-import com.kentico.delivery.core.request.IRequestService;
+import com.kentico.delivery.core.adapters.IRxAdapter;
 
 import org.json.JSONObject;
 
@@ -23,11 +24,13 @@ import io.reactivex.Observable;
 public final class QueryService implements IQueryService{
 
     private DeliveryClientConfig config;
-    private IRequestService requestService;
+    private IRxAdapter rxAdapter;
+    private IHttpAdapter httpAdapter;
 
-    public QueryService(DeliveryClientConfig config, IRequestService requestService){
+    public QueryService(DeliveryClientConfig config, IRxAdapter rxAdapter, IHttpAdapter httpAdapter){
         this.config = config;
-        this.requestService = requestService;
+        this.rxAdapter = rxAdapter;
+        this.httpAdapter = httpAdapter;
     }
 
     private String getDeliveryUrl(){
@@ -65,9 +68,12 @@ public final class QueryService implements IQueryService{
     }
 
     @Override
-    public Observable<JSONObject> getRequest(String url) {
-        return this.requestService.getRequest(url);
+    public Observable<JSONObject> getObservable(String url) {
+        return this.rxAdapter.get(url);
     }
 
-
+    @Override
+    public JSONObject getJson(String url) {
+        return this.httpAdapter.get(url);
+    }
 }

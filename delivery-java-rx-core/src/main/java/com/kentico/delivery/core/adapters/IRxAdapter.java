@@ -8,18 +8,13 @@
  *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.kentico.delivery.core.query.element;
+package com.kentico.delivery.core.adapters;
 
-import com.kentico.delivery.core.adapters.IHttpAdapter;
-import com.kentico.delivery.core.config.DeliveryClientConfig;
-import com.kentico.delivery.core.query.BaseQuery;
-import com.kentico.delivery.core.adapters.IRxAdapter;
+import org.json.JSONObject;
 
+import io.reactivex.Observable;
 
-abstract class BaseContentTypeElementQuery extends BaseQuery {
+public interface IRxAdapter extends IAdapter<Observable<JSONObject>> {
 
-    BaseContentTypeElementQuery(DeliveryClientConfig config, IRxAdapter requestService, IHttpAdapter httpAdapter){
-        super(config, requestService, httpAdapter);
-    }
+    Observable<JSONObject> get(String url);
 }
-

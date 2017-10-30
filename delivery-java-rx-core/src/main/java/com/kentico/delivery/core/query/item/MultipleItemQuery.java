@@ -10,14 +10,16 @@
 
 package com.kentico.delivery.core.query.item;
 
+import com.kentico.delivery.core.adapters.IHttpAdapter;
 import com.kentico.delivery.core.config.DeliveryClientConfig;
 import com.kentico.delivery.core.interfaces.item.item.IContentItem;
 import com.kentico.delivery.core.models.common.Filters;
+import com.kentico.delivery.core.models.common.IDeliveryResponse;
 import com.kentico.delivery.core.models.common.OrderType;
 import com.kentico.delivery.core.models.common.Parameters;
 import com.kentico.delivery.core.models.exceptions.KenticoCloudException;
 import com.kentico.delivery.core.models.item.DeliveryItemListingResponse;
-import com.kentico.delivery.core.request.IRequestService;
+import com.kentico.delivery.core.adapters.IRxAdapter;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -35,8 +37,8 @@ public final class MultipleItemQuery<TItem extends IContentItem> extends BaseIte
      */
     private static final String URL_PATH = "/items";
 
-    public MultipleItemQuery(DeliveryClientConfig config, IRequestService requestService) {
-        super(config, requestService);
+    public MultipleItemQuery(DeliveryClientConfig config, IRxAdapter requestService, IHttpAdapter httpAdapter) {
+        super(config, requestService, httpAdapter);
     }
 
     @Override
@@ -132,9 +134,8 @@ public final class MultipleItemQuery<TItem extends IContentItem> extends BaseIte
         return this;
     }
 
-    // observable
-    public Observable<DeliveryItemListingResponse<TItem>> get(){
-        return this.queryService.<JSONObject>getRequest(this.getQueryUrl())
+    public Observable<DeliveryItemListingResponse<TItem>> getObservable(){
+        return this.queryService.<JSONObject>getObservable(this.getQueryUrl())
                 .map(new Function<JSONObject, DeliveryItemListingResponse<TItem>>() {
                     @Override
                     public DeliveryItemListingResponse<TItem> apply(JSONObject jsonObject) throws KenticoCloudException {
@@ -145,5 +146,14 @@ public final class MultipleItemQuery<TItem extends IContentItem> extends BaseIte
                         }
                     }
                 });
+    }
+
+    @Override
+    public DeliveryItemListingResponse<TItem> get() {
+        try {
+            return responseMapService.<TItem>mapItemListingResponse(this.queryService.getJson(this.getQueryUrl()));
+        } catch (JSONException | IOException | IllegalAccessException ex) {
+            throw new KenticoCloudException("Could not get multiple items response with error: " + ex.getMessage(), ex);
+        }
     }
 }

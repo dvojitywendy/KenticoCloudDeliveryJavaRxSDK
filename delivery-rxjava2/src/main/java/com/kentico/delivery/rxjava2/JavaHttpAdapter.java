@@ -8,23 +8,47 @@
  *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.kentico.delivery.android;
+package com.kentico.delivery.rxjava2;
 
-import com.androidnetworking.common.Priority;
-import com.kentico.delivery.core.request.IRequestService;
-import com.rx2androidnetworking.Rx2AndroidNetworking;
 
+import com.kentico.delivery.core.adapters.IHttpAdapter;
+import com.kentico.delivery.core.models.exceptions.KenticoCloudException;
+
+import org.json.JSONException;
 import org.json.JSONObject;
 
-import io.reactivex.Observable;
+import java.io.IOException;
 
-public class AndroidRequestService implements IRequestService {
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+import okhttp3.ResponseBody;
+
+public class JavaHttpAdapter implements IHttpAdapter {
+
+    private static OkHttpClient okHttpClient = new OkHttpClient();
 
     @Override
-    public Observable<JSONObject> getRequest(String url) {
-        return Rx2AndroidNetworking.get(url)
-                .setPriority(Priority.MEDIUM)
-                .build()
-                .getJSONObjectObservable();
+    public JSONObject get(String url) {
+        Request request = new Request.Builder()
+                .url(url)
+                .build();
+
+        Response response = null;
+        try {
+            response = okHttpClient.newCall(request).execute();
+
+            ResponseBody body = response.body();
+
+            if (body == null){
+                throw new KenticoCloudException("Invalid response without body", null);
+            }
+
+            return new JSONObject(body.string());
+
+        } catch (IOException | JSONException e) {
+            e.printStackTrace();
+            throw new KenticoCloudException(e.getMessage(), e);
+        }
     }
 }

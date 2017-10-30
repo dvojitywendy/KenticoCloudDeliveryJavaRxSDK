@@ -10,11 +10,12 @@
 
 package com.kentico.delivery.core.query.element;
 
+import com.kentico.delivery.core.adapters.IHttpAdapter;
 import com.kentico.delivery.core.config.DeliveryClientConfig;
+import com.kentico.delivery.core.models.common.IDeliveryResponse;
 import com.kentico.delivery.core.models.element.DeliveryContentTypeElementResponse;
 import com.kentico.delivery.core.models.exceptions.KenticoCloudException;
-import com.kentico.delivery.core.query.type.BaseTypeQuery;
-import com.kentico.delivery.core.request.IRequestService;
+import com.kentico.delivery.core.adapters.IRxAdapter;
 
 import org.json.JSONObject;
 
@@ -23,7 +24,7 @@ import java.io.IOException;
 import io.reactivex.Observable;
 import io.reactivex.functions.Function;
 
-public class SingleContentTypeElement extends BaseTypeQuery {
+public class SingleContentTypeElement extends BaseContentTypeElementQuery {
 
     private static final String URL_PART_TYPE = "/types/";
     private static final String URL_PART_ELEMENTS = "/elements/";
@@ -31,8 +32,8 @@ public class SingleContentTypeElement extends BaseTypeQuery {
     private final String typeCodename;
     private final String elementCodename;
 
-    public SingleContentTypeElement(DeliveryClientConfig config, IRequestService requestService, String typeCodename, String elementCodename) {
-        super(config, requestService);
+    public SingleContentTypeElement(DeliveryClientConfig config, IRxAdapter requestService, IHttpAdapter httpAdapter, String typeCodename, String elementCodename) {
+        super(config, requestService, httpAdapter);
         this.typeCodename = typeCodename;
         this.elementCodename = elementCodename;
     }
@@ -45,8 +46,8 @@ public class SingleContentTypeElement extends BaseTypeQuery {
     }
 
     // observable
-    public Observable<DeliveryContentTypeElementResponse> get() {
-        return this.queryService.<JSONObject>getRequest(this.getQueryUrl())
+    public Observable<DeliveryContentTypeElementResponse> getObservable() {
+        return this.queryService.<JSONObject>getObservable(this.getQueryUrl())
                 .map(new Function<JSONObject, DeliveryContentTypeElementResponse>() {
                     @Override
                     public DeliveryContentTypeElementResponse apply(JSONObject jsonObject) throws KenticoCloudException {
@@ -57,5 +58,14 @@ public class SingleContentTypeElement extends BaseTypeQuery {
                         }
                     }
                 });
+    }
+
+    @Override
+    public DeliveryContentTypeElementResponse get() {
+        try {
+            return responseMapService.mapDeliveryContentTypeResponse(this.queryService.getJson(this.getQueryUrl()));
+        } catch (IOException ex) {
+            throw new KenticoCloudException("Could not get content type element response with error: " + ex.getMessage(), ex);
+        }
     }
 }
