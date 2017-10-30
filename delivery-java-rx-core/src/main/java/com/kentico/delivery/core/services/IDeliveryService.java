@@ -11,6 +11,7 @@
 package com.kentico.delivery.core.services;
 
 import com.kentico.delivery.core.adapters.IHttpAdapter;
+import com.kentico.delivery.core.adapters.IRxAdapter;
 import com.kentico.delivery.core.interfaces.item.item.IContentItem;
 import com.kentico.delivery.core.query.element.SingleContentTypeElement;
 import com.kentico.delivery.core.query.item.MultipleItemQuery;
@@ -19,7 +20,6 @@ import com.kentico.delivery.core.query.taxonomy.MultipleTaxonomyQuery;
 import com.kentico.delivery.core.query.taxonomy.SingleTaxonomyQuery;
 import com.kentico.delivery.core.query.type.MultipleTypeQuery;
 import com.kentico.delivery.core.query.type.SingleTypeQuery;
-import com.kentico.delivery.core.adapters.IRxAdapter;
 
 public interface IDeliveryService{
 

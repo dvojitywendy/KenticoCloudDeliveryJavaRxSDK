@@ -11,12 +11,11 @@
 package com.kentico.delivery.core.query.type;
 
 import com.kentico.delivery.core.adapters.IHttpAdapter;
+import com.kentico.delivery.core.adapters.IRxAdapter;
 import com.kentico.delivery.core.config.DeliveryClientConfig;
-import com.kentico.delivery.core.models.common.IDeliveryResponse;
 import com.kentico.delivery.core.models.common.Parameters;
 import com.kentico.delivery.core.models.exceptions.KenticoCloudException;
 import com.kentico.delivery.core.models.type.DeliveryTypeListingResponse;
-import com.kentico.delivery.core.adapters.IRxAdapter;
 
 import org.json.JSONObject;
 
@@ -27,15 +26,13 @@ import io.reactivex.functions.Function;
 
 public class MultipleTypeQuery extends BaseTypeQuery {
 
-    private static final String URL_PATH = "/types";
-
     public MultipleTypeQuery(DeliveryClientConfig config, IRxAdapter requestService, IHttpAdapter httpAdapter) {
         super(config, requestService, httpAdapter);
     }
 
     @Override
     public String getQueryUrl(){
-        return this.queryService.getUrl(URL_PATH, parameters);
+        return this.queryService.getUrl(this.config.getDeliveryPaths().getTypesPath(), parameters);
     }
 
     public MultipleTypeQuery limitParameter(int limit){

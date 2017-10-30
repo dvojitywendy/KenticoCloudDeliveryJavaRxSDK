@@ -11,9 +11,6 @@
 package com.kentico.delivery.core.models.taxonomy;
 
 import com.kentico.delivery.core.models.common.IDeliveryResponse;
-import com.kentico.delivery.core.models.common.Pagination;
-
-import java.util.List;
 
 public class DeliveryTaxonomyResponse implements IDeliveryResponse {
 

@@ -11,9 +11,9 @@
 package com.kentico.delivery.core.query.element;
 
 import com.kentico.delivery.core.adapters.IHttpAdapter;
+import com.kentico.delivery.core.adapters.IRxAdapter;
 import com.kentico.delivery.core.config.DeliveryClientConfig;
 import com.kentico.delivery.core.query.BaseQuery;
-import com.kentico.delivery.core.adapters.IRxAdapter;
 
 
 abstract class BaseContentTypeElementQuery extends BaseQuery {

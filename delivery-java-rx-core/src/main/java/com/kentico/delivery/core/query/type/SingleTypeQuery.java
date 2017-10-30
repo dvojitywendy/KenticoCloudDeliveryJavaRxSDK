@@ -11,11 +11,11 @@
 package com.kentico.delivery.core.query.type;
 
 import com.kentico.delivery.core.adapters.IHttpAdapter;
+import com.kentico.delivery.core.adapters.IRxAdapter;
 import com.kentico.delivery.core.config.DeliveryClientConfig;
 import com.kentico.delivery.core.models.common.IDeliveryResponse;
 import com.kentico.delivery.core.models.exceptions.KenticoCloudException;
 import com.kentico.delivery.core.models.type.DeliveryTypeResponse;
-import com.kentico.delivery.core.adapters.IRxAdapter;
 
 import org.json.JSONObject;
 
@@ -26,7 +26,6 @@ import io.reactivex.functions.Function;
 
 public class SingleTypeQuery extends BaseTypeQuery {
 
-    private static final String URL_PATH = "/types/";
     private final String typeCodename;
 
     public SingleTypeQuery(DeliveryClientConfig config, IRxAdapter requestService, IHttpAdapter httpAdapter, String typeCodename) {
@@ -36,9 +35,7 @@ public class SingleTypeQuery extends BaseTypeQuery {
 
     @Override
     public String getQueryUrl(){
-        String action = URL_PATH + this.typeCodename;
-
-        return this.queryService.getUrl(action, parameters);
+        return this.queryService.getUrl(this.config.getDeliveryPaths().getTypesPath(this.typeCodename), parameters);
     }
 
     // observable

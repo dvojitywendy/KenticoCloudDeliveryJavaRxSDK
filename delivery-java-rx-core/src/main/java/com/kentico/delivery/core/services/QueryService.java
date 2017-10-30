@@ -11,9 +11,9 @@
 package com.kentico.delivery.core.services;
 
 import com.kentico.delivery.core.adapters.IHttpAdapter;
+import com.kentico.delivery.core.adapters.IRxAdapter;
 import com.kentico.delivery.core.config.DeliveryClientConfig;
 import com.kentico.delivery.core.interfaces.item.common.IQueryParameter;
-import com.kentico.delivery.core.adapters.IRxAdapter;
 
 import org.json.JSONObject;
 
@@ -34,7 +34,7 @@ public final class QueryService implements IQueryService{
     }
 
     private String getDeliveryUrl(){
-        return config.DELIVERY_API_URL;
+        return config.getDeliveryApiUrl();
     }
 
     private String getBaseUrl(){

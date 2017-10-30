@@ -11,11 +11,10 @@
 package com.kentico.delivery.core.query.element;
 
 import com.kentico.delivery.core.adapters.IHttpAdapter;
+import com.kentico.delivery.core.adapters.IRxAdapter;
 import com.kentico.delivery.core.config.DeliveryClientConfig;
-import com.kentico.delivery.core.models.common.IDeliveryResponse;
 import com.kentico.delivery.core.models.element.DeliveryContentTypeElementResponse;
 import com.kentico.delivery.core.models.exceptions.KenticoCloudException;
-import com.kentico.delivery.core.adapters.IRxAdapter;
 
 import org.json.JSONObject;
 
@@ -25,9 +24,6 @@ import io.reactivex.Observable;
 import io.reactivex.functions.Function;
 
 public class SingleContentTypeElement extends BaseContentTypeElementQuery {
-
-    private static final String URL_PART_TYPE = "/types/";
-    private static final String URL_PART_ELEMENTS = "/elements/";
 
     private final String typeCodename;
     private final String elementCodename;
@@ -40,9 +36,7 @@ public class SingleContentTypeElement extends BaseContentTypeElementQuery {
 
     @Override
     public String getQueryUrl(){
-        String action = URL_PART_TYPE + this.typeCodename + "/" + URL_PART_ELEMENTS + "/" + this.elementCodename;
-
-        return this.queryService.getUrl(action, parameters);
+        return this.queryService.getUrl(config.getDeliveryPaths().getElementPath(this.typeCodename, this.elementCodename), parameters);
     }
 
     // observable

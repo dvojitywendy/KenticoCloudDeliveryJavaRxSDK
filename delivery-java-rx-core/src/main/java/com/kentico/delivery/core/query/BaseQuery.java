@@ -10,12 +10,11 @@
 
 package com.kentico.delivery.core.query;
 
-import com.kentico.delivery.core.adapters.IAdapter;
 import com.kentico.delivery.core.adapters.IHttpAdapter;
+import com.kentico.delivery.core.adapters.IRxAdapter;
 import com.kentico.delivery.core.config.DeliveryClientConfig;
 import com.kentico.delivery.core.interfaces.item.common.IQueryParameter;
 import com.kentico.delivery.core.models.common.IDeliveryResponse;
-import com.kentico.delivery.core.adapters.IRxAdapter;
 import com.kentico.delivery.core.services.IQueryService;
 import com.kentico.delivery.core.services.QueryService;
 import com.kentico.delivery.core.services.ResponseMapService;

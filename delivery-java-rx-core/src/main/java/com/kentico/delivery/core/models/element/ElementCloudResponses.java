@@ -12,12 +12,6 @@ package com.kentico.delivery.core.models.element;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.kentico.delivery.core.deserializers.CloudDateDeserializer;
-import com.kentico.delivery.core.models.item.ItemCloudResponses;
-
-import java.util.Date;
-import java.util.List;
 
 public class ElementCloudResponses {
 

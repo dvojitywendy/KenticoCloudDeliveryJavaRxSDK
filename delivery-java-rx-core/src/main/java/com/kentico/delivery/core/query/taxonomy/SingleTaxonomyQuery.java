@@ -11,12 +11,11 @@
 package com.kentico.delivery.core.query.taxonomy;
 
 import com.kentico.delivery.core.adapters.IHttpAdapter;
+import com.kentico.delivery.core.adapters.IRxAdapter;
 import com.kentico.delivery.core.config.DeliveryClientConfig;
-import com.kentico.delivery.core.models.common.IDeliveryResponse;
 import com.kentico.delivery.core.models.exceptions.KenticoCloudException;
 import com.kentico.delivery.core.models.taxonomy.DeliveryTaxonomyResponse;
 import com.kentico.delivery.core.query.type.BaseTypeQuery;
-import com.kentico.delivery.core.adapters.IRxAdapter;
 
 import org.json.JSONObject;
 
@@ -27,7 +26,6 @@ import io.reactivex.functions.Function;
 
 public class SingleTaxonomyQuery extends BaseTypeQuery {
 
-    private static final String URL_PATH = "/taxonomies/";
     private final String taxonomyCodename;
 
     public SingleTaxonomyQuery(DeliveryClientConfig config, IRxAdapter requestService, IHttpAdapter httpAdapter, String taxonomyCodename) {
@@ -37,9 +35,8 @@ public class SingleTaxonomyQuery extends BaseTypeQuery {
 
     @Override
     public String getQueryUrl(){
-        String action = URL_PATH + this.taxonomyCodename;
 
-        return this.queryService.getUrl(action, parameters);
+        return this.queryService.getUrl(this.config.getDeliveryPaths().getTaxonomiesPath(this.taxonomyCodename), parameters);
     }
 
     // observable

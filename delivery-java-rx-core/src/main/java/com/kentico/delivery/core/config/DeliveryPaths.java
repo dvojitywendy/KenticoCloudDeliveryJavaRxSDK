@@ -8,26 +8,35 @@
  *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.kentico.delivery.core.query.taxonomy;
+package com.kentico.delivery.core.config;
 
-import com.kentico.delivery.core.adapters.IHttpAdapter;
-import com.kentico.delivery.core.adapters.IRxAdapter;
-import com.kentico.delivery.core.config.DeliveryClientConfig;
-import com.kentico.delivery.core.interfaces.item.common.IQueryParameter;
-import com.kentico.delivery.core.query.BaseQuery;
+public class DeliveryPaths {
 
-import java.util.ArrayList;
-import java.util.List;
-
-public abstract class BaseTaxonomyQuery extends BaseQuery {
-
-    protected List<IQueryParameter> parameters = new ArrayList<>();
-
-    protected DeliveryClientConfig config;
-
-    protected BaseTaxonomyQuery(DeliveryClientConfig config, IRxAdapter requestService, IHttpAdapter httpAdapter){
-        super(config, requestService, httpAdapter);
-        this.config = config;
+    public String getItemsPath(){
+        return "/items";
     }
 
+    public String getItemsPath(String codename){
+        return this.getItemsPath() + "/" + codename;
+    }
+
+    public String getTaxonomiesPath(){
+        return "/taxonomies";
+    }
+
+    public String getTaxonomiesPath(String codename){
+        return this.getTaxonomiesPath() + "/" + codename;
+    }
+
+    public String getTypesPath(){
+        return "/types";
+    }
+
+    public String getTypesPath(String codename){
+        return this.getTypesPath() + "/" + codename;
+    }
+
+    public String getElementPath(String typeCodename, String elementCodename){
+        return "/types/" + typeCodename + "/elements/" + elementCodename;
+    }
 }

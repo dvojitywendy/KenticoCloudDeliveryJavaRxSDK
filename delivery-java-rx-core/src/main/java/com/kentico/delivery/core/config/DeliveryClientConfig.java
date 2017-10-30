@@ -16,10 +16,11 @@ import java.util.List;
 
 public final class DeliveryClientConfig {
 
-    public final String DELIVERY_API_URL = "https://deliver.kenticocloud.com";
+    private final String deliveryApiUrl = "https://deliver.kenticocloud.com";
+    private final DeliveryPaths deliveryPaths = new DeliveryPaths();
 
-    private String projectId;
-    private List<TypeResolver<?>> typeResolvers;
+    private final String projectId;
+    private final List<TypeResolver<?>> typeResolvers;
 
     /**
      * Creates configuration
@@ -36,4 +37,12 @@ public final class DeliveryClientConfig {
     }
 
     public List<TypeResolver<?>> getTypeResolvers() { return typeResolvers; }
+
+    public DeliveryPaths getDeliveryPaths(){
+        return this.deliveryPaths;
+    }
+
+    public String getDeliveryApiUrl(){
+        return this.deliveryApiUrl;
+    }
 }

@@ -11,15 +11,14 @@
 package com.kentico.delivery.core.query.item;
 
 import com.kentico.delivery.core.adapters.IHttpAdapter;
+import com.kentico.delivery.core.adapters.IRxAdapter;
 import com.kentico.delivery.core.config.DeliveryClientConfig;
 import com.kentico.delivery.core.interfaces.item.item.IContentItem;
 import com.kentico.delivery.core.models.common.Filters;
-import com.kentico.delivery.core.models.common.IDeliveryResponse;
 import com.kentico.delivery.core.models.common.OrderType;
 import com.kentico.delivery.core.models.common.Parameters;
 import com.kentico.delivery.core.models.exceptions.KenticoCloudException;
 import com.kentico.delivery.core.models.item.DeliveryItemListingResponse;
-import com.kentico.delivery.core.adapters.IRxAdapter;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -32,18 +31,13 @@ import io.reactivex.functions.Function;
 
 public final class MultipleItemQuery<TItem extends IContentItem> extends BaseItemQuery<TItem> {
 
-    /*
-    TODO: Move to global config (SDK config?)
-     */
-    private static final String URL_PATH = "/items";
-
     public MultipleItemQuery(DeliveryClientConfig config, IRxAdapter requestService, IHttpAdapter httpAdapter) {
         super(config, requestService, httpAdapter);
     }
 
     @Override
     public String getQueryUrl(){
-        return this.queryService.getUrl(URL_PATH, parameters);
+        return this.queryService.getUrl(this.config.getDeliveryPaths().getItemsPath(), parameters);
     }
 
     // type

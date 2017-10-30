@@ -11,13 +11,12 @@
 package com.kentico.delivery.core.query.item;
 
 import com.kentico.delivery.core.adapters.IHttpAdapter;
+import com.kentico.delivery.core.adapters.IRxAdapter;
 import com.kentico.delivery.core.config.DeliveryClientConfig;
 import com.kentico.delivery.core.interfaces.item.item.IContentItem;
-import com.kentico.delivery.core.models.common.IDeliveryResponse;
 import com.kentico.delivery.core.models.common.Parameters;
 import com.kentico.delivery.core.models.exceptions.KenticoCloudException;
 import com.kentico.delivery.core.models.item.DeliveryItemResponse;
-import com.kentico.delivery.core.adapters.IRxAdapter;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -30,7 +29,6 @@ import io.reactivex.functions.Function;
 
 public class SingleItemQuery<TItem extends IContentItem> extends BaseItemQuery<TItem> {
 
-    private static final String URL_PATH = "/items/";
     private final String itemCodename;
 
     public SingleItemQuery(DeliveryClientConfig config, IRxAdapter requestService, IHttpAdapter httpAdapter, String itemCodename) {
@@ -40,9 +38,7 @@ public class SingleItemQuery<TItem extends IContentItem> extends BaseItemQuery<T
 
     @Override
     public String getQueryUrl(){
-        String action = URL_PATH + this.itemCodename;
-
-        return this.queryService.getUrl(action, parameters);
+        return this.queryService.getUrl(this.config.getDeliveryPaths().getItemsPath(this.itemCodename), parameters);
     }
 
     // parameters
