@@ -14,7 +14,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 
 import com.kentico.delivery.android.DeliveryAndroidService;
-import com.kentico.delivery.core.config.DeliveryClientConfig;
+import com.kentico.delivery.core.config.DeliveryConfig;
 import com.kentico.delivery.core.services.IDeliveryService;
 import com.kentico.delivery.sample.androidapp.app.config.AppConfig;
 import com.kentico.delivery.sample.androidapp.data.source.articles.ArticlesCloudSource;
@@ -42,6 +42,6 @@ public class Injection {
     }
 
     public static IDeliveryService provideDeliveryService() {
-       return DeliveryAndroidService.getInstance(new DeliveryClientConfig(AppConfig.KENTICO_CLOUD_PROJECT_ID, AppConfig.getTypeResolvers()));
+       return DeliveryAndroidService.getInstance(new DeliveryConfig(AppConfig.KENTICO_CLOUD_PROJECT_ID, AppConfig.getTypeResolvers()));
     }
 }

@@ -10,7 +10,7 @@
 
 package com.kentico.delivery.sample.javaapp;
 
-import com.kentico.delivery.core.config.DeliveryClientConfig;
+import com.kentico.delivery.core.config.DeliveryConfig;
 import com.kentico.delivery.core.models.element.DeliveryContentTypeElementResponse;
 import com.kentico.delivery.core.models.item.DeliveryItemListingResponse;
 import com.kentico.delivery.core.models.taxonomy.DeliveryTaxonomyListingResponse;
@@ -175,7 +175,7 @@ public class Demo {
 
 
     private IDeliveryService getDeliveryService(){
-        return DeliveryService.getInstance(new DeliveryClientConfig(AppConfig.KENTICO_CLOUD_PROJECT_ID, AppConfig.getTypeResolvers()));
+        return DeliveryService.getInstance(new DeliveryConfig(AppConfig.KENTICO_CLOUD_PROJECT_ID, AppConfig.getTypeResolvers()));
     }
 
 }

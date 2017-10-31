@@ -13,7 +13,7 @@ package com.kentico.delivery.sample.androidapp.data.source.coffees;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
-import com.kentico.delivery.core.data.BaseCloudSource;
+import com.kentico.delivery.core.callbacks.BaseCloudSource;
 import com.kentico.delivery.core.models.item.DeliveryItemListingResponse;
 import com.kentico.delivery.core.models.item.DeliveryItemResponse;
 import com.kentico.delivery.sample.androidapp.data.models.Coffee;
