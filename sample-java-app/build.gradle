@@ -28,11 +28,13 @@ configurations {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile project(path: ':delivery-java-rx-core')
-    compile project(path: ':delivery-rxjava2')
+    compile project(path: ':delivery-core')
+    compile project(path: ':delivery-java')
     compile 'io.reactivex.rxjava2:rxjava:2.1.5'
 
+
     // extra libs to be included in JAR
+
     extraLibs group: 'org.json', name: 'json', version: '20070829'
     extraLibs 'com.fasterxml.jackson.core:jackson-core:2.9.1'
     extraLibs 'com.fasterxml.jackson.core:jackson-annotations:2.9.1'

@@ -8,9 +8,9 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/delivery-java-rx-core" />
-            <option value="$PROJECT_DIR$/delivery-rxandroid" />
-            <option value="$PROJECT_DIR$/delivery-rxjava2" />
+            <option value="$PROJECT_DIR$/delivery-android" />
+            <option value="$PROJECT_DIR$/delivery-core" />
+            <option value="$PROJECT_DIR$/delivery-java" />
             <option value="$PROJECT_DIR$/sample-android-app" />
             <option value="$PROJECT_DIR$/sample-java-app" />
           </set>

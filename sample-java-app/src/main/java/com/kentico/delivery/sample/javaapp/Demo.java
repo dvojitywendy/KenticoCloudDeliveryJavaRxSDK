@@ -18,7 +18,7 @@ import com.kentico.delivery.core.models.taxonomy.DeliveryTaxonomyResponse;
 import com.kentico.delivery.core.models.type.DeliveryTypeListingResponse;
 import com.kentico.delivery.core.models.type.DeliveryTypeResponse;
 import com.kentico.delivery.core.services.IDeliveryService;
-import com.kentico.delivery.rxjava2.DeliveryRxJava2;
+import com.kentico.delivery.java.DeliveryService;
 import com.kentico.delivery.sample.javaapp.models.Article;
 
 import java.util.List;
@@ -175,7 +175,7 @@ public class Demo {
 
 
     private IDeliveryService getDeliveryService(){
-        return DeliveryRxJava2.getInstance(new DeliveryClientConfig(AppConfig.KENTICO_CLOUD_PROJECT_ID, AppConfig.getTypeResolvers()));
+        return DeliveryService.getInstance(new DeliveryClientConfig(AppConfig.KENTICO_CLOUD_PROJECT_ID, AppConfig.getTypeResolvers()));
     }
 
 }
