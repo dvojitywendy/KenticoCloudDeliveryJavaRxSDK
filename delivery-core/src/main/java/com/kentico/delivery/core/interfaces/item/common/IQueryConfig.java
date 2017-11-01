@@ -10,12 +10,33 @@
 
 package com.kentico.delivery.core.interfaces.item.common;
 
+/**
+ * Query configuration
+ */
 public interface IQueryConfig {
 
+    /**
+     * Indicates if loading for new content header should be used
+     * @return True or False
+     */
    boolean getWaitForLoadingNewContent();
+
+    /**
+     * Sets if wait for new content header should be used
+     * @param wait True of False
+     */
    void setWaitForLoadingNewContent(boolean wait);
 
 
+    /**
+     * Indicates if preview mode should be used
+     * @return True or False
+     */
     boolean getUsePreviewMode();
+
+    /**
+     * Indicates if preview mode should be used
+     * @param enablePreview True or False
+     */
     void setUsePreviewMode(boolean enablePreview);
 }
