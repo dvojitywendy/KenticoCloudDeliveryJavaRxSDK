@@ -177,7 +177,7 @@ public class Demo {
 
 
     private IDeliveryService getDeliveryService(){
-        return DeliveryService.getInstance(new DeliveryConfig(AppConfig.KENTICO_CLOUD_PROJECT_ID, AppConfig.getTypeResolvers()));
+        return new DeliveryService(new DeliveryConfig(AppConfig.KENTICO_CLOUD_PROJECT_ID, AppConfig.getTypeResolvers()));
     }
 
 }

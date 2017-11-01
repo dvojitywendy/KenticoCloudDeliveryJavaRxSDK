@@ -19,30 +19,17 @@ import com.kentico.delivery.core.services.IDeliveryService;
 
 public class DeliveryService extends BaseDeliveryService implements IDeliveryService {
 
-    private static IDeliveryService INSTANCE;
-    private static IRxAdapter rxAdapter;
-    private static IHttpAdapter httpAdapter;
+    private IRxAdapter rxAdapter;
+    private IHttpAdapter httpAdapter;
 
     /**
-     * Gets static instance of Delivery client for Android use
+     * Initializes delivery service for Android
      * @param config Delivery client configuration
-     * @return Delivery client instance
      */
-    public static IDeliveryService getInstance(DeliveryConfig config) {
-        if (INSTANCE == null) {
-            INSTANCE = new DeliveryService(config);
-        }
-        if (rxAdapter == null) {
-            rxAdapter = new Java2RxAdapter();
-        }
-        if (httpAdapter == null) {
-            httpAdapter = new JavaHttpAdapter();
-        }
-        return INSTANCE;
-    }
-
-    private DeliveryService(DeliveryConfig config) {
+    public DeliveryService(DeliveryConfig config) {
         super(config);
+        this.rxAdapter = new Java2RxAdapter();
+        this.httpAdapter = new JavaHttpAdapter();
     }
 
     @Override
