@@ -10,6 +10,7 @@
 
 package com.kentico.delivery.core.config;
 
+import com.kentico.delivery.core.interfaces.item.common.IQueryConfig;
 import com.kentico.delivery.core.models.item.TypeResolver;
 
 import java.util.List;
@@ -25,4 +26,6 @@ public interface IDeliveryConfig {
      String getDeliveryApiUrl();
 
      DeliveryProperties getDeliveryProperties();
+
+     IQueryConfig getDefaultQueryConfig();
 }

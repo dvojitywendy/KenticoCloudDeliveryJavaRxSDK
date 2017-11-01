@@ -10,6 +10,8 @@
 
 package com.kentico.delivery.core.config;
 
+import com.kentico.delivery.core.interfaces.item.common.IQueryConfig;
+import com.kentico.delivery.core.models.common.QueryConfig;
 import com.kentico.delivery.core.models.item.TypeResolver;
 
 import java.util.List;
@@ -22,6 +24,8 @@ public final class DeliveryConfig implements IDeliveryConfig {
     private final String projectId;
     private final List<TypeResolver<?>> typeResolvers;
 
+    private IQueryConfig defaultQueryConfig = new QueryConfig();
+
     /**
      * Creates configuration
      * @param projectId Id of Kentico Cloud project
@@ -30,6 +34,18 @@ public final class DeliveryConfig implements IDeliveryConfig {
     public DeliveryConfig(String projectId, List<TypeResolver<?>> typeResolvers){
         this.projectId = projectId;
         this.typeResolvers = typeResolvers;
+    }
+
+    /**
+     * Creates configuration
+     * @param projectId Id of Kentico Cloud project
+     * @param typeResolvers Resolvers used to map items from Kentico Cloud to strongly typed instances
+     * @param defaultQueryConfig Default query config used for all request unless overriden on query level
+     */
+    public DeliveryConfig(String projectId, List<TypeResolver<?>> typeResolvers, IQueryConfig defaultQueryConfig){
+        this.projectId = projectId;
+        this.typeResolvers = typeResolvers;
+        this.defaultQueryConfig = defaultQueryConfig;
     }
 
     public String getProjectId(){
@@ -48,5 +64,9 @@ public final class DeliveryConfig implements IDeliveryConfig {
 
     public DeliveryProperties getDeliveryProperties() {
         return deliveryProperties;
+    }
+
+    public IQueryConfig getDefaultQueryConfig() {
+        return defaultQueryConfig;
     }
 }

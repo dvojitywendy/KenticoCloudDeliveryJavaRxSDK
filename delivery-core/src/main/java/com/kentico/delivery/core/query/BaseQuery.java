@@ -30,7 +30,7 @@ import io.reactivex.Observable;
 public abstract class BaseQuery {
 
     protected List<IQueryParameter> parameters = new ArrayList<>();
-    protected IQueryConfig queryConfig = new QueryConfig();
+    protected IQueryConfig queryConfig;
 
     protected IDeliveryConfig config;
     protected ResponseMapService responseMapService;
@@ -40,6 +40,9 @@ public abstract class BaseQuery {
         this.config = config;
         this.responseMapService = new ResponseMapService(config);
         this.queryService = new QueryService(config, rxAdapter, httpAdapter);
+
+        // assign default query configuration, this can be overridden by setters
+        this.queryConfig = config.getDefaultQueryConfig();
     }
 
     /**
