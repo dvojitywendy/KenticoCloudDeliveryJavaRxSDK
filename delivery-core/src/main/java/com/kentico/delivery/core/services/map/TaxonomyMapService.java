@@ -13,6 +13,7 @@ package com.kentico.delivery.core.services.map;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kentico.delivery.core.config.DeliveryConfig;
+import com.kentico.delivery.core.config.IDeliveryConfig;
 import com.kentico.delivery.core.models.exceptions.KenticoCloudException;
 import com.kentico.delivery.core.models.taxonomy.Taxonomy;
 import com.kentico.delivery.core.models.taxonomy.TaxonomyCloudResponses;
@@ -24,10 +25,10 @@ import java.util.List;
 
 public class TaxonomyMapService {
 
-    private DeliveryConfig config;
+    private IDeliveryConfig config;
     private ObjectMapper objectMapper;
 
-    public TaxonomyMapService(DeliveryConfig config, ObjectMapper objectMapper){
+    public TaxonomyMapService(IDeliveryConfig config, ObjectMapper objectMapper){
         this.config = config;
         this.objectMapper = objectMapper;
     }

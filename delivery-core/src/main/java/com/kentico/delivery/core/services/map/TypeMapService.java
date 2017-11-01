@@ -13,6 +13,7 @@ package com.kentico.delivery.core.services.map;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kentico.delivery.core.config.DeliveryConfig;
+import com.kentico.delivery.core.config.IDeliveryConfig;
 import com.kentico.delivery.core.models.exceptions.KenticoCloudException;
 import com.kentico.delivery.core.models.type.ContentType;
 import com.kentico.delivery.core.models.type.ContentTypeSystemAttributes;
@@ -23,11 +24,11 @@ import java.util.List;
 
 public class TypeMapService {
 
-    private DeliveryConfig config;
+    private IDeliveryConfig config;
     private ObjectMapper objectMapper;
     private ContentElementMapService contentElementMapService;
 
-    public TypeMapService(DeliveryConfig config, ObjectMapper objectMapper){
+    public TypeMapService(IDeliveryConfig config, ObjectMapper objectMapper){
         this.config = config;
         this.objectMapper = objectMapper;
         this.contentElementMapService = new ContentElementMapService(config, objectMapper);

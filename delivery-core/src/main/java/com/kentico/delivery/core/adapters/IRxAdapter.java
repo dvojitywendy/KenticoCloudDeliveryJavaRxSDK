@@ -10,11 +10,14 @@
 
 package com.kentico.delivery.core.adapters;
 
+import com.kentico.delivery.core.config.IDeliveryProperties;
+import com.kentico.delivery.core.interfaces.item.common.IQueryConfig;
+
 import org.json.JSONObject;
 
 import io.reactivex.Observable;
 
 public interface IRxAdapter extends IAdapter<Observable<JSONObject>> {
 
-    Observable<JSONObject> get(String url);
+    Observable<JSONObject> get(String url, IQueryConfig queryConfig, IDeliveryProperties deliveryProperties);
 }

@@ -13,6 +13,7 @@ package com.kentico.delivery.core.query.item;
 import com.kentico.delivery.core.adapters.IHttpAdapter;
 import com.kentico.delivery.core.adapters.IRxAdapter;
 import com.kentico.delivery.core.config.DeliveryConfig;
+import com.kentico.delivery.core.config.IDeliveryConfig;
 import com.kentico.delivery.core.interfaces.item.item.IContentItem;
 import com.kentico.delivery.core.models.common.Filters;
 import com.kentico.delivery.core.models.common.OrderType;
@@ -31,7 +32,7 @@ import io.reactivex.functions.Function;
 
 public final class MultipleItemQuery<TItem extends IContentItem> extends BaseItemQuery<TItem> {
 
-    public MultipleItemQuery(DeliveryConfig config, IRxAdapter requestService, IHttpAdapter httpAdapter) {
+    public MultipleItemQuery(IDeliveryConfig config, IRxAdapter requestService, IHttpAdapter httpAdapter) {
         super(config, requestService, httpAdapter);
     }
 
@@ -129,7 +130,7 @@ public final class MultipleItemQuery<TItem extends IContentItem> extends BaseIte
     }
 
     public Observable<DeliveryItemListingResponse<TItem>> getObservable(){
-        return this.queryService.<JSONObject>getObservable(this.getQueryUrl())
+        return this.queryService.<JSONObject>getObservable(this.getQueryUrl(), this.queryConfig, this.config.getDeliveryProperties())
                 .map(new Function<JSONObject, DeliveryItemListingResponse<TItem>>() {
                     @Override
                     public DeliveryItemListingResponse<TItem> apply(JSONObject jsonObject) throws KenticoCloudException {
@@ -145,7 +146,7 @@ public final class MultipleItemQuery<TItem extends IContentItem> extends BaseIte
     @Override
     public DeliveryItemListingResponse<TItem> get() {
         try {
-            return responseMapService.<TItem>mapItemListingResponse(this.queryService.getJson(this.getQueryUrl()));
+            return responseMapService.<TItem>mapItemListingResponse(this.queryService.getJson(this.getQueryUrl(), this.queryConfig, this.config.getDeliveryProperties()));
         } catch (JSONException | IOException | IllegalAccessException ex) {
             throw new KenticoCloudException("Could not get multiple items response with error: " + ex.getMessage(), ex);
         }

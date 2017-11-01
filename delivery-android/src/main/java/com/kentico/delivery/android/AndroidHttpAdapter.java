@@ -12,6 +12,8 @@ package com.kentico.delivery.android;
 
 
 import com.kentico.delivery.core.adapters.IHttpAdapter;
+import com.kentico.delivery.core.config.IDeliveryProperties;
+import com.kentico.delivery.core.interfaces.item.common.IQueryConfig;
 import com.kentico.delivery.core.models.exceptions.KenticoCloudException;
 
 import org.json.JSONException;
@@ -23,17 +25,18 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class AndroidHttpAdapter implements IHttpAdapter {
+class AndroidHttpAdapter implements IHttpAdapter {
 
     private static OkHttpClient okHttpClient = new OkHttpClient();
 
     @Override
-    public JSONObject get(String url) {
+    public JSONObject get(String url, IQueryConfig queryConfig, IDeliveryProperties deliveryProperties) {
         Request request = new Request.Builder()
                 .url(url)
+                .addHeader(deliveryProperties.getWaitForLoadingNewContentHeader(), queryConfig.getWaitForLoadingNewContent() ? "true" : "false")
                 .build();
 
-        Response response = null;
+        Response response;
         try {
             response = okHttpClient.newCall(request).execute();
 

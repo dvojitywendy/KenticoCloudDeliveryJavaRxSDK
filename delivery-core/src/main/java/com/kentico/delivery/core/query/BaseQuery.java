@@ -13,8 +13,11 @@ package com.kentico.delivery.core.query;
 import com.kentico.delivery.core.adapters.IHttpAdapter;
 import com.kentico.delivery.core.adapters.IRxAdapter;
 import com.kentico.delivery.core.config.DeliveryConfig;
+import com.kentico.delivery.core.config.IDeliveryConfig;
+import com.kentico.delivery.core.interfaces.item.common.IQueryConfig;
 import com.kentico.delivery.core.interfaces.item.common.IQueryParameter;
 import com.kentico.delivery.core.models.common.IDeliveryResponse;
+import com.kentico.delivery.core.models.common.QueryConfig;
 import com.kentico.delivery.core.services.IQueryService;
 import com.kentico.delivery.core.services.QueryService;
 import com.kentico.delivery.core.services.ResponseMapService;
@@ -27,15 +30,32 @@ import io.reactivex.Observable;
 public abstract class BaseQuery {
 
     protected List<IQueryParameter> parameters = new ArrayList<>();
+    protected IQueryConfig queryConfig = new QueryConfig();
 
-    protected DeliveryConfig config;
+    protected IDeliveryConfig config;
     protected ResponseMapService responseMapService;
     protected IQueryService queryService;
 
-    protected BaseQuery(DeliveryConfig config, IRxAdapter rxAdapter, IHttpAdapter httpAdapter){
+    protected BaseQuery(IDeliveryConfig config, IRxAdapter rxAdapter, IHttpAdapter httpAdapter){
         this.config = config;
         this.responseMapService = new ResponseMapService(config);
         this.queryService = new QueryService(config, rxAdapter, httpAdapter);
+    }
+
+    /**
+     * Gets query configuration
+     * @return Query configuration
+     */
+    public IQueryConfig getQueryConfig(){
+        return this.queryConfig;
+    }
+
+    /**
+     * Sets query configuration
+     * @param queryConfig Query configuration
+     */
+    public void setQueryConfig(IQueryConfig queryConfig){
+        this.queryConfig = queryConfig;
     }
 
     /**

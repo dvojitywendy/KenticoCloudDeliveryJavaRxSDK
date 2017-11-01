@@ -13,6 +13,7 @@ package com.kentico.delivery.core.services;
 import com.kentico.delivery.core.adapters.IHttpAdapter;
 import com.kentico.delivery.core.adapters.IRxAdapter;
 import com.kentico.delivery.core.config.DeliveryConfig;
+import com.kentico.delivery.core.config.IDeliveryConfig;
 import com.kentico.delivery.core.interfaces.item.item.IContentItem;
 import com.kentico.delivery.core.query.element.SingleContentTypeElement;
 import com.kentico.delivery.core.query.item.MultipleItemQuery;
@@ -24,7 +25,7 @@ import com.kentico.delivery.core.query.type.SingleTypeQuery;
 
 public abstract class BaseDeliveryService implements IDeliveryService {
 
-    protected DeliveryConfig config;
+    protected IDeliveryConfig config;
 
     protected BaseDeliveryService(DeliveryConfig config) {
         this.config = config;

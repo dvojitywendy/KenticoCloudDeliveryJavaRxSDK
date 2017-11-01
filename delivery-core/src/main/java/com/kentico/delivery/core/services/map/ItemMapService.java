@@ -15,6 +15,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kentico.delivery.core.config.DeliveryConfig;
+import com.kentico.delivery.core.config.IDeliveryConfig;
 import com.kentico.delivery.core.elements.AssetsElement;
 import com.kentico.delivery.core.elements.ContentElement;
 import com.kentico.delivery.core.elements.DateTimeElement;
@@ -42,11 +43,11 @@ import java.util.Objects;
 
 public class ItemMapService {
 
-    private DeliveryConfig config;
+    private IDeliveryConfig config;
     private ObjectMapper objectMapper;
     private List<IContentItem> processedModularItems = new ArrayList<>();
 
-    public ItemMapService(DeliveryConfig config, ObjectMapper objectMapper){
+    public ItemMapService(IDeliveryConfig config, ObjectMapper objectMapper){
         this.config = config;
         this.objectMapper = objectMapper;
     }

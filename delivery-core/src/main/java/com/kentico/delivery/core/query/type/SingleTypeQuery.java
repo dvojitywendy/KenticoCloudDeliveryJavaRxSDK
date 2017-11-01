@@ -13,6 +13,7 @@ package com.kentico.delivery.core.query.type;
 import com.kentico.delivery.core.adapters.IHttpAdapter;
 import com.kentico.delivery.core.adapters.IRxAdapter;
 import com.kentico.delivery.core.config.DeliveryConfig;
+import com.kentico.delivery.core.config.IDeliveryConfig;
 import com.kentico.delivery.core.models.common.IDeliveryResponse;
 import com.kentico.delivery.core.models.exceptions.KenticoCloudException;
 import com.kentico.delivery.core.models.type.DeliveryTypeResponse;
@@ -28,7 +29,7 @@ public class SingleTypeQuery extends BaseTypeQuery {
 
     private final String typeCodename;
 
-    public SingleTypeQuery(DeliveryConfig config, IRxAdapter requestService, IHttpAdapter httpAdapter, String typeCodename) {
+    public SingleTypeQuery(IDeliveryConfig config, IRxAdapter requestService, IHttpAdapter httpAdapter, String typeCodename) {
         super(config, requestService, httpAdapter);
         this.typeCodename = typeCodename;
     }
@@ -40,7 +41,7 @@ public class SingleTypeQuery extends BaseTypeQuery {
 
     // observable
     public Observable<DeliveryTypeResponse> getObservable() {
-        return this.queryService.<JSONObject>getObservable(this.getQueryUrl())
+        return this.queryService.<JSONObject>getObservable(this.getQueryUrl(), this.queryConfig, this.config.getDeliveryProperties())
                 .map(new Function<JSONObject, DeliveryTypeResponse>() {
                     @Override
                     public DeliveryTypeResponse apply(JSONObject jsonObject) throws KenticoCloudException {
@@ -56,7 +57,7 @@ public class SingleTypeQuery extends BaseTypeQuery {
     @Override
     public IDeliveryResponse get() {
         try {
-            return responseMapService.mapDeliverySingleTypeResponse(this.queryService.getJson(this.getQueryUrl()));
+            return responseMapService.mapDeliverySingleTypeResponse(this.queryService.getJson(this.getQueryUrl(), this.queryConfig, this.config.getDeliveryProperties()));
         } catch (IOException ex) {
             throw new KenticoCloudException("Could not get type response with error: " + ex.getMessage(), ex);
         }

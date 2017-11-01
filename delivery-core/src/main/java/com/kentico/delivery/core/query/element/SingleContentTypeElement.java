@@ -13,6 +13,7 @@ package com.kentico.delivery.core.query.element;
 import com.kentico.delivery.core.adapters.IHttpAdapter;
 import com.kentico.delivery.core.adapters.IRxAdapter;
 import com.kentico.delivery.core.config.DeliveryConfig;
+import com.kentico.delivery.core.config.IDeliveryConfig;
 import com.kentico.delivery.core.models.element.DeliveryContentTypeElementResponse;
 import com.kentico.delivery.core.models.exceptions.KenticoCloudException;
 
@@ -28,7 +29,7 @@ public class SingleContentTypeElement extends BaseContentTypeElementQuery {
     private final String typeCodename;
     private final String elementCodename;
 
-    public SingleContentTypeElement(DeliveryConfig config, IRxAdapter requestService, IHttpAdapter httpAdapter, String typeCodename, String elementCodename) {
+    public SingleContentTypeElement(IDeliveryConfig config, IRxAdapter requestService, IHttpAdapter httpAdapter, String typeCodename, String elementCodename) {
         super(config, requestService, httpAdapter);
         this.typeCodename = typeCodename;
         this.elementCodename = elementCodename;
@@ -41,7 +42,7 @@ public class SingleContentTypeElement extends BaseContentTypeElementQuery {
 
     // observable
     public Observable<DeliveryContentTypeElementResponse> getObservable() {
-        return this.queryService.<JSONObject>getObservable(this.getQueryUrl())
+        return this.queryService.<JSONObject>getObservable(this.getQueryUrl(), this.queryConfig, this.config.getDeliveryProperties())
                 .map(new Function<JSONObject, DeliveryContentTypeElementResponse>() {
                     @Override
                     public DeliveryContentTypeElementResponse apply(JSONObject jsonObject) throws KenticoCloudException {
@@ -57,7 +58,7 @@ public class SingleContentTypeElement extends BaseContentTypeElementQuery {
     @Override
     public DeliveryContentTypeElementResponse get() {
         try {
-            return responseMapService.mapDeliveryContentTypeResponse(this.queryService.getJson(this.getQueryUrl()));
+            return responseMapService.mapDeliveryContentTypeResponse(this.queryService.getJson(this.getQueryUrl(), this.queryConfig, this.config.getDeliveryProperties()));
         } catch (IOException ex) {
             throw new KenticoCloudException("Could not get content type element response with error: " + ex.getMessage(), ex);
         }

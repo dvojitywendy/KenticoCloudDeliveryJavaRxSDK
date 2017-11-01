@@ -11,6 +11,8 @@
 package com.kentico.delivery.java;
 
 import com.kentico.delivery.core.adapters.IRxAdapter;
+import com.kentico.delivery.core.config.IDeliveryProperties;
+import com.kentico.delivery.core.interfaces.item.common.IQueryConfig;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -25,17 +27,21 @@ import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 
-public class Java2RxAdapter implements IRxAdapter {
+class Java2RxAdapter implements IRxAdapter {
 
     private static final OkHttpClient client = new OkHttpClient();
 
     @Override
-    public Observable<JSONObject> get(final String url){
+    public Observable<JSONObject> get(final String url, final IQueryConfig queryConfig, final IDeliveryProperties deliveryProperties){
 
         return Observable.defer(new Callable<ObservableSource<JSONObject>>() {
             @Override public Observable<JSONObject> call() {
                 try {
-                    Response response = client.newCall(new Request.Builder().url(url).build()).execute();
+                    Response response = client.newCall(new Request.Builder()
+                            .url(url)
+                            .addHeader(deliveryProperties.getWaitForLoadingNewContentHeader(), queryConfig.getWaitForLoadingNewContent() ? "true" : "false")
+                            .build())
+                            .execute();
 
                     if (!response.isSuccessful()){
                         throw new NullPointerException("Response from server was not successful: " + response.message());

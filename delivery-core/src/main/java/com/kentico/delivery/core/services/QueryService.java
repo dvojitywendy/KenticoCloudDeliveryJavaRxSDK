@@ -13,6 +13,9 @@ package com.kentico.delivery.core.services;
 import com.kentico.delivery.core.adapters.IHttpAdapter;
 import com.kentico.delivery.core.adapters.IRxAdapter;
 import com.kentico.delivery.core.config.DeliveryConfig;
+import com.kentico.delivery.core.config.IDeliveryConfig;
+import com.kentico.delivery.core.config.IDeliveryProperties;
+import com.kentico.delivery.core.interfaces.item.common.IQueryConfig;
 import com.kentico.delivery.core.interfaces.item.common.IQueryParameter;
 
 import org.json.JSONObject;
@@ -23,11 +26,11 @@ import io.reactivex.Observable;
 
 public final class QueryService implements IQueryService{
 
-    private DeliveryConfig config;
+    private IDeliveryConfig config;
     private IRxAdapter rxAdapter;
     private IHttpAdapter httpAdapter;
 
-    public QueryService(DeliveryConfig config, IRxAdapter rxAdapter, IHttpAdapter httpAdapter){
+    public QueryService(IDeliveryConfig config, IRxAdapter rxAdapter, IHttpAdapter httpAdapter){
         this.config = config;
         this.rxAdapter = rxAdapter;
         this.httpAdapter = httpAdapter;
@@ -68,12 +71,12 @@ public final class QueryService implements IQueryService{
     }
 
     @Override
-    public Observable<JSONObject> getObservable(String url) {
-        return this.rxAdapter.get(url);
+    public Observable<JSONObject> getObservable(String url, IQueryConfig queryConfig, IDeliveryProperties deliveryProperties) {
+        return this.rxAdapter.get(url, queryConfig, deliveryProperties);
     }
 
     @Override
-    public JSONObject getJson(String url) {
-        return this.httpAdapter.get(url);
+    public JSONObject getJson(String url, IQueryConfig queryConfig, IDeliveryProperties deliveryProperties) {
+        return this.httpAdapter.get(url, queryConfig, deliveryProperties);
     }
 }

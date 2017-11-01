@@ -10,6 +10,8 @@
 
 package com.kentico.delivery.core.services;
 
+import com.kentico.delivery.core.config.IDeliveryProperties;
+import com.kentico.delivery.core.interfaces.item.common.IQueryConfig;
 import com.kentico.delivery.core.interfaces.item.common.IQueryParameter;
 
 import org.json.JSONObject;
@@ -22,7 +24,7 @@ public interface IQueryService {
 
     String getUrl( String action, List<IQueryParameter> parameters);
 
-    Observable<JSONObject> getObservable(String url);
+    Observable<JSONObject> getObservable(String url, IQueryConfig queryConfig, IDeliveryProperties deliveryProperties);
 
-    JSONObject getJson(String url);
+    JSONObject getJson(String url, IQueryConfig queryConfig, IDeliveryProperties deliveryProperties);
 }

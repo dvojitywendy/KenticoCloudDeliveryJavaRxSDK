@@ -13,6 +13,7 @@ package com.kentico.delivery.core.query.item;
 import com.kentico.delivery.core.adapters.IHttpAdapter;
 import com.kentico.delivery.core.adapters.IRxAdapter;
 import com.kentico.delivery.core.config.DeliveryConfig;
+import com.kentico.delivery.core.config.IDeliveryConfig;
 import com.kentico.delivery.core.interfaces.item.item.IContentItem;
 import com.kentico.delivery.core.models.common.Parameters;
 import com.kentico.delivery.core.models.exceptions.KenticoCloudException;
@@ -31,7 +32,7 @@ public class SingleItemQuery<TItem extends IContentItem> extends BaseItemQuery<T
 
     private final String itemCodename;
 
-    public SingleItemQuery(DeliveryConfig config, IRxAdapter requestService, IHttpAdapter httpAdapter, String itemCodename) {
+    public SingleItemQuery(IDeliveryConfig config, IRxAdapter requestService, IHttpAdapter httpAdapter, String itemCodename) {
         super(config, requestService, httpAdapter);
         this.itemCodename = itemCodename;
     }
@@ -58,7 +59,7 @@ public class SingleItemQuery<TItem extends IContentItem> extends BaseItemQuery<T
     }
 
     public Observable<DeliveryItemResponse<TItem>> getObservable() {
-        return this.queryService.<JSONObject>getObservable(this.getQueryUrl())
+        return this.queryService.<JSONObject>getObservable(this.getQueryUrl(), this.queryConfig, this.config.getDeliveryProperties())
                 .map(new Function<JSONObject, DeliveryItemResponse<TItem>>() {
                     @Override
                     public DeliveryItemResponse<TItem> apply(JSONObject jsonObject) throws KenticoCloudException {
@@ -74,7 +75,7 @@ public class SingleItemQuery<TItem extends IContentItem> extends BaseItemQuery<T
     @Override
     public DeliveryItemResponse<TItem> get() {
         try {
-            return responseMapService.<TItem>mapItemResponse(this.queryService.getJson(this.getQueryUrl()));
+            return responseMapService.<TItem>mapItemResponse(this.queryService.getJson(this.getQueryUrl(), this.queryConfig, this.config.getDeliveryProperties()));
         } catch (JSONException | IOException | IllegalAccessException ex) {
             throw new KenticoCloudException("Could not get item response with error: " + ex.getMessage(), ex);
         }

@@ -13,12 +13,13 @@ package com.kentico.delivery.core.query.element;
 import com.kentico.delivery.core.adapters.IHttpAdapter;
 import com.kentico.delivery.core.adapters.IRxAdapter;
 import com.kentico.delivery.core.config.DeliveryConfig;
+import com.kentico.delivery.core.config.IDeliveryConfig;
 import com.kentico.delivery.core.query.BaseQuery;
 
 
 abstract class BaseContentTypeElementQuery extends BaseQuery {
 
-    BaseContentTypeElementQuery(DeliveryConfig config, IRxAdapter requestService, IHttpAdapter httpAdapter){
+    BaseContentTypeElementQuery(IDeliveryConfig config, IRxAdapter requestService, IHttpAdapter httpAdapter){
         super(config, requestService, httpAdapter);
     }
 }

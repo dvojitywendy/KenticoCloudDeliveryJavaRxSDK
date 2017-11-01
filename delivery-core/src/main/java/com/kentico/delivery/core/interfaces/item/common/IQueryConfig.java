@@ -8,26 +8,14 @@
  *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.kentico.delivery.android;
+package com.kentico.delivery.core.interfaces.item.common;
 
-import com.androidnetworking.common.Priority;
-import com.kentico.delivery.core.adapters.IRxAdapter;
-import com.kentico.delivery.core.config.IDeliveryProperties;
-import com.kentico.delivery.core.interfaces.item.common.IQueryConfig;
-import com.rx2androidnetworking.Rx2AndroidNetworking;
+public interface IQueryConfig {
 
-import org.json.JSONObject;
+   boolean getWaitForLoadingNewContent();
+   void setWaitForLoadingNewContent(boolean wait);
 
-import io.reactivex.Observable;
 
-class AndroidRxAdapter implements IRxAdapter {
-
-    @Override
-    public Observable<JSONObject> get(String url, IQueryConfig queryConfig, IDeliveryProperties deliveryProperties) {
-        return Rx2AndroidNetworking.get(url)
-                .setPriority(Priority.MEDIUM)
-                .addHeaders(deliveryProperties.getWaitForLoadingNewContentHeader(), queryConfig.getWaitForLoadingNewContent() ? "true" : "false")
-                .build()
-                .getJSONObjectObservable();
-    }
+    boolean getUsePreviewMode();
+    void setUsePreviewMode(boolean enablePreview);
 }

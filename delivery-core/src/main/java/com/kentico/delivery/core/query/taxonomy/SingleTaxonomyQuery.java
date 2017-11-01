@@ -13,6 +13,7 @@ package com.kentico.delivery.core.query.taxonomy;
 import com.kentico.delivery.core.adapters.IHttpAdapter;
 import com.kentico.delivery.core.adapters.IRxAdapter;
 import com.kentico.delivery.core.config.DeliveryConfig;
+import com.kentico.delivery.core.config.IDeliveryConfig;
 import com.kentico.delivery.core.models.exceptions.KenticoCloudException;
 import com.kentico.delivery.core.models.taxonomy.DeliveryTaxonomyResponse;
 import com.kentico.delivery.core.query.type.BaseTypeQuery;
@@ -28,7 +29,7 @@ public class SingleTaxonomyQuery extends BaseTypeQuery {
 
     private final String taxonomyCodename;
 
-    public SingleTaxonomyQuery(DeliveryConfig config, IRxAdapter requestService, IHttpAdapter httpAdapter, String taxonomyCodename) {
+    public SingleTaxonomyQuery(IDeliveryConfig config, IRxAdapter requestService, IHttpAdapter httpAdapter, String taxonomyCodename) {
         super(config, requestService, httpAdapter);
         this.taxonomyCodename = taxonomyCodename;
     }
@@ -41,7 +42,7 @@ public class SingleTaxonomyQuery extends BaseTypeQuery {
 
     // observable
     public Observable<DeliveryTaxonomyResponse> getObservable() {
-        return this.queryService.<JSONObject>getObservable(this.getQueryUrl())
+        return this.queryService.<JSONObject>getObservable(this.getQueryUrl(), this.queryConfig, this.config.getDeliveryProperties())
                 .map(new Function<JSONObject, DeliveryTaxonomyResponse>() {
                     @Override
                     public DeliveryTaxonomyResponse apply(JSONObject jsonObject) throws KenticoCloudException {
@@ -57,7 +58,7 @@ public class SingleTaxonomyQuery extends BaseTypeQuery {
     @Override
     public DeliveryTaxonomyResponse get() {
         try {
-            return responseMapService.mapDeliveryTaxonomyResponse(this.queryService.getJson(this.getQueryUrl()));
+            return responseMapService.mapDeliveryTaxonomyResponse(this.queryService.getJson(this.getQueryUrl(), this.queryConfig, this.config.getDeliveryProperties()));
         } catch (IOException ex) {
             throw new KenticoCloudException("Could not get taxonomy response with error: " + ex.getMessage(), ex);
         }

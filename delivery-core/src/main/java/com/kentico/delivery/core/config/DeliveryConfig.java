@@ -14,10 +14,10 @@ import com.kentico.delivery.core.models.item.TypeResolver;
 
 import java.util.List;
 
-public final class DeliveryConfig {
+public final class DeliveryConfig implements IDeliveryConfig {
 
-    private final String deliveryApiUrl = "https://deliver.kenticocloud.com";
     private final DeliveryPaths deliveryPaths = new DeliveryPaths();
+    private final DeliveryProperties deliveryProperties = new DeliveryProperties();
 
     private final String projectId;
     private final List<TypeResolver<?>> typeResolvers;
@@ -43,6 +43,10 @@ public final class DeliveryConfig {
     }
 
     public String getDeliveryApiUrl(){
-        return this.deliveryApiUrl;
+        return "https://deliver.kenticocloud.com";
+    }
+
+    public DeliveryProperties getDeliveryProperties() {
+        return deliveryProperties;
     }
 }

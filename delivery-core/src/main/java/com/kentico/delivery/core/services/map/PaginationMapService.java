@@ -12,15 +12,16 @@ package com.kentico.delivery.core.services.map;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kentico.delivery.core.config.DeliveryConfig;
+import com.kentico.delivery.core.config.IDeliveryConfig;
 import com.kentico.delivery.core.models.common.CommonCloudResponses;
 import com.kentico.delivery.core.models.common.Pagination;
 
 public class PaginationMapService {
 
-    private DeliveryConfig config;
+    private IDeliveryConfig config;
     private ObjectMapper objectMapper;
 
-    public PaginationMapService(DeliveryConfig config, ObjectMapper objectMapper){
+    public PaginationMapService(IDeliveryConfig config, ObjectMapper objectMapper){
         this.config = config;
         this.objectMapper = objectMapper;
     }

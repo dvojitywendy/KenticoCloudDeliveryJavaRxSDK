@@ -10,9 +10,12 @@
 
 package com.kentico.delivery.core.adapters;
 
+import com.kentico.delivery.core.config.IDeliveryProperties;
+import com.kentico.delivery.core.interfaces.item.common.IQueryConfig;
+
 import org.json.JSONObject;
 
 public interface IHttpAdapter extends IAdapter<JSONObject> {
 
-    JSONObject get(String url);
+    JSONObject get(String url, IQueryConfig queryConfig, IDeliveryProperties deliveryProperties);
 }

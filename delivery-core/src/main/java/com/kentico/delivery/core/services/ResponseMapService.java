@@ -12,6 +12,7 @@ package com.kentico.delivery.core.services;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kentico.delivery.core.config.DeliveryConfig;
+import com.kentico.delivery.core.config.IDeliveryConfig;
 import com.kentico.delivery.core.interfaces.item.item.IContentItem;
 import com.kentico.delivery.core.models.element.DeliveryContentTypeElementResponse;
 import com.kentico.delivery.core.models.element.ElementCloudResponses;
@@ -46,7 +47,7 @@ public final class ResponseMapService {
     private TaxonomyMapService taxonomyMapService;
     private ContentElementMapService contentElementMapService;
 
-    public ResponseMapService( DeliveryConfig config){
+    public ResponseMapService(IDeliveryConfig config){
         this.itemMapService = new ItemMapService(config, this.objectMapper);
         this.typeMapService = new TypeMapService(config, this.objectMapper);
         this.taxonomyMapService = new TaxonomyMapService(config, this.objectMapper);

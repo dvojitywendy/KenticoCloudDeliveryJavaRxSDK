@@ -13,6 +13,7 @@ package com.kentico.delivery.core.query.type;
 import com.kentico.delivery.core.adapters.IHttpAdapter;
 import com.kentico.delivery.core.adapters.IRxAdapter;
 import com.kentico.delivery.core.config.DeliveryConfig;
+import com.kentico.delivery.core.config.IDeliveryConfig;
 import com.kentico.delivery.core.models.common.Parameters;
 import com.kentico.delivery.core.models.exceptions.KenticoCloudException;
 import com.kentico.delivery.core.models.type.DeliveryTypeListingResponse;
@@ -26,7 +27,7 @@ import io.reactivex.functions.Function;
 
 public class MultipleTypeQuery extends BaseTypeQuery {
 
-    public MultipleTypeQuery(DeliveryConfig config, IRxAdapter requestService, IHttpAdapter httpAdapter) {
+    public MultipleTypeQuery(IDeliveryConfig config, IRxAdapter requestService, IHttpAdapter httpAdapter) {
         super(config, requestService, httpAdapter);
     }
 
@@ -47,7 +48,7 @@ public class MultipleTypeQuery extends BaseTypeQuery {
 
     // observable
     public Observable<DeliveryTypeListingResponse> getObservable() {
-        return this.queryService.<JSONObject>getObservable(this.getQueryUrl())
+        return this.queryService.<JSONObject>getObservable(this.getQueryUrl(), this.queryConfig, this.config.getDeliveryProperties())
                 .map(new Function<JSONObject, DeliveryTypeListingResponse>() {
                     @Override
                     public DeliveryTypeListingResponse apply(JSONObject jsonObject) throws KenticoCloudException {
@@ -63,7 +64,7 @@ public class MultipleTypeQuery extends BaseTypeQuery {
     @Override
     public DeliveryTypeListingResponse get() {
         try {
-            return responseMapService.mapDeliveryMultipleTypesResponse(this.queryService.getJson(this.getQueryUrl()));
+            return responseMapService.mapDeliveryMultipleTypesResponse(this.queryService.getJson(this.getQueryUrl(), this.queryConfig, this.config.getDeliveryProperties()));
         } catch (IOException ex) {
             throw new KenticoCloudException("Could not get types response with error: " + ex.getMessage(), ex);
         }

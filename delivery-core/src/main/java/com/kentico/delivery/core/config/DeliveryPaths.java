@@ -10,7 +10,7 @@
 
 package com.kentico.delivery.core.config;
 
-public class DeliveryPaths {
+public class DeliveryPaths implements IDeliveryPaths {
 
     public String getItemsPath(){
         return "/items";
