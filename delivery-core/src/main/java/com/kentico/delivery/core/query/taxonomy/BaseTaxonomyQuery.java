@@ -20,11 +20,7 @@ import com.kentico.delivery.core.query.BaseQuery;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class BaseTaxonomyQuery extends BaseQuery {
-
-    protected List<IQueryParameter> parameters = new ArrayList<>();
-
-    protected DeliveryConfig config;
+public abstract class BaseTaxonomyQuery<TQuery extends BaseQuery> extends BaseQuery<TQuery> {
 
     protected BaseTaxonomyQuery(IDeliveryConfig config, IRxAdapter requestService, IHttpAdapter httpAdapter){
         super(config, requestService, httpAdapter);

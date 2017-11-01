@@ -12,7 +12,6 @@ package com.kentico.delivery.core.query.taxonomy;
 
 import com.kentico.delivery.core.adapters.IHttpAdapter;
 import com.kentico.delivery.core.adapters.IRxAdapter;
-import com.kentico.delivery.core.config.DeliveryConfig;
 import com.kentico.delivery.core.config.IDeliveryConfig;
 import com.kentico.delivery.core.models.common.Parameters;
 import com.kentico.delivery.core.models.exceptions.KenticoCloudException;
@@ -26,7 +25,7 @@ import java.io.IOException;
 import io.reactivex.Observable;
 import io.reactivex.functions.Function;
 
-public class MultipleTaxonomyQuery extends BaseTypeQuery {
+public class MultipleTaxonomyQuery extends BaseTaxonomyQuery<MultipleTaxonomyQuery> {
 
     public MultipleTaxonomyQuery(IDeliveryConfig config, IRxAdapter requestService, IHttpAdapter httpAdapter) {
         super(config, requestService, httpAdapter);
@@ -34,7 +33,7 @@ public class MultipleTaxonomyQuery extends BaseTypeQuery {
 
     @Override
     public String getQueryUrl(){
-        return this.queryService.getUrl(this.config.getDeliveryPaths().getTaxonomiesPath(), parameters);
+        return this.queryService.getUrl(this.config.getDeliveryPaths().getTaxonomiesPath(), this.parameters, this.queryConfig);
     }
 
     public MultipleTaxonomyQuery limitParameter(int limit){

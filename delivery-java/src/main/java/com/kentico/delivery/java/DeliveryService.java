@@ -12,8 +12,8 @@ package com.kentico.delivery.java;
 
 
 import com.kentico.delivery.core.adapters.IHttpAdapter;
-import com.kentico.delivery.core.config.DeliveryConfig;
 import com.kentico.delivery.core.adapters.IRxAdapter;
+import com.kentico.delivery.core.config.DeliveryConfig;
 import com.kentico.delivery.core.services.BaseDeliveryService;
 import com.kentico.delivery.core.services.IDeliveryService;
 

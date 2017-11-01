@@ -171,6 +171,8 @@ public class Demo {
         });
 
         System.out.println(this.deliveryService.taxonomies().get().getTaxonomies().get(0).getSystem().getName());
+
+        System.out.println(this.deliveryService.items().depthParameter(1).setUsePreviewMode(true).getQueryUrl());
     }
 
 

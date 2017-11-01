@@ -48,24 +48,35 @@ public final class DeliveryConfig implements IDeliveryConfig {
         this.defaultQueryConfig = defaultQueryConfig;
     }
 
+    @Override
     public String getProjectId(){
         return projectId;
     }
 
+    @Override
     public List<TypeResolver<?>> getTypeResolvers() { return typeResolvers; }
 
+    @Override
     public DeliveryPaths getDeliveryPaths(){
         return this.deliveryPaths;
     }
 
+    @Override
     public String getDeliveryApiUrl(){
         return "https://deliver.kenticocloud.com";
     }
 
+    @Override
+    public String getDeliveryPreviewApiUrl() {
+        return "https://preview-deliver.kenticocloud.com";
+    }
+
+    @Override
     public DeliveryProperties getDeliveryProperties() {
         return deliveryProperties;
     }
 
+    @Override
     public IQueryConfig getDefaultQueryConfig() {
         return defaultQueryConfig;
     }

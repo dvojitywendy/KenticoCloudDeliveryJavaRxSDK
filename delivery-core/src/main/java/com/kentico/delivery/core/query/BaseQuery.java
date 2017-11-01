@@ -12,12 +12,10 @@ package com.kentico.delivery.core.query;
 
 import com.kentico.delivery.core.adapters.IHttpAdapter;
 import com.kentico.delivery.core.adapters.IRxAdapter;
-import com.kentico.delivery.core.config.DeliveryConfig;
 import com.kentico.delivery.core.config.IDeliveryConfig;
 import com.kentico.delivery.core.interfaces.item.common.IQueryConfig;
 import com.kentico.delivery.core.interfaces.item.common.IQueryParameter;
 import com.kentico.delivery.core.models.common.IDeliveryResponse;
-import com.kentico.delivery.core.models.common.QueryConfig;
 import com.kentico.delivery.core.services.IQueryService;
 import com.kentico.delivery.core.services.QueryService;
 import com.kentico.delivery.core.services.ResponseMapService;
@@ -27,7 +25,7 @@ import java.util.List;
 
 import io.reactivex.Observable;
 
-public abstract class BaseQuery {
+public abstract class BaseQuery<TQuery extends BaseQuery> {
 
     protected List<IQueryParameter> parameters = new ArrayList<>();
     protected IQueryConfig queryConfig;
@@ -43,6 +41,24 @@ public abstract class BaseQuery {
 
         // assign default query configuration, this can be overridden by setters
         this.queryConfig = config.getDefaultQueryConfig();
+    }
+
+    /**
+     * Indicates if loading for new content header is set
+     * @param wait True or false
+     */
+    public BaseQuery<TQuery> setWaitForLoadingNewContent(boolean wait){
+        this.queryConfig.setWaitForLoadingNewContent(wait);
+        return this;
+    }
+
+    /**
+     * Indicates if preview mode for this query is used
+     * @param enablePreview Enabled or disabled
+     */
+    public BaseQuery<TQuery> setUsePreviewMode(boolean enablePreview){
+        this.queryConfig.setUsePreviewMode(enablePreview);
+        return this;
     }
 
     /**

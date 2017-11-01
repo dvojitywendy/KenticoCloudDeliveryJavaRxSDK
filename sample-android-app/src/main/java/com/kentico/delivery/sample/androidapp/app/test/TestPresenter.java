@@ -13,8 +13,8 @@ package com.kentico.delivery.sample.androidapp.app.test;
 import android.support.annotation.NonNull;
 
 import com.kentico.delivery.core.models.item.DeliveryItemListingResponse;
-import com.kentico.delivery.core.models.type.DeliveryTypeResponse;
 import com.kentico.delivery.core.models.type.DeliveryTypeListingResponse;
+import com.kentico.delivery.core.models.type.DeliveryTypeResponse;
 import com.kentico.delivery.core.services.IDeliveryService;
 import com.kentico.delivery.sample.androidapp.data.models.Cafe;
 

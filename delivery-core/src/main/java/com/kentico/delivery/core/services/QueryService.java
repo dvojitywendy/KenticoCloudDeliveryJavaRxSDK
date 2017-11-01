@@ -12,7 +12,6 @@ package com.kentico.delivery.core.services;
 
 import com.kentico.delivery.core.adapters.IHttpAdapter;
 import com.kentico.delivery.core.adapters.IRxAdapter;
-import com.kentico.delivery.core.config.DeliveryConfig;
 import com.kentico.delivery.core.config.IDeliveryConfig;
 import com.kentico.delivery.core.config.IDeliveryProperties;
 import com.kentico.delivery.core.interfaces.item.common.IQueryConfig;
@@ -36,12 +35,12 @@ public final class QueryService implements IQueryService{
         this.httpAdapter = httpAdapter;
     }
 
-    private String getDeliveryUrl(){
-        return config.getDeliveryApiUrl();
+    private String getDeliveryOrPreviewUrl(IQueryConfig queryConfig){
+        return queryConfig.getUsePreviewMode() ? this.config.getDeliveryPreviewApiUrl() : this.config.getDeliveryApiUrl();
     }
 
-    private String getBaseUrl(){
-        return this.getDeliveryUrl() + '/' + this.config.getProjectId();
+    private String getBaseUrl(IQueryConfig queryConfig){
+        return this.getDeliveryOrPreviewUrl(queryConfig) + '/' + this.config.getProjectId();
     }
 
     private String addParametersToUrl( String url, List<IQueryParameter> parameters){
@@ -66,8 +65,8 @@ public final class QueryService implements IQueryService{
     }
 
     @Override
-    public String getUrl( String action, List<IQueryParameter> parameters){
-        return addParametersToUrl(getBaseUrl() + action, parameters);
+    public String getUrl( String action, List<IQueryParameter> parameters, IQueryConfig queryConfig){
+        return addParametersToUrl(getBaseUrl(queryConfig) + action, parameters);
     }
 
     @Override

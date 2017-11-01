@@ -12,7 +12,6 @@ package com.kentico.delivery.core.query.item;
 
 import com.kentico.delivery.core.adapters.IHttpAdapter;
 import com.kentico.delivery.core.adapters.IRxAdapter;
-import com.kentico.delivery.core.config.DeliveryConfig;
 import com.kentico.delivery.core.config.IDeliveryConfig;
 import com.kentico.delivery.core.interfaces.item.item.IContentItem;
 import com.kentico.delivery.core.models.common.Filters;
@@ -30,7 +29,7 @@ import java.util.List;
 import io.reactivex.Observable;
 import io.reactivex.functions.Function;
 
-public final class MultipleItemQuery<TItem extends IContentItem> extends BaseItemQuery<TItem> {
+public final class MultipleItemQuery<TItem extends IContentItem> extends BaseItemQuery<TItem, MultipleItemQuery> {
 
     public MultipleItemQuery(IDeliveryConfig config, IRxAdapter requestService, IHttpAdapter httpAdapter) {
         super(config, requestService, httpAdapter);
@@ -38,7 +37,7 @@ public final class MultipleItemQuery<TItem extends IContentItem> extends BaseIte
 
     @Override
     public String getQueryUrl(){
-        return this.queryService.getUrl(this.config.getDeliveryPaths().getItemsPath(), parameters);
+        return this.queryService.getUrl(this.config.getDeliveryPaths().getItemsPath(), this.parameters, this.queryConfig);
     }
 
     // type

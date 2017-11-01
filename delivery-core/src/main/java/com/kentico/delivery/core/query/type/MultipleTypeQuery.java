@@ -12,7 +12,6 @@ package com.kentico.delivery.core.query.type;
 
 import com.kentico.delivery.core.adapters.IHttpAdapter;
 import com.kentico.delivery.core.adapters.IRxAdapter;
-import com.kentico.delivery.core.config.DeliveryConfig;
 import com.kentico.delivery.core.config.IDeliveryConfig;
 import com.kentico.delivery.core.models.common.Parameters;
 import com.kentico.delivery.core.models.exceptions.KenticoCloudException;
@@ -25,7 +24,7 @@ import java.io.IOException;
 import io.reactivex.Observable;
 import io.reactivex.functions.Function;
 
-public class MultipleTypeQuery extends BaseTypeQuery {
+public class MultipleTypeQuery extends BaseTypeQuery<MultipleTypeQuery> {
 
     public MultipleTypeQuery(IDeliveryConfig config, IRxAdapter requestService, IHttpAdapter httpAdapter) {
         super(config, requestService, httpAdapter);
@@ -33,7 +32,7 @@ public class MultipleTypeQuery extends BaseTypeQuery {
 
     @Override
     public String getQueryUrl(){
-        return this.queryService.getUrl(this.config.getDeliveryPaths().getTypesPath(), parameters);
+        return this.queryService.getUrl(this.config.getDeliveryPaths().getTypesPath(), this.parameters, this.queryConfig);
     }
 
     public MultipleTypeQuery limitParameter(int limit){

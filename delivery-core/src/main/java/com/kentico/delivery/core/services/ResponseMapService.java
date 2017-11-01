@@ -11,7 +11,6 @@
 package com.kentico.delivery.core.services;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.kentico.delivery.core.config.DeliveryConfig;
 import com.kentico.delivery.core.config.IDeliveryConfig;
 import com.kentico.delivery.core.interfaces.item.item.IContentItem;
 import com.kentico.delivery.core.models.element.DeliveryContentTypeElementResponse;

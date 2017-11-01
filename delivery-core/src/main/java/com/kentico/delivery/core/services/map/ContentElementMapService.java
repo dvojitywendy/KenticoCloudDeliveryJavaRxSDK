@@ -13,7 +13,6 @@ package com.kentico.delivery.core.services.map;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.kentico.delivery.core.config.DeliveryConfig;
 import com.kentico.delivery.core.config.IDeliveryConfig;
 import com.kentico.delivery.core.models.element.ContentTypeElement;
 import com.kentico.delivery.core.models.element.ContentTypeElementOption;

@@ -22,7 +22,7 @@ import io.reactivex.Observable;
 
 public interface IQueryService {
 
-    String getUrl( String action, List<IQueryParameter> parameters);
+    String getUrl( String action, List<IQueryParameter> parameters, IQueryConfig queryConfig);
 
     Observable<JSONObject> getObservable(String url, IQueryConfig queryConfig, IDeliveryProperties deliveryProperties);
 

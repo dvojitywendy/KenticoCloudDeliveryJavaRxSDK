@@ -12,7 +12,6 @@ package com.kentico.delivery.core.query.type;
 
 import com.kentico.delivery.core.adapters.IHttpAdapter;
 import com.kentico.delivery.core.adapters.IRxAdapter;
-import com.kentico.delivery.core.config.DeliveryConfig;
 import com.kentico.delivery.core.config.IDeliveryConfig;
 import com.kentico.delivery.core.models.common.IDeliveryResponse;
 import com.kentico.delivery.core.models.exceptions.KenticoCloudException;
@@ -25,7 +24,7 @@ import java.io.IOException;
 import io.reactivex.Observable;
 import io.reactivex.functions.Function;
 
-public class SingleTypeQuery extends BaseTypeQuery {
+public class SingleTypeQuery extends BaseTypeQuery<SingleTypeQuery> {
 
     private final String typeCodename;
 
@@ -36,7 +35,7 @@ public class SingleTypeQuery extends BaseTypeQuery {
 
     @Override
     public String getQueryUrl(){
-        return this.queryService.getUrl(this.config.getDeliveryPaths().getTypesPath(this.typeCodename), parameters);
+        return this.queryService.getUrl(this.config.getDeliveryPaths().getTypesPath(this.typeCodename), this.parameters, this.queryConfig);
     }
 
     // observable
