@@ -13,6 +13,7 @@ package com.kentico.delivery.core.query.taxonomy;
 import com.kentico.delivery.core.adapters.IHttpAdapter;
 import com.kentico.delivery.core.adapters.IRxAdapter;
 import com.kentico.delivery.core.config.IDeliveryConfig;
+import com.kentico.delivery.core.interfaces.item.common.IQueryParameter;
 import com.kentico.delivery.core.models.exceptions.KenticoCloudException;
 import com.kentico.delivery.core.models.taxonomy.DeliveryTaxonomyResponse;
 
@@ -36,6 +37,24 @@ public class SingleTaxonomyQuery extends BaseTaxonomyQuery {
     public String getQueryUrl(){
 
         return this.queryService.getUrl(this.config.getDeliveryPaths().getTaxonomiesPath(this.taxonomyCodename), this.parameters, this.queryConfig);
+    }
+
+    @Override
+    public SingleTaxonomyQuery setWaitForLoadingNewContent(boolean wait) {
+        this.queryConfig.setWaitForLoadingNewContent(wait);
+        return this;
+    }
+
+    @Override
+    public SingleTaxonomyQuery setUsePreviewMode(boolean enablePreview) {
+        this.queryConfig.setUsePreviewMode(enablePreview);
+        return this;
+    }
+
+    @Override
+    public SingleTaxonomyQuery addParameter(IQueryParameter queryParameter) {
+        this.parameters.add(queryParameter);
+        return this;
     }
 
     // observable

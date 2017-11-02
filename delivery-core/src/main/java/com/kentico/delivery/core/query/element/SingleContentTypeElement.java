@@ -13,8 +13,10 @@ package com.kentico.delivery.core.query.element;
 import com.kentico.delivery.core.adapters.IHttpAdapter;
 import com.kentico.delivery.core.adapters.IRxAdapter;
 import com.kentico.delivery.core.config.IDeliveryConfig;
+import com.kentico.delivery.core.interfaces.item.common.IQueryParameter;
 import com.kentico.delivery.core.models.element.DeliveryContentTypeElementResponse;
 import com.kentico.delivery.core.models.exceptions.KenticoCloudException;
+import com.kentico.delivery.core.query.IQuery;
 
 import org.json.JSONObject;
 
@@ -32,6 +34,24 @@ public class SingleContentTypeElement extends BaseContentTypeElementQuery {
         super(config, requestService, httpAdapter);
         this.typeCodename = typeCodename;
         this.elementCodename = elementCodename;
+    }
+
+    @Override
+    public SingleContentTypeElement setWaitForLoadingNewContent(boolean wait) {
+        this.queryConfig.setWaitForLoadingNewContent(wait);
+        return this;
+    }
+
+    @Override
+    public SingleContentTypeElement setUsePreviewMode(boolean enablePreview) {
+        this.queryConfig.setUsePreviewMode(enablePreview);
+        return this;
+    }
+
+    @Override
+    public SingleContentTypeElement addParameter(IQueryParameter queryParameter) {
+        this.parameters.add(queryParameter);
+        return this;
     }
 
     @Override

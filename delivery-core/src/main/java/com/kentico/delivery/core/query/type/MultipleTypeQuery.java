@@ -13,9 +13,11 @@ package com.kentico.delivery.core.query.type;
 import com.kentico.delivery.core.adapters.IHttpAdapter;
 import com.kentico.delivery.core.adapters.IRxAdapter;
 import com.kentico.delivery.core.config.IDeliveryConfig;
+import com.kentico.delivery.core.interfaces.item.common.IQueryParameter;
 import com.kentico.delivery.core.models.common.Parameters;
 import com.kentico.delivery.core.models.exceptions.KenticoCloudException;
 import com.kentico.delivery.core.models.type.DeliveryTypeListingResponse;
+import com.kentico.delivery.core.query.taxonomy.SingleTaxonomyQuery;
 
 import org.json.JSONObject;
 
@@ -42,6 +44,24 @@ public class MultipleTypeQuery extends BaseTypeQuery {
 
     public MultipleTypeQuery skipParameter(int skip){
         this.parameters.add(new Parameters.SkipParameter(skip));
+        return this;
+    }
+
+    @Override
+    public MultipleTypeQuery setWaitForLoadingNewContent(boolean wait) {
+        this.queryConfig.setWaitForLoadingNewContent(wait);
+        return this;
+    }
+
+    @Override
+    public MultipleTypeQuery setUsePreviewMode(boolean enablePreview) {
+        this.queryConfig.setUsePreviewMode(enablePreview);
+        return this;
+    }
+
+    @Override
+    public MultipleTypeQuery addParameter(IQueryParameter queryParameter) {
+        this.parameters.add(queryParameter);
         return this;
     }
 

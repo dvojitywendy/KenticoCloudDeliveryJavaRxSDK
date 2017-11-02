@@ -13,12 +13,14 @@ package com.kentico.delivery.core.query.item;
 import com.kentico.delivery.core.adapters.IHttpAdapter;
 import com.kentico.delivery.core.adapters.IRxAdapter;
 import com.kentico.delivery.core.config.IDeliveryConfig;
+import com.kentico.delivery.core.interfaces.item.common.IQueryParameter;
 import com.kentico.delivery.core.interfaces.item.item.IContentItem;
 import com.kentico.delivery.core.models.common.Filters;
 import com.kentico.delivery.core.models.common.OrderType;
 import com.kentico.delivery.core.models.common.Parameters;
 import com.kentico.delivery.core.models.exceptions.KenticoCloudException;
 import com.kentico.delivery.core.models.item.DeliveryItemListingResponse;
+import com.kentico.delivery.core.query.element.SingleContentTypeElement;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -125,6 +127,24 @@ public final class MultipleItemQuery<TItem extends IContentItem> extends BaseIte
 
     public MultipleItemQuery<TItem> orderParameter(String field,  OrderType type){
         this.parameters.add(new Parameters.OrderParameter(field, type));
+        return this;
+    }
+
+    @Override
+    public MultipleItemQuery<TItem>  setWaitForLoadingNewContent(boolean wait) {
+        this.queryConfig.setWaitForLoadingNewContent(wait);
+        return this;
+    }
+
+    @Override
+    public MultipleItemQuery<TItem> setUsePreviewMode(boolean enablePreview) {
+        this.queryConfig.setUsePreviewMode(enablePreview);
+        return this;
+    }
+
+    @Override
+    public MultipleItemQuery<TItem>  addParameter(IQueryParameter queryParameter) {
+        this.parameters.add(queryParameter);
         return this;
     }
 

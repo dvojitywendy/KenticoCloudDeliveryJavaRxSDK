@@ -56,34 +56,25 @@ public abstract class BaseQuery implements IQuery {
     }
 
     /**
-     * Adds parameter to query
-     * @param queryParameter Query parameter
-     * @return Query
-     */
-    public IQuery addParameter(IQueryParameter queryParameter){
-        this.parameters.add(queryParameter);
-        return this;
-    }
-
-    /**
      * Indicates if loading for new content header is set
      * @param wait True or false
      * @return Query
      */
-    public IQuery setWaitForLoadingNewContent(boolean wait){
-        this.queryConfig.setWaitForLoadingNewContent(wait);
-        return this;
-    }
+    public abstract IQuery setWaitForLoadingNewContent(boolean wait);
 
     /**
      * Indicates if preview mode for this query is used
      * @param enablePreview Enabled or disabled
      * @return Query
      */
-    public IQuery setUsePreviewMode(boolean enablePreview){
-        this.queryConfig.setUsePreviewMode(enablePreview);
-        return this;
-    }
+    public abstract IQuery setUsePreviewMode(boolean enablePreview);
+
+    /**
+     * Adds parameter to query
+     * @param queryParameter Query parameter
+     * @return Query
+     */
+    public abstract IQuery addParameter(IQueryParameter queryParameter);
 
     /**
      * Gets query configuration

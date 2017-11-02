@@ -13,10 +13,12 @@ package com.kentico.delivery.core.query.item;
 import com.kentico.delivery.core.adapters.IHttpAdapter;
 import com.kentico.delivery.core.adapters.IRxAdapter;
 import com.kentico.delivery.core.config.IDeliveryConfig;
+import com.kentico.delivery.core.interfaces.item.common.IQueryParameter;
 import com.kentico.delivery.core.interfaces.item.item.IContentItem;
 import com.kentico.delivery.core.models.common.Parameters;
 import com.kentico.delivery.core.models.exceptions.KenticoCloudException;
 import com.kentico.delivery.core.models.item.DeliveryItemResponse;
+import com.kentico.delivery.core.query.element.SingleContentTypeElement;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -54,6 +56,24 @@ public class SingleItemQuery<TItem extends IContentItem> extends BaseItemQuery {
 
     public SingleItemQuery<TItem> depthParameter(int limit){
         this.parameters.add(new Parameters.DepthParameter(limit));
+        return this;
+    }
+
+    @Override
+    public SingleItemQuery<TItem> setWaitForLoadingNewContent(boolean wait) {
+        this.queryConfig.setWaitForLoadingNewContent(wait);
+        return this;
+    }
+
+    @Override
+    public SingleItemQuery<TItem> setUsePreviewMode(boolean enablePreview) {
+        this.queryConfig.setUsePreviewMode(enablePreview);
+        return this;
+    }
+
+    @Override
+    public SingleItemQuery<TItem>  addParameter(IQueryParameter queryParameter) {
+        this.parameters.add(queryParameter);
         return this;
     }
 

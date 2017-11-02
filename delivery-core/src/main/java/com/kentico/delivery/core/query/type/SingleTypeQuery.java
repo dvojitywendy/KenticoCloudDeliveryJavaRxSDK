@@ -14,6 +14,7 @@ import com.kentico.delivery.core.adapters.IHttpAdapter;
 import com.kentico.delivery.core.adapters.IRxAdapter;
 import com.kentico.delivery.core.config.IDeliveryConfig;
 import com.kentico.delivery.core.interfaces.item.common.IDeliveryResponse;
+import com.kentico.delivery.core.interfaces.item.common.IQueryParameter;
 import com.kentico.delivery.core.models.exceptions.KenticoCloudException;
 import com.kentico.delivery.core.models.type.DeliveryTypeResponse;
 
@@ -36,6 +37,24 @@ public class SingleTypeQuery extends BaseTypeQuery {
     @Override
     public String getQueryUrl(){
         return this.queryService.getUrl(this.config.getDeliveryPaths().getTypesPath(this.typeCodename), this.parameters, this.queryConfig);
+    }
+
+    @Override
+    public SingleTypeQuery setWaitForLoadingNewContent(boolean wait) {
+        this.queryConfig.setWaitForLoadingNewContent(wait);
+        return this;
+    }
+
+    @Override
+    public SingleTypeQuery setUsePreviewMode(boolean enablePreview) {
+        this.queryConfig.setUsePreviewMode(enablePreview);
+        return this;
+    }
+
+    @Override
+    public SingleTypeQuery addParameter(IQueryParameter queryParameter) {
+        this.parameters.add(queryParameter);
+        return this;
     }
 
     // observable

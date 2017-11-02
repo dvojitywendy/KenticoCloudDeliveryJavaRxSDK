@@ -13,9 +13,11 @@ package com.kentico.delivery.core.query.taxonomy;
 import com.kentico.delivery.core.adapters.IHttpAdapter;
 import com.kentico.delivery.core.adapters.IRxAdapter;
 import com.kentico.delivery.core.config.IDeliveryConfig;
+import com.kentico.delivery.core.interfaces.item.common.IQueryParameter;
 import com.kentico.delivery.core.models.common.Parameters;
 import com.kentico.delivery.core.models.exceptions.KenticoCloudException;
 import com.kentico.delivery.core.models.taxonomy.DeliveryTaxonomyListingResponse;
+import com.kentico.delivery.core.query.item.SingleItemQuery;
 
 import org.json.JSONObject;
 
@@ -42,6 +44,24 @@ public class MultipleTaxonomyQuery extends BaseTaxonomyQuery {
 
     public MultipleTaxonomyQuery skipParameter(int skip){
         this.parameters.add(new Parameters.SkipParameter(skip));
+        return this;
+    }
+
+    @Override
+    public MultipleTaxonomyQuery setWaitForLoadingNewContent(boolean wait) {
+        this.queryConfig.setWaitForLoadingNewContent(wait);
+        return this;
+    }
+
+    @Override
+    public MultipleTaxonomyQuery setUsePreviewMode(boolean enablePreview) {
+        this.queryConfig.setUsePreviewMode(enablePreview);
+        return this;
+    }
+
+    @Override
+    public MultipleTaxonomyQuery addParameter(IQueryParameter queryParameter) {
+        this.parameters.add(queryParameter);
         return this;
     }
 

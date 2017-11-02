@@ -19,7 +19,7 @@ import java.util.List;
 
 import io.reactivex.Observable;
 
-public interface IQuery<TQuery> {
+public interface IQuery {
 
      /**
      * Gets headers for request
@@ -32,21 +32,21 @@ public interface IQuery<TQuery> {
      * @param queryParameter Query parameter
      * @return Query
      */
-     TQuery addParameter(IQueryParameter queryParameter);
+    IQuery addParameter(IQueryParameter queryParameter);
 
      /**
      * Indicates if loading for new content header is set
      * @param wait True or false
      * @return Query
      */
-     TQuery setWaitForLoadingNewContent(boolean wait);
+     IQuery setWaitForLoadingNewContent(boolean wait);
 
      /**
      * Indicates if preview mode for this query is used
      * @param enablePreview Enabled or disabled
      * @return Query
      */
-     TQuery setUsePreviewMode(boolean enablePreview);
+     IQuery setUsePreviewMode(boolean enablePreview);
 
      /**
      * Gets query configuration
