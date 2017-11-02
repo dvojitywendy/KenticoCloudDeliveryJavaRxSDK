@@ -16,7 +16,7 @@ import com.kentico.delivery.core.config.IDeliveryConfig;
 import com.kentico.delivery.core.query.BaseQuery;
 
 
-abstract class BaseContentTypeElementQuery<TQuery extends BaseQuery> extends BaseQuery<TQuery> {
+abstract class BaseContentTypeElementQuery extends BaseQuery {
 
     BaseContentTypeElementQuery(IDeliveryConfig config, IRxAdapter requestService, IHttpAdapter httpAdapter){
         super(config, requestService, httpAdapter);

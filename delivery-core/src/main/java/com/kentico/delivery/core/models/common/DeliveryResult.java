@@ -10,8 +10,6 @@
 
 package com.kentico.delivery.core.models.common;
 
-import org.json.JSONObject;
-
 public class DeliveryResult<TResult> {
 
     private TResult result;

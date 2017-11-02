@@ -10,8 +10,8 @@
 
 package com.kentico.delivery.core.models.item;
 
-import com.kentico.delivery.core.interfaces.item.item.IContentItem;
 import com.kentico.delivery.core.interfaces.item.common.IDeliveryResponse;
+import com.kentico.delivery.core.interfaces.item.item.IContentItem;
 
 public class DeliveryItemResponse<TItem extends IContentItem> implements IDeliveryResponse {
 

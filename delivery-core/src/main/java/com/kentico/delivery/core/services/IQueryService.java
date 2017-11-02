@@ -10,7 +10,6 @@
 
 package com.kentico.delivery.core.services;
 
-import com.kentico.delivery.core.config.IDeliveryProperties;
 import com.kentico.delivery.core.interfaces.item.common.IQueryConfig;
 import com.kentico.delivery.core.interfaces.item.common.IQueryParameter;
 import com.kentico.delivery.core.models.common.Header;

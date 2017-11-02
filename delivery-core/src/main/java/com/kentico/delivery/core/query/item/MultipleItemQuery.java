@@ -29,7 +29,7 @@ import java.util.List;
 import io.reactivex.Observable;
 import io.reactivex.functions.Function;
 
-public final class MultipleItemQuery<TItem extends IContentItem> extends BaseItemQuery<TItem, MultipleItemQuery> {
+public final class MultipleItemQuery<TItem extends IContentItem> extends BaseItemQuery {
 
     public MultipleItemQuery(IDeliveryConfig config, IRxAdapter requestService, IHttpAdapter httpAdapter) {
         super(config, requestService, httpAdapter);

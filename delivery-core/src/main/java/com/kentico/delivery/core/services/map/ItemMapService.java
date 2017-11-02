@@ -28,6 +28,7 @@ import com.kentico.delivery.core.elements.UrlSlugElement;
 import com.kentico.delivery.core.enums.FieldType;
 import com.kentico.delivery.core.interfaces.item.item.IContentItem;
 import com.kentico.delivery.core.models.exceptions.KenticoCloudException;
+import com.kentico.delivery.core.models.item.ContentItem;
 import com.kentico.delivery.core.models.item.ContentItemSystemAttributes;
 import com.kentico.delivery.core.models.item.ElementMapping;
 import com.kentico.delivery.core.models.item.ItemCloudResponses;
@@ -62,75 +63,113 @@ public class ItemMapService {
     }
 
     public <TItem extends IContentItem> TItem mapItem(ItemCloudResponses.ContentItemRaw rawItem, JsonNode modularContent) throws KenticoCloudException, JsonProcessingException, IllegalAccessException {
-        TItem mappedItem;
-        List<ContentElement<?>> elements = new ArrayList<>();
-
         // try getting the mapped item using the resolver if available
+        TItem item;
+        boolean stronglyTyped = false;
+
         try {
-            mappedItem = tryGetInstanceFromTypeResolver(this.config.getTypeResolvers(), rawItem.system.type);
+            item = tryGetInstanceFromTypeResolver(this.config.getTypeResolvers(), rawItem.system.type);
+
         } catch (Exception ex) {
-            throw new KenticoCloudException("Could not create typed item", ex);
+           throw new KenticoCloudException("Instantiating strongly typed instance for '" + rawItem.system.type + "' failed", ex);
         }
 
-        // Error if mapped item could not instantiated
-            if (mappedItem == null){
-                throw new KenticoCloudException("Cannot create a strongly typed instance of '" + rawItem.system.type + "'", null);
+        if (item == null){
+            stronglyTyped = false;
+            // throw Exception if the type is not registered and user wishes to do so
+            if (this.config.getThrowExceptionForUnknownTypes()){
+                throw new KenticoCloudException("Could not create an instance of '" + rawItem.system.type + "' type", null);
+            }
+            item = this.getContentItemInstance();
+        }
+        else {
+            stronglyTyped = true;
+        }
+
+        // add item to list to prevent infinite recursion when resolving modular items
+        boolean itemFound = false;
+        for (IContentItem processedItem : this.processedModularItems) {
+            if (processedItem.getSystem().getCodename().equalsIgnoreCase(rawItem.system.codename)){
+                itemFound = true;
+                break;
+            }
+        }
+
+        if (!itemFound){
+            this.processedModularItems.add(item);
+        }
+
+        // system attributes
+        item.setContentItemSystemAttributes(this.mapSystemAttributes(rawItem.system));
+
+        if (stronglyTyped){
+            return this.mapStronglyTypedItem(item, rawItem, modularContent);
+        }
+
+        return this.mapContentItem(item, rawItem, modularContent);
+    }
+
+    private <TItem extends IContentItem> TItem mapStronglyTypedItem(TItem item, ItemCloudResponses.ContentItemRaw rawItem, JsonNode modularContent) throws JsonProcessingException, IllegalAccessException {
+        List<ContentElement<?>> elements = new ArrayList<>();
+
+        // get properties
+        Field[] fields = item.getClass().getDeclaredFields();
+
+        // map elements into all linked properties
+        for (Field field : fields) {
+            ElementMapping elementMapping = field.getAnnotation(ElementMapping.class);
+
+            // property does not have element mapping, skip it
+            if (elementMapping == null) {
+                continue;
             }
 
-            // try adding the item to prevent infinite recursion in case of modular items)
-            boolean itemFound = false;
-            for (IContentItem processedItem : this.processedModularItems) {
-                if (processedItem.getSystem().getCodename().equalsIgnoreCase(rawItem.system.codename)){
-                    itemFound = true;
-                    break;
-                }
+            // see if the element exists in Kentico Cloud Json response
+            String elementCodename = elementMapping.value();
+            JsonNode elementNode = rawItem.elements.get(elementCodename);
+
+            if (elementNode == null) {
+                throw new KenticoCloudException("Could not map property '" + field.getName() + "' with element mapping to '" + elementCodename + "' for type '" + rawItem.system.type + "'", null);
             }
 
-            if (!itemFound){
-                this.processedModularItems.add(mappedItem);
+            ItemCloudResponses.ElementRaw elementRaw;
+
+            // get element
+            elementRaw = this.objectMapper.treeToValue(elementNode, ItemCloudResponses.ElementRaw.class);
+
+            // proceed as the property was annotated with {@link ElementMapping)
+            if (elementRaw.value != null) {
+
+                ContentElement<?> element = mapElement(elementRaw.name, elementCodename, elementRaw.type, elementRaw.value, modularContent);
+                field.set(item, element);
+                elements.add(element);
             }
+        }
 
-            // system attributes
-            mappedItem.setContentItemSystemAttributes(this.mapSystemAttributes(rawItem.system));
+        // elements
+        item.setElements(elements);
 
-            // get properties
-            Field[] fields = mappedItem.getClass().getDeclaredFields();
+        return item;
+    }
 
-            // map elements into all linked properties
-            for (Field field : fields) {
-                ElementMapping elementMapping = field.getAnnotation(ElementMapping.class);
+    private <TItem extends IContentItem> TItem mapContentItem(TItem item, ItemCloudResponses.ContentItemRaw rawItem, JsonNode modularContent) throws JsonProcessingException, IllegalAccessException {
+        item.setElements(this.getContentElements(rawItem, modularContent));
 
-                // property does not have element mapping, skip it
-                if (elementMapping == null) {
-                    continue;
-                }
+        return item;
+    }
 
-                // see if the element exists in Kentico Cloud Json response
-                String elementCodename = elementMapping.value();
-                JsonNode elementNode = rawItem.elements.get(elementCodename);
+    private List<ContentElement<?>> getContentElements(ItemCloudResponses.ContentItemRaw rawItem, JsonNode modularContent) throws JsonProcessingException, IllegalAccessException {
+        List<ContentElement<?>> elements = new ArrayList<>();
 
-                if (elementNode == null) {
-                    throw new KenticoCloudException("Could not map property '" + field.getName() + "' with element mapping to '" + elementCodename + "' for type '" + rawItem.system.type + "'", null);
-                }
+        for(JsonNode element: rawItem.elements){
+            ItemCloudResponses.ElementRaw elementRaw;
 
-                ItemCloudResponses.ElementRaw elementRaw;
+            // get element
+            elementRaw = this.objectMapper.treeToValue(element, ItemCloudResponses.ElementRaw.class);
+            elements.add(mapElement(elementRaw.name, element.asText(), elementRaw.type, elementRaw.value, modularContent));
+        }
 
-                // get element
-                elementRaw = this.objectMapper.treeToValue(elementNode, ItemCloudResponses.ElementRaw.class);
-
-                // proceed as the property was annotated with {@link ElementMapping)
-                if (elementRaw.value != null) {
-
-                    ContentElement<?> element = mapElement(elementRaw.name, elementCodename, elementRaw.type, elementRaw.value, modularContent);
-                    field.set(mappedItem, element);
-                    elements.add(element);
-                }
-            }
-
-            // elements
-            mappedItem.setElements(elements);
-
-            return mappedItem;
+        return elements;
     }
 
     private ContentElement mapElement(String name, String codename, String type, JsonNode value, JsonNode modularContent) throws JsonProcessingException, IllegalAccessException {
@@ -221,7 +260,7 @@ public class ItemMapService {
     }
 
     @SuppressWarnings("unchecked")
-    private <TItem extends IContentItem> TItem tryGetInstanceFromTypeResolver( List<TypeResolver<?>> typeResolvers,  String type) throws Exception {
+    private <TItem extends IContentItem> TItem tryGetInstanceFromTypeResolver(List<TypeResolver<?>> typeResolvers, String type) throws Exception {
         // get type resolver of given type
         for(TypeResolver typeResolver : typeResolvers){
             // type resolver matched requested type
@@ -231,6 +270,11 @@ public class ItemMapService {
             }
         }
         return null;
+    }
+
+    @SuppressWarnings("unchecked")
+    private <TItem extends IContentItem> TItem getContentItemInstance(){
+        return (TItem) new ContentItem();
     }
 
     private ContentItemSystemAttributes mapSystemAttributes(ItemCloudResponses.ContentItemSystemAttributesRaw systemRaw){

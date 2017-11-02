@@ -32,4 +32,8 @@ public interface IDeliveryConfig {
      IQueryConfig getDefaultQueryConfig();
 
      String getPreviewApiKey();
+
+     boolean getThrowExceptionForUnknownTypes();
+
+     IDeliveryConfig setThrowExceptionForUnknownTypes(boolean throwException);
 }

@@ -24,7 +24,7 @@ import java.io.IOException;
 import io.reactivex.Observable;
 import io.reactivex.functions.Function;
 
-public class MultipleTypeQuery extends BaseTypeQuery<MultipleTypeQuery> {
+public class MultipleTypeQuery extends BaseTypeQuery {
 
     public MultipleTypeQuery(IDeliveryConfig config, IRxAdapter requestService, IHttpAdapter httpAdapter) {
         super(config, requestService, httpAdapter);

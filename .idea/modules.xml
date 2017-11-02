@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/KenticoCloudDancingGoat.iml" filepath="$PROJECT_DIR$/KenticoCloudDancingGoat.iml" />
       <module fileurl="file://$PROJECT_DIR$/KenticoCloudDeliveryJavaRxSDK.iml" filepath="$PROJECT_DIR$/KenticoCloudDeliveryJavaRxSDK.iml" />
       <module fileurl="file://$PROJECT_DIR$/delivery-android/delivery-android.iml" filepath="$PROJECT_DIR$/delivery-android/delivery-android.iml" />
       <module fileurl="file://$PROJECT_DIR$/delivery-core/delivery-core.iml" filepath="$PROJECT_DIR$/delivery-core/delivery-core.iml" />

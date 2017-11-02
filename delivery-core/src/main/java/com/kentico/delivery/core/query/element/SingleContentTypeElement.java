@@ -13,7 +13,6 @@ package com.kentico.delivery.core.query.element;
 import com.kentico.delivery.core.adapters.IHttpAdapter;
 import com.kentico.delivery.core.adapters.IRxAdapter;
 import com.kentico.delivery.core.config.IDeliveryConfig;
-import com.kentico.delivery.core.interfaces.item.common.IQueryConfig;
 import com.kentico.delivery.core.models.element.DeliveryContentTypeElementResponse;
 import com.kentico.delivery.core.models.exceptions.KenticoCloudException;
 
@@ -24,7 +23,7 @@ import java.io.IOException;
 import io.reactivex.Observable;
 import io.reactivex.functions.Function;
 
-public class SingleContentTypeElement extends BaseContentTypeElementQuery<SingleContentTypeElement> {
+public class SingleContentTypeElement extends BaseContentTypeElementQuery {
 
     private final String typeCodename;
     private final String elementCodename;

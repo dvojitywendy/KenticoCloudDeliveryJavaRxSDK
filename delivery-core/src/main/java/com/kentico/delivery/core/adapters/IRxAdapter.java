@@ -13,8 +13,6 @@ package com.kentico.delivery.core.adapters;
 import com.kentico.delivery.core.interfaces.item.common.IQueryConfig;
 import com.kentico.delivery.core.models.common.Header;
 
-import org.json.JSONObject;
-
 import java.util.List;
 
 import io.reactivex.Observable;

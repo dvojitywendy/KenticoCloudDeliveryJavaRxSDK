@@ -13,10 +13,9 @@ package com.kentico.delivery.core.query.item;
 import com.kentico.delivery.core.adapters.IHttpAdapter;
 import com.kentico.delivery.core.adapters.IRxAdapter;
 import com.kentico.delivery.core.config.IDeliveryConfig;
-import com.kentico.delivery.core.interfaces.item.item.IContentItem;
 import com.kentico.delivery.core.query.BaseQuery;
 
-abstract class BaseItemQuery<T extends IContentItem, TQuery extends BaseQuery> extends BaseQuery<TQuery> {
+abstract class BaseItemQuery extends BaseQuery {
 
     BaseItemQuery(IDeliveryConfig config, IRxAdapter requestService, IHttpAdapter httpAdapter){
         super(config, requestService, httpAdapter);

@@ -24,7 +24,7 @@ import java.io.IOException;
 import io.reactivex.Observable;
 import io.reactivex.functions.Function;
 
-public class SingleTypeQuery extends BaseTypeQuery<SingleTypeQuery> {
+public class SingleTypeQuery extends BaseTypeQuery {
 
     private final String typeCodename;
 

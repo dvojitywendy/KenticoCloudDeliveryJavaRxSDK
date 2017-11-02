@@ -13,7 +13,6 @@ package com.kentico.delivery.core.services;
 import com.kentico.delivery.core.adapters.IHttpAdapter;
 import com.kentico.delivery.core.adapters.IRxAdapter;
 import com.kentico.delivery.core.config.IDeliveryConfig;
-import com.kentico.delivery.core.config.IDeliveryProperties;
 import com.kentico.delivery.core.interfaces.item.common.IQueryConfig;
 import com.kentico.delivery.core.interfaces.item.common.IQueryParameter;
 import com.kentico.delivery.core.models.common.CommonCloudResponses;

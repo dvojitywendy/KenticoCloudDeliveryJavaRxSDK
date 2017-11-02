@@ -19,7 +19,7 @@ import java.util.List;
 /**
  * Base class for all types representing Kentico Cloud items
  */
-public abstract class ContentItem implements IContentItem {
+public class ContentItem implements IContentItem {
 
     private IContentItemSystemAttributes system;
     private List<ContentElement<?>> elements;

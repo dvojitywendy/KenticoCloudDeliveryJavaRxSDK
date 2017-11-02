@@ -15,7 +15,6 @@ import com.kentico.delivery.core.adapters.IRxAdapter;
 import com.kentico.delivery.core.config.IDeliveryConfig;
 import com.kentico.delivery.core.models.exceptions.KenticoCloudException;
 import com.kentico.delivery.core.models.taxonomy.DeliveryTaxonomyResponse;
-import com.kentico.delivery.core.query.type.BaseTypeQuery;
 
 import org.json.JSONObject;
 
@@ -24,7 +23,7 @@ import java.io.IOException;
 import io.reactivex.Observable;
 import io.reactivex.functions.Function;
 
-public class SingleTaxonomyQuery extends BaseTaxonomyQuery<SingleTaxonomyQuery> {
+public class SingleTaxonomyQuery extends BaseTaxonomyQuery {
 
     private final String taxonomyCodename;
 

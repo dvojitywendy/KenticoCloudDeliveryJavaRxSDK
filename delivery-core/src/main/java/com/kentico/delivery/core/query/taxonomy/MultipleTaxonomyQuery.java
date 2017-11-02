@@ -16,7 +16,6 @@ import com.kentico.delivery.core.config.IDeliveryConfig;
 import com.kentico.delivery.core.models.common.Parameters;
 import com.kentico.delivery.core.models.exceptions.KenticoCloudException;
 import com.kentico.delivery.core.models.taxonomy.DeliveryTaxonomyListingResponse;
-import com.kentico.delivery.core.query.type.BaseTypeQuery;
 
 import org.json.JSONObject;
 
@@ -25,7 +24,7 @@ import java.io.IOException;
 import io.reactivex.Observable;
 import io.reactivex.functions.Function;
 
-public class MultipleTaxonomyQuery extends BaseTaxonomyQuery<MultipleTaxonomyQuery> {
+public class MultipleTaxonomyQuery extends BaseTaxonomyQuery {
 
     public MultipleTaxonomyQuery(IDeliveryConfig config, IRxAdapter requestService, IHttpAdapter httpAdapter) {
         super(config, requestService, httpAdapter);

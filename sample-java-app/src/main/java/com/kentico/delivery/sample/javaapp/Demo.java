@@ -177,7 +177,8 @@ public class Demo {
         System.out.println(this.deliveryService.items().depthParameter(1).setUsePreviewMode(true).getQueryUrl());
 
         try {
-            this.deliveryService.items().setUsePreviewMode(true).get();
+            DeliveryItemListingResponse<IContentItem> response = this.deliveryService.items().get();
+            System.out.println(response.getItems().get(0).getElements().get(0).getName());
         }
         catch (KenticoCloudResponseException ex){
             String requestId = ex.getRequestId();
@@ -189,7 +190,7 @@ public class Demo {
 
 
     private IDeliveryService getDeliveryService(){
-        return new DeliveryService(new DeliveryConfig(AppConfig.KENTICO_CLOUD_PROJECT_ID, AppConfig.getTypeResolvers(), AppConfig.PREVIEW_API_KEY));
+        return new DeliveryService(new DeliveryConfig(AppConfig.KENTICO_CLOUD_PROJECT_ID, AppConfig.getTypeResolvers(), AppConfig.PREVIEW_API_KEY).setThrowExceptionForUnknownTypes(false));
     }
 
 }

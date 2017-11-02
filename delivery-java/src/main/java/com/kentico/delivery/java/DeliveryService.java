@@ -14,6 +14,7 @@ package com.kentico.delivery.java;
 import com.kentico.delivery.core.adapters.IHttpAdapter;
 import com.kentico.delivery.core.adapters.IRxAdapter;
 import com.kentico.delivery.core.config.DeliveryConfig;
+import com.kentico.delivery.core.config.IDeliveryConfig;
 import com.kentico.delivery.core.services.BaseDeliveryService;
 import com.kentico.delivery.core.services.IDeliveryService;
 
@@ -26,7 +27,7 @@ public class DeliveryService extends BaseDeliveryService implements IDeliverySer
      * Initializes delivery service for Android
      * @param config Delivery client configuration
      */
-    public DeliveryService(DeliveryConfig config) {
+    public DeliveryService(IDeliveryConfig config) {
         super(config);
         this.rxAdapter = new Java2RxAdapter();
         this.httpAdapter = new JavaHttpAdapter();

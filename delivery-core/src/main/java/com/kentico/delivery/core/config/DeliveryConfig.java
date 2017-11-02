@@ -25,6 +25,8 @@ public final class DeliveryConfig implements IDeliveryConfig {
     private final List<TypeResolver<?>> typeResolvers;
     private final String previewApiKey;
 
+    private boolean throwExceptionForUnknownTypes = true;
+
     private IQueryConfig defaultQueryConfig = new QueryConfig();
 
     /**
@@ -113,5 +115,16 @@ public final class DeliveryConfig implements IDeliveryConfig {
     @Override
     public String getPreviewApiKey() {
         return this.previewApiKey;
+    }
+
+    @Override
+    public boolean getThrowExceptionForUnknownTypes() {
+        return this.throwExceptionForUnknownTypes;
+    }
+
+    @Override
+    public IDeliveryConfig setThrowExceptionForUnknownTypes(boolean throwException) {
+        this.throwExceptionForUnknownTypes = throwException;
+        return this;
     }
 }

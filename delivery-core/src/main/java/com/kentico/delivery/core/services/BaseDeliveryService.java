@@ -27,7 +27,7 @@ public abstract class BaseDeliveryService implements IDeliveryService {
 
     protected IDeliveryConfig config;
 
-    protected BaseDeliveryService(DeliveryConfig config) {
+    protected BaseDeliveryService(IDeliveryConfig config) {
         this.config = config;
     }
 

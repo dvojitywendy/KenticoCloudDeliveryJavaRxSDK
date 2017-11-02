@@ -27,7 +27,7 @@ import java.util.List;
 import io.reactivex.Observable;
 import io.reactivex.functions.Function;
 
-public class SingleItemQuery<TItem extends IContentItem> extends BaseItemQuery<TItem, SingleItemQuery> {
+public class SingleItemQuery<TItem extends IContentItem> extends BaseItemQuery {
 
     private final String itemCodename;
 
