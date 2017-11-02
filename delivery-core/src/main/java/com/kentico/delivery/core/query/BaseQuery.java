@@ -44,8 +44,19 @@ public abstract class BaseQuery<TQuery extends BaseQuery> {
     }
 
     /**
+     * Adds parameter to query
+     * @param queryParameter Query parameter
+     * @return Query
+     */
+    public BaseQuery<TQuery> addParameter(IQueryParameter queryParameter){
+        this.parameters.add(queryParameter);
+        return this;
+    }
+
+    /**
      * Indicates if loading for new content header is set
      * @param wait True or false
+     * @return Query
      */
     public BaseQuery<TQuery> setWaitForLoadingNewContent(boolean wait){
         this.queryConfig.setWaitForLoadingNewContent(wait);
@@ -55,6 +66,7 @@ public abstract class BaseQuery<TQuery extends BaseQuery> {
     /**
      * Indicates if preview mode for this query is used
      * @param enablePreview Enabled or disabled
+     * @return Query
      */
     public BaseQuery<TQuery> setUsePreviewMode(boolean enablePreview){
         this.queryConfig.setUsePreviewMode(enablePreview);
