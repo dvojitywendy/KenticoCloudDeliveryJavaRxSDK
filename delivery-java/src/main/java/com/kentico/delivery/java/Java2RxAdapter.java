@@ -11,13 +11,13 @@
 package com.kentico.delivery.java;
 
 import com.kentico.delivery.core.adapters.IRxAdapter;
-import com.kentico.delivery.core.config.IDeliveryProperties;
 import com.kentico.delivery.core.interfaces.item.common.IQueryConfig;
+import com.kentico.delivery.core.models.common.Header;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.concurrent.Callable;
 
 import io.reactivex.Observable;
@@ -32,31 +32,28 @@ class Java2RxAdapter implements IRxAdapter {
     private static final OkHttpClient client = new OkHttpClient();
 
     @Override
-    public Observable<JSONObject> get(final String url, final IQueryConfig queryConfig, final IDeliveryProperties deliveryProperties){
+    public Observable<String> get(final String url, final IQueryConfig queryConfig, final List<Header> headers){
 
-        return Observable.defer(new Callable<ObservableSource<JSONObject>>() {
-            @Override public Observable<JSONObject> call() {
+        return Observable.defer(new Callable<ObservableSource<String>>() {
+            @Override public Observable<String> call() {
                 try {
-                    Response response = client.newCall(new Request.Builder()
-                            .url(url)
-                            .addHeader(deliveryProperties.getWaitForLoadingNewContentHeader(), queryConfig.getWaitForLoadingNewContent() ? "true" : "false")
-                            .build())
-                            .execute();
+                    Request.Builder builder = new Request.Builder()
+                                    .url(url);
 
-                    if (!response.isSuccessful()){
-                        throw new NullPointerException("Response from server was not successful: " + response.message());
+                    for(Header header: headers){
+                        builder.addHeader(header.getName(), header.getValue());
                     }
+
+                    Response response = client.newCall(builder.build()).execute();
 
                     ResponseBody body = response.body();
 
                     if (body == null){
-                        throw new NullPointerException("Response from server is empty");
+                        throw new NullPointerException("Response from server is null");
                     }
 
-                    return Observable.just(new JSONObject(body.string()));
+                    return Observable.just(body.string());
                 } catch (IOException e) {
-                    return Observable.error(e);
-                } catch (JSONException e) {
                     return Observable.error(e);
                 }
             }

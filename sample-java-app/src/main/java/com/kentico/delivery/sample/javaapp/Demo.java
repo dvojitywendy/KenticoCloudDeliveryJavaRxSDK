@@ -11,7 +11,9 @@
 package com.kentico.delivery.sample.javaapp;
 
 import com.kentico.delivery.core.config.DeliveryConfig;
+import com.kentico.delivery.core.interfaces.item.item.IContentItem;
 import com.kentico.delivery.core.models.element.DeliveryContentTypeElementResponse;
+import com.kentico.delivery.core.models.exceptions.KenticoCloudResponseException;
 import com.kentico.delivery.core.models.item.DeliveryItemListingResponse;
 import com.kentico.delivery.core.models.taxonomy.DeliveryTaxonomyListingResponse;
 import com.kentico.delivery.core.models.taxonomy.DeliveryTaxonomyResponse;
@@ -173,11 +175,21 @@ public class Demo {
         System.out.println(this.deliveryService.taxonomies().get().getTaxonomies().get(0).getSystem().getName());
 
         System.out.println(this.deliveryService.items().depthParameter(1).setUsePreviewMode(true).getQueryUrl());
+
+        try {
+            this.deliveryService.items().setUsePreviewMode(true).get();
+        }
+        catch (KenticoCloudResponseException ex){
+            String requestId = ex.getRequestId();
+        }
+        catch (Exception ex){
+            String message = ex.getMessage();
+        }
     }
 
 
     private IDeliveryService getDeliveryService(){
-        return new DeliveryService(new DeliveryConfig(AppConfig.KENTICO_CLOUD_PROJECT_ID, AppConfig.getTypeResolvers()));
+        return new DeliveryService(new DeliveryConfig(AppConfig.KENTICO_CLOUD_PROJECT_ID, AppConfig.getTypeResolvers(), AppConfig.PREVIEW_API_KEY));
     }
 
 }

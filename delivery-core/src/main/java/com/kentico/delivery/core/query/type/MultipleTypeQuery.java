@@ -47,7 +47,7 @@ public class MultipleTypeQuery extends BaseTypeQuery<MultipleTypeQuery> {
 
     // observable
     public Observable<DeliveryTypeListingResponse> getObservable() {
-        return this.queryService.<JSONObject>getObservable(this.getQueryUrl(), this.queryConfig, this.config.getDeliveryProperties())
+        return this.queryService.<JSONObject>getObservable(this.getQueryUrl(), this.queryConfig, this.getHeaders())
                 .map(new Function<JSONObject, DeliveryTypeListingResponse>() {
                     @Override
                     public DeliveryTypeListingResponse apply(JSONObject jsonObject) throws KenticoCloudException {
@@ -63,7 +63,7 @@ public class MultipleTypeQuery extends BaseTypeQuery<MultipleTypeQuery> {
     @Override
     public DeliveryTypeListingResponse get() {
         try {
-            return responseMapService.mapDeliveryMultipleTypesResponse(this.queryService.getJson(this.getQueryUrl(), this.queryConfig, this.config.getDeliveryProperties()));
+            return responseMapService.mapDeliveryMultipleTypesResponse(this.queryService.getJson(this.getQueryUrl(), this.queryConfig, this.getHeaders()));
         } catch (IOException ex) {
             throw new KenticoCloudException("Could not get types response with error: " + ex.getMessage(), ex);
         }

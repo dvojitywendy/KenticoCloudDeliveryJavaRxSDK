@@ -13,7 +13,7 @@ package com.kentico.delivery.core.query.type;
 import com.kentico.delivery.core.adapters.IHttpAdapter;
 import com.kentico.delivery.core.adapters.IRxAdapter;
 import com.kentico.delivery.core.config.IDeliveryConfig;
-import com.kentico.delivery.core.models.common.IDeliveryResponse;
+import com.kentico.delivery.core.interfaces.item.common.IDeliveryResponse;
 import com.kentico.delivery.core.models.exceptions.KenticoCloudException;
 import com.kentico.delivery.core.models.type.DeliveryTypeResponse;
 
@@ -40,7 +40,7 @@ public class SingleTypeQuery extends BaseTypeQuery<SingleTypeQuery> {
 
     // observable
     public Observable<DeliveryTypeResponse> getObservable() {
-        return this.queryService.<JSONObject>getObservable(this.getQueryUrl(), this.queryConfig, this.config.getDeliveryProperties())
+        return this.queryService.<JSONObject>getObservable(this.getQueryUrl(), this.queryConfig, this.getHeaders())
                 .map(new Function<JSONObject, DeliveryTypeResponse>() {
                     @Override
                     public DeliveryTypeResponse apply(JSONObject jsonObject) throws KenticoCloudException {
@@ -56,7 +56,7 @@ public class SingleTypeQuery extends BaseTypeQuery<SingleTypeQuery> {
     @Override
     public IDeliveryResponse get() {
         try {
-            return responseMapService.mapDeliverySingleTypeResponse(this.queryService.getJson(this.getQueryUrl(), this.queryConfig, this.config.getDeliveryProperties()));
+            return responseMapService.mapDeliverySingleTypeResponse(this.queryService.getJson(this.getQueryUrl(), this.queryConfig, this.getHeaders()));
         } catch (IOException ex) {
             throw new KenticoCloudException("Could not get type response with error: " + ex.getMessage(), ex);
         }

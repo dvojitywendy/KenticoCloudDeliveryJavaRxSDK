@@ -41,7 +41,7 @@ public class SingleTaxonomyQuery extends BaseTaxonomyQuery<SingleTaxonomyQuery> 
 
     // observable
     public Observable<DeliveryTaxonomyResponse> getObservable() {
-        return this.queryService.<JSONObject>getObservable(this.getQueryUrl(), this.queryConfig, this.config.getDeliveryProperties())
+        return this.queryService.<JSONObject>getObservable(this.getQueryUrl(), this.queryConfig, this.getHeaders())
                 .map(new Function<JSONObject, DeliveryTaxonomyResponse>() {
                     @Override
                     public DeliveryTaxonomyResponse apply(JSONObject jsonObject) throws KenticoCloudException {
@@ -57,7 +57,7 @@ public class SingleTaxonomyQuery extends BaseTaxonomyQuery<SingleTaxonomyQuery> 
     @Override
     public DeliveryTaxonomyResponse get() {
         try {
-            return responseMapService.mapDeliveryTaxonomyResponse(this.queryService.getJson(this.getQueryUrl(), this.queryConfig, this.config.getDeliveryProperties()));
+            return responseMapService.mapDeliveryTaxonomyResponse(this.queryService.getJson(this.getQueryUrl(), this.queryConfig, this.getHeaders()));
         } catch (IOException ex) {
             throw new KenticoCloudException("Could not get taxonomy response with error: " + ex.getMessage(), ex);
         }

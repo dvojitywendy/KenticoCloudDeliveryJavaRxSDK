@@ -14,4 +14,8 @@ package com.kentico.delivery.core.config;
 public interface IDeliveryProperties {
 
     String getWaitForLoadingNewContentHeader();
+
+    String getAuthorizationHeader();
+
+    String getAuthorizationHeaderValue(String key);
 }

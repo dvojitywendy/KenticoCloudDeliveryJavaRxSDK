@@ -11,7 +11,7 @@
 package com.kentico.delivery.core.models.item;
 
 import com.kentico.delivery.core.interfaces.item.item.IContentItem;
-import com.kentico.delivery.core.models.common.IDeliveryResponse;
+import com.kentico.delivery.core.interfaces.item.common.IDeliveryResponse;
 
 public class DeliveryItemResponse<TItem extends IContentItem> implements IDeliveryResponse {
 

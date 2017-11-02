@@ -8,18 +8,18 @@
  *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.kentico.delivery.core.adapters;
-
-import com.kentico.delivery.core.interfaces.item.common.IQueryConfig;
-import com.kentico.delivery.core.models.common.Header;
+package com.kentico.delivery.core.models.common;
 
 import org.json.JSONObject;
 
-import java.util.List;
+public class DeliveryResult<TResult> {
 
-import io.reactivex.Observable;
+    private TResult result;
 
-public interface IRxAdapter extends IAdapter<Observable<String>> {
+    public DeliveryResult(
+            TResult result
+    ){
 
-    Observable<String> get(String url, IQueryConfig queryConfig, List<Header> headers);
+    }
+
 }

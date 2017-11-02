@@ -16,12 +16,20 @@ import com.kentico.delivery.core.config.IDeliveryConfig;
 import com.kentico.delivery.core.config.IDeliveryProperties;
 import com.kentico.delivery.core.interfaces.item.common.IQueryConfig;
 import com.kentico.delivery.core.interfaces.item.common.IQueryParameter;
+import com.kentico.delivery.core.models.common.CommonCloudResponses;
+import com.kentico.delivery.core.models.common.Header;
+import com.kentico.delivery.core.models.exceptions.KenticoCloudException;
+import com.kentico.delivery.core.models.exceptions.KenticoCloudResponseException;
+import com.kentico.delivery.core.utils.ErrorHelper;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Observable;
+import io.reactivex.functions.Function;
 
 public final class QueryService implements IQueryService{
 
@@ -70,12 +78,85 @@ public final class QueryService implements IQueryService{
     }
 
     @Override
-    public Observable<JSONObject> getObservable(String url, IQueryConfig queryConfig, IDeliveryProperties deliveryProperties) {
-        return this.rxAdapter.get(url, queryConfig, deliveryProperties);
+    public List<Header> getHeaders(IQueryConfig queryConfig) {
+        List<Header> headers = new ArrayList<>();
+
+        if (queryConfig.getUsePreviewMode()){
+
+            String previewApiKey = this.config.getPreviewApiKey();
+            if (previewApiKey == null || previewApiKey.isEmpty()){
+                throw new KenticoCloudException("Preview API key is not defined", null);
+            }
+
+            headers.add(new Header(this.config.getDeliveryProperties().getAuthorizationHeader(), this.config.getDeliveryProperties().getAuthorizationHeaderValue(previewApiKey)));
+        }
+
+        if (queryConfig.getWaitForLoadingNewContent()){
+            headers.add(new Header(this.config.getDeliveryProperties().getWaitForLoadingNewContentHeader(), "true"));
+        }
+
+        return headers;
     }
 
     @Override
-    public JSONObject getJson(String url, IQueryConfig queryConfig, IDeliveryProperties deliveryProperties) {
-        return this.httpAdapter.get(url, queryConfig, deliveryProperties);
+    public Observable<JSONObject> getObservable(String url, IQueryConfig queryConfig, List<Header> headers) {
+        Observable<String> jsonObservable = this.rxAdapter.get(url, queryConfig, headers);
+
+        final QueryService that = this;
+
+        return jsonObservable.map(
+                new Function<String, JSONObject>() {
+                    @Override
+                    public JSONObject apply(String json){
+                        try {
+                            JSONObject jsonObject = new JSONObject(json);
+
+                            that.handleDeliveryError(jsonObject);
+
+                            return jsonObject;
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            throw new KenticoCloudException("Could not parse json", e);
+                        }
+                    }
+                }
+        );
+    }
+
+    @Override
+    public JSONObject getJson(String url, IQueryConfig queryConfig, List<Header> headers) {
+        String json = this.httpAdapter.get(url, queryConfig, headers);
+
+        try {
+            JSONObject jsonObject = new JSONObject(json);
+
+            this.handleDeliveryError(jsonObject);
+
+            return jsonObject;
+        } catch (JSONException e) {
+            e.printStackTrace();
+            throw new KenticoCloudException("Could not parse json", e);
+        }
+    }
+
+    private void handleDeliveryError(JSONObject jsonObject){
+        if (jsonObject == null){
+            throw new KenticoCloudException("Invalid json", null);
+        }
+
+        if (this.isDeliveryError(jsonObject)){
+            CommonCloudResponses.DeliveryErrorRaw errorRaw = ErrorHelper.getDeliveryError(jsonObject);
+
+            throw new KenticoCloudResponseException(errorRaw.message, errorRaw.requestId, errorRaw.errorCode, errorRaw.specificCode);
+        }
+    }
+
+    private boolean isDeliveryError(JSONObject jsonObject){
+        if (jsonObject == null){
+            throw new KenticoCloudException("Invalid json", null);
+        }
+
+        // check if response contains error_code and if it does, treat it as error
+        return jsonObject.has("error_code");
     }
 }

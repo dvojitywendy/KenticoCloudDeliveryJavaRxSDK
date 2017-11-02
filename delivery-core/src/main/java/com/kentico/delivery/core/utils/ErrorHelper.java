@@ -8,18 +8,35 @@
  *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.kentico.delivery.core.adapters;
+package com.kentico.delivery.core.utils;
 
-import com.kentico.delivery.core.interfaces.item.common.IQueryConfig;
-import com.kentico.delivery.core.models.common.Header;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.kentico.delivery.core.models.common.CommonCloudResponses;
+import com.kentico.delivery.core.models.exceptions.KenticoCloudException;
 
 import org.json.JSONObject;
 
-import java.util.List;
+import java.io.IOException;
 
-import io.reactivex.Observable;
+public class ErrorHelper {
 
-public interface IRxAdapter extends IAdapter<Observable<String>> {
+    private static final ObjectMapper objectMapper = new ObjectMapper();
 
-    Observable<String> get(String url, IQueryConfig queryConfig, List<Header> headers);
+    public static CommonCloudResponses.DeliveryErrorRaw getDeliveryError(JSONObject jsonObject){
+        if (jsonObject == null){
+            throw new KenticoCloudException("Cannot map error response because the json is invalid", null);
+        }
+
+        CommonCloudResponses.DeliveryErrorRaw errorResponse;
+
+        try {
+            errorResponse = objectMapper.readValue(jsonObject.toString(), CommonCloudResponses.DeliveryErrorRaw.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new KenticoCloudException("Mapping json error failed", e);
+        }
+
+        return errorResponse;
+    }
 }

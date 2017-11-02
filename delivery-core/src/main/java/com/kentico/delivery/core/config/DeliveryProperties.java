@@ -13,7 +13,18 @@ package com.kentico.delivery.core.config;
 
 public class DeliveryProperties implements IDeliveryProperties {
 
+    @Override
     public String getWaitForLoadingNewContentHeader(){
         return "X-KC-Wait-For-Loading-New-Content";
+    }
+
+    @Override
+    public String getAuthorizationHeader() {
+        return "Authorization";
+    }
+
+    @Override
+    public String getAuthorizationHeaderValue(String key) {
+        return "Bearer " + key;
     }
 }

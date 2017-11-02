@@ -12,37 +12,52 @@ package com.kentico.delivery.android;
 
 
 import com.kentico.delivery.core.adapters.IHttpAdapter;
-import com.kentico.delivery.core.config.IDeliveryProperties;
 import com.kentico.delivery.core.interfaces.item.common.IQueryConfig;
+import com.kentico.delivery.core.models.common.CommonCloudResponses;
+import com.kentico.delivery.core.models.common.Header;
 import com.kentico.delivery.core.models.exceptions.KenticoCloudException;
+import com.kentico.delivery.core.models.exceptions.KenticoCloudResponseException;
+import com.kentico.delivery.core.utils.ErrorHelper;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.List;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import okhttp3.ResponseBody;
 
 class AndroidHttpAdapter implements IHttpAdapter {
 
     private static OkHttpClient okHttpClient = new OkHttpClient();
 
     @Override
-    public JSONObject get(String url, IQueryConfig queryConfig, IDeliveryProperties deliveryProperties) {
-        Request request = new Request.Builder()
-                .url(url)
-                .addHeader(deliveryProperties.getWaitForLoadingNewContentHeader(), queryConfig.getWaitForLoadingNewContent() ? "true" : "false")
-                .build();
+    public String get(String url, IQueryConfig queryConfig, List<Header> headers) {
+        Request.Builder builder = new Request.Builder()
+                .url(url);
+
+        for(Header header : headers){
+            builder.addHeader(header.getName(), header.getValue());
+        }
+
+        Request request = builder.build();
 
         Response response;
         try {
             response = okHttpClient.newCall(request).execute();
 
-            return new JSONObject(response.body().string());
+            ResponseBody body = response.body();
 
-        } catch (IOException | JSONException e) {
+            if (body == null){
+                throw new NullPointerException("Response from server is null");
+            }
+
+            return body.string();
+
+        } catch (IOException e) {
             e.printStackTrace();
             throw new KenticoCloudException(e.getMessage(), e);
         }

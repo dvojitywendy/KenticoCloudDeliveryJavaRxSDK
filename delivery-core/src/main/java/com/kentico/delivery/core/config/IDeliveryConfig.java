@@ -27,7 +27,9 @@ public interface IDeliveryConfig {
 
      String getDeliveryPreviewApiUrl();
 
-     DeliveryProperties getDeliveryProperties();
+     IDeliveryProperties getDeliveryProperties();
 
      IQueryConfig getDefaultQueryConfig();
+
+     String getPreviewApiKey();
 }

@@ -10,12 +10,14 @@
 
 package com.kentico.delivery.core.adapters;
 
-import com.kentico.delivery.core.config.IDeliveryProperties;
 import com.kentico.delivery.core.interfaces.item.common.IQueryConfig;
+import com.kentico.delivery.core.models.common.Header;
 
 import org.json.JSONObject;
 
-public interface IHttpAdapter extends IAdapter<JSONObject> {
+import java.util.List;
 
-    JSONObject get(String url, IQueryConfig queryConfig, IDeliveryProperties deliveryProperties);
+public interface IHttpAdapter extends IAdapter<String> {
+
+    String get(String url, IQueryConfig queryConfig, List<Header> headers);
 }

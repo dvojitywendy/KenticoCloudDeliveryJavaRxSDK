@@ -22,6 +22,7 @@ import io.reactivex.functions.Function;
 
 public class AppConfig {
     public final static String KENTICO_CLOUD_PROJECT_ID = "683771be-aa26-4887-b1b6-482f56418ffd";
+    public final static String PREVIEW_API_KEY = "ew0KICAiYWxnIjogIkhTMjU2IiwNCiAgInR5cCI6ICJKV1QiDQp9.ew0KICAidWlkIjogInVzcl8wdlFZQkNxQXZybm81cmlmSG5pWUVHIiwNCiAgImVtYWlsIjogInJpY2hhcmRzQGtlbnRpY28uY29tIiwNCiAgInByb2plY3RfaWQiOiAiNjgzNzcxYmUtYWEyNi00ODg3LWIxYjYtNDgyZjU2NDE4ZmZkIiwNCiAgImp0aSI6ICJ0d1lhZ2FPbFlXaWdSVWFaIiwNCiAgInZlciI6ICIxLjAuMCIsDQogICJnaXZlbl9uYW1lIjogIlJpY2hhcmQiLA0KICAiZmFtaWx5X25hbWUiOiAiU3VzdGVrIiwNCiAgImF1ZCI6ICJwcmV2aWV3LmRlbGl2ZXIua2VudGljb2Nsb3VkLmNvbSINCn0.BirY08kvBwh6ExBhHInGMMUpHk4QdQOSqLb-IIn2NJ8";
 
     public static List<TypeResolver<?>> getTypeResolvers(){
 

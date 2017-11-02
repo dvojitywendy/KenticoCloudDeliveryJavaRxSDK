@@ -10,7 +10,7 @@
 
 package com.kentico.delivery.core.models.type;
 
-import com.kentico.delivery.core.models.common.IDeliveryResponse;
+import com.kentico.delivery.core.interfaces.item.common.IDeliveryResponse;
 
 public class DeliveryTypeResponse implements IDeliveryResponse {
 

@@ -13,6 +13,7 @@ package com.kentico.delivery.core.services;
 import com.kentico.delivery.core.config.IDeliveryProperties;
 import com.kentico.delivery.core.interfaces.item.common.IQueryConfig;
 import com.kentico.delivery.core.interfaces.item.common.IQueryParameter;
+import com.kentico.delivery.core.models.common.Header;
 
 import org.json.JSONObject;
 
@@ -22,9 +23,11 @@ import io.reactivex.Observable;
 
 public interface IQueryService {
 
-    String getUrl( String action, List<IQueryParameter> parameters, IQueryConfig queryConfig);
+    String getUrl(String action, List<IQueryParameter> parameters, IQueryConfig queryConfig);
 
-    Observable<JSONObject> getObservable(String url, IQueryConfig queryConfig, IDeliveryProperties deliveryProperties);
+    List<Header> getHeaders(IQueryConfig queryConfig);
 
-    JSONObject getJson(String url, IQueryConfig queryConfig, IDeliveryProperties deliveryProperties);
+    Observable<JSONObject> getObservable(String url, IQueryConfig queryConfig, List<Header> headers);
+
+    JSONObject getJson(String url, IQueryConfig queryConfig, List<Header> headers);
 }

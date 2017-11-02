@@ -10,7 +10,7 @@
 
 package com.kentico.delivery.core.models.taxonomy;
 
-import com.kentico.delivery.core.models.common.IDeliveryResponse;
+import com.kentico.delivery.core.interfaces.item.common.IDeliveryResponse;
 import com.kentico.delivery.core.models.common.Pagination;
 
 import java.util.List;

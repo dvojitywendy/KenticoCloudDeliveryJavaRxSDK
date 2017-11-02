@@ -42,7 +42,7 @@ public class SingleContentTypeElement extends BaseContentTypeElementQuery<Single
 
     // observable
     public Observable<DeliveryContentTypeElementResponse> getObservable() {
-        return this.queryService.<JSONObject>getObservable(this.getQueryUrl(), this.queryConfig, this.config.getDeliveryProperties())
+        return this.queryService.<JSONObject>getObservable(this.getQueryUrl(), this.queryConfig, this.getHeaders())
                 .map(new Function<JSONObject, DeliveryContentTypeElementResponse>() {
                     @Override
                     public DeliveryContentTypeElementResponse apply(JSONObject jsonObject) throws KenticoCloudException {
@@ -58,7 +58,7 @@ public class SingleContentTypeElement extends BaseContentTypeElementQuery<Single
     @Override
     public DeliveryContentTypeElementResponse get() {
         try {
-            return responseMapService.mapDeliveryContentTypeResponse(this.queryService.getJson(this.getQueryUrl(), this.queryConfig, this.config.getDeliveryProperties()));
+            return responseMapService.mapDeliveryContentTypeResponse(this.queryService.getJson(this.getQueryUrl(), this.queryConfig, this.getHeaders()));
         } catch (IOException ex) {
             throw new KenticoCloudException("Could not get content type element response with error: " + ex.getMessage(), ex);
         }

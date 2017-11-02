@@ -23,6 +23,7 @@ public final class DeliveryConfig implements IDeliveryConfig {
 
     private final String projectId;
     private final List<TypeResolver<?>> typeResolvers;
+    private final String previewApiKey;
 
     private IQueryConfig defaultQueryConfig = new QueryConfig();
 
@@ -34,6 +35,7 @@ public final class DeliveryConfig implements IDeliveryConfig {
     public DeliveryConfig(String projectId, List<TypeResolver<?>> typeResolvers){
         this.projectId = projectId;
         this.typeResolvers = typeResolvers;
+        this.previewApiKey = null;
     }
 
     /**
@@ -46,15 +48,42 @@ public final class DeliveryConfig implements IDeliveryConfig {
         this.projectId = projectId;
         this.typeResolvers = typeResolvers;
         this.defaultQueryConfig = defaultQueryConfig;
+        this.previewApiKey = null;
+    }
+
+    /**
+     * Creates configuration
+     * @param projectId Id of Kentico Cloud project
+     * @param typeResolvers Resolvers used to map items from Kentico Cloud to strongly typed instances
+     * @param previewApiKey Preview API key
+     */
+    public DeliveryConfig(String projectId, List<TypeResolver<?>> typeResolvers, String previewApiKey){
+        this.projectId = projectId;
+        this.typeResolvers = typeResolvers;
+        this.previewApiKey = previewApiKey;
+    }
+
+    /**
+     * Creates configuration
+     * @param projectId Id of Kentico Cloud project
+     * @param typeResolvers Resolvers used to map items from Kentico Cloud to strongly typed instances
+     * @param defaultQueryConfig Default query config used for all request unless overriden on query level
+     * @param previewApiKey Preview ApiKey
+     */
+    public DeliveryConfig(String projectId, List<TypeResolver<?>> typeResolvers, IQueryConfig defaultQueryConfig, String previewApiKey){
+        this.projectId = projectId;
+        this.typeResolvers = typeResolvers;
+        this.defaultQueryConfig = defaultQueryConfig;
+        this.previewApiKey = previewApiKey;
     }
 
     @Override
     public String getProjectId(){
-        return projectId;
+        return this.projectId;
     }
 
     @Override
-    public List<TypeResolver<?>> getTypeResolvers() { return typeResolvers; }
+    public List<TypeResolver<?>> getTypeResolvers() { return this.typeResolvers; }
 
     @Override
     public DeliveryPaths getDeliveryPaths(){
@@ -73,11 +102,16 @@ public final class DeliveryConfig implements IDeliveryConfig {
 
     @Override
     public DeliveryProperties getDeliveryProperties() {
-        return deliveryProperties;
+        return this.deliveryProperties;
     }
 
     @Override
     public IQueryConfig getDefaultQueryConfig() {
-        return defaultQueryConfig;
+        return this.defaultQueryConfig;
+    }
+
+    @Override
+    public String getPreviewApiKey() {
+        return this.previewApiKey;
     }
 }

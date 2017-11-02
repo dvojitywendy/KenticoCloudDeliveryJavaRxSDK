@@ -58,7 +58,7 @@ public class SingleItemQuery<TItem extends IContentItem> extends BaseItemQuery<T
     }
 
     public Observable<DeliveryItemResponse<TItem>> getObservable() {
-        return this.queryService.<JSONObject>getObservable(this.getQueryUrl(), this.queryConfig, this.config.getDeliveryProperties())
+        return this.queryService.<JSONObject>getObservable(this.getQueryUrl(), this.queryConfig, this.getHeaders())
                 .map(new Function<JSONObject, DeliveryItemResponse<TItem>>() {
                     @Override
                     public DeliveryItemResponse<TItem> apply(JSONObject jsonObject) throws KenticoCloudException {
@@ -74,7 +74,7 @@ public class SingleItemQuery<TItem extends IContentItem> extends BaseItemQuery<T
     @Override
     public DeliveryItemResponse<TItem> get() {
         try {
-            return responseMapService.<TItem>mapItemResponse(this.queryService.getJson(this.getQueryUrl(), this.queryConfig, this.config.getDeliveryProperties()));
+            return responseMapService.<TItem>mapItemResponse(this.queryService.getJson(this.getQueryUrl(), this.queryConfig, this.getHeaders()));
         } catch (JSONException | IOException | IllegalAccessException ex) {
             throw new KenticoCloudException("Could not get item response with error: " + ex.getMessage(), ex);
         }

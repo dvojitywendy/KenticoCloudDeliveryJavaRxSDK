@@ -47,7 +47,7 @@ public class MultipleTaxonomyQuery extends BaseTaxonomyQuery<MultipleTaxonomyQue
     }
 
     public Observable<DeliveryTaxonomyListingResponse> getObservable() {
-        return this.queryService.<JSONObject>getObservable(this.getQueryUrl(), this.queryConfig, this.config.getDeliveryProperties())
+        return this.queryService.<JSONObject>getObservable(this.getQueryUrl(), this.queryConfig, this.getHeaders())
                 .map(new Function<JSONObject, DeliveryTaxonomyListingResponse>() {
                     @Override
                     public DeliveryTaxonomyListingResponse apply(JSONObject jsonObject) throws KenticoCloudException {
@@ -63,7 +63,7 @@ public class MultipleTaxonomyQuery extends BaseTaxonomyQuery<MultipleTaxonomyQue
     @Override
     public DeliveryTaxonomyListingResponse get() {
         try {
-            return responseMapService.mapDeliveryTaxonomyListingResponse(this.queryService.getJson(this.getQueryUrl(), this.queryConfig, this.config.getDeliveryProperties()));
+            return responseMapService.mapDeliveryTaxonomyListingResponse(this.queryService.getJson(this.getQueryUrl(), this.queryConfig, this.getHeaders()));
         } catch (IOException ex) {
             throw new KenticoCloudException("Could not get taxonomies response with error: " + ex.getMessage(), ex);
         }

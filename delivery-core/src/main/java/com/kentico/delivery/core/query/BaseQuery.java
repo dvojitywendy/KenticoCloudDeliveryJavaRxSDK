@@ -15,7 +15,8 @@ import com.kentico.delivery.core.adapters.IRxAdapter;
 import com.kentico.delivery.core.config.IDeliveryConfig;
 import com.kentico.delivery.core.interfaces.item.common.IQueryConfig;
 import com.kentico.delivery.core.interfaces.item.common.IQueryParameter;
-import com.kentico.delivery.core.models.common.IDeliveryResponse;
+import com.kentico.delivery.core.interfaces.item.common.IDeliveryResponse;
+import com.kentico.delivery.core.models.common.Header;
 import com.kentico.delivery.core.services.IQueryService;
 import com.kentico.delivery.core.services.QueryService;
 import com.kentico.delivery.core.services.ResponseMapService;
@@ -27,7 +28,7 @@ import io.reactivex.Observable;
 
 public abstract class BaseQuery<TQuery extends BaseQuery> {
 
-    protected List<IQueryParameter> parameters = new ArrayList<>();
+    protected List<IQueryParameter> parameters;
     protected IQueryConfig queryConfig;
 
     protected IDeliveryConfig config;
@@ -39,8 +40,19 @@ public abstract class BaseQuery<TQuery extends BaseQuery> {
         this.responseMapService = new ResponseMapService(config);
         this.queryService = new QueryService(config, rxAdapter, httpAdapter);
 
+        // reset parameters
+        this.parameters = new ArrayList<>();
+
         // assign default query configuration, this can be overridden by setters
         this.queryConfig = config.getDefaultQueryConfig();
+    }
+
+    /**
+     * Gets headers for request
+     * @return List of headers
+     */
+    public List<Header> getHeaders(){
+        return this.queryService.getHeaders(this.queryConfig);
     }
 
     /**

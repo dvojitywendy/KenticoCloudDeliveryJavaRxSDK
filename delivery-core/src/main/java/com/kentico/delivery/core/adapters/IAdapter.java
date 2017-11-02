@@ -10,10 +10,12 @@
 
 package com.kentico.delivery.core.adapters;
 
-import com.kentico.delivery.core.config.IDeliveryProperties;
 import com.kentico.delivery.core.interfaces.item.common.IQueryConfig;
+import com.kentico.delivery.core.models.common.Header;
+
+import java.util.List;
 
 public interface IAdapter<TResult> {
 
-    TResult get(String url, IQueryConfig queryConfig, IDeliveryProperties deliveryProperties);
+    TResult get(String url, IQueryConfig queryConfig, List<Header> headers);
 }

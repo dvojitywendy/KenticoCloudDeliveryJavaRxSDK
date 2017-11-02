@@ -8,18 +8,42 @@
  *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.kentico.delivery.core.adapters;
+package com.kentico.delivery.core.models.exceptions;
 
-import com.kentico.delivery.core.interfaces.item.common.IQueryConfig;
-import com.kentico.delivery.core.models.common.Header;
 
-import org.json.JSONObject;
+public class KenticoCloudResponseException extends RuntimeException{
 
-import java.util.List;
+    private String message;
+    private String requestId;
+    private int errorCode;
+    private int specificCode;
 
-import io.reactivex.Observable;
+    public KenticoCloudResponseException(
+            String message,
+            String requestId,
+            int errorCode,
+            int specificCode
+    ){
+        this.message = message;
+        this.requestId = requestId;
+        this.errorCode = errorCode;
+        this.specificCode = specificCode;
+    }
 
-public interface IRxAdapter extends IAdapter<Observable<String>> {
+    @Override
+    public String getMessage() {
+        return message;
+    }
 
-    Observable<String> get(String url, IQueryConfig queryConfig, List<Header> headers);
+    public String getRequestId() {
+        return requestId;
+    }
+
+    public int getErrorCode() {
+        return errorCode;
+    }
+
+    public int getSpecificCode() {
+        return specificCode;
+    }
 }

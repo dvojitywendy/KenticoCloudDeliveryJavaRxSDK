@@ -10,24 +10,35 @@
 
 package com.kentico.delivery.android;
 
+import com.androidnetworking.common.ANRequest;
 import com.androidnetworking.common.Priority;
+import com.androidnetworking.common.RequestBuilder;
 import com.kentico.delivery.core.adapters.IRxAdapter;
 import com.kentico.delivery.core.config.IDeliveryProperties;
 import com.kentico.delivery.core.interfaces.item.common.IQueryConfig;
+import com.kentico.delivery.core.models.common.Header;
+import com.rx2androidnetworking.Rx2ANRequest;
 import com.rx2androidnetworking.Rx2AndroidNetworking;
 
 import org.json.JSONObject;
 
+import java.util.List;
+
 import io.reactivex.Observable;
+import io.reactivex.functions.Function;
 
 class AndroidRxAdapter implements IRxAdapter {
 
     @Override
-    public Observable<JSONObject> get(String url, IQueryConfig queryConfig, IDeliveryProperties deliveryProperties) {
-        return Rx2AndroidNetworking.get(url)
-                .setPriority(Priority.MEDIUM)
-                .addHeaders(deliveryProperties.getWaitForLoadingNewContentHeader(), queryConfig.getWaitForLoadingNewContent() ? "true" : "false")
-                .build()
-                .getJSONObjectObservable();
+    public Observable<String> get(String url, IQueryConfig queryConfig, List<Header> headers) {
+
+        Rx2ANRequest.GetRequestBuilder builder = Rx2AndroidNetworking.get(url)
+                .setPriority(Priority.MEDIUM);
+
+        for(Header header: headers){
+            builder.addHeaders(header.getName(), header.getValue());
+        }
+
+        return builder.build().getStringObservable();
     }
 }

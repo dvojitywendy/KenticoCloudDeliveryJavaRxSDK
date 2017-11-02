@@ -8,18 +8,25 @@
  *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.kentico.delivery.core.adapters;
+package com.kentico.delivery.core.models.common;
 
-import com.kentico.delivery.core.interfaces.item.common.IQueryConfig;
-import com.kentico.delivery.core.models.common.Header;
 
-import org.json.JSONObject;
+public class Header {
 
-import java.util.List;
+    private String name;
+    private String value;
 
-import io.reactivex.Observable;
+    public Header(String name, String value){
+        this.name = name;
+        this.value = value;
+    }
 
-public interface IRxAdapter extends IAdapter<Observable<String>> {
+    public String getName() {
+        return name;
+    }
 
-    Observable<String> get(String url, IQueryConfig queryConfig, List<Header> headers);
+    public String getValue() {
+        return value;
+    }
+
 }

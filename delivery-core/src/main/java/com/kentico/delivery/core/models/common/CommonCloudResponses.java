@@ -35,4 +35,24 @@ public class CommonCloudResponses {
         @JsonProperty("nextPage")
         public String nextPage;
     }
+
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    public static class DeliveryErrorRaw {
+
+        DeliveryErrorRaw() {
+            // Mandatory constructor
+        }
+
+        @JsonProperty("message")
+        public String message;
+
+        @JsonProperty("request_id")
+        public String requestId;
+
+        @JsonProperty("error_code")
+        public int errorCode;
+
+        @JsonProperty("specific_code")
+        public int specificCode;
+    }
 }
