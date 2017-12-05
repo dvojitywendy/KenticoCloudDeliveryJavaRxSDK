@@ -12,10 +12,9 @@ package com.kentico.delivery.core.services;
 
 import com.kentico.delivery.core.adapters.IHttpAdapter;
 import com.kentico.delivery.core.adapters.IRxAdapter;
-import com.kentico.delivery.core.config.DeliveryConfig;
 import com.kentico.delivery.core.config.IDeliveryConfig;
 import com.kentico.delivery.core.interfaces.item.item.IContentItem;
-import com.kentico.delivery.core.query.element.SingleContentTypeElement;
+import com.kentico.delivery.core.query.element.SingleContentTypeElementQuery;
 import com.kentico.delivery.core.query.item.MultipleItemQuery;
 import com.kentico.delivery.core.query.item.SingleItemQuery;
 import com.kentico.delivery.core.query.taxonomy.MultipleTaxonomyQuery;
@@ -58,7 +57,7 @@ public abstract class BaseDeliveryService implements IDeliveryService {
         return new SingleTaxonomyQuery(this.config, this.getRxAdapter(), this.getHttpAdapter(), codename);
     }
 
-    public SingleContentTypeElement contenTypeElement(String typeCodename, String elementCodename){
-        return new SingleContentTypeElement(this.config, this.getRxAdapter(), this.getHttpAdapter(), typeCodename, elementCodename);
+    public SingleContentTypeElementQuery contenTypeElement(String typeCodename, String elementCodename){
+        return new SingleContentTypeElementQuery(this.config, this.getRxAdapter(), this.getHttpAdapter(), typeCodename, elementCodename);
     }
 }
