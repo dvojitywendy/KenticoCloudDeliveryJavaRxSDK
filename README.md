@@ -183,6 +183,61 @@ MultipleItemQuery<Cafe> query = deliveryService.<Cafe>items()
     .addParameter(new Filters.EqualsFilter("elements.title", "London"));
 ```
 
+### Querying data
+
+Each type of data (item, taxonomy, elements etc.) can be obtained using the available methods in `IDeliveryClient`. Following are basic examples of different queries:
+
+```java
+// items
+SingleItemQuery<Cafe> cafeQuery = deliveryService.<Cafe>item("boston");
+MultipleItemQuery<Cafe> cafesQuery = deliveryService.<Cafe>items();
+
+// types
+SingleTypeQuery typeQuery = deliveryService.type("Cafe");
+MultipleTypeQuery typesQuery = deliveryService.types();
+
+// taxonomies
+SingleTaxonomyQuery taxonomyQuery = deliveryService.taxonomy("personas");
+MultipleTaxonomyQuery taxonomiesQuery = deliveryService.taxonomies();
+
+// elements
+SingleContentTypeElementQuery elementQuery = deliveryService.contenTypeElement("cafe", "country");
+```
+
+To execute query choose either `get` or `getObservable` method whether you want to work with [ReactiveX](http://reactivex.io) API or not.
+
+```java
+// Get examples
+ Cafe cafe = cafeQuery.get().getItem();
+ List<Cafe> cafes = cafesQuery.get().getItems();
+
+ // Observable examples
+ cafesQuery.getObservable()
+    .subscribe(new Observer<DeliveryItemListingResponse<Cafe>>() {
+        @Override
+        public void onSubscribe(Disposable disposable) {
+        }
+
+        @Override
+        public void onNext(DeliveryItemListingResponse<Cafe> response) {
+            // Access cafe items
+            List<Cafe> cafes = response.getItems();
+
+            // Use methods from your strongly typed model
+            String country = cafes.get(0).getCountry();
+        }
+
+        @Override
+        public void onError(Throwable throwable) {
+        }
+
+        @Override
+        public void onComplete() {
+        }
+    });
+
+```
+
 ### Custom query parameters
 
 It is possible to create custom query parameters in case you need to have some additional information in URL. This can be useful if you use proxy and need to log some additional information.
