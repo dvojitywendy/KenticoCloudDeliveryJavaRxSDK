@@ -208,11 +208,11 @@ To execute query choose either `get` or `getObservable` method whether you want 
 
 ```java
 // Get examples
- Cafe cafe = cafeQuery.get().getItem();
- List<Cafe> cafes = cafesQuery.get().getItems();
+Cafe cafe = cafeQuery.get().getItem();
+List<Cafe> cafes = cafesQuery.get().getItems();
 
  // Observable examples
- cafesQuery.getObservable()
+cafesQuery.getObservable()
     .subscribe(new Observer<DeliveryItemListingResponse<Cafe>>() {
         @Override
         public void onSubscribe(Disposable disposable) {
