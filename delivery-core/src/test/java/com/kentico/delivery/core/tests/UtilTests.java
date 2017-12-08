@@ -10,9 +10,6 @@
 
 package com.kentico.delivery.core.tests;
 
-import com.fasterxml.jackson.core.JsonFactory;
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import com.kentico.delivery.core.models.exceptions.KenticoCloudException;
 import com.kentico.delivery.core.tests.utils.TestHelper;
@@ -20,22 +17,10 @@ import com.kentico.delivery.core.utils.DateHelper;
 import com.kentico.delivery.core.utils.ErrorHelper;
 import com.kentico.delivery.core.utils.StringHelper;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import java.net.URL;
-import java.io.FileReader;
-
-import jdk.nashorn.internal.parser.JSONParser;
-
-import org.json.*;
 
 import org.junit.Rule;
 import org.junit.Test;
