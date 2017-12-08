@@ -20,4 +20,31 @@ dependencies {
     compile 'com.squareup.okhttp3:okhttp:3.9.0'
 }
 
+ext {
+    bintrayRepo = 'maven'
+    bintrayName = 'delivery-java'
+
+    publishedGroupId = 'com.kentico.delivery'
+    libraryName = 'KenticoCloudDeliveryJava'
+    artifact = 'delivery-java'
+
+    libraryDescription = 'Java SDK for Kentico Cloud Delivery API'
+    siteUrl = 'https://kenticocloud.com/'
+    gitUrl = 'https://github.com/Kentico/KenticoCloudDeliveryJavaRxSDK.git'
+
+    libraryVersion = '1.0.0'
+
+    developerId = 'kentico_timothyf'
+    developerName = 'Timothy Fenton'
+    developerEmail = 'timothyf@kentico.com'
+
+    licenseName = 'MIT'
+    licenseUrl = 'https://github.com/Kentico/KenticoCloudDeliveryJavaRxSDK/blob/master/LICENSE.md'
+    allLicenses = ["MIT"]
+}
+
+// Place it at the end of the file
+apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/installv1.gradle'
+apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/bintrayv1.gradle'
+
 
