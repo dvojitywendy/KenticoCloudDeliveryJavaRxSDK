@@ -13,7 +13,7 @@ package com.kentico.delivery.core.services;
 import com.kentico.delivery.core.adapters.IHttpAdapter;
 import com.kentico.delivery.core.adapters.IRxAdapter;
 import com.kentico.delivery.core.interfaces.item.item.IContentItem;
-import com.kentico.delivery.core.query.element.SingleContentTypeElement;
+import com.kentico.delivery.core.query.element.SingleContentTypeElementQuery;
 import com.kentico.delivery.core.query.item.MultipleItemQuery;
 import com.kentico.delivery.core.query.item.SingleItemQuery;
 import com.kentico.delivery.core.query.taxonomy.MultipleTaxonomyQuery;
@@ -82,5 +82,5 @@ public interface IDeliveryService{
      * @param elementCodename Codename of the element
      * @return Query for content type element
      */
-    SingleContentTypeElement contenTypeElement(String typeCodename, String elementCodename);
+    SingleContentTypeElementQuery contenTypeElement(String typeCodename, String elementCodename);
 }

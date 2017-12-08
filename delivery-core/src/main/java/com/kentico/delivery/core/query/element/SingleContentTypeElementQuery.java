@@ -16,7 +16,6 @@ import com.kentico.delivery.core.config.IDeliveryConfig;
 import com.kentico.delivery.core.interfaces.item.common.IQueryParameter;
 import com.kentico.delivery.core.models.element.DeliveryContentTypeElementResponse;
 import com.kentico.delivery.core.models.exceptions.KenticoCloudException;
-import com.kentico.delivery.core.query.IQuery;
 
 import org.json.JSONObject;
 
@@ -25,31 +24,31 @@ import java.io.IOException;
 import io.reactivex.Observable;
 import io.reactivex.functions.Function;
 
-public class SingleContentTypeElement extends BaseContentTypeElementQuery {
+public class SingleContentTypeElementQuery extends BaseContentTypeElementQuery {
 
     private final String typeCodename;
     private final String elementCodename;
 
-    public SingleContentTypeElement(IDeliveryConfig config, IRxAdapter requestService, IHttpAdapter httpAdapter, String typeCodename, String elementCodename) {
+    public SingleContentTypeElementQuery(IDeliveryConfig config, IRxAdapter requestService, IHttpAdapter httpAdapter, String typeCodename, String elementCodename) {
         super(config, requestService, httpAdapter);
         this.typeCodename = typeCodename;
         this.elementCodename = elementCodename;
     }
 
     @Override
-    public SingleContentTypeElement setWaitForLoadingNewContent(boolean wait) {
+    public SingleContentTypeElementQuery setWaitForLoadingNewContent(boolean wait) {
         this.queryConfig.setWaitForLoadingNewContent(wait);
         return this;
     }
 
     @Override
-    public SingleContentTypeElement setUsePreviewMode(boolean enablePreview) {
+    public SingleContentTypeElementQuery setUsePreviewMode(boolean enablePreview) {
         this.queryConfig.setUsePreviewMode(enablePreview);
         return this;
     }
 
     @Override
-    public SingleContentTypeElement addParameter(IQueryParameter queryParameter) {
+    public SingleContentTypeElementQuery addParameter(IQueryParameter queryParameter) {
         this.parameters.add(queryParameter);
         return this;
     }

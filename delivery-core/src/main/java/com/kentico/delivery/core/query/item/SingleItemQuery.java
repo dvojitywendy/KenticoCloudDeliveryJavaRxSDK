@@ -18,7 +18,6 @@ import com.kentico.delivery.core.interfaces.item.item.IContentItem;
 import com.kentico.delivery.core.models.common.Parameters;
 import com.kentico.delivery.core.models.exceptions.KenticoCloudException;
 import com.kentico.delivery.core.models.item.DeliveryItemResponse;
-import com.kentico.delivery.core.query.element.SingleContentTypeElement;
 
 import org.json.JSONException;
 import org.json.JSONObject;
