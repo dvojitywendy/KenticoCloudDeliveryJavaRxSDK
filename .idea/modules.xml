@@ -6,6 +6,7 @@
       <module fileurl="file://$PROJECT_DIR$/delivery-android/delivery-android.iml" filepath="$PROJECT_DIR$/delivery-android/delivery-android.iml" />
       <module fileurl="file://$PROJECT_DIR$/delivery-core/delivery-core.iml" filepath="$PROJECT_DIR$/delivery-core/delivery-core.iml" />
       <module fileurl="file://$PROJECT_DIR$/delivery-java/delivery-java.iml" filepath="$PROJECT_DIR$/delivery-java/delivery-java.iml" />
+      <module fileurl="file://$PROJECT_DIR$/delivery-tests/delivery-tests.iml" filepath="$PROJECT_DIR$/delivery-tests/delivery-tests.iml" />
       <module fileurl="file://$PROJECT_DIR$/sample-android-app/sample-android-app.iml" filepath="$PROJECT_DIR$/sample-android-app/sample-android-app.iml" />
       <module fileurl="file://$PROJECT_DIR$/sample-java-app/sample-java-app.iml" filepath="$PROJECT_DIR$/sample-java-app/sample-java-app.iml" />
     </modules>

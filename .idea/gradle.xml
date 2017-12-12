@@ -11,6 +11,7 @@
             <option value="$PROJECT_DIR$/delivery-android" />
             <option value="$PROJECT_DIR$/delivery-core" />
             <option value="$PROJECT_DIR$/delivery-java" />
+            <option value="$PROJECT_DIR$/delivery-tests" />
             <option value="$PROJECT_DIR$/sample-android-app" />
             <option value="$PROJECT_DIR$/sample-java-app" />
           </set>

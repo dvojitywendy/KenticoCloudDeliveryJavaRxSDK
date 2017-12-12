@@ -10,6 +10,15 @@
 
 package com.kentico.delivery.sample.javaapp;
 
+import com.kentico.delivery.core.config.DeliveryConfig;
+import com.kentico.delivery.core.interfaces.item.item.IContentItem;
+import com.kentico.delivery.core.models.common.QueryConfig;
+import com.kentico.delivery.core.models.exceptions.KenticoCloudResponseException;
+import com.kentico.delivery.core.models.item.DeliveryItemListingResponse;
+import com.kentico.delivery.core.query.item.MultipleItemQuery;
+import com.kentico.delivery.java.DeliveryService;
+import com.kentico.delivery.sample.javaapp.models.Cafe;
+
 import io.reactivex.Flowable;
 import io.reactivex.functions.Consumer;
 
@@ -25,15 +34,7 @@ public class Main {
 
         Demo demo = new Demo();
         demo.runTests();
-
-        /*
-        System.out.println("Press key and hit enter to finish");
-        Scanner scanner = new Scanner(System.in);
-        scanner.next();
-        */
     }
-
-
 }
 
 
