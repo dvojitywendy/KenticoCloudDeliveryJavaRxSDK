@@ -73,7 +73,7 @@ public class SingleTypeQuery extends BaseTypeQuery {
     }
 
     @Override
-    public IDeliveryResponse get() {
+    public DeliveryTypeResponse get() {
         try {
             return responseMapService.mapDeliverySingleTypeResponse(this.queryService.getJson(this.getQueryUrl(), this.queryConfig, this.getHeaders()));
         } catch (IOException ex) {
