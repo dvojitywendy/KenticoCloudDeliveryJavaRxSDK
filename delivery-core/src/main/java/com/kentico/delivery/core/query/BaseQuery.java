@@ -17,6 +17,7 @@ import com.kentico.delivery.core.interfaces.item.common.IDeliveryResponse;
 import com.kentico.delivery.core.interfaces.item.common.IQueryConfig;
 import com.kentico.delivery.core.interfaces.item.common.IQueryParameter;
 import com.kentico.delivery.core.models.common.Header;
+import com.kentico.delivery.core.models.common.QueryConfig;
 import com.kentico.delivery.core.services.IQueryService;
 import com.kentico.delivery.core.services.QueryService;
 import com.kentico.delivery.core.services.ResponseMapService;
@@ -43,8 +44,11 @@ public abstract class BaseQuery implements IQuery {
         // reset parameters
         this.parameters = new ArrayList<>();
 
-        // assign default query configuration, this can be overridden by setters
-        this.queryConfig = config.getDefaultQueryConfig();
+        // apply default query configuration, this can be overridden by setters
+        // do not use 'config.getDefaultQueryConfig()' directly as any further changes would
+        // affect all queries = avoid modification of object itself
+        IQueryConfig defaultConfig = config.getDefaultQueryConfig();
+        this.queryConfig = new QueryConfig(defaultConfig.getWaitForLoadingNewContent(), defaultConfig.getUsePreviewMode());
     }
 
     /**
