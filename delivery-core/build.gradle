@@ -40,6 +40,10 @@ ext {
 
     libraryVersion = '1.0.0'
 
+    developerId = 'kentico_richards'
+    developerName = 'Richard Sustek'
+    developerEmail = 'ennspassion@gmail.com'
+
     developerId = 'kentico_timothyf'
     developerName = 'Timothy Fenton'
     developerEmail = 'timothyf@kentico.com'
