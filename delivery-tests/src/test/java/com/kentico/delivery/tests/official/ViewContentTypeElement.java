@@ -8,12 +8,12 @@
  *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.kentico.delivery.tests.utils.official;
+package com.kentico.delivery.tests.official;
 
 import com.kentico.delivery.core.config.DeliveryConfig;
+import com.kentico.delivery.core.models.element.ContentTypeElement;
+import com.kentico.delivery.core.models.element.DeliveryContentTypeElementResponse;
 import com.kentico.delivery.core.models.item.TypeResolver;
-import com.kentico.delivery.core.models.taxonomy.DeliveryTaxonomyListingResponse;
-import com.kentico.delivery.core.models.taxonomy.Taxonomy;
 import com.kentico.delivery.core.services.IDeliveryService;
 import com.kentico.delivery.java.DeliveryService;
 
@@ -27,7 +27,7 @@ import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 
-public class ViewTaxonomyGroups extends BaseOfficialTest{
+public class ViewContentTypeElement extends BaseOfficialTest{
 
     @Override
     public void Example() {
@@ -39,34 +39,33 @@ public class ViewTaxonomyGroups extends BaseOfficialTest{
         IDeliveryService deliveryService = new DeliveryService(new DeliveryConfig("e391c776-9d1e-4e1a-8a5a-1c327c2586b6", typeResolvers));
 
         // Use simple request to get data
-        List<Taxonomy> taxonomies = deliveryService.taxonomies()
-                .limitParameter(3)
+        ContentTypeElement element = deliveryService.contenTypeElement("coffee", "processing")
                 .get()
-                .getTaxonomies();
+                .getElement();
 
         // Test, not part of example
-        assertThat(taxonomies.get(0), instanceOf(Taxonomy.class));
+        assertThat(element, instanceOf(ContentTypeElement.class));
 
         // Use RxJava2 to get the data
-        deliveryService.taxonomies()
-                .limitParameter(3)
+        deliveryService.contenTypeElement("coffee", "processing")
                 .getObservable()
-                .subscribe(new Observer<DeliveryTaxonomyListingResponse>() {
+                .subscribe(new Observer<DeliveryContentTypeElementResponse>() {
                     @Override
                     public void onSubscribe(Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(DeliveryTaxonomyListingResponse response) {
-                        // Get taxonomies
-                        List<Taxonomy> taxonomies = response.getTaxonomies();
+                    public void onNext(DeliveryContentTypeElementResponse response) {
 
-                        // Print name of first taxonomy
-                        System.out.println(taxonomies.get(0).getSystem().getName());
+                        // Get element
+                        ContentTypeElement element = response.getElement();
+
+                        // Print name of the element
+                        System.out.println(element.getName());
 
                         // This is NOT part of the example
-                        assertThat(taxonomies.get(0), instanceOf(Taxonomy.class));
+                        assertThat(element, instanceOf(ContentTypeElement.class));
                     }
 
                     @Override
@@ -80,7 +79,6 @@ public class ViewTaxonomyGroups extends BaseOfficialTest{
 
                     }
                 });
-
     }
 }
 

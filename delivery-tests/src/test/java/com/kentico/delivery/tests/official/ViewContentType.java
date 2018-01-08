@@ -8,12 +8,12 @@
  *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.kentico.delivery.tests.utils.official;
+package com.kentico.delivery.tests.official;
 
 import com.kentico.delivery.core.config.DeliveryConfig;
 import com.kentico.delivery.core.models.item.TypeResolver;
-import com.kentico.delivery.core.models.taxonomy.DeliveryTaxonomyResponse;
-import com.kentico.delivery.core.models.taxonomy.Taxonomy;
+import com.kentico.delivery.core.models.type.ContentType;
+import com.kentico.delivery.core.models.type.DeliveryTypeResponse;
 import com.kentico.delivery.core.services.IDeliveryService;
 import com.kentico.delivery.java.DeliveryService;
 
@@ -27,7 +27,7 @@ import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 
-public class ViewTaxonomyGroup extends BaseOfficialTest{
+public class ViewContentType extends BaseOfficialTest{
 
     @Override
     public void Example() {
@@ -39,31 +39,33 @@ public class ViewTaxonomyGroup extends BaseOfficialTest{
         IDeliveryService deliveryService = new DeliveryService(new DeliveryConfig("e391c776-9d1e-4e1a-8a5a-1c327c2586b6", typeResolvers));
 
         // Use simple request to get data
-        Taxonomy taxonomy = deliveryService.taxonomy("personas")
+        ContentType type = deliveryService.type("coffee")
                 .get()
-                .getTaxonomy();
+                .getType();
 
         // Test, not part of example
-        assertThat(taxonomy, instanceOf(Taxonomy.class));
+        assertThat(type, instanceOf(ContentType.class));
 
         // Use RxJava2 to get the data
-        deliveryService.taxonomy("personas")
+        deliveryService.type("coffee")
                 .getObservable()
-                .subscribe(new Observer<DeliveryTaxonomyResponse>() {
+                .subscribe(new Observer<DeliveryTypeResponse>() {
                     @Override
                     public void onSubscribe(Disposable d) {
+
                     }
 
                     @Override
-                    public void onNext(DeliveryTaxonomyResponse response) {
-                        // Get taxonomy
-                        Taxonomy taxonomy = response.getTaxonomy();
+                    public void onNext(DeliveryTypeResponse response) {
 
-                        // Print name of taxonomy
-                        System.out.println(taxonomy.getSystem().getName());
+                        // Get type from response
+                        ContentType type = response.getType();
+
+                        // Print codename of content type
+                        System.out.println(type.getSystem().getCodename());
 
                         // This is NOT part of the example
-                        assertThat(taxonomy, instanceOf(Taxonomy.class));
+                        assertThat(type, instanceOf(ContentType.class));
                     }
 
                     @Override
@@ -77,7 +79,6 @@ public class ViewTaxonomyGroup extends BaseOfficialTest{
 
                     }
                 });
-
     }
 }
 

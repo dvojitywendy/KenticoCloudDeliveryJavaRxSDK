@@ -52,7 +52,9 @@ public class Demo {
     }
 
     public void runTests(){
-
+        System.out.println(this.deliveryService.items().setUsePreviewMode(true).getQueryUrl());
+        System.out.println(this.deliveryService.items().getQueryUrl());
+        /*
         this.deliveryService.<Article>items().type(Article.TYPE).getObservable().subscribe(new Observer<DeliveryItemListingResponse<Article>>() {
             @Override
             public void onSubscribe(Disposable disposable) {
@@ -264,6 +266,8 @@ public class Demo {
 
         // elements
         SingleContentTypeElementQuery elementQuery = deliveryService.contenTypeElement("cafe", "country");
+
+        */
     }
 
 
