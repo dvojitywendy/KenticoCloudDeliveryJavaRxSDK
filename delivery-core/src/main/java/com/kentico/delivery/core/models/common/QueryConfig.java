@@ -17,6 +17,13 @@ public class QueryConfig implements IQueryConfig{
     private boolean waitForLoadingNewContent;
     private boolean usePreviewMode;
 
+    public QueryConfig(){}
+
+    public QueryConfig(boolean waitForLoadingNewContent, boolean usePreviewMode){
+        this.waitForLoadingNewContent = waitForLoadingNewContent;
+        this.usePreviewMode = usePreviewMode;
+    }
+
     @Override
     public boolean getWaitForLoadingNewContent() {
         return waitForLoadingNewContent;
