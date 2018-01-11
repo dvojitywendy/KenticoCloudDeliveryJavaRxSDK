@@ -42,10 +42,10 @@ dependencies {
 }
 
 ext {
-    bintrayRepo = 'maven'
+    bintrayRepo = 'kenticocloud-maven'
     bintrayName = 'delivery-android'
 
-    publishedGroupId = 'com.kentico.delivery'
+    publishedGroupId = 'com.kenticocloud'
     libraryName = 'KenticoCloudDeliveryAndroid'
     artifact = 'delivery-android'
 
@@ -53,7 +53,11 @@ ext {
     siteUrl = 'https://kenticocloud.com/'
     gitUrl = 'https://github.com/Kentico/KenticoCloudDeliveryJavaRxSDK.git'
 
-    libraryVersion = '1.0.0'
+    libraryVersion = '2.0.0'
+
+    developerId = 'kentico_richards'
+    developerName = 'Richard Sustek'
+    developerEmail = 'richards@kentico.com'
 
     developerId = 'kentico_richards'
     developerName = 'Richard Sustek'

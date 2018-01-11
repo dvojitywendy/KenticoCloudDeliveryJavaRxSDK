@@ -21,18 +21,22 @@ dependencies {
 }
 
 ext {
-    bintrayRepo = 'maven'
-    bintrayName = 'delivery-java'
+    bintrayRepo = 'kenticocloud-maven'
+    bintrayName = 'delivery-rx'
 
-    publishedGroupId = 'com.kentico.delivery'
+    publishedGroupId = 'com.kenticocloud'
     libraryName = 'KenticoCloudDeliveryJava'
-    artifact = 'delivery-java'
+    artifact = 'delivery-rx'
 
     libraryDescription = 'Java SDK for Kentico Cloud Delivery API'
     siteUrl = 'https://kenticocloud.com/'
     gitUrl = 'https://github.com/Kentico/KenticoCloudDeliveryJavaRxSDK.git'
 
-    libraryVersion = '1.0.0'
+    libraryVersion = '2.0.0'
+
+    developerId = 'kentico_richards'
+    developerName = 'Richard Sustek'
+    developerEmail = 'richards@kentico.com'
 
     developerId = 'kentico_richards'
     developerName = 'Richard Sustek'
