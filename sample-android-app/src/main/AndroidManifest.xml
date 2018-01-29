@@ -10,7 +10,7 @@
   -->
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.kentico.delivery.sample.androidapp">
+    package="com.kenticocloud.delivery.sample.androidapp">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
@@ -30,7 +30,7 @@
             android:value="@string/config_google_API_key" />
 
         <activity
-            android:name=".app.articles.ArticlesActivity"
+            android:name="com.kenticocloud.delivery.sample.androidapp.app.articles.ArticlesActivity"
             android:label="@string/app_main_activity_title"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -39,41 +39,41 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".app.cafes.CafesActivity"
+            android:name="com.kenticocloud.delivery.sample.androidapp.app.cafes.CafesActivity"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
-            android:name=".app.article_detail.ArticleDetailActivity"
+            android:name="com.kenticocloud.delivery.sample.androidapp.app.article_detail.ArticleDetailActivity"
             android:theme="@style/AppTheme.NoActionBar"
-            android:parentActivityName=".app.articles.ArticlesActivity">
+            android:parentActivityName="com.kenticocloud.delivery.sample.androidapp.app.articles.ArticlesActivity">
         </activity>
         <activity
-            android:name=".app.cafe_detail.CafeDetailActivity"
+            android:name="com.kenticocloud.delivery.sample.androidapp.app.cafe_detail.CafeDetailActivity"
             android:theme="@style/AppTheme.NoActionBar"
-            android:parentActivityName=".app.cafes.CafesActivity">
+            android:parentActivityName="com.kenticocloud.delivery.sample.androidapp.app.cafes.CafesActivity">
         </activity>
         <activity
-            android:name=".app.coffees.CoffeesActivity"
+            android:name="com.kenticocloud.delivery.sample.androidapp.app.coffees.CoffeesActivity"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
-            android:name=".app.coffee_detail.CoffeeDetailActivity"
+            android:name="com.kenticocloud.delivery.sample.androidapp.app.coffee_detail.CoffeeDetailActivity"
             android:theme="@style/AppTheme.NoActionBar"
-            android:parentActivityName=".app.coffees.CoffeesActivity">
+            android:parentActivityName="com.kenticocloud.delivery.sample.androidapp.app.coffees.CoffeesActivity">
         </activity>
         <activity
-            android:name=".app.test.TestActivity"
+            android:name="com.kenticocloud.delivery.sample.androidapp.app.test.TestActivity"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
 
         <service
-            android:name=".app.notifications.DGFirebaseMessagingService">
+            android:name="com.kenticocloud.delivery.sample.androidapp.app.notifications.DGFirebaseMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT"/>
             </intent-filter>
         </service>
         <service
-            android:name=".app.notifications.DGFirebaseInstanceIDService">
+            android:name="com.kenticocloud.delivery.sample.androidapp.app.notifications.DGFirebaseInstanceIDService">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
             </intent-filter>

@@ -53,11 +53,7 @@ ext {
     siteUrl = 'https://kenticocloud.com/'
     gitUrl = 'https://github.com/Kentico/KenticoCloudDeliveryJavaRxSDK.git'
 
-    libraryVersion = '2.0.0'
-
-    developerId = 'kentico_richards'
-    developerName = 'Richard Sustek'
-    developerEmail = 'richards@kentico.com'
+    libraryVersion = '2.0.1'
 
     developerId = 'kentico_richards'
     developerName = 'Richard Sustek'
