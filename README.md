@@ -26,6 +26,8 @@ compile 'com.kenticocloud:delivery-rx:2.0.1'
 compile 'com.kenticocloud:delivery-android:2.0.1'
 ```
 
+Note: The only difference between these two dependencies is the 'Observable' they present for ReactiveX to subscribe to. Android will present a standard Rx2AndroidNetworking request while Java will present a generic http request as an observable. Most of your imports will be from the shared com.kenticocloud.delivery_core which is automatically included with both packages.
+
 ### Configuration
 
 ```java
@@ -77,12 +79,26 @@ DeliveryConfig config = new DeliveryConfig(projectId, typeResolvers);
 
 #### Java
 
+Imports
+```java
+import com.kenticocloud.delivery_rx.DeliveryService;
+import com.kenticocloud.delivery_core.IDeliveryService;
+```
+
+Service
 ```java
 IDeliveryService deliveryService = new DeliveryService(config);
 ```
 
 #### Android
 
+Imports
+```java
+import com.kenticocloud.delivery_android.DeliveryService;
+import com.kenticocloud.delivery_core.IDeliveryService;
+```
+
+Service
 ```java
 IDeliveryService androidDeliveryService = new DeliveryAndroidService(config);
 ```
