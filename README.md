@@ -17,7 +17,7 @@ The first step is to include SDK into your project, for example, as a Gradle com
 #### Java
 
 ```
-compile 'com.kenticocloud:delivery-rx:2.0.0'
+compile 'com.kenticocloud:delivery-rx:2.0.1'
 ```
 
 ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `Todo: Verify project name above with Tim`
@@ -25,7 +25,7 @@ compile 'com.kenticocloud:delivery-rx:2.0.0'
 #### Android
 
 ```
-compile 'com.kenticocloud:delivery-android:2.0.0'
+compile 'com.kenticocloud:delivery-android:2.0.1'
 ```
 
 ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `Todo: Verify project name above with Tim`
