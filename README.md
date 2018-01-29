@@ -94,7 +94,7 @@ IDeliveryService deliveryService = new DeliveryService(config);
 
 Imports
 ```java
-import com.kenticocloud.delivery_android.DeliveryService;
+import com.kenticocloud.delivery_android.DeliveryAndroidService;
 import com.kenticocloud.delivery_core.IDeliveryService;
 ```
 
