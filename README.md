@@ -1,5 +1,10 @@
 # Kentico Cloud Delivery JavaRx/AndroidRx SDK
 
+| Platform        | Package  |
+| ------------- |:-------------:|
+| Android      | [![Android](https://img.shields.io/maven-central/v/com.kenticocloud/delivery-android.svg)](https://search.maven.org/#search%7Cga%7C1%7Ca%3A%22delivery-android%22) |
+| JavaRx      | [![JavaRx](https://img.shields.io/maven-central/v/com.kenticocloud/delivery-rx.svg)](https://search.maven.org/#search%7Cga%7C1%7Ca%3A%22delivery-rx%22) |
+
 A client library for retrieving content from [Kentico Cloud](https://kenticocloud.com/) written in Java 7 for both `Java` & `Android` projects.
 
 Even though the SDK is built with [ReactiveX programming](http://reactivex.io/) and supports [RxJava2](https://github.com/ReactiveX/RxJava) and [RxAndroid](https://github.com/ReactiveX/RxAndroid) querying, it also integrates with [OkHttp](http://square.github.io/okhttp/) for those developers who do not want to use Rx or are not familiar with it.
