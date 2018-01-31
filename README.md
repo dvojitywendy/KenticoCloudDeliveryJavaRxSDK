@@ -1,3 +1,5 @@
+[![Forums](https://img.shields.io/badge/chat-on%20forums-orange.svg)](https://forums.kenticocloud.com)
+
 # Kentico Cloud Delivery JavaRx/AndroidRx SDK
 
 | Platform        | Maven Central Package  | jCenter Package | 
