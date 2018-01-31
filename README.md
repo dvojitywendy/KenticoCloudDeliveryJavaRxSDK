@@ -344,7 +344,7 @@ try {
 }
 ```
 
-## Feedback & Contribution
+## Feedback & Contributing
 
-Feedback & Contributions are welcomed. Feel free to take/start an issue & submit PR.
+Check out the [contributing](https://github.com/Kentico/KenticoCloudDeliveryJavaRxSDK/blob/master/CONTRIBUTING.md) page to see the best places to file issues, start discussions, and begin contributing.
 
