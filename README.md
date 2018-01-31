@@ -1,9 +1,9 @@
 # Kentico Cloud Delivery JavaRx/AndroidRx SDK
 
-| Platform        | Package  |
-| ------------- |:-------------:|
-| Android      | [![Android](https://img.shields.io/maven-central/v/com.kenticocloud/delivery-android.svg)](https://search.maven.org/#search%7Cga%7C1%7Ca%3A%22delivery-android%22) |
-| JavaRx      | [![JavaRx](https://img.shields.io/maven-central/v/com.kenticocloud/delivery-rx.svg)](https://search.maven.org/#search%7Cga%7C1%7Ca%3A%22delivery-rx%22) |
+| Platform        | Maven Central Package  | jCenter Package | 
+| ------------- |:-------------:| :-------------:|
+| Android      | [![Android](https://img.shields.io/maven-central/v/com.kenticocloud/delivery-android.svg)](https://search.maven.org/#search%7Cga%7C1%7Ca%3A%22delivery-android%22) | [![Android](https://api.bintray.com/packages/kentico-timothyf/kenticocloud-maven/delivery-android/images/download.svg)](https://bintray.com/kentico-timothyf/kenticocloud-maven/delivery-android) |
+| JavaRx      | [![JavaRx](https://img.shields.io/maven-central/v/com.kenticocloud/delivery-rx.svg)](https://search.maven.org/#search%7Cga%7C1%7Ca%3A%22delivery-rx%22) | [![JavaRx](https://api.bintray.com/packages/kentico-timothyf/kenticocloud-maven/delivery-rx/images/download.svg)](https://bintray.com/kentico-timothyf/kenticocloud-maven/delivery-rx) |
 
 A client library for retrieving content from [Kentico Cloud](https://kenticocloud.com/) written in Java 7 for both `Java` & `Android` projects.
 
