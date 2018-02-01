@@ -10,10 +10,32 @@
 
 package com.kenticocloud.delivery.sample.javaapp;
 
+import com.kenticocloud.delivery.sample.javaapp.models.Article;
+import com.kenticocloud.delivery.sample.javaapp.models.Cafe;
 import com.kenticocloud.delivery_core.config.DeliveryConfig;
 import com.kenticocloud.delivery_core.interfaces.item.common.IQueryParameter;
+import com.kenticocloud.delivery_core.interfaces.item.item.IContentItem;
+import com.kenticocloud.delivery_core.models.common.Filters;
+import com.kenticocloud.delivery_core.models.common.OrderType;
+import com.kenticocloud.delivery_core.models.element.DeliveryContentTypeElementResponse;
+import com.kenticocloud.delivery_core.models.exceptions.KenticoCloudResponseException;
+import com.kenticocloud.delivery_core.models.item.DeliveryItemListingResponse;
+import com.kenticocloud.delivery_core.models.item.DeliveryItemResponse;
+import com.kenticocloud.delivery_core.models.taxonomy.DeliveryTaxonomyListingResponse;
+import com.kenticocloud.delivery_core.models.taxonomy.DeliveryTaxonomyResponse;
+import com.kenticocloud.delivery_core.models.type.DeliveryTypeListingResponse;
+import com.kenticocloud.delivery_core.models.type.DeliveryTypeResponse;
+import com.kenticocloud.delivery_core.query.item.MultipleItemQuery;
+import com.kenticocloud.delivery_core.query.item.SingleItemQuery;
+import com.kenticocloud.delivery_core.query.type.SingleTypeQuery;
 import com.kenticocloud.delivery_core.services.IDeliveryService;
 import com.kenticocloud.delivery_rx.DeliveryService;
+
+import java.util.List;
+
+import io.reactivex.Observer;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.disposables.Disposable;
 
 public class Demo {
 
@@ -24,9 +46,6 @@ public class Demo {
     }
 
     public void runTests(){
-        System.out.println(this.deliveryService.items().setUsePreviewMode(true).getQueryUrl());
-        System.out.println(this.deliveryService.items().getQueryUrl());
-        /*
         this.deliveryService.<Article>items().type(Article.TYPE).getObservable().subscribe(new Observer<DeliveryItemListingResponse<Article>>() {
             @Override
             public void onSubscribe(Disposable disposable) {
@@ -196,7 +215,8 @@ public class Demo {
         MultipleItemQuery<Cafe> query2 = deliveryService.<Cafe>items()
                 .addParameter(new Filters.EqualsFilter("elements.title", "London"));
 
-        MultipleItemQuery<Cafe> query3 = deliveryService.<Cafe>items()
+        MultipleItemQuery<Cafe> query3;
+        query3 = deliveryService.<Cafe>items()
                 .addParameter(new CustomFilter("id"));
 
         // items
@@ -228,18 +248,7 @@ public class Demo {
                                                 }
                                             });
 
-                // types
-                SingleTypeQuery typeQuery = deliveryService.type("Cafe");
-        MultipleTypeQuery typesQuery = deliveryService.types();
 
-        // taxonomies
-        SingleTaxonomyQuery taxonomyQuery = deliveryService.taxonomy("personas");
-        MultipleTaxonomyQuery taxonomiesQuery = deliveryService.taxonomies();
-
-        // elements
-        SingleContentTypeElementQuery elementQuery = deliveryService.contenTypeElement("cafe", "country");
-
-        */
     }
 
 

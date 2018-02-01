@@ -10,6 +10,13 @@
 
 package com.kenticocloud.delivery.sample.javaapp;
 
+import com.kenticocloud.delivery_core.config.DeliveryConfig;
+import com.kenticocloud.delivery_core.models.item.TypeResolver;
+import com.kenticocloud.delivery_rx.DeliveryService;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import io.reactivex.Flowable;
 import io.reactivex.functions.Consumer;
 
@@ -22,6 +29,16 @@ public class Main {
                     }
                 });
 
+        // Implicit models test
+        List<TypeResolver<?>> typeResolvers = new ArrayList<>();
+        DeliveryConfig config = new DeliveryConfig(AppConfig.KENTICO_CLOUD_PROJECT_ID, typeResolvers);
+
+        // disable throwing Exceptions for unknown types
+        config.setThrowExceptionForUnknownTypes(false);
+
+        DeliveryService service = new DeliveryService(config);
+
+        System.out.println("Implicit models test:" + service.items().get().getItems().get(0).getSystem().getCodename());
 
         Demo demo = new Demo();
         demo.runTests();
