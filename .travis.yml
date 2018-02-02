@@ -5,6 +5,8 @@ install: true
 
 before_install:
   - chmod +x ".travis/build.sh"
+  - chmod +x "gradlew"
+  - chmod +x "gradlew.bat"
 
 script:
   - ".travis/build.sh"
