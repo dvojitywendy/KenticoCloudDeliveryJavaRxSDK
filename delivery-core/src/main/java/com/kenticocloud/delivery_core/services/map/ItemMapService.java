@@ -128,10 +128,14 @@ public class ItemMapService {
             String elementCodename = elementMapping.value();
             JsonNode elementNode = rawItem.elements.get(elementCodename);
 
+            // property that we tried to map does not exist in the response. This may be because
+            // the property was not included in projection or it simply does not exist in Cloud
+            // we should skip such properties
             if (elementNode == null) {
-                throw new KenticoCloudException("Could not map property '" + field.getName() + "' with element mapping to '" + elementCodename + "' for type '" + rawItem.system.type + "'", null);
+                continue;
             }
 
+            // prepare element
             ItemCloudResponses.ElementRaw elementRaw;
 
             // get element
