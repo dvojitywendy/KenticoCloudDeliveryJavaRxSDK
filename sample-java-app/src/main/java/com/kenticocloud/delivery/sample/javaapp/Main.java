@@ -22,6 +22,8 @@ import io.reactivex.functions.Consumer;
 
 public class Main {
     public static void main( final String[] args ){
+        try {
+
         Flowable.just("Sample rxjava2 app start")
                 .subscribe(new Consumer<String>() {
                     @Override public void accept(String s) {
@@ -42,6 +44,10 @@ public class Main {
 
         Demo demo = new Demo();
         demo.runTests();
+
+        } catch (Throwable t) {
+            System.out.println(t);
+        }
     }
 }
 
