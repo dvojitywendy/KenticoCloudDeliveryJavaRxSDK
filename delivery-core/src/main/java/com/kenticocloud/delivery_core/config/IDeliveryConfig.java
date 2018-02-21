@@ -33,7 +33,7 @@ public interface IDeliveryConfig {
 
      String getPreviewApiKey();
 
-     boolean getThrowExceptionForUnknownTypes();
+     String getSecuredApiKey();
 
-     IDeliveryConfig setThrowExceptionForUnknownTypes(boolean throwException);
+     boolean getThrowExceptionForUnknownTypes();
 }

@@ -27,7 +27,9 @@ public class DefaultQueryConfigTest extends BaseIsolatedTest {
     private static String projectId = "projectX";
 
     public DefaultQueryConfigTest() {
-        super(new DeliveryConfig(projectId, new ArrayList<TypeResolver<?>>(), new QueryConfig(false, false)));
+        super(DeliveryConfig.newConfig(projectId)
+                .setTypeResolvers(new ArrayList<TypeResolver<?>>())
+                .setDefaultQueryConfig(new QueryConfig(false, false)));
     }
 
     @Test

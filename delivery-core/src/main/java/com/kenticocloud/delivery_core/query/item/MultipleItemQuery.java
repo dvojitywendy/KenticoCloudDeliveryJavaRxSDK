@@ -13,6 +13,7 @@ package com.kenticocloud.delivery_core.query.item;
 import com.kenticocloud.delivery_core.adapters.IHttpAdapter;
 import com.kenticocloud.delivery_core.adapters.IRxAdapter;
 import com.kenticocloud.delivery_core.config.IDeliveryConfig;
+import com.kenticocloud.delivery_core.interfaces.item.common.IQueryConfig;
 import com.kenticocloud.delivery_core.interfaces.item.common.IQueryParameter;
 import com.kenticocloud.delivery_core.interfaces.item.item.IContentItem;
 import com.kenticocloud.delivery_core.models.common.Filters;
@@ -20,6 +21,7 @@ import com.kenticocloud.delivery_core.models.common.OrderType;
 import com.kenticocloud.delivery_core.models.common.Parameters;
 import com.kenticocloud.delivery_core.models.exceptions.KenticoCloudException;
 import com.kenticocloud.delivery_core.models.item.DeliveryItemListingResponse;
+import com.kenticocloud.delivery_core.query.element.SingleContentTypeElementQuery;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -30,7 +32,7 @@ import java.util.List;
 import io.reactivex.Observable;
 import io.reactivex.functions.Function;
 
-public final class MultipleItemQuery<TItem extends IContentItem> extends BaseItemQuery {
+public final class MultipleItemQuery<TItem extends IContentItem> extends BaseItemQuery<MultipleItemQuery<TItem>>{
 
     public MultipleItemQuery(IDeliveryConfig config, IRxAdapter requestService, IHttpAdapter httpAdapter) {
         super(config, requestService, httpAdapter);
@@ -126,24 +128,6 @@ public final class MultipleItemQuery<TItem extends IContentItem> extends BaseIte
 
     public MultipleItemQuery<TItem> orderParameter(String field,  OrderType type){
         this.parameters.add(new Parameters.OrderParameter(field, type));
-        return this;
-    }
-
-    @Override
-    public MultipleItemQuery<TItem>  setWaitForLoadingNewContent(boolean wait) {
-        this.queryConfig.setWaitForLoadingNewContent(wait);
-        return this;
-    }
-
-    @Override
-    public MultipleItemQuery<TItem> setUsePreviewMode(boolean enablePreview) {
-        this.queryConfig.setUsePreviewMode(enablePreview);
-        return this;
-    }
-
-    @Override
-    public MultipleItemQuery<TItem>  addParameter(IQueryParameter queryParameter) {
-        this.parameters.add(queryParameter);
         return this;
     }
 

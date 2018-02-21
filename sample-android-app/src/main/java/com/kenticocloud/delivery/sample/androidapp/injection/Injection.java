@@ -29,7 +29,8 @@ import com.kenticocloud.delivery.sample.androidapp.data.source.coffees.CoffeesRe
  */
 public class Injection {
 
-    private static IDeliveryService deliveryService = new DeliveryAndroidService(new DeliveryConfig(AppConfig.KENTICO_CLOUD_PROJECT_ID, AppConfig.getTypeResolvers()));
+    private static IDeliveryService deliveryService = new DeliveryAndroidService(DeliveryConfig.newConfig(AppConfig.KENTICO_CLOUD_PROJECT_ID)
+            .setTypeResolvers(AppConfig.getTypeResolvers()));
 
     public static ArticlesRepository provideArticlesRepository(@NonNull Context context) {
         return ArticlesRepository.getInstance(ArticlesCloudSource.getInstance(context));

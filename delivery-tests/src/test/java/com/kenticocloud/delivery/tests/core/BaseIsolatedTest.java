@@ -44,7 +44,8 @@ public abstract class BaseIsolatedTest {
         }));
 
         // initialize with fake project Id as we don't want to execute any calls to Cloud API anyway
-        this.config = new DeliveryConfig("fakeProject", typeResolvers);
+        this.config = DeliveryConfig.newConfig("fakeProject")
+                .setTypeResolvers(typeResolvers);
 
         this.deliveryService = new DeliveryService(this.config);
     }

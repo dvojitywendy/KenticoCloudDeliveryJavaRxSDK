@@ -27,7 +27,7 @@ import java.util.List;
 
 import io.reactivex.Observable;
 
-public abstract class BaseQuery implements IQuery {
+public abstract class BaseQuery<TQuery extends IQuery> implements IQuery {
 
     protected List<IQueryParameter> parameters;
     protected IQueryConfig queryConfig;
@@ -60,27 +60,6 @@ public abstract class BaseQuery implements IQuery {
     }
 
     /**
-     * Indicates if loading for new content header is set
-     * @param wait True or false
-     * @return Query
-     */
-    public abstract IQuery setWaitForLoadingNewContent(boolean wait);
-
-    /**
-     * Indicates if preview mode for this query is used
-     * @param enablePreview Enabled or disabled
-     * @return Query
-     */
-    public abstract IQuery setUsePreviewMode(boolean enablePreview);
-
-    /**
-     * Adds parameter to query
-     * @param queryParameter Query parameter
-     * @return Query
-     */
-    public abstract IQuery addParameter(IQueryParameter queryParameter);
-
-    /**
      * Gets query configuration
      * @return Query configuration
      */
@@ -89,11 +68,40 @@ public abstract class BaseQuery implements IQuery {
     }
 
     /**
+     * Adds parameter to query
+     * @param queryParameter Query parameter
+     * @return Query
+     */
+    public TQuery addParameter(IQueryParameter queryParameter){
+        this.parameters.add(queryParameter);
+        return (TQuery)this;
+    }
+
+    /**
+     * Indicates if preview mode is used for this query
+     * @param usePreview Use preview mode
+     */
+    public TQuery setUsePreviewMode(boolean usePreview){
+        this.getQueryConfig().setUsePreviewMode(usePreview);
+        return (TQuery)this;
+    }
+
+    /**
+     * Indicates if secured mode is used for this query
+     * @param useSecuredMode Use preview mode
+     */
+    public TQuery setUseSecuredMode(boolean useSecuredMode){
+        this.getQueryConfig().setUseSecuredMode(useSecuredMode);
+        return (TQuery)this;
+    }
+
+    /**
      * Sets query configuration
      * @param queryConfig Query configuration
      */
-    public void setQueryConfig(IQueryConfig queryConfig){
+    public TQuery setQueryConfig(IQueryConfig queryConfig){
         this.queryConfig = queryConfig;
+        return (TQuery)this;
     }
 
     /**

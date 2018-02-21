@@ -90,7 +90,9 @@ public class Tutorials {
         List<TypeResolver<?>> typeResolvers = new ArrayList<>();
 
         // Initialize DeliveryService for Java projects
-        IDeliveryService deliveryService = new DeliveryService(new DeliveryConfig("975bf280-fd91-488c-994c-2f04416e5ee3", typeResolvers).setThrowExceptionForUnknownTypes(false));
+        IDeliveryService deliveryService = new DeliveryService(DeliveryConfig.newConfig("975bf280-fd91-488c-994c-2f04416e5ee3")
+                .setTypeResolvers(typeResolvers)
+                .setThrowExceptionForUnknownTypes(false));
 
         // Use simple request to get data
         List<ContentItem> items = deliveryService.<ContentItem>items()
@@ -151,7 +153,8 @@ public class Tutorials {
         }));
 
         // Initialize DeliveryService for Java projects
-        IDeliveryService deliveryService = new DeliveryService(new DeliveryConfig("975bf280-fd91-488c-994c-2f04416e5ee3", typeResolvers));
+        IDeliveryService deliveryService = new DeliveryService(DeliveryConfig.newConfig("975bf280-fd91-488c-994c-2f04416e5ee3")
+                .setTypeResolvers(typeResolvers));
 
         // Use simple request to get data
         List<Article> articles = deliveryService.<Article>items()
@@ -214,7 +217,8 @@ public class Tutorials {
         }));
 
         // Initialize DeliveryService for Java projects
-        IDeliveryService deliveryService = new DeliveryService(new DeliveryConfig("975bf280-fd91-488c-994c-2f04416e5ee3", typeResolvers));
+        IDeliveryService deliveryService = new DeliveryService(DeliveryConfig.newConfig("975bf280-fd91-488c-994c-2f04416e5ee3")
+                .setTypeResolvers(typeResolvers));
 
         // Use simple request to get data
         List<Article> articles = deliveryService.<Article>items()
@@ -279,7 +283,8 @@ public class Tutorials {
         }));
 
         // Initialize DeliveryService for Java projects
-        IDeliveryService deliveryService = new DeliveryService(new DeliveryConfig("975bf280-fd91-488c-994c-2f04416e5ee3", typeResolvers));
+        IDeliveryService deliveryService = new DeliveryService(DeliveryConfig.newConfig("975bf280-fd91-488c-994c-2f04416e5ee3")
+                .setTypeResolvers(typeResolvers));
 
         // Use simple request to get data
         List<Article> articles = deliveryService.<Article>items()
@@ -347,7 +352,8 @@ public class Tutorials {
         }));
 
         // Initialize DeliveryService for Java projects
-        IDeliveryService deliveryService = new DeliveryService(new DeliveryConfig("975bf280-fd91-488c-994c-2f04416e5ee3", typeResolvers));
+        IDeliveryService deliveryService = new DeliveryService(DeliveryConfig.newConfig("975bf280-fd91-488c-994c-2f04416e5ee3")
+                .setTypeResolvers(typeResolvers));
 
         // Use simple request to get data
         List<Article> articles = deliveryService.<Article>items()
@@ -407,7 +413,9 @@ public class Tutorials {
         List<TypeResolver<?>> typeResolvers = new ArrayList<>();
 
         // Initialize DeliveryService for Java projects
-        IDeliveryService deliveryService = new DeliveryService(new DeliveryConfig("975bf280-fd91-488c-994c-2f04416e5ee3", typeResolvers).setThrowExceptionForUnknownTypes(false));
+        IDeliveryService deliveryService = new DeliveryService(DeliveryConfig.newConfig("975bf280-fd91-488c-994c-2f04416e5ee3")
+                .setTypeResolvers(typeResolvers)
+                .setThrowExceptionForUnknownTypes(false));
 
         // Use simple request to get data
         List<ContentItem> items = deliveryService.<ContentItem>items()
@@ -466,7 +474,10 @@ public class Tutorials {
         List<TypeResolver<?>> typeResolvers = new ArrayList<>();
 
         // Initialize DeliveryService for Java projects
-        IDeliveryService deliveryService = new DeliveryService(new DeliveryConfig(projectId, typeResolvers, previewApiKey).setThrowExceptionForUnknownTypes(false));
+        IDeliveryService deliveryService = new DeliveryService(DeliveryConfig.newConfig(projectId)
+                .setTypeResolvers(typeResolvers)
+                .setPreviewApiKey(previewApiKey)
+                .setThrowExceptionForUnknownTypes(false));
 
         // Use simple request to get data
         ContentItem item = deliveryService.<ContentItem>item("which_brewing_fits_you_")
@@ -517,7 +528,9 @@ public class Tutorials {
         List<TypeResolver<?>> typeResolvers = new ArrayList<>();
 
         // Initialize DeliveryService for Java projects
-        IDeliveryService deliveryService = new DeliveryService(new DeliveryConfig("975bf280-fd91-488c-994c-2f04416e5ee3", typeResolvers).setThrowExceptionForUnknownTypes(false));
+        IDeliveryService deliveryService = new DeliveryService(DeliveryConfig.newConfig("975bf280-fd91-488c-994c-2f04416e5ee3")
+                .setTypeResolvers(typeResolvers)
+                .setThrowExceptionForUnknownTypes(false));
 
         // Use simple request to get data
         List<ContentItem> items = deliveryService.<ContentItem>items()
@@ -571,7 +584,9 @@ public class Tutorials {
         List<TypeResolver<?>> typeResolvers = new ArrayList<>();
 
         // Initialize DeliveryService for Java projects
-        IDeliveryService deliveryService = new DeliveryService(new DeliveryConfig("975bf280-fd91-488c-994c-2f04416e5ee3", typeResolvers).setThrowExceptionForUnknownTypes(false));
+        IDeliveryService deliveryService = new DeliveryService(DeliveryConfig.newConfig("975bf280-fd91-488c-994c-2f04416e5ee3")
+                .setTypeResolvers(typeResolvers)
+                .setThrowExceptionForUnknownTypes(false));
 
         // Use simple request to get data
         ContentItem item = deliveryService.<ContentItem>item("on_roasts")
@@ -634,7 +649,8 @@ public class Tutorials {
         }));
 
         // Initialize DeliveryService for Java projects
-        IDeliveryService deliveryService = new DeliveryService(new DeliveryConfig("975bf280-fd91-488c-994c-2f04416e5ee3", typeResolvers));
+        IDeliveryService deliveryService = new DeliveryService(DeliveryConfig.newConfig("975bf280-fd91-488c-994c-2f04416e5ee3")
+            .setTypeResolvers(typeResolvers));
 
         // Use simple request to get data
         List<ScheduledArticle> articles = deliveryService.<ScheduledArticle>items()
@@ -715,7 +731,7 @@ public class Tutorials {
         }));
 
         // Initialize DeliveryService for Java projects
-        IDeliveryService deliveryService = new DeliveryService(new DeliveryConfig("975bf280-fd91-488c-994c-2f04416e5ee3", typeResolvers));
+        IDeliveryService deliveryService = new DeliveryService(DeliveryConfig.newConfig("975bf280-fd91-488c-994c-2f04416e5ee3").setTypeResolvers(typeResolvers));
 
         // Use simple request to get data
         List<ScheduledArticle> articles = deliveryService.<ScheduledArticle>items()
@@ -782,7 +798,9 @@ public class Tutorials {
         }));
 
         // Initialize DeliveryService for Java projects
-        IDeliveryService deliveryService = new DeliveryService(new DeliveryConfig("e391c776-9d1e-4e1a-8a5a-1c327c2586b6", typeResolvers, new QueryConfig(true, false)));
+        IDeliveryService deliveryService = new DeliveryService(DeliveryConfig.newConfig("e391c776-9d1e-4e1a-8a5a-1c327c2586b6")
+                .setTypeResolvers(typeResolvers)
+                .setDefaultQueryConfig(new QueryConfig(true, false)));
 
         // Use simple request to get data
         Article article = deliveryService.<Article>item("on_roasts")

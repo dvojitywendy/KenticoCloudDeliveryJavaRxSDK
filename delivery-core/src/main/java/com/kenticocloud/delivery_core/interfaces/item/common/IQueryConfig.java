@@ -39,4 +39,16 @@ public interface IQueryConfig {
      * @param enablePreview True or False
      */
     void setUsePreviewMode(boolean enablePreview);
+
+    /**
+     * Indicates if secured mode should be used
+     * @return True or False
+     */
+    boolean getUseSecuredMode();
+
+    /**
+     * Indicates if secured mode should be used
+     * @param enableSecuredMode True or False
+     */
+    void setUseSecuredMode(boolean enableSecuredMode);
 }

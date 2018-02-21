@@ -13,6 +13,7 @@ package com.kenticocloud.delivery_core.query.taxonomy;
 import com.kenticocloud.delivery_core.adapters.IHttpAdapter;
 import com.kenticocloud.delivery_core.adapters.IRxAdapter;
 import com.kenticocloud.delivery_core.config.IDeliveryConfig;
+import com.kenticocloud.delivery_core.interfaces.item.common.IQueryConfig;
 import com.kenticocloud.delivery_core.interfaces.item.common.IQueryParameter;
 import com.kenticocloud.delivery_core.models.exceptions.KenticoCloudException;
 import com.kenticocloud.delivery_core.models.taxonomy.DeliveryTaxonomyResponse;
@@ -24,7 +25,7 @@ import java.io.IOException;
 import io.reactivex.Observable;
 import io.reactivex.functions.Function;
 
-public class SingleTaxonomyQuery extends BaseTaxonomyQuery {
+public class SingleTaxonomyQuery extends BaseTaxonomyQuery<SingleTaxonomyQuery> {
 
     private final String taxonomyCodename;
 
@@ -37,24 +38,6 @@ public class SingleTaxonomyQuery extends BaseTaxonomyQuery {
     public String getQueryUrl(){
 
         return this.queryService.getUrl(this.config.getDeliveryPaths().getTaxonomiesPath(this.taxonomyCodename), this.parameters, this.queryConfig);
-    }
-
-    @Override
-    public SingleTaxonomyQuery setWaitForLoadingNewContent(boolean wait) {
-        this.queryConfig.setWaitForLoadingNewContent(wait);
-        return this;
-    }
-
-    @Override
-    public SingleTaxonomyQuery setUsePreviewMode(boolean enablePreview) {
-        this.queryConfig.setUsePreviewMode(enablePreview);
-        return this;
-    }
-
-    @Override
-    public SingleTaxonomyQuery addParameter(IQueryParameter queryParameter) {
-        this.parameters.add(queryParameter);
-        return this;
     }
 
     // observable

@@ -35,20 +35,6 @@ public interface IQuery {
     IQuery addParameter(IQueryParameter queryParameter);
 
      /**
-     * Indicates if loading for new content header is set
-     * @param wait True or false
-     * @return Query
-     */
-     IQuery setWaitForLoadingNewContent(boolean wait);
-
-     /**
-     * Indicates if preview mode for this query is used
-     * @param enablePreview Enabled or disabled
-     * @return Query
-     */
-     IQuery setUsePreviewMode(boolean enablePreview);
-
-     /**
      * Gets query configuration
      * @return Query configuration
      */
@@ -58,7 +44,7 @@ public interface IQuery {
      * Sets query configuration
      * @param queryConfig Query configuration
      */
-     void setQueryConfig(IQueryConfig queryConfig);
+     IQuery setQueryConfig(IQueryConfig queryConfig);
 
      /**
      * Gets url of query action

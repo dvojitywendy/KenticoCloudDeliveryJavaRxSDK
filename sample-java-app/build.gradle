@@ -11,43 +11,13 @@
 // It is important to include external dependencies in final JAR or they will not be present in runtime
 // For more information see: https://discuss.gradle.org/t/how-to-include-dependencies-in-jar/19571/5
 
-apply plugin: 'java'
-
-version = '1.0'
-sourceCompatibility = "1.7"
-targetCompatibility = "1.7"
-
-repositories {
-    mavenCentral()
-}
-
-configurations {
-    // configuration that holds jars to include in the jar
-    extraLibs
-}
+apply plugin: 'java-library'
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile project(path: ':delivery-core')
-    compile project(path: ':delivery-rx')
-
-    // extra libs to be included in JAR
-    extraLibs group: 'org.json', name: 'json', version: '20070829'
-    extraLibs 'com.fasterxml.jackson.core:jackson-core:2.9.1'
-    extraLibs 'com.fasterxml.jackson.core:jackson-annotations:2.9.1'
-    extraLibs 'com.fasterxml.jackson.core:jackson-databind:2.9.1'
-    extraLibs 'io.reactivex.rxjava2:rxjava:2.1.5'
-    extraLibs 'com.squareup.okhttp3:okhttp:3.9.0'
-    configurations.compile.extendsFrom(configurations.extraLibs)
+    api fileTree(include: ['*.jar'], dir: 'libs')
+    api project(path: ':delivery-rx')
 }
 
-jar {
-    into('lib') {
-        from 'libs'
-    }
-    from {
-        configurations.extraLibs.collect { it.isDirectory() ? it : zipTree(it) }
-    }
-}
-
+sourceCompatibility = "1.7"
+targetCompatibility = "1.7"
 

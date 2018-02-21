@@ -253,7 +253,10 @@ public class Demo {
 
 
     private IDeliveryService getDeliveryService(){
-        return new DeliveryService(new DeliveryConfig(AppConfig.KENTICO_CLOUD_PROJECT_ID, AppConfig.getTypeResolvers(), AppConfig.PREVIEW_API_KEY).setThrowExceptionForUnknownTypes(false));
+        return new DeliveryService(DeliveryConfig.newConfig(AppConfig.KENTICO_CLOUD_PROJECT_ID)
+                .setTypeResolvers(AppConfig.getTypeResolvers())
+                .setPreviewApiKey(AppConfig.PREVIEW_API_KEY)
+                .setThrowExceptionForUnknownTypes(false));
     }
 
     public static class CustomFilter implements IQueryParameter {

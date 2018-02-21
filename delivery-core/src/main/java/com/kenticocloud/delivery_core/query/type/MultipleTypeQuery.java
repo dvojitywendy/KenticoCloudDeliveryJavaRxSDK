@@ -13,10 +13,12 @@ package com.kenticocloud.delivery_core.query.type;
 import com.kenticocloud.delivery_core.adapters.IHttpAdapter;
 import com.kenticocloud.delivery_core.adapters.IRxAdapter;
 import com.kenticocloud.delivery_core.config.IDeliveryConfig;
+import com.kenticocloud.delivery_core.interfaces.item.common.IQueryConfig;
 import com.kenticocloud.delivery_core.interfaces.item.common.IQueryParameter;
 import com.kenticocloud.delivery_core.models.common.Parameters;
 import com.kenticocloud.delivery_core.models.exceptions.KenticoCloudException;
 import com.kenticocloud.delivery_core.models.type.DeliveryTypeListingResponse;
+import com.kenticocloud.delivery_core.query.taxonomy.SingleTaxonomyQuery;
 
 import org.json.JSONObject;
 
@@ -25,7 +27,7 @@ import java.io.IOException;
 import io.reactivex.Observable;
 import io.reactivex.functions.Function;
 
-public class MultipleTypeQuery extends BaseTypeQuery {
+public class MultipleTypeQuery extends BaseTypeQuery<MultipleTypeQuery> {
 
     public MultipleTypeQuery(IDeliveryConfig config, IRxAdapter requestService, IHttpAdapter httpAdapter) {
         super(config, requestService, httpAdapter);
@@ -43,24 +45,6 @@ public class MultipleTypeQuery extends BaseTypeQuery {
 
     public MultipleTypeQuery skipParameter(int skip){
         this.parameters.add(new Parameters.SkipParameter(skip));
-        return this;
-    }
-
-    @Override
-    public MultipleTypeQuery setWaitForLoadingNewContent(boolean wait) {
-        this.queryConfig.setWaitForLoadingNewContent(wait);
-        return this;
-    }
-
-    @Override
-    public MultipleTypeQuery setUsePreviewMode(boolean enablePreview) {
-        this.queryConfig.setUsePreviewMode(enablePreview);
-        return this;
-    }
-
-    @Override
-    public MultipleTypeQuery addParameter(IQueryParameter queryParameter) {
-        this.parameters.add(queryParameter);
         return this;
     }
 

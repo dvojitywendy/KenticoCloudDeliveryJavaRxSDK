@@ -14,8 +14,9 @@ import com.kenticocloud.delivery_core.adapters.IHttpAdapter;
 import com.kenticocloud.delivery_core.adapters.IRxAdapter;
 import com.kenticocloud.delivery_core.config.IDeliveryConfig;
 import com.kenticocloud.delivery_core.query.BaseQuery;
+import com.kenticocloud.delivery_core.query.IQuery;
 
-public abstract class BaseTypeQuery extends BaseQuery {
+public abstract class BaseTypeQuery<TQuery extends IQuery> extends BaseQuery<TQuery> {
 
     protected BaseTypeQuery(IDeliveryConfig config, IRxAdapter requestService, IHttpAdapter httpAdapter){
         super(config, requestService, httpAdapter);

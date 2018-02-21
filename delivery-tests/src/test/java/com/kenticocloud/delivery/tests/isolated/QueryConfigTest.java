@@ -25,7 +25,9 @@ import static org.junit.Assert.assertThat;
 public class QueryConfigTest extends BaseIsolatedTest {
 
     public QueryConfigTest() {
-        super(new DeliveryConfig("fake", new ArrayList<TypeResolver<?>>(), new QueryConfig(false, false)));
+        super(DeliveryConfig.newConfig("fake")
+            .setTypeResolvers(new ArrayList<TypeResolver<?>>())
+            .setDefaultQueryConfig(new QueryConfig(false, false)));
     }
 
     @Test

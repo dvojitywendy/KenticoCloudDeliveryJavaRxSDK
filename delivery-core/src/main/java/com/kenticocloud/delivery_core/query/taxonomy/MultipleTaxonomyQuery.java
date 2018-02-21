@@ -13,10 +13,12 @@ package com.kenticocloud.delivery_core.query.taxonomy;
 import com.kenticocloud.delivery_core.adapters.IHttpAdapter;
 import com.kenticocloud.delivery_core.adapters.IRxAdapter;
 import com.kenticocloud.delivery_core.config.IDeliveryConfig;
+import com.kenticocloud.delivery_core.interfaces.item.common.IQueryConfig;
 import com.kenticocloud.delivery_core.interfaces.item.common.IQueryParameter;
 import com.kenticocloud.delivery_core.models.common.Parameters;
 import com.kenticocloud.delivery_core.models.exceptions.KenticoCloudException;
 import com.kenticocloud.delivery_core.models.taxonomy.DeliveryTaxonomyListingResponse;
+import com.kenticocloud.delivery_core.query.item.SingleItemQuery;
 
 import org.json.JSONObject;
 
@@ -25,7 +27,7 @@ import java.io.IOException;
 import io.reactivex.Observable;
 import io.reactivex.functions.Function;
 
-public class MultipleTaxonomyQuery extends BaseTaxonomyQuery {
+public class MultipleTaxonomyQuery extends BaseTaxonomyQuery<MultipleTaxonomyQuery> {
 
     public MultipleTaxonomyQuery(IDeliveryConfig config, IRxAdapter requestService, IHttpAdapter httpAdapter) {
         super(config, requestService, httpAdapter);
@@ -43,24 +45,6 @@ public class MultipleTaxonomyQuery extends BaseTaxonomyQuery {
 
     public MultipleTaxonomyQuery skipParameter(int skip){
         this.parameters.add(new Parameters.SkipParameter(skip));
-        return this;
-    }
-
-    @Override
-    public MultipleTaxonomyQuery setWaitForLoadingNewContent(boolean wait) {
-        this.queryConfig.setWaitForLoadingNewContent(wait);
-        return this;
-    }
-
-    @Override
-    public MultipleTaxonomyQuery setUsePreviewMode(boolean enablePreview) {
-        this.queryConfig.setUsePreviewMode(enablePreview);
-        return this;
-    }
-
-    @Override
-    public MultipleTaxonomyQuery addParameter(IQueryParameter queryParameter) {
-        this.parameters.add(queryParameter);
         return this;
     }
 

@@ -36,7 +36,7 @@ public class ViewTaxonomyGroup extends BaseOfficialTest{
         List<TypeResolver<?>> typeResolvers = new ArrayList<>();
 
         // Initialize DeliveryService for Java projects
-        IDeliveryService deliveryService = new DeliveryService(new DeliveryConfig("e391c776-9d1e-4e1a-8a5a-1c327c2586b6", typeResolvers));
+        IDeliveryService deliveryService = new DeliveryService(DeliveryConfig.newConfig("e391c776-9d1e-4e1a-8a5a-1c327c2586b6"));
 
         // Use simple request to get data
         Taxonomy taxonomy = deliveryService.taxonomy("personas")

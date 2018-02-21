@@ -81,7 +81,6 @@ public final class QueryService implements IQueryService{
         List<Header> headers = new ArrayList<>();
 
         if (queryConfig.getUsePreviewMode()){
-
             String previewApiKey = this.config.getPreviewApiKey();
             if (previewApiKey == null || previewApiKey.isEmpty()){
                 throw new KenticoCloudException("Preview API key is not defined", null);
@@ -92,6 +91,15 @@ public final class QueryService implements IQueryService{
 
         if (queryConfig.getWaitForLoadingNewContent()){
             headers.add(new Header(this.config.getDeliveryProperties().getWaitForLoadingNewContentHeader(), "true"));
+        }
+
+        if (queryConfig.getUsePreviewMode()){
+            String securedApiKey = this.config.getSecuredApiKey();
+            if (securedApiKey == null || securedApiKey.isEmpty()){
+                throw new KenticoCloudException("Secured API key is not defined", null);
+            }
+
+            headers.add(new Header(this.config.getDeliveryProperties().getAuthorizationHeader(), this.config.getDeliveryProperties().getAuthorizationHeaderValue(securedApiKey)));
         }
 
         return headers;

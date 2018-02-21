@@ -16,6 +16,7 @@ public class QueryConfig implements IQueryConfig{
 
     private boolean waitForLoadingNewContent;
     private boolean usePreviewMode;
+    private boolean useSecuredMode;
 
     public QueryConfig(){}
 
@@ -26,12 +27,13 @@ public class QueryConfig implements IQueryConfig{
 
     @Override
     public boolean getWaitForLoadingNewContent() {
+
         return waitForLoadingNewContent;
     }
 
     @Override
     public void setWaitForLoadingNewContent(boolean wait) {
-        this.waitForLoadingNewContent = waitForLoadingNewContent;
+        this.waitForLoadingNewContent = wait;
     }
 
     @Override
@@ -42,5 +44,16 @@ public class QueryConfig implements IQueryConfig{
     @Override
     public void setUsePreviewMode(boolean enablePreview) {
         this.usePreviewMode = enablePreview;
+
+    }
+
+    @Override
+    public boolean getUseSecuredMode() {
+        return this.useSecuredMode;
+    }
+
+    @Override
+    public void setUseSecuredMode(boolean enableSecuredMode) {
+        this.useSecuredMode = enableSecuredMode;
     }
 }
