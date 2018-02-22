@@ -91,8 +91,8 @@ public class Tutorials {
 
         // Initialize DeliveryService for Java projects
         IDeliveryService deliveryService = new DeliveryService(DeliveryConfig.newConfig("975bf280-fd91-488c-994c-2f04416e5ee3")
-                .setTypeResolvers(typeResolvers)
-                .setThrowExceptionForUnknownTypes(false));
+                .withTypeResolvers(typeResolvers)
+                .withThrowExceptionForUnknownTypes(false));
 
         // Use simple request to get data
         List<ContentItem> items = deliveryService.<ContentItem>items()
@@ -154,7 +154,7 @@ public class Tutorials {
 
         // Initialize DeliveryService for Java projects
         IDeliveryService deliveryService = new DeliveryService(DeliveryConfig.newConfig("975bf280-fd91-488c-994c-2f04416e5ee3")
-                .setTypeResolvers(typeResolvers));
+                .withTypeResolvers(typeResolvers));
 
         // Use simple request to get data
         List<Article> articles = deliveryService.<Article>items()
@@ -218,7 +218,7 @@ public class Tutorials {
 
         // Initialize DeliveryService for Java projects
         IDeliveryService deliveryService = new DeliveryService(DeliveryConfig.newConfig("975bf280-fd91-488c-994c-2f04416e5ee3")
-                .setTypeResolvers(typeResolvers));
+                .withTypeResolvers(typeResolvers));
 
         // Use simple request to get data
         List<Article> articles = deliveryService.<Article>items()
@@ -284,7 +284,7 @@ public class Tutorials {
 
         // Initialize DeliveryService for Java projects
         IDeliveryService deliveryService = new DeliveryService(DeliveryConfig.newConfig("975bf280-fd91-488c-994c-2f04416e5ee3")
-                .setTypeResolvers(typeResolvers));
+                .withTypeResolvers(typeResolvers));
 
         // Use simple request to get data
         List<Article> articles = deliveryService.<Article>items()
@@ -353,7 +353,7 @@ public class Tutorials {
 
         // Initialize DeliveryService for Java projects
         IDeliveryService deliveryService = new DeliveryService(DeliveryConfig.newConfig("975bf280-fd91-488c-994c-2f04416e5ee3")
-                .setTypeResolvers(typeResolvers));
+                .withTypeResolvers(typeResolvers));
 
         // Use simple request to get data
         List<Article> articles = deliveryService.<Article>items()
@@ -414,8 +414,8 @@ public class Tutorials {
 
         // Initialize DeliveryService for Java projects
         IDeliveryService deliveryService = new DeliveryService(DeliveryConfig.newConfig("975bf280-fd91-488c-994c-2f04416e5ee3")
-                .setTypeResolvers(typeResolvers)
-                .setThrowExceptionForUnknownTypes(false));
+                .withTypeResolvers(typeResolvers)
+                .withThrowExceptionForUnknownTypes(false));
 
         // Use simple request to get data
         List<ContentItem> items = deliveryService.<ContentItem>items()
@@ -475,9 +475,9 @@ public class Tutorials {
 
         // Initialize DeliveryService for Java projects
         IDeliveryService deliveryService = new DeliveryService(DeliveryConfig.newConfig(projectId)
-                .setTypeResolvers(typeResolvers)
-                .setPreviewApiKey(previewApiKey)
-                .setThrowExceptionForUnknownTypes(false));
+                .withTypeResolvers(typeResolvers)
+                .withPreviewApiKey(previewApiKey)
+                .withThrowExceptionForUnknownTypes(false));
 
         // Use simple request to get data
         ContentItem item = deliveryService.<ContentItem>item("which_brewing_fits_you_")
@@ -529,8 +529,8 @@ public class Tutorials {
 
         // Initialize DeliveryService for Java projects
         IDeliveryService deliveryService = new DeliveryService(DeliveryConfig.newConfig("975bf280-fd91-488c-994c-2f04416e5ee3")
-                .setTypeResolvers(typeResolvers)
-                .setThrowExceptionForUnknownTypes(false));
+                .withTypeResolvers(typeResolvers)
+                .withThrowExceptionForUnknownTypes(false));
 
         // Use simple request to get data
         List<ContentItem> items = deliveryService.<ContentItem>items()
@@ -585,8 +585,8 @@ public class Tutorials {
 
         // Initialize DeliveryService for Java projects
         IDeliveryService deliveryService = new DeliveryService(DeliveryConfig.newConfig("975bf280-fd91-488c-994c-2f04416e5ee3")
-                .setTypeResolvers(typeResolvers)
-                .setThrowExceptionForUnknownTypes(false));
+                .withTypeResolvers(typeResolvers)
+                .withThrowExceptionForUnknownTypes(false));
 
         // Use simple request to get data
         ContentItem item = deliveryService.<ContentItem>item("on_roasts")
@@ -650,7 +650,7 @@ public class Tutorials {
 
         // Initialize DeliveryService for Java projects
         IDeliveryService deliveryService = new DeliveryService(DeliveryConfig.newConfig("975bf280-fd91-488c-994c-2f04416e5ee3")
-            .setTypeResolvers(typeResolvers));
+            .withTypeResolvers(typeResolvers));
 
         // Use simple request to get data
         List<ScheduledArticle> articles = deliveryService.<ScheduledArticle>items()
@@ -731,7 +731,7 @@ public class Tutorials {
         }));
 
         // Initialize DeliveryService for Java projects
-        IDeliveryService deliveryService = new DeliveryService(DeliveryConfig.newConfig("975bf280-fd91-488c-994c-2f04416e5ee3").setTypeResolvers(typeResolvers));
+        IDeliveryService deliveryService = new DeliveryService(DeliveryConfig.newConfig("975bf280-fd91-488c-994c-2f04416e5ee3").withTypeResolvers(typeResolvers));
 
         // Use simple request to get data
         List<ScheduledArticle> articles = deliveryService.<ScheduledArticle>items()
@@ -799,8 +799,8 @@ public class Tutorials {
 
         // Initialize DeliveryService for Java projects
         IDeliveryService deliveryService = new DeliveryService(DeliveryConfig.newConfig("e391c776-9d1e-4e1a-8a5a-1c327c2586b6")
-                .setTypeResolvers(typeResolvers)
-                .setDefaultQueryConfig(new QueryConfig(true, false)));
+                .withTypeResolvers(typeResolvers)
+                .withDefaultQueryConfig(new QueryConfig(true, false)));
 
         // Use simple request to get data
         Article article = deliveryService.<Article>item("on_roasts")

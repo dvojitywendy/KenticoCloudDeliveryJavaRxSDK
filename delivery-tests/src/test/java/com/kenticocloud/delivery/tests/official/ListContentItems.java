@@ -71,7 +71,7 @@ public class ListContentItems extends BaseOfficialTest{
 
         // Initialize DeliveryService for Java projects
         IDeliveryService deliveryService = new DeliveryService(DeliveryConfig.newConfig("e391c776-9d1e-4e1a-8a5a-1c327c2586b6")
-                .setTypeResolvers(typeResolvers));
+                .withTypeResolvers(typeResolvers));
 
         // Use simple request to get data
         List<Article> articles = deliveryService.<Article>items()

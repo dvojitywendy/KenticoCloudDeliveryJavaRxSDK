@@ -28,8 +28,8 @@ public class DefaultQueryConfigTest extends BaseIsolatedTest {
 
     public DefaultQueryConfigTest() {
         super(DeliveryConfig.newConfig(projectId)
-                .setTypeResolvers(new ArrayList<TypeResolver<?>>())
-                .setDefaultQueryConfig(new QueryConfig(false, false)));
+                .withTypeResolvers(new ArrayList<TypeResolver<?>>())
+                .withDefaultQueryConfig(new QueryConfig(false, false)));
     }
 
     @Test

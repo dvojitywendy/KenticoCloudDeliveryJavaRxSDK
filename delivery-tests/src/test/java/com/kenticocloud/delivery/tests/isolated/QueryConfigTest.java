@@ -26,8 +26,8 @@ public class QueryConfigTest extends BaseIsolatedTest {
 
     public QueryConfigTest() {
         super(DeliveryConfig.newConfig("fake")
-            .setTypeResolvers(new ArrayList<TypeResolver<?>>())
-            .setDefaultQueryConfig(new QueryConfig(false, false)));
+            .withTypeResolvers(new ArrayList<TypeResolver<?>>())
+            .withDefaultQueryConfig(new QueryConfig(false, false)));
     }
 
     @Test

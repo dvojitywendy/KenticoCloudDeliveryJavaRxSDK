@@ -21,6 +21,9 @@ public final class DeliveryConfig implements IDeliveryConfig{
     private final DeliveryPaths deliveryPaths = new DeliveryPaths();
     private final DeliveryProperties deliveryProperties = new DeliveryProperties();
 
+    private String deliveryApiUrl = "https://deliver.kenticocloud.com";
+    private String deliveryPreviewApiUrl = "https://preview-deliver.kenticocloud.com";
+
     private final String projectId;
     private List<TypeResolver<?>> typeResolvers;
     private String previewApiKey;
@@ -44,32 +47,70 @@ public final class DeliveryConfig implements IDeliveryConfig{
         return new DeliveryConfig(projectId);
     }
 
-    public DeliveryConfig setTypeResolvers(List<TypeResolver<?>> resolvers){
+    /**
+     * Sets type resolvers responsible for mapping response to strongly typed object
+     * @param resolvers Collection of resolvers
+     */
+    public DeliveryConfig withTypeResolvers(List<TypeResolver<?>> resolvers){
         this.typeResolvers = resolvers;
         return this;
     }
 
-    public DeliveryConfig setPreviewApiKey(String previewApiKey){
+
+    /**
+     * Sets preview API key
+     * @param previewApiKey API key
+     */
+    public DeliveryConfig withPreviewApiKey(String previewApiKey){
         this.previewApiKey = previewApiKey;
         return this;
     }
 
-    public DeliveryConfig setSecuredApiKey(String securedApiKey){
+
+    /**
+     * Sets secured API key
+     * @param securedApiKey API key
+     */
+    public DeliveryConfig withSecuredApiKey(String securedApiKey){
         this.securedApiKey = securedApiKey;
         return this;
     }
 
-    public DeliveryConfig setThrowExceptionForUnknownTypes(boolean throwException){
+    /**
+     * Sets custom URL of Kentico Cloud Endpoint
+     * @param url URL
+     */
+    public DeliveryConfig withDeliveryApiUrl(String url){
+        this.deliveryApiUrl = url;
+        return this;
+    }
+
+    /**
+     * Sets custom URL of Kentico Cloud preview Endpoint
+     * @param url URL
+     */
+    public DeliveryConfig withDeliveryPreviewApiUrl(String url){
+        this.deliveryPreviewApiUrl = url;
+        return this;
+    }
+
+    /**
+     * If enabled, SDK will throw Exception if it cannot find strongly typed model (type resolver)
+     * for certain item in response
+     * @param throwException Indicates if Exception should be thrown
+     */
+    public DeliveryConfig withThrowExceptionForUnknownTypes(boolean throwException){
         this.throwExceptionForUnknownTypes = throwException;
         return this;
     }
 
-    public DeliveryConfig setDefaultQueryConfig(IQueryConfig queryConfig){
+    /**
+     * Sets default query config for all queries made within SDK. This is useful when you want to set
+     * default behavior and then override it on per query level.
+     * @param queryConfig  Query configuration
+     */
+    public DeliveryConfig withDefaultQueryConfig(IQueryConfig queryConfig){
         this.defaultQueryConfig = queryConfig;
-        return this;
-    }
-
-    public IDeliveryConfig BuildConfig(){
         return this;
     }
 
@@ -88,12 +129,12 @@ public final class DeliveryConfig implements IDeliveryConfig{
 
     @Override
     public String getDeliveryApiUrl(){
-        return "https://deliver.kenticocloud.com";
+        return this.deliveryApiUrl;
     }
 
     @Override
     public String getDeliveryPreviewApiUrl() {
-        return "https://preview-deliver.kenticocloud.com";
+        return this.deliveryPreviewApiUrl;
     }
 
     @Override

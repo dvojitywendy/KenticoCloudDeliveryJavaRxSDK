@@ -34,10 +34,10 @@ public class Main {
         // Implicit models test
         List<TypeResolver<?>> typeResolvers = new ArrayList<>();
         DeliveryConfig config = DeliveryConfig.newConfig(AppConfig.KENTICO_CLOUD_PROJECT_ID)
-            .setTypeResolvers(typeResolvers);
+            .withTypeResolvers(typeResolvers);
 
         // disable throwing Exceptions for unknown types
-        config.setThrowExceptionForUnknownTypes(false);
+        config.withThrowExceptionForUnknownTypes(false);
 
         DeliveryService service = new DeliveryService(config);
 

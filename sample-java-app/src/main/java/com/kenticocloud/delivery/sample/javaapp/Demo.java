@@ -13,6 +13,7 @@ package com.kenticocloud.delivery.sample.javaapp;
 import com.kenticocloud.delivery.sample.javaapp.models.Article;
 import com.kenticocloud.delivery.sample.javaapp.models.Cafe;
 import com.kenticocloud.delivery_core.config.DeliveryConfig;
+import com.kenticocloud.delivery_core.config.IDeliveryConfig;
 import com.kenticocloud.delivery_core.interfaces.item.common.IQueryParameter;
 import com.kenticocloud.delivery_core.interfaces.item.item.IContentItem;
 import com.kenticocloud.delivery_core.models.common.Filters;
@@ -27,7 +28,6 @@ import com.kenticocloud.delivery_core.models.type.DeliveryTypeListingResponse;
 import com.kenticocloud.delivery_core.models.type.DeliveryTypeResponse;
 import com.kenticocloud.delivery_core.query.item.MultipleItemQuery;
 import com.kenticocloud.delivery_core.query.item.SingleItemQuery;
-import com.kenticocloud.delivery_core.query.type.SingleTypeQuery;
 import com.kenticocloud.delivery_core.services.IDeliveryService;
 import com.kenticocloud.delivery_rx.DeliveryService;
 
@@ -155,7 +155,7 @@ public class Demo {
             public void onComplete() {
 
             }
-        });
+    });
 
         this.deliveryService.contenTypeElement(Article.TYPE, "title").getObservable().subscribe(new Observer<DeliveryContentTypeElementResponse>() {
             @Override
@@ -253,10 +253,12 @@ public class Demo {
 
 
     private IDeliveryService getDeliveryService(){
+
+
         return new DeliveryService(DeliveryConfig.newConfig(AppConfig.KENTICO_CLOUD_PROJECT_ID)
-                .setTypeResolvers(AppConfig.getTypeResolvers())
-                .setPreviewApiKey(AppConfig.PREVIEW_API_KEY)
-                .setThrowExceptionForUnknownTypes(false));
+                .withTypeResolvers(AppConfig.getTypeResolvers())
+                .withPreviewApiKey(AppConfig.PREVIEW_API_KEY)
+                .withThrowExceptionForUnknownTypes(false));
     }
 
     public static class CustomFilter implements IQueryParameter {
