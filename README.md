@@ -47,6 +47,8 @@ List<TypeResolver<?>> typeResolvers = new ArrayList<>();
 
 // First you need to create models representing your items. 
 // Following is an example of the sample Cafe type.
+// Note that type resolvers are optional and you are not required to use them. However, the best
+// practise is to use safe types instead of relying on dynamic objects and values.
 public final class Cafe extends ContentItem {
 
     // This is the codename of your content type in Kentico Cloud
@@ -79,7 +81,8 @@ typeResolvers.add(new TypeResolver<>(Cafe.TYPE, new Function<Void, Cafe>() {
 ));
 
 // Prepare configuration object (note there are other parameters for e.g. preview API key)
-DeliveryConfig config = new DeliveryConfig(projectId, typeResolvers);
+DeliveryConfig config = DeliveryConfig.newConfig(projectId)
+    .withTypeResolvers(typeResolvers);
 ```
 
 ### Initialization
@@ -328,7 +331,30 @@ Outputs
 
 ```
 https://deliver.kenticocloud.com/683771be-aa26-4887-b1b6-482f56418ffd/items?elements.title=Warrior&limit=5&depth=2&skip=1
-``` 
+```
+
+### Advanced configuration
+
+During initialization of `DeliveryConfig` you can configure following options:
+
+| Method        | Use
+| ------------- |:-------------:
+| withTypeResolvers | Sets type resolvers responsible for mapping response to strongly typed object
+| withPreviewApiKey      | Sets preview API key
+| withSecuredApiKey | Sets secured API key
+| withDeliveryApiUrl | Sets custom URL of Kentico Cloud Endpoint
+| withDeliveryPreviewApiUrl | Sets custom URL of Kentico Cloud preview Endpoint
+| withThrowExceptionForUnknownTypes | If enabled, SDK will throw Exception if it cannot find strongly typed model (type resolver) for certain item in response
+| withDefaultQueryConfig | Sets default query config for all queries made within SDK. This is useful when you want to set default behavior and then override it on per query level.
+
+Example:
+
+```java
+IDeliveryConfig config = DeliveryConfig.newConfig("projectId")
+    .withPreviewApiKey("previewApiKey")
+    .withThrowExceptionForUnknownTypes(true)
+    .withDeliveryApiUrl("customDeliveryEndpointUrl");
+```
 
 ### Handling errors
 
