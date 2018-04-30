@@ -7,9 +7,11 @@
 | Android      | [![Android](https://img.shields.io/maven-central/v/com.kenticocloud/delivery-android.svg)](https://search.maven.org/#search%7Cga%7C1%7Ca%3A%22delivery-android%22) | [![Android](https://api.bintray.com/packages/kentico/KenticoCloudDeliveryJavaRxSDK/delivery-android/images/download.svg)](https://bintray.com/kentico/KenticoCloudDeliveryJavaRxSDK/delivery-android) |
 | JavaRx      | [![JavaRx](https://img.shields.io/maven-central/v/com.kenticocloud/delivery-rx.svg)](https://search.maven.org/#search%7Cga%7C1%7Ca%3A%22delivery-rx%22) | [![JavaRx](https://api.bintray.com/packages/kentico/KenticoCloudDeliveryJavaRxSDK/delivery-rx/images/download.svg)](https://bintray.com/kentico/KenticoCloudDeliveryJavaRxSDK/delivery-rx) |
 
-A client library for retrieving content from [Kentico Cloud](https://kenticocloud.com/) written in Java 7 for both `Java` & `Android` projects.
+## Summary
 
-Even though the SDK is built with [ReactiveX programming](http://reactivex.io/) and supports [RxJava2](https://github.com/ReactiveX/RxJava) and [RxAndroid](https://github.com/ReactiveX/RxAndroid) querying, it also integrates with [OkHttp](http://square.github.io/okhttp/) for those developers who do not want to use Rx or are not familiar with it.
+Kentico Cloud Delivery JavaRx/AndroidRx SDK is a client library for retrieving content from [Kentico Cloud](https://kenticocloud.com/). It is written in Java 7 for both Java & Android projects. The SDK is available as `delivery-rx` and `delivery-android` on [Maven Central](https://search.maven.org/#search%7Cga%7C1%7Ckenticocloud) and [jCenter](https://bintray.com/kentico-timothyf/kenticocloud-maven/delivery-rx).
+
+The SDK is built with [ReactiveX programming](http://reactivex.io/) and supports [RxJava2](https://github.com/ReactiveX/RxJava) and [RxAndroid](https://github.com/ReactiveX/RxAndroid) querying. It also integrates with [OkHttp](http://square.github.io/okhttp/) for those developers who do not want to use *Rx*.
 
 ## Prerequisites
 
@@ -19,7 +21,7 @@ Android 2.3+ (minSdk 21)
 
 ## Getting started
 
-The first step is to include SDK into your project, for example, as a Gradle compile dependency. Based on the project type choose of the following:
+The first step is to include the SDK in your project, for example, as a Gradle compile dependency. Based on your project type, choose one of the following:
 
 #### Java
 
@@ -33,25 +35,26 @@ compile 'com.kenticocloud:delivery-rx:2.0.1'
 compile 'com.kenticocloud:delivery-android:2.0.1'
 ```
 
-Note: The only difference between these two dependencies is the 'Observable' they present for ReactiveX to subscribe to. Android will present a standard Rx2AndroidNetworking request while Java will present a generic http request as an observable. Most of your imports will be from the shared com.kenticocloud.delivery_core which is automatically included with both packages.
+*Note*: The only difference between these two dependencies is the 'Observable' they present for ReactiveX to subscribe to. Android will present a standard *Rx2AndroidNetworking* request while Java will present a generic *http* request as an observable. Most of your imports will come from the shared `com.kenticocloud.delivery_core` which is automatically included with both packages.
 
 ### Configuration
 
 ```java
-// Kentico Cloud project Id
+// Kentico Cloud project ID
 String projectId = "683771be-aa26-4887-b1b6-482f56418ffd";
 
-// Type resolvers are required as they convert the content items to models in runtime based on 'system.type' 
-// property of your items.
+// Type resolvers are required to convert the retrieved content items to their strongly-typed models
+// based on their 'system.type' property
 List<TypeResolver<?>> typeResolvers = new ArrayList<>();
 
-// First you need to create models representing your items. 
-// Following is an example of the sample Cafe type.
-// Note that type resolvers are optional and you are not required to use them. However, the best
-// practise is to use safe types instead of relying on dynamic objects and values.
+// First, create strongly-typed models representing your items. 
+// This is optional, but strongly recommended. It is best practice to use safe types 
+// instead of relying on dynamic objects and values. For more details, see
+// https://developer.kenticocloud.com/v1/docs/strongly-typed-models
+// Here is an example of a strongly-typed model of the 'Cafe' content type.
 public final class Cafe extends ContentItem {
 
-    // This is the codename of your content type in Kentico Cloud
+    // Codename of your content type in Kentico Cloud
     public static final String TYPE = "cafe";
 
     @ElementMapping("country")
@@ -69,9 +72,10 @@ public final class Cafe extends ContentItem {
     }
 }
 
-// After you define models, we add type resolvers that will eventually convert items from JSON to your model in runtime.
-// Please note that currently you need to have models for all content types you intend to work with. We plan on releasing
-// an update that will be able to return generic ContentItem if strongly typed model is not found.
+// Adds a type resolver that will eventually convert items from JSON to your strongly-typed models at runtime.
+// Please note that you currently need to have models for all content types you want to work with.
+// We plan on releasing an update that will allow you to return generic ContentItem if the 
+// strongly-typed model is not found.
 typeResolvers.add(new TypeResolver<>(Cafe.TYPE, new Function<Void, Cafe>() {
     @Override
     public Cafe apply(Void input) {
@@ -80,7 +84,8 @@ typeResolvers.add(new TypeResolver<>(Cafe.TYPE, new Function<Void, Cafe>() {
     }
 ));
 
-// Prepare configuration object (note there are other parameters for e.g. preview API key)
+// Prepares configuration object
+// Note that there are also other parameters, for example, a preview API key
 DeliveryConfig config = DeliveryConfig.newConfig(projectId)
     .withTypeResolvers(typeResolvers);
 ```
@@ -126,10 +131,10 @@ deliveryService.<Cafe>items()
 
         @Override
         public void onNext(DeliveryItemListingResponse<Cafe> response) {
-            // Access cafe items
+            // Gets cafe items
             List<Cafe> cafes = response.getItems();
 
-            // Use methods from your strongly typed model
+            // Uses a method from your strongly-typed model
             String country = cafes.get(0).getCountry();
         }
 
@@ -157,11 +162,11 @@ List<Cafe> cafes = response.getItems();
 
 ### Property binding 
 
-First, make sure that your model extends `ContentItem` class, then create public fields with `ElementMapping` decorator which will make sure that the value from your field is mapped to the property. Based on what type of field you have, choose the proper element type. Supported element types include:
+1. Make sure that your model extends the `ContentItem` class.
+2. Create public fields with an `ElementMapping` decorator. This will make sure that the value from your field is mapped to the content item element.
+3. Based on the type of field, choose the proper element type. Supported element types include: `AssetsElement`, `ContentElement`, `DateTimeElement`, `ModularContentElement`, `MultipleChoiceElement`, `NumberElement`, `RichTextElement`, `TaxonomyElement`, `TextElement` and `UrlSlugElement`.
 
-`AssetsElement`, `ContentElement`, `DateTimeElement`, `ModularContentElement`, `MultipleChoiceElement`, `NumberElement`, `RichTextElement`, `TaxonomyElement`, `TextElement` and `UrlSlugElement`
-
-Example below shows a typical class with different elements:
+The following example shows a typical class with different types of elements:
 
 ```java
 public final class Coffee extends ContentItem {
@@ -184,9 +189,9 @@ public final class Coffee extends ContentItem {
 
 ### Filtering, sorting
 
-SDK contains all available [filters](https://developer.kenticocloud.com/v1/reference#content-filtering) and other parameters ([sort](https://developer.kenticocloud.com/v1/reference#content-ordering), [projection](https://developer.kenticocloud.com/v1/reference#projection), [paging](https://developer.kenticocloud.com/v1/reference#listing-response-paging)) as predefined methods for each query type (e.g. different options are available for items and taxonomies query). All of these methods are written in builder pattern which helps developers efficiently creating their queries. 
+The SDK contains all available [filters](https://developer.kenticocloud.com/v1/reference#content-filtering) and other parameters ([sort](https://developer.kenticocloud.com/v1/reference#content-ordering), [projection](https://developer.kenticocloud.com/v1/reference#projection), [paging](https://developer.kenticocloud.com/v1/reference#listing-response-paging)) as predefined methods for each query type (different options are available for items and taxonomies query). All of these methods are written in a builder pattern to help you create queries more efficiently.
 
-Examples:
+Example:
 
 ```java
 MultipleItemQuery<Cafe> query = deliveryService.<Cafe>items()
@@ -196,7 +201,7 @@ MultipleItemQuery<Cafe> query = deliveryService.<Cafe>items()
     .orderParameter("elements.street", OrderType.Desc);
 ```
 
-If you need to add other query parameters to URL directly, you can use `addParameter` method:
+If you need to add other query parameters to the URL directly, you can use the `addParameter` method:
 
 ```java
 MultipleItemQuery<Cafe> query = deliveryService.<Cafe>items()
@@ -205,33 +210,35 @@ MultipleItemQuery<Cafe> query = deliveryService.<Cafe>items()
 
 ### Querying data
 
-Each type of data (item, taxonomy, elements etc.) can be obtained using the available methods in `IDeliveryClient`. Following are basic examples of different queries:
+Each type of data (item, taxonomy, elements, etc.) can be obtained using the methods available in `IDeliveryClient`. 
+
+Basic examples of different queries:
 
 ```java
-// items
+// Gets items
 SingleItemQuery<Cafe> cafeQuery = deliveryService.<Cafe>item("boston");
 MultipleItemQuery<Cafe> cafesQuery = deliveryService.<Cafe>items();
 
-// types
+// Gets types
 SingleTypeQuery typeQuery = deliveryService.type("Cafe");
 MultipleTypeQuery typesQuery = deliveryService.types();
 
-// taxonomies
+// Gets taxonomies
 SingleTaxonomyQuery taxonomyQuery = deliveryService.taxonomy("personas");
 MultipleTaxonomyQuery taxonomiesQuery = deliveryService.taxonomies();
 
-// elements
+// Gets elements
 SingleContentTypeElementQuery elementQuery = deliveryService.contenTypeElement("cafe", "country");
 ```
 
-To execute query choose either `get` or `getObservable` method whether you want to work with [ReactiveX](http://reactivex.io) API or not.
+To execute a query, choose either `get` or `getObservable` method depending on whether you want to work with the [ReactiveX](http://reactivex.io) API or not.
 
 ```java
 // Get examples
 Cafe cafe = cafeQuery.get().getItem();
 List<Cafe> cafes = cafesQuery.get().getItems();
 
- // Observable examples
+// Observable examples
 cafesQuery.getObservable()
     .subscribe(new Observer<DeliveryItemListingResponse<Cafe>>() {
         @Override
@@ -240,10 +247,10 @@ cafesQuery.getObservable()
 
         @Override
         public void onNext(DeliveryItemListingResponse<Cafe> response) {
-            // Access cafe items
+            // Gets cafe items
             List<Cafe> cafes = response.getItems();
 
-            // Use methods from your strongly typed model
+            // Uses a method from your strongly typed model
             String country = cafes.get(0).getCountry();
         }
 
@@ -260,9 +267,9 @@ cafesQuery.getObservable()
 
 ### Custom query parameters
 
-It is possible to create custom query parameters in case you need to have some additional information in URL. This can be useful if you use proxy and need to log some additional information.
+It is possible to create custom query parameters in case you need more information in the URL. This can be useful if you use a proxy and need to log additional information.
 
-To create custom parameter implement `IQueryParameter` and use it in combination with `addParameter` query method.
+To create a custom parameter, implement `IQueryParameter` and use it in combination with the `addParameter` query method.
 
 ```java
 public static class CustomFilter implements IQueryParameter {
@@ -291,24 +298,24 @@ MultipleItemQuery<Cafe> query = deliveryService.<Cafe>items()
 
 ### Preview mode
 
-To enable preview mode, pass your API Preview key to the configuration object:
+To enable preview mode, pass your Preview API key to the configuration object.
 
 ```java
 new DeliveryConfig(projectId, typeResolvers, "yourPreviewAPIKey");
 ```
 
-To make calls against preview API globally, use default `QueryConfig` during inicialization. This can be overridden when executing particular queries. 
+To make calls to the Preview API globally, use a default `QueryConfig` during initialization. You can override this when executing particular queries.
 
 ```java
 
-// Configure default global query config that will enable preview mode by default.
+// Configures global query config that will enable preview mode by default.
 QueryConfig defaultQueryConfig = new QueryConfig();
 defaultQueryConfig.setUsePreviewMode(true);
 
 DeliveryConfig config = new DeliveryConfig(projectId, typeResolvers, defaultQueryConfig);
 
 
-// Enable preview mode for a specific call. This overrides global configuration.
+// Enables preview mode for a specific call. This overrides global configuration.
 MultipleItemQuery<Cafe> query = deliveryService.<Cafe>items()
     .type(Cafe.TYPE)
     .setUsePreviewMode(true);
@@ -316,7 +323,7 @@ MultipleItemQuery<Cafe> query = deliveryService.<Cafe>items()
 
 ### Getting URL of query
 
-You can get URL of the query without executing it by calling `getQueryUrl` method on any `IQuery` object.
+You can get the URL of a query without executing it by calling the `getQueryUrl` method on any `IQuery` object.
 
 ```java
 deliveryService.items()
@@ -327,7 +334,7 @@ deliveryService.items()
     .getQueryUrl();
 ``` 
 
-Outputs
+The code above outputs the following URL:
 
 ```
 https://deliver.kenticocloud.com/683771be-aa26-4887-b1b6-482f56418ffd/items?elements.title=Warrior&limit=5&depth=2&skip=1
@@ -335,17 +342,17 @@ https://deliver.kenticocloud.com/683771be-aa26-4887-b1b6-482f56418ffd/items?elem
 
 ### Advanced configuration
 
-During initialization of `DeliveryConfig` you can configure following options:
+During initialization of the `DeliveryConfig` you can configure the following options:
 
 | Method        | Use
 | ------------- |:-------------:
-| withTypeResolvers | Sets type resolvers responsible for mapping response to strongly typed object
-| withPreviewApiKey      | Sets preview API key
-| withSecuredApiKey | Sets secured API key
-| withDeliveryApiUrl | Sets custom URL of Kentico Cloud Endpoint
-| withDeliveryPreviewApiUrl | Sets custom URL of Kentico Cloud preview Endpoint
-| withThrowExceptionForUnknownTypes | If enabled, SDK will throw Exception if it cannot find strongly typed model (type resolver) for certain item in response
-| withDefaultQueryConfig | Sets default query config for all queries made within SDK. This is useful when you want to set default behavior and then override it on per query level.
+| withTypeResolvers | Sets type resolvers responsible for mapping API responses to strongly-typed models.
+| withPreviewApiKey      | Sets preview API key.
+| withSecuredApiKey | Sets secured API key.
+| withDeliveryApiUrl | Sets custom URL of a Kentico Cloud endpoint.
+| withDeliveryPreviewApiUrl | Sets custom URL of a Kentico Cloud preview endpoint.
+| withThrowExceptionForUnknownTypes | If enabled, the SDK will throw an Exception when it cannot find a strongly-typed model (type resolver) of an item in the response.
+| withDefaultQueryConfig | Sets default query config for all queries. This is useful when you want to set a default behavior and then override it on a per-query level.
 
 Example:
 
@@ -358,7 +365,7 @@ IDeliveryConfig config = DeliveryConfig.newConfig("projectId")
 
 ### Handling errors
 
-SDK will automatically map [Kentico Cloud error responses](https://developer.kenticocloud.com/v1/reference) to `KenticoCloudResponseException` runtime Exception that you can handle.
+The SDK will automatically map [Kentico Cloud error responses](https://developer.kenticocloud.com/v1/reference) to a `KenticoCloudResponseException` runtime exception that you can handle.
 
 ```java
 try {
@@ -378,4 +385,3 @@ try {
 ## Feedback & Contributing
 
 Check out the [contributing](https://github.com/Kentico/KenticoCloudDeliveryJavaRxSDK/blob/master/CONTRIBUTING.md) page to see the best places to file issues, start discussions, and begin contributing.
-
