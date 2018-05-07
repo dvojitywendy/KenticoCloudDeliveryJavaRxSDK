@@ -74,8 +74,7 @@ public final class Cafe extends ContentItem {
 
 // Adds a type resolver that will eventually convert items from JSON to your strongly-typed models at runtime.
 // Please note that you currently need to have models for all content types you want to work with.
-// We plan on releasing an update that will allow you to return generic ContentItem if the 
-// strongly-typed model is not found.
+// We plan on releasing an update that will allow you to return a generic ContentItem class.
 typeResolvers.add(new TypeResolver<>(Cafe.TYPE, new Function<Void, Cafe>() {
     @Override
     public Cafe apply(Void input) {
@@ -160,13 +159,15 @@ List<Cafe> cafes = response.getItems();
 
 ## API Reference
 
-### Property binding 
+### Property binding
+
+It's best practice to map the retrieved content items to their strongly-typed models. To create a content items's representation in code, you need a class with properties representing the individual content elements:
 
 1. Make sure that your model extends the `ContentItem` class.
 2. Create public fields with an `ElementMapping` decorator. This will make sure that the value from your field is mapped to the content item element.
 3. Based on the type of field, choose the proper element type. Supported element types include: `AssetsElement`, `ContentElement`, `DateTimeElement`, `ModularContentElement`, `MultipleChoiceElement`, `NumberElement`, `RichTextElement`, `TaxonomyElement`, `TextElement` and `UrlSlugElement`.
 
-The following example shows a typical class with different types of elements:
+The following example shows a typical strongly-typed model class with different types of elements:
 
 ```java
 public final class Coffee extends ContentItem {
@@ -191,7 +192,7 @@ public final class Coffee extends ContentItem {
 
 The SDK contains all available [filters](https://developer.kenticocloud.com/v1/reference#content-filtering) and other parameters ([sort](https://developer.kenticocloud.com/v1/reference#content-ordering), [projection](https://developer.kenticocloud.com/v1/reference#projection), [paging](https://developer.kenticocloud.com/v1/reference#listing-response-paging)) as predefined methods for each query type (different options are available for items and taxonomies query). All of these methods are written in a builder pattern to help you create queries more efficiently.
 
-Example:
+Example of an advanced items query:
 
 ```java
 MultipleItemQuery<Cafe> query = deliveryService.<Cafe>items()
@@ -321,7 +322,7 @@ MultipleItemQuery<Cafe> query = deliveryService.<Cafe>items()
     .setUsePreviewMode(true);
 ```
 
-### Getting URL of query
+### Getting the URL of a query
 
 You can get the URL of a query without executing it by calling the `getQueryUrl` method on any `IQuery` object.
 
@@ -354,7 +355,7 @@ During initialization of the `DeliveryConfig` you can configure the following op
 | withThrowExceptionForUnknownTypes | If enabled, the SDK will throw an Exception when it cannot find a strongly-typed model (type resolver) of an item in the response.
 | withDefaultQueryConfig | Sets default query config for all queries. This is useful when you want to set a default behavior and then override it on a per-query level.
 
-Example:
+Example of an advanced Delivery configuration:
 
 ```java
 IDeliveryConfig config = DeliveryConfig.newConfig("projectId")
