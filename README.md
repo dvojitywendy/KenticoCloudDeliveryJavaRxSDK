@@ -74,8 +74,8 @@ public final class Cafe extends ContentItem {
 
 // Adds a type resolver that will eventually convert items from JSON to your strongly-typed models at runtime.
 // Please note that you currently need to have models for all content types you want to work with.
-// We plan on releasing an update that will allow you to return generic ContentItem if the 
-// strongly-typed model is not found.
+// We plan to release an update that will allow you to return 
+// a generic ContentItem if the strongly-typed model is not found.
 typeResolvers.add(new TypeResolver<>(Cafe.TYPE, new Function<Void, Cafe>() {
     @Override
     public Cafe apply(Void input) {
