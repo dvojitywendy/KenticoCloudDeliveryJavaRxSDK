@@ -1,5 +1,5 @@
 [![Forums](https://img.shields.io/badge/chat-on%20forums-orange.svg)](https://forums.kenticocloud.com)
-[![Analytics](https://ga-beacon.appspot.com/UA-69014260-4/Kentico/KenticoCloudDeliveryJavaRxSDK)](https://github.com/igrigorik/ga-beacon)
+[![Analytics](https://ga-beacon.appspot.com/UA-69014260-4/Kentico/KenticoCloudDeliveryJavaRxSDK?pixel)](https://github.com/igrigorik/ga-beacon)
 
 # Kentico Cloud Delivery JavaRx/AndroidRx SDK
 
