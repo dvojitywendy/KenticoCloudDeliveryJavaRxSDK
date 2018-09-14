@@ -4,6 +4,7 @@ jdk: oraclejdk8
 install: true
 
 before_install:
+  - touch local.properties
   - chmod +x ".travis/build.sh"
   - chmod +x "gradlew"
   - chmod +x "gradlew.bat"
