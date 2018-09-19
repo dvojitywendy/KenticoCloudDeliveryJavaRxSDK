@@ -27,6 +27,7 @@ import io.reactivex.functions.Function;
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
+
 import org.junit.Test;
 
 /**
@@ -632,156 +633,158 @@ public class Tutorials {
     }
 
     // Will not pass with the '975bf280-fd91-488c-994c-2f04416e5ee3' project. Test with a project where the 'article' type has 'published_from' and 'published_until' elements.
-    @Test
-    public void testSchedulingContentPublishingInmemory() {
-
-        Date now = new Date();
-
-        // Prepare array to hold all your type resolvers
-        List<TypeResolver<?>> typeResolvers = new ArrayList<>();
-
-        // Register type resolver
-        typeResolvers.add(new TypeResolver<>(ScheduledArticle.TYPE, new Function<Void, ScheduledArticle>() {
-            @Override
-            public ScheduledArticle apply(Void input) {
-                return new ScheduledArticle();
-            }
-        }));
-
-        // Initialize DeliveryService for Java projects
-        IDeliveryService deliveryService = new DeliveryService(DeliveryConfig.newConfig("975bf280-fd91-488c-994c-2f04416e5ee3")
-            .withTypeResolvers(typeResolvers));
-
-        // Use simple request to get data
-        List<ScheduledArticle> articles = deliveryService.<ScheduledArticle>items()
-                .equalsFilter("system.type", "article")
-                .get()
-                .getItems();
-
-        List<ScheduledArticle> publishedItems = new ArrayList<>();
-
-        for (ScheduledArticle article : articles) {
-            if ((article.getPublishFrom() == null || article.getPublishFrom().before(now)) && article.getPublishUntil() == null || article.getPublishUntil().after(now)) {
-                publishedItems.add(article);
-            }
-        }
-
-        // Test, not part of the example
-        assertThat(articles.get(0), instanceOf(ScheduledArticle.class));
-
-        // Use RxJava2 to get the data
-        deliveryService.<ScheduledArticle>items()
-                .equalsFilter("system.type", "article")
-                .getObservable()
-                .subscribe(new Observer<DeliveryItemListingResponse<ScheduledArticle>>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-                    }
-
-                    @Override
-                    public void onNext(DeliveryItemListingResponse<ScheduledArticle> response) {
-
-                        Date now = new Date();
-
-                        // Get your mapped articles
-                        List<ScheduledArticle> articles = response.getItems();
-
-                        List<ScheduledArticle> publishedItems = new ArrayList<>();
-
-                        for (ScheduledArticle article : articles) {
-                            if ((article.getPublishFrom() == null || article.getPublishFrom().before(now)) && article.getPublishUntil() == null || article.getPublishUntil().after(now)) {
-                                publishedItems.add(article);
-                            }
-                        }
-
-                        // Print the Title of first article
-                        System.out.println(publishedItems.get(0).title.getValue());
-
-                        // Test, not part of the example
-                        assertThat(articles.get(0), instanceOf(Article.class));
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        // Print the error message
-                        System.out.println(e.getMessage());
-                    }
-
-                    @Override
-                    public void onComplete() {
-                    }
-                });
-    }
+    // TODO: Uncomment the test and update the project ID to some project that would satisfy this test
+//    @Test
+//    public void testSchedulingContentPublishingInmemory() {
+//
+//        Date now = new Date();
+//
+//        // Prepare array to hold all your type resolvers
+//        List<TypeResolver<?>> typeResolvers = new ArrayList<>();
+//
+//        // Register type resolver
+//        typeResolvers.add(new TypeResolver<>(ScheduledArticle.TYPE, new Function<Void, ScheduledArticle>() {
+//            @Override
+//            public ScheduledArticle apply(Void input) {
+//                return new ScheduledArticle();
+//            }
+//        }));
+//
+//        // Initialize DeliveryService for Java projects
+//        IDeliveryService deliveryService = new DeliveryService(DeliveryConfig.newConfig("975bf280-fd91-488c-994c-2f04416e5ee3")
+//            .withTypeResolvers(typeResolvers));
+//
+//        // Use simple request to get data
+//        List<ScheduledArticle> articles = deliveryService.<ScheduledArticle>items()
+//                .equalsFilter("system.type", "article")
+//                .get()
+//                .getItems();
+//
+//        List<ScheduledArticle> publishedItems = new ArrayList<>();
+//
+//        for (ScheduledArticle article : articles) {
+//            if ((article.getPublishFrom() == null || article.getPublishFrom().before(now)) && article.getPublishUntil() == null || article.getPublishUntil().after(now)) {
+//                publishedItems.add(article);
+//            }
+//        }
+//
+//        // Test, not part of the example
+//        assertThat(articles.get(0), instanceOf(ScheduledArticle.class));
+//
+//        // Use RxJava2 to get the data
+//        deliveryService.<ScheduledArticle>items()
+//                .equalsFilter("system.type", "article")
+//                .getObservable()
+//                .subscribe(new Observer<DeliveryItemListingResponse<ScheduledArticle>>() {
+//                    @Override
+//                    public void onSubscribe(Disposable d) {
+//                    }
+//
+//                    @Override
+//                    public void onNext(DeliveryItemListingResponse<ScheduledArticle> response) {
+//
+//                        Date now = new Date();
+//
+//                        // Get your mapped articles
+//                        List<ScheduledArticle> articles = response.getItems();
+//
+//                        List<ScheduledArticle> publishedItems = new ArrayList<>();
+//
+//                        for (ScheduledArticle article : articles) {
+//                            if ((article.getPublishFrom() == null || article.getPublishFrom().before(now)) && article.getPublishUntil() == null || article.getPublishUntil().after(now)) {
+//                                publishedItems.add(article);
+//                            }
+//                        }
+//
+//                        // Print the Title of first article
+//                        System.out.println(publishedItems.get(0).title.getValue());
+//
+//                        // Test, not part of the example
+//                        assertThat(articles.get(0), instanceOf(Article.class));
+//                    }
+//
+//                    @Override
+//                    public void onError(Throwable e) {
+//                        // Print the error message
+//                        System.out.println(e.getMessage());
+//                    }
+//
+//                    @Override
+//                    public void onComplete() {
+//                    }
+//                });
+//    }
 
     // Will not pass with the '975bf280-fd91-488c-994c-2f04416e5ee3' project. Test with a project where the 'article' type has 'published_from' and 'published_until' elements.
-    @Test
-    public void testSchedulingContentPublishingViaFilter() {
-
-        String now = new Date().toInstant().toString();
-
-        // Prepare array to hold all your type resolvers
-        List<TypeResolver<?>> typeResolvers = new ArrayList<>();
-
-        // Register type resolver
-        typeResolvers.add(new TypeResolver<>(ScheduledArticle.TYPE, new Function<Void, ScheduledArticle>() {
-            @Override
-            public ScheduledArticle apply(Void input) {
-                return new ScheduledArticle();
-            }
-        }));
-
-        // Initialize DeliveryService for Java projects
-        IDeliveryService deliveryService = new DeliveryService(DeliveryConfig.newConfig("975bf280-fd91-488c-994c-2f04416e5ee3").withTypeResolvers(typeResolvers));
-
-        // Use simple request to get data
-        List<ScheduledArticle> articles = deliveryService.<ScheduledArticle>items()
-                .equalsFilter("system.type", "article")
-                .lessThanOrEqualFilter("elements.publish_from", now)
-                .greaterThanFilter("elements.publish_until", now)
-                .get()
-                .getItems();
-
-        // Test, not part of the example
-        assertThat(articles.get(0), instanceOf(ContentItem.class));
-
-        // Use RxJava2 to get the data
-        deliveryService.<ScheduledArticle>items()
-                .equalsFilter("system.type", "article")
-                .lessThanOrEqualFilter("elements.publish_from", now)
-                .greaterThanFilter("elements.publish_until", now)
-                .getObservable()
-                .subscribe(new Observer<DeliveryItemListingResponse<ScheduledArticle>>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-                    }
-
-                    @Override
-                    public void onNext(DeliveryItemListingResponse<ScheduledArticle> response) {
-
-                        // Get your mapped articles
-                        List<ScheduledArticle> articles = response.getItems();
-
-                        // Get first article
-                        ScheduledArticle firstArticle = articles.get(0);
-
-                        // Print the Title of first article
-                        System.out.println(firstArticle.title.getValue());
-
-                        // Test, not part of the example
-                        assertThat(firstArticle, instanceOf(ContentItem.class));
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        // Print the error message
-                        System.out.println(e.getMessage());
-                    }
-
-                    @Override
-                    public void onComplete() {
-                    }
-                });
-    }
+    // TODO: Uncomment the test and update the project ID to some project that would satisfy this test
+//    @Test
+//    public void testSchedulingContentPublishingViaFilter() {
+//
+//        String now = new Date().toInstant().toString();
+//
+//        // Prepare array to hold all your type resolvers
+//        List<TypeResolver<?>> typeResolvers = new ArrayList<>();
+//
+//        // Register type resolver
+//        typeResolvers.add(new TypeResolver<>(ScheduledArticle.TYPE, new Function<Void, ScheduledArticle>() {
+//            @Override
+//            public ScheduledArticle apply(Void input) {
+//                return new ScheduledArticle();
+//            }
+//        }));
+//
+//        // Initialize DeliveryService for Java projects
+//        IDeliveryService deliveryService = new DeliveryService(DeliveryConfig.newConfig("975bf280-fd91-488c-994c-2f04416e5ee3").withTypeResolvers(typeResolvers));
+//
+//        // Use simple request to get data
+//        List<ScheduledArticle> articles = deliveryService.<ScheduledArticle>items()
+//                .equalsFilter("system.type", "article")
+//                .lessThanOrEqualFilter("elements.publish_from", now)
+//                .greaterThanFilter("elements.publish_until", now)
+//                .get()
+//                .getItems();
+//
+//        // Test, not part of the example
+//        assertThat(articles.get(0), instanceOf(ContentItem.class));
+//
+//        // Use RxJava2 to get the data
+//        deliveryService.<ScheduledArticle>items()
+//                .equalsFilter("system.type", "article")
+//                .lessThanOrEqualFilter("elements.publish_from", now)
+//                .greaterThanFilter("elements.publish_until", now)
+//                .getObservable()
+//                .subscribe(new Observer<DeliveryItemListingResponse<ScheduledArticle>>() {
+//                    @Override
+//                    public void onSubscribe(Disposable d) {
+//                    }
+//
+//                    @Override
+//                    public void onNext(DeliveryItemListingResponse<ScheduledArticle> response) {
+//
+//                        // Get your mapped articles
+//                        List<ScheduledArticle> articles = response.getItems();
+//
+//                        // Get first article
+//                        ScheduledArticle firstArticle = articles.get(0);
+//
+//                        // Print the Title of first article
+//                        System.out.println(firstArticle.title.getValue());
+//
+//                        // Test, not part of the example
+//                        assertThat(firstArticle, instanceOf(ContentItem.class));
+//                    }
+//
+//                    @Override
+//                    public void onError(Throwable e) {
+//                        // Print the error message
+//                        System.out.println(e.getMessage());
+//                    }
+//
+//                    @Override
+//                    public void onComplete() {
+//                    }
+//                });
+//    }
 
     @Test
     public void testReactToNotifications() {

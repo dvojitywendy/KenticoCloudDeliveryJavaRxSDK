@@ -30,13 +30,16 @@ android {
     }
     productFlavors {
     }
+    lintOptions {
+        abortOnError false
+    }
 }
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.amitshekhar.android:rx2-android-networking:1.0.0'
     testCompile 'junit:junit:4.12'
-    compile (project(path: ':delivery-core')){
+    compile(project(path: ':delivery-core')) {
         exclude group: 'org.json', module: 'json'
     }
 }
