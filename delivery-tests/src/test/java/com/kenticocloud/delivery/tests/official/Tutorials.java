@@ -27,6 +27,7 @@ import io.reactivex.functions.Function;
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
+
 import org.junit.Test;
 
 /**
@@ -34,6 +35,8 @@ import org.junit.Test;
  */
 
 public class Tutorials {
+
+    private static final Date baseDate = new Date(1537443615891L);
 
     // Prepare strongly typed model
     public final class Article extends ContentItem {
@@ -631,11 +634,8 @@ public class Tutorials {
                 });
     }
 
-    // Will not pass with the '975bf280-fd91-488c-994c-2f04416e5ee3' project. Test with a project where the 'article' type has 'published_from' and 'published_until' elements.
     @Test
     public void testSchedulingContentPublishingInmemory() {
-
-        Date now = new Date();
 
         // Prepare array to hold all your type resolvers
         List<TypeResolver<?>> typeResolvers = new ArrayList<>();
@@ -649,8 +649,8 @@ public class Tutorials {
         }));
 
         // Initialize DeliveryService for Java projects
-        IDeliveryService deliveryService = new DeliveryService(DeliveryConfig.newConfig("975bf280-fd91-488c-994c-2f04416e5ee3")
-            .withTypeResolvers(typeResolvers));
+        IDeliveryService deliveryService = new DeliveryService(DeliveryConfig.newConfig("03c8ff0b-fa7b-0087-8a78-234ee0e31d22")
+                .withTypeResolvers(typeResolvers));
 
         // Use simple request to get data
         List<ScheduledArticle> articles = deliveryService.<ScheduledArticle>items()
@@ -661,7 +661,7 @@ public class Tutorials {
         List<ScheduledArticle> publishedItems = new ArrayList<>();
 
         for (ScheduledArticle article : articles) {
-            if ((article.getPublishFrom() == null || article.getPublishFrom().before(now)) && article.getPublishUntil() == null || article.getPublishUntil().after(now)) {
+            if ((article.getPublishFrom() == null || article.getPublishFrom().before(baseDate)) && article.getPublishUntil() == null || article.getPublishUntil().after(baseDate)) {
                 publishedItems.add(article);
             }
         }
@@ -681,15 +681,13 @@ public class Tutorials {
                     @Override
                     public void onNext(DeliveryItemListingResponse<ScheduledArticle> response) {
 
-                        Date now = new Date();
-
                         // Get your mapped articles
                         List<ScheduledArticle> articles = response.getItems();
 
                         List<ScheduledArticle> publishedItems = new ArrayList<>();
 
                         for (ScheduledArticle article : articles) {
-                            if ((article.getPublishFrom() == null || article.getPublishFrom().before(now)) && article.getPublishUntil() == null || article.getPublishUntil().after(now)) {
+                            if ((article.getPublishFrom() == null || article.getPublishFrom().before(baseDate)) && article.getPublishUntil() == null || article.getPublishUntil().after(baseDate)) {
                                 publishedItems.add(article);
                             }
                         }
@@ -698,7 +696,7 @@ public class Tutorials {
                         System.out.println(publishedItems.get(0).title.getValue());
 
                         // Test, not part of the example
-                        assertThat(articles.get(0), instanceOf(Article.class));
+                        assertThat(articles.get(0), instanceOf(ScheduledArticle.class));
                     }
 
                     @Override
@@ -713,11 +711,10 @@ public class Tutorials {
                 });
     }
 
-    // Will not pass with the '975bf280-fd91-488c-994c-2f04416e5ee3' project. Test with a project where the 'article' type has 'published_from' and 'published_until' elements.
     @Test
     public void testSchedulingContentPublishingViaFilter() {
 
-        String now = new Date().toInstant().toString();
+        String date = baseDate.toInstant().toString();
 
         // Prepare array to hold all your type resolvers
         List<TypeResolver<?>> typeResolvers = new ArrayList<>();
@@ -731,13 +728,13 @@ public class Tutorials {
         }));
 
         // Initialize DeliveryService for Java projects
-        IDeliveryService deliveryService = new DeliveryService(DeliveryConfig.newConfig("975bf280-fd91-488c-994c-2f04416e5ee3").withTypeResolvers(typeResolvers));
+        IDeliveryService deliveryService = new DeliveryService(DeliveryConfig.newConfig("03c8ff0b-fa7b-0087-8a78-234ee0e31d22").withTypeResolvers(typeResolvers));
 
         // Use simple request to get data
         List<ScheduledArticle> articles = deliveryService.<ScheduledArticle>items()
                 .equalsFilter("system.type", "article")
-                .lessThanOrEqualFilter("elements.publish_from", now)
-                .greaterThanFilter("elements.publish_until", now)
+                .lessThanOrEqualFilter("elements.publish_from", date)
+                .greaterThanFilter("elements.publish_until", date)
                 .get()
                 .getItems();
 
@@ -747,8 +744,8 @@ public class Tutorials {
         // Use RxJava2 to get the data
         deliveryService.<ScheduledArticle>items()
                 .equalsFilter("system.type", "article")
-                .lessThanOrEqualFilter("elements.publish_from", now)
-                .greaterThanFilter("elements.publish_until", now)
+                .lessThanOrEqualFilter("elements.publish_from", date)
+                .greaterThanFilter("elements.publish_until", date)
                 .getObservable()
                 .subscribe(new Observer<DeliveryItemListingResponse<ScheduledArticle>>() {
                     @Override

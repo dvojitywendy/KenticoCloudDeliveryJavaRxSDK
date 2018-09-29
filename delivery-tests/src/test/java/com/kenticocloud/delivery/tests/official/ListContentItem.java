@@ -34,7 +34,7 @@ import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 
-public class ListContentItem extends BaseOfficialTest{
+public class ListContentItem extends BaseOfficialTest {
 
     // Prepare strongly typed model
     public final class Article extends ContentItem {
@@ -115,8 +115,5 @@ public class ListContentItem extends BaseOfficialTest{
                     public void onComplete() {
                     }
                 });
-
     }
 }
-
-
