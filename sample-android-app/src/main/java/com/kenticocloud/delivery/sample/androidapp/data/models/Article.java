@@ -12,7 +12,7 @@ package com.kenticocloud.delivery.sample.androidapp.data.models;
 
 import com.kenticocloud.delivery_core.elements.AssetsElement;
 import com.kenticocloud.delivery_core.elements.DateTimeElement;
-import com.kenticocloud.delivery_core.elements.ModularContentElement;
+import com.kenticocloud.delivery_core.elements.LinkedItemsElement;
 import com.kenticocloud.delivery_core.elements.MultipleChoiceElement;
 import com.kenticocloud.delivery_core.elements.RichTextElement;
 import com.kenticocloud.delivery_core.elements.TaxonomyElement;
@@ -52,19 +52,19 @@ public final class Article extends ContentItem {
     public MultipleChoiceElement category;
 
     @ElementMapping("related_articles")
-    public ModularContentElement<Article> relatedArticles;
+    public LinkedItemsElement<Article> relatedArticles;
 
     public String getTitle() {
         return title.getValue();
     }
 
-    public String getTeaserImageUrl(){
+    public String getTeaserImageUrl() {
         AssetModel[] assets = this.teaserImage.getValue();
-        if (assets == null){
+        if (assets == null) {
             return null;
         }
 
-        if (assets.length == 0){
+        if (assets.length == 0) {
             return null;
         }
 
@@ -83,9 +83,15 @@ public final class Article extends ContentItem {
         return bodyCopy.getValue();
     }
 
-    public ElementsTaxonomyTerms[] getPersonas() { return personas.getValue(); }
+    public ElementsTaxonomyTerms[] getPersonas() {
+        return personas.getValue();
+    }
 
-    public MultipleChoiceOption[] getCategories() { return category.getValue(); }
+    public MultipleChoiceOption[] getCategories() {
+        return category.getValue();
+    }
 
-    public ArrayList<Article> getRelatedArticles() { return relatedArticles.getValue(); }
+    public ArrayList<Article> getRelatedArticles() {
+        return relatedArticles.getValue();
+    }
 }

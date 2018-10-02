@@ -46,7 +46,7 @@ public final class ResponseMapService {
     private TaxonomyMapService taxonomyMapService;
     private ContentElementMapService contentElementMapService;
 
-    public ResponseMapService(IDeliveryConfig config){
+    public ResponseMapService(IDeliveryConfig config) {
         this.itemMapService = new ItemMapService(config, this.objectMapper);
         this.typeMapService = new TypeMapService(config, this.objectMapper);
         this.taxonomyMapService = new TaxonomyMapService(config, this.objectMapper);
@@ -54,18 +54,18 @@ public final class ResponseMapService {
         this.contentElementMapService = new ContentElementMapService(config, this.objectMapper);
     }
 
-    public<TItem extends IContentItem> DeliveryItemResponse<TItem> mapItemResponse(JSONObject cloudResponse) throws JSONException, IOException, IllegalAccessException {
+    public <TItem extends IContentItem> DeliveryItemResponse<TItem> mapItemResponse(JSONObject cloudResponse) throws JSONException, IOException, IllegalAccessException {
         ItemCloudResponses.DeliveryItemResponseRaw rawResponse = this.objectMapper.readValue(cloudResponse.toString(), ItemCloudResponses.DeliveryItemResponseRaw.class);
 
-        TItem item = this.itemMapService.mapItem(rawResponse.item, rawResponse.modularContent);
+        TItem item = this.itemMapService.mapItem(rawResponse.item, rawResponse.linkedItems);
 
         return new DeliveryItemResponse<>(item);
     }
 
-    public<TItem extends IContentItem> DeliveryItemListingResponse<TItem> mapItemListingResponse(JSONObject cloudResponse) throws JSONException, IOException, IllegalAccessException {
+    public <TItem extends IContentItem> DeliveryItemListingResponse<TItem> mapItemListingResponse(JSONObject cloudResponse) throws JSONException, IOException, IllegalAccessException {
         ItemCloudResponses.DeliveryItemListingResponseRaw rawResponse = this.objectMapper.readValue(cloudResponse.toString(), ItemCloudResponses.DeliveryItemListingResponseRaw.class);
 
-        List<TItem> items = this.itemMapService.mapItems(rawResponse.items, rawResponse.modularContent);
+        List<TItem> items = this.itemMapService.mapItems(rawResponse.items, rawResponse.linkedItems);
 
         return new DeliveryItemListingResponse<>(items, this.paginationMapService.mapPagination(rawResponse.pagination));
     }
@@ -89,7 +89,7 @@ public final class ResponseMapService {
     }
 
     public DeliveryTaxonomyResponse mapDeliveryTaxonomyResponse(JSONObject cloudResponse) throws IOException {
-        TaxonomyCloudResponses.TaxonomySingleResponseRaw rawResponse = this.objectMapper.readValue(cloudResponse.toString(), TaxonomyCloudResponses.TaxonomySingleResponseRaw .class);
+        TaxonomyCloudResponses.TaxonomySingleResponseRaw rawResponse = this.objectMapper.readValue(cloudResponse.toString(), TaxonomyCloudResponses.TaxonomySingleResponseRaw.class);
 
         return new DeliveryTaxonomyResponse(this.taxonomyMapService.mapTaxonomy(rawResponse.system, rawResponse.terms));
     }
@@ -101,4 +101,3 @@ public final class ResponseMapService {
         return new DeliveryContentTypeElementResponse(this.contentElementMapService.mapContentTypeElement(rawResponse));
     }
 }
-
