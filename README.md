@@ -165,7 +165,7 @@ List<Cafe> cafes = response.getItems();
 
 1. Make sure that your model extends the `ContentItem` class.
 2. Create public fields with an `ElementMapping` decorator. This will make sure that the value from your field is mapped to the content item element.
-3. Based on the type of field, choose the proper element type. Supported element types include: `AssetsElement`, `ContentElement`, `DateTimeElement`, `ModularContentElement`, `MultipleChoiceElement`, `NumberElement`, `RichTextElement`, `TaxonomyElement`, `TextElement` and `UrlSlugElement`.
+3. Based on the type of field, choose the proper element type. Supported element types include: `AssetsElement`, `ContentElement`, `DateTimeElement`, `LinkedItemsElement`, `MultipleChoiceElement`, `NumberElement`, `RichTextElement`, `TaxonomyElement`, `TextElement` and `UrlSlugElement`.
 
 The following example shows a typical class with different types of elements:
 
