@@ -25,7 +25,7 @@ public class ItemCloudResponses {
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static class DeliveryItemListingResponseRaw {
 
-        DeliveryItemListingResponseRaw(){
+        DeliveryItemListingResponseRaw() {
             // Mandatory constructor
         }
 
@@ -33,7 +33,7 @@ public class ItemCloudResponses {
         public List<ContentItemRaw> items;
 
         @JsonProperty("modular_content")
-        public JsonNode modularContent;
+        public JsonNode linkedItems;
 
         @JsonProperty("pagination")
         public CommonCloudResponses.PaginationRaw pagination;
@@ -43,7 +43,7 @@ public class ItemCloudResponses {
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static class DeliveryItemResponseRaw {
 
-        DeliveryItemResponseRaw(){
+        DeliveryItemResponseRaw() {
             // Mandatory constructor
         }
 
@@ -51,13 +51,13 @@ public class ItemCloudResponses {
         public ContentItemRaw item;
 
         @JsonProperty("modular_content")
-        public JsonNode modularContent;
+        public JsonNode linkedItems;
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static class ContentItemRaw {
 
-        ContentItemRaw(){
+        ContentItemRaw() {
             // Mandatory constructor
         }
 
@@ -71,7 +71,7 @@ public class ItemCloudResponses {
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static class ElementRaw {
 
-        ElementRaw(){
+        ElementRaw() {
             // Mandatory constructor
         }
 
@@ -88,7 +88,7 @@ public class ItemCloudResponses {
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static class ContentItemSystemAttributesRaw {
 
-        ContentItemSystemAttributesRaw(){
+        ContentItemSystemAttributesRaw() {
             // Mandatory constructor
         }
 

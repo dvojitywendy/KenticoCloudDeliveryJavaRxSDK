@@ -16,24 +16,24 @@ import com.kenticocloud.delivery_core.interfaces.item.item.IContentItem;
 
 import java.util.ArrayList;
 
-public class ModularContentElement<TItem extends IContentItem> extends ContentElement<ArrayList<TItem>> {
+public class LinkedItemsElement<TItem extends IContentItem> extends ContentElement<ArrayList<TItem>> {
     private ArrayList<TItem> value;
 
-    public ModularContentElement(
+    public LinkedItemsElement(
             ObjectMapper objectMapper,
             String name,
             String codename,
             String type,
             JsonNode value,
             ArrayList<TItem> items
-    ){
+    ) {
         super(objectMapper, name, codename, type);
 
         this.value = items;
     }
 
     @Override
-    public ArrayList<TItem> getValue(){
+    public ArrayList<TItem> getValue() {
         return this.value;
     }
 }
